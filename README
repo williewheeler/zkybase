@@ -1,0 +1,25 @@
+========================================================================================================================
+README
+
+Willie Wheeler (willie.wheeler@gmail.com)
+
+Copyright (c) 2011-2012 Willie Wheeler. All rights reserved.
+========================================================================================================================
+
+Skybase explores the use of Neo4j in building a configuration management system. We're trying to address a few
+challenges we've seen building another CM system:
+
+1) When the CM's scope is large (e.g. spanning multiple global data centers), the underlying schema becomes complex
+   and over time resists change. But we need to be able to change the schema as business requirements evolve (e.g.,
+   new customers, new vendor relationships, etc.).
+
+2) Corresponding to the schema complexity, the UI becomes pretty complex too. We end up having to invent new terms, or
+   assign very specific meanings to existing terms, like "application", "farm", "instance", "package", "environment",
+   etc.
+
+3) Defining, viewing and navigating relationships in the UI requires significant database, service and UI development.
+
+The thought is that we can use a generic data representation--a graph--to address these issues. For example, instead of
+building custom tables, services and UI for individual entities and for entity navigation, we can use generic graph
+operations to establish these. Adding a person to a team, say, is the same sort of operation as adding an instance to
+a farm.
