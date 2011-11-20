@@ -17,7 +17,11 @@
  */
 package org.skydingo.skybase.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.skydingo.skybase.model.relationship.BuiltFrom;
+import org.skydingo.skybase.model.relationship.DeployedTo;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
@@ -34,6 +38,9 @@ public class Package {
 	@RelatedTo(type = "BUILT_FROM")
 	private Project project;
 	
+	@RelatedTo(type = "DEPLOYED_TO")
+	private Set<Instance> instances = new HashSet<Instance>();
+	
 	public Package() { }
 	
 	public Package(String name) { this.name = name; }
@@ -46,9 +53,21 @@ public class Package {
 	
 	public void setProject(Project project) { this.project = project; }
 	
+	public Set<Instance> getInstances() { return instances; }
+	
+	public void setInstances(Set<Instance> instances) { this.instances = instances; }
+	
 	public BuiltFrom builtFrom(Project project) {
 		BuiltFrom builtFrom = new BuiltFrom(this, project);
+		this.project = project;
 		project.getPackages().add(this);
 		return builtFrom;
+	}
+	
+	public DeployedTo deployedTo(Instance instance) {
+		DeployedTo deployedTo = new DeployedTo(this, instance);
+		instances.add(instance);
+		instance.getPackages().add(this);
+		return deployedTo;
 	}
 }

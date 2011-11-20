@@ -17,9 +17,15 @@
  */
 package org.skydingo.skybase.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.neo4j.graphdb.Direction;
+import org.skydingo.skybase.model.relationship.DeployedTo;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedTo;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -34,6 +40,9 @@ public class Instance {
 	@Indexed private String id;
 	
 	private String ipAddress;
+	
+	@RelatedTo(type = "DEPLOYED_TO", direction = Direction.INCOMING)
+	private Set<Package> packages = new HashSet<Package>();
 	
 	public Instance() { }
 	
@@ -63,4 +72,8 @@ public class Instance {
 	 * @param ipAddress IP address
 	 */
 	public void setIpAddress(String ipAddress) { this.ipAddress = ipAddress; }
+	
+	public Set<Package> getPackages() { return packages; }
+	
+	public void setPackages(Set<Package> packages) { this.packages = packages; }
 }

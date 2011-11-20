@@ -27,7 +27,6 @@ import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
-import org.springframework.data.neo4j.annotation.RelatedToVia;
 
 /**
  * Project domain object.
@@ -48,14 +47,14 @@ public class Project {
 	@RelatedTo(type = "MEMBER_OF", direction = Direction.INCOMING)
 	private Set<Person> members = new HashSet<Person>();
 	
-	@RelatedToVia(type = "MEMBER_OF", direction = Direction.INCOMING)
-	private Iterable<ProjectMembership> memberships;
+//	@RelatedToVia(type = "MEMBER_OF", direction = Direction.INCOMING)
+//	private Iterable<ProjectMembership> memberships;
 	
 	@RelatedTo(type = "BUILT_FROM", direction = Direction.INCOMING)
 	private Set<Package> packages = new HashSet<Package>();
 	
-	@RelatedToVia(type = "BUILT_FROM", direction = Direction.INCOMING)
-	private Iterable<BuiltFrom> builtFroms;
+//	@RelatedToVia(type = "BUILT_FROM", direction = Direction.INCOMING)
+//	private Iterable<BuiltFrom> builtFroms;
 	
 	public Project() { }
 	
@@ -96,7 +95,7 @@ public class Project {
 	 */
 	public void setMembers(Set<Person> members) { this.members = members; }
 
-	public Iterable<ProjectMembership> getMemberships() { return memberships; }
+//	public Iterable<ProjectMembership> getMemberships() { return memberships; }
 	
 	/**
 	 * @return packages built from this project
@@ -108,5 +107,5 @@ public class Project {
 	 */
 	public void setPackages(Set<Package> packages) { this.packages = packages; }
 	
-	public Iterable<BuiltFrom> getBuiltFroms() { return builtFroms; }
+//	public Iterable<BuiltFrom> getBuiltFroms() { return builtFroms; }
 }
