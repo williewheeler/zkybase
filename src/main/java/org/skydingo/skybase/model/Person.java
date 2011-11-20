@@ -27,7 +27,7 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
  */
 @NodeEntity
 public class Person {
-	@GraphId private Long nodeId;
+	@GraphId private Long id;
 	private String firstName;
 	private String lastName;
 	
@@ -38,7 +38,7 @@ public class Person {
 	}
 	
 	/**
-	 * Creates a person with the given first and last names.
+	 * Creates a person with the given first name and last name.
 	 * 
 	 * @param firstName first name
 	 * @param lastName last name
@@ -47,21 +47,15 @@ public class Person {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-
-	/**
-	 * @return the nodeId
-	 */
-	public Long getNodeId() {
-		return nodeId;
+	
+	public Long getId() {
+		return id;
 	}
-
-	/**
-	 * @param nodeId the nodeId to set
-	 */
-	public void setNodeId(Long nodeId) {
-		this.nodeId = nodeId;
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
-
+	
 	/**
 	 * @return the firstName
 	 */
@@ -88,18 +82,5 @@ public class Person {
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof Person)) {
-			return false;
-		} else {
-			Person that = (Person) o;
-			return (nodeId != null && nodeId.equals(that.nodeId));
-		}
 	}
 }

@@ -1,5 +1,5 @@
 /* 
- * PersonTests.java
+ * ProjectIT.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -18,6 +18,7 @@
 package org.skydingo.skybase.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import javax.inject.Inject;
 
@@ -25,6 +26,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -38,7 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 	"classpath:/spring/beans-service.xml"
 })
 @Transactional
-public class PersonIT {
+public class ProjectIT {
 	@Inject private Neo4jTemplate template;
 	
 	@Before
@@ -50,9 +52,12 @@ public class PersonIT {
 	}
 	
 	@Test
-	public void persistedPersonShouldBeRetrievableFromGraphDb() {
-		Person willie = template.save(new Person("Willie", "Wheeler"));
-		Person retrievedPerson = template.findOne(willie.getId(), Person.class);
-		assertEquals(willie.getFirstName(), retrievedPerson.getFirstName());
+	public void persistedProjectShouldBeRetrievableFromGraphDb() {
+		Project skybase = template.save(new Project("skybase", "Skybase"));
+		GraphRepository<Project> projectRepo = template.repositoryFor(Project.class);
+		Project retrievedProject = projectRepo.findByPropertyValue("id", "skybase");
+		assertNotNull(retrievedProject);
+		assertEquals(skybase.getName(), retrievedProject.getName());
 	}
+	
 }

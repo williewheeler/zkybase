@@ -18,6 +18,7 @@
 package org.skydingo.skybase.model;
 
 import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 
 /**
@@ -28,21 +29,23 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 @NodeEntity
 public class Project {
 	@GraphId private Long nodeId;
+	@Indexed private String id;
 	private String name;
-
+	
+	public Project() { }
+	
 	/**
-	 * @return the nodeId
+	 * @param id project ID
+	 * @param name project name
 	 */
-	public Long getNodeId() {
-		return nodeId;
+	public Project(String id, String name) {
+		this.id = id;
+		this.name = name;
 	}
-
-	/**
-	 * @param nodeId the nodeId to set
-	 */
-	public void setNodeId(Long nodeId) {
-		this.nodeId = nodeId;
-	}
+	
+	public String getId() { return id; }
+	
+	public void setId(String id) { this.id = id; }
 	
 	/**
 	 * Returns the project name.
