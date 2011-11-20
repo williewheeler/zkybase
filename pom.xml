@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>axicm</groupId>
-	<artifactId>axicm</artifactId>
+	<groupId>org.skydingo.skybase</groupId>
+	<artifactId>org.skydingo.skybase</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	
@@ -22,6 +22,13 @@
 	</repositories>
 
 	<dependencies>
+		
+		<!-- Java -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
 		
 		<!-- Spring -->
 		<dependency>
@@ -83,6 +90,14 @@
 			<version>1.5</version>
 		</dependency>
 		
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+		
 		<!-- Other -->
 		<dependency>
 			<groupId>com.opensymphony.sitemesh</groupId>
@@ -92,7 +107,121 @@
 	</dependencies>
 	
 	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the
+				     Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>build-helper-maven-plugin</artifactId>
+										<versionRange>[1.5,)</versionRange>
+										<goals>
+											<goal>add-test-resource</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<compilerArguments>
+						<verbose />
+					</compilerArguments>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>add-it-source</id>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/it/java</source>
+							</sources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>add-it-resource</id>
+						<goals>
+							<goal>add-test-resource</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>src/it/resources</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<includes>
+						<include>**/*Tests.java</include>
+					</includes>
+					
+					<!-- Required because SpringSource EBR renames testing artifact. -->
+					<!-- See https://issuetracker.springsource.com/browse/EBR-220 -->
+<!-- 					<junitArtifactName>org.junit:com.springsource.org.junit</junitArtifactName> -->
+				</configuration>
+			</plugin>
+			
+			<!-- Support integration testing -->
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<!-- This entry is required because of renamed testing artifact -->
+					<!-- See https://issuetracker.springsource.com/browse/EBR-220 -->
+<!-- 					<junitArtifactName>org.junit:com.springsource.org.junit</junitArtifactName> -->
+					
+<!-- 					<additionalClasspathElements> -->
+<!-- 						<additionalClasspathElement>${skybase.conf.dir}/it-classes</additionalClasspathElement> -->
+<!-- 					</additionalClasspathElements> -->
+				</configuration>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<goals>
+							<goal>integration-test</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>verify</id>
+						<goals>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
