@@ -28,8 +28,13 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
  */
 @NodeEntity
 public class Project {
+	
+	// Internal node ID
 	@GraphId private Long nodeId;
+	
+	// External ID
 	@Indexed private String id;
+	
 	private String name;
 	
 	public Project() { }

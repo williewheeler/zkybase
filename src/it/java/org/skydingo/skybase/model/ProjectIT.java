@@ -26,8 +26,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.data.neo4j.repository.GraphRepository;
-import org.springframework.data.neo4j.support.Neo4jTemplate;
+import org.skydingo.skybase.repository.ProjectRepository;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 })
 @Transactional
 public class ProjectIT {
-	@Inject private Neo4jTemplate template;
+	@Inject private ProjectRepository projectRepo;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -53,9 +52,8 @@ public class ProjectIT {
 	
 	@Test
 	public void persistedProjectShouldBeRetrievableFromGraphDb() {
-		Project skybase = template.save(new Project("skybase", "Skybase"));
-		GraphRepository<Project> projectRepo = template.repositoryFor(Project.class);
-		Project retrievedProject = projectRepo.findByPropertyValue("id", "skybase");
+		Project skybase = projectRepo.save(new Project("skybase", "Skybase"));
+		Project retrievedProject = projectRepo.findProjectById("skybase");
 		assertNotNull(retrievedProject);
 		assertEquals(skybase.getName(), retrievedProject.getName());
 	}
