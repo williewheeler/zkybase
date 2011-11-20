@@ -1,5 +1,5 @@
 /* 
- * Package.java
+ * BuildFrom.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,40 +15,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.model;
+package org.skydingo.skybase.model.relationship;
 
-import org.skydingo.skybase.model.relationship.BuiltFrom;
+import org.skydingo.skybase.model.Package;
+import org.skydingo.skybase.model.Project;
+import org.springframework.data.neo4j.annotation.EndNode;
 import org.springframework.data.neo4j.annotation.GraphId;
-import org.springframework.data.neo4j.annotation.Indexed;
-import org.springframework.data.neo4j.annotation.NodeEntity;
-import org.springframework.data.neo4j.annotation.RelatedTo;
+import org.springframework.data.neo4j.annotation.RelationshipEntity;
+import org.springframework.data.neo4j.annotation.StartNode;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@NodeEntity
-public class Package {
-	@GraphId private Long nodeId;
-	@Indexed private String name;
+@RelationshipEntity
+public class BuiltFrom {
+	@GraphId private Long id;
+	@StartNode private Package pkg;
+	@EndNode private Project project;
 	
-	@RelatedTo(type = "BUILT_FROM")
-	private Project project;
+	public BuiltFrom() { }
 	
-	public Package() { }
+	public BuiltFrom(Package pkg, Project project) {
+		this.pkg = pkg;
+		this.project = project;
+	}
 	
-	public Package(String name) { this.name = name; }
+	public Package getPackage() { return pkg; }
 	
-	public String getName() { return name; }
-	
-	public void setName(String name) { this.name = name; }
+	public void setPackage(Package pkg) { this.pkg = pkg; }
 	
 	public Project getProject() { return project; }
 	
 	public void setProject(Project project) { this.project = project; }
 	
-	public BuiltFrom builtFrom(Project project) {
-		BuiltFrom builtFrom = new BuiltFrom(this, project);
-		project.getPackages().add(this);
-		return builtFrom;
-	}
 }

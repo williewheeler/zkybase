@@ -104,11 +104,7 @@ public class Person {
 	
 	public ProjectMembership memberOf(Project project, String role) {
 		ProjectMembership membership = new ProjectMembership(project, this, role);
-		
-		// TODO Confirm. In the docs it's adding the membership
-//		projects.add(project);
 		project.getMembers().add(this);
-		
 		return membership;
 	}
 }

@@ -6,11 +6,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <body>
 <h1><c:out value="${project.name}" /></h1>
+
 <h2>Members</h2>
 <ul>
 	<c:forEach var="member" items="${project.members}">
 		<li><c:out value="${member.firstName}" /></li>
 	</c:forEach>
 </ul>
+
+<h2>Packages</h2>
+<ul>
+	<c:forEach var="pkg" items="${project.packages}">
+		<li><c:out value="${pkg.name}" /></li>
+	</c:forEach>
+</ul>
+
 </body>
 </html>

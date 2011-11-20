@@ -19,6 +19,7 @@ package org.skydingo.skybase.service;
 
 import javax.inject.Inject;
 
+import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.model.Project;
 import org.skydingo.skybase.repository.ProjectRepository;
@@ -41,6 +42,12 @@ public class ProjectService {
 		
 		Person eric = new Person("Eric", "Barrier");
 		eric.memberOf(skybase, "Rapper");
+		
+		Package pkg100 = new Package("skybase-1.0.0");
+		pkg100.builtFrom(skybase);
+		
+		Package pkg101 = new Package("skybase-1.0.1");
+		pkg101.builtFrom(skybase);
 		
 		projectRepo.save(skybase);
 		

@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.neo4j.graphdb.Direction;
+import org.skydingo.skybase.model.relationship.BuiltFrom;
 import org.skydingo.skybase.model.relationship.ProjectMembership;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
@@ -49,6 +50,12 @@ public class Project {
 	
 	@RelatedToVia(type = "MEMBER_OF", direction = Direction.INCOMING)
 	private Iterable<ProjectMembership> memberships;
+	
+	@RelatedTo(type = "BUILT_FROM", direction = Direction.INCOMING)
+	private Set<Package> packages = new HashSet<Package>();
+	
+	@RelatedToVia(type = "BUILT_FROM", direction = Direction.INCOMING)
+	private Iterable<BuiltFrom> builtFroms;
 	
 	public Project() { }
 	
@@ -90,4 +97,16 @@ public class Project {
 	public void setMembers(Set<Person> members) { this.members = members; }
 
 	public Iterable<ProjectMembership> getMemberships() { return memberships; }
+	
+	/**
+	 * @return packages built from this project
+	 */
+	public Set<Package> getPackages() { return packages; }
+	
+	/**
+	 * @param packages packages built from this project
+	 */
+	public void setPackages(Set<Package> packages) { this.packages = packages; }
+	
+	public Iterable<BuiltFrom> getBuiltFroms() { return builtFroms; }
 }
