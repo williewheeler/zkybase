@@ -17,8 +17,13 @@
  */
 package org.skydingo.skybase.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.skydingo.skybase.model.relationship.ProjectMembership;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedTo;
 
 /**
  * Person domain object.
@@ -30,6 +35,9 @@ public class Person {
 	@GraphId private Long id;
 	private String firstName;
 	private String lastName;
+	
+	@RelatedTo(type = "MEMBER_OF")
+	private Set<Project> projects = new HashSet<Project>();
 	
 	/**
 	 * Creates a new person.
@@ -82,5 +90,25 @@ public class Person {
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	/**
+	 * @return projects of which this person is a member
+	 */
+	public Set<Project> getProjects() { return projects; }
+	
+	/**
+	 * @param projects projects of which this person is a member
+	 */
+	public void setProjects(Set<Project> projects) { this.projects = projects; }
+	
+	public ProjectMembership memberOf(Project project, String role) {
+		ProjectMembership membership = new ProjectMembership(project, this, role);
+		
+		// TODO Confirm. In the docs it's adding the membership
+//		projects.add(project);
+		project.getMembers().add(this);
+		
+		return membership;
 	}
 }

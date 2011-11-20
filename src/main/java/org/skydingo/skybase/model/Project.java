@@ -17,9 +17,16 @@
  */
 package org.skydingo.skybase.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.neo4j.graphdb.Direction;
+import org.skydingo.skybase.model.relationship.ProjectMembership;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedTo;
+import org.springframework.data.neo4j.annotation.RelatedToVia;
 
 /**
  * Project domain object.
@@ -36,6 +43,12 @@ public class Project {
 	@Indexed private String id;
 	
 	private String name;
+	
+	@RelatedTo(type = "MEMBER_OF", direction = Direction.INCOMING)
+	private Set<Person> members = new HashSet<Person>();
+	
+	@RelatedToVia(type = "MEMBER_OF", direction = Direction.INCOMING)
+	private Iterable<ProjectMembership> memberships;
 	
 	public Project() { }
 	
@@ -65,4 +78,16 @@ public class Project {
 	 * @param name project name
 	 */
 	public void setName(String name) { this.name = name; }
+	
+	/**
+	 * @return project members
+	 */
+	public Set<Person> getMembers() { return members; }
+	
+	/**
+	 * @param members project members
+	 */
+	public void setMembers(Set<Person> members) { this.members = members; }
+
+	public Iterable<ProjectMembership> getMemberships() { return memberships; }
 }
