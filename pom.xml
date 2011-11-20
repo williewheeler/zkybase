@@ -203,9 +203,9 @@
 					<!-- See https://issuetracker.springsource.com/browse/EBR-220 -->
 <!-- 					<junitArtifactName>org.junit:com.springsource.org.junit</junitArtifactName> -->
 					
-<!-- 					<additionalClasspathElements> -->
-<!-- 						<additionalClasspathElement>${skybase.conf.dir}/it-classes</additionalClasspathElement> -->
-<!-- 					</additionalClasspathElements> -->
+					<additionalClasspathElements>
+						<additionalClasspathElement>${skybase.conf.dir}/classes-it</additionalClasspathElement>
+					</additionalClasspathElements>
 				</configuration>
 				<executions>
 					<execution>
@@ -230,7 +230,7 @@
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<webAppConfig>
 						<contextPath>/</contextPath>
-<!-- 						<extraClasspath>${axicm.conf.dir}/classes</extraClasspath> -->
+						<extraClasspath>${skybase.conf.dir}/classes</extraClasspath>
 					</webAppConfig>
 				</configuration>
 			</plugin>
