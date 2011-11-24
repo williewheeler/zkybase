@@ -1,0 +1,14 @@
+#dashboardTitle {
+	padding-left: 20px;
+	background: url('../images/icons/dashboard.png') left no-repeat;
+}
+
+#addProjectLink {
+	padding-left: 20px;
+	background: url('../images/icons/folder--plus.png') left no-repeat;
+}
+
+#rssLink {
+	padding-left: 20px;
+	background: url('../images/icons/feed.png') left no-repeat;
+}

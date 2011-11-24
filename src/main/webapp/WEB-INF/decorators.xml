@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators>
+	<excludes>
+		<pattern>/styles/*</pattern>
+	</excludes>
+	<decorator name="skin" page="/WEB-INF/jsp/decorators/pageDecorator.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+</decorators>

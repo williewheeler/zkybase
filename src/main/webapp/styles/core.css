@@ -1,0 +1,135 @@
+/* http://kuler.adobe.com/#themeID/460859: C8DBB6, ECEBB7, CCC68A, B8B165, 827A5D */
+
+
+html {
+	margin: 0;
+	background-color: #FFF;
+}
+
+body {
+	margin: 0;
+	font-family: lucida grande, verdana, arial, sans-serif;
+}
+
+#doc4 {
+	overflow: hidden;
+}
+
+#superhd {
+	padding: 10px 20px;
+	background-color: #827A5D;
+	color: #B8B165;
+	
+	-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+	-moz-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+#superhd a {
+	color: #FFF;
+	text-decoration: none;
+}
+
+#superhd a:hover {
+	text-decoration: underline;
+}
+
+#breadcrumbs ul, #sessionInfo ul {
+	margin: 0;
+	padding: 0;
+}
+
+#breadcrumbs li, #sessionInfo li {
+	display: inline;
+}
+
+#breadcrumbs li:before {
+	content: " > ";
+}
+
+#breadcrumbs li:first-child:before {
+	content: "";
+}
+
+#sessionInfo {
+	text-align: right;
+}
+
+#sessionInfo li:first-child:before {
+	content: "";
+}
+
+#sessionInfo li:before {
+	content: " | ";
+}
+
+#hd {
+	border-bottom: 1px solid #CCC68A;
+	padding: 10px;
+}
+
+#logo {
+}
+
+#topNav {
+}
+
+#bd {
+	padding: 20px 10px;
+}
+
+#ft {
+	border-top: 2px solid #CCC68A;
+	padding: 20px 10px;
+	background-color: #ECEBB7;
+	font-size: 93%;
+	color: #333;
+}
+
+
+/* COMPONENTS ======================================================================================================= */
+
+.paneHead {
+}
+
+.paneHead h2 {
+	display: inline;
+	margin-top: 0;
+}
+
+.paneHead span {
+	float: right;
+}
+
+.paneBody {
+	margin-top: 20px;
+}
+
+
+/* ELEMENTS ========================================================================================================= */
+
+h1, h2, h3 {
+	font-weight: normal;
+	color: #4B5657;
+}
+
+h1 {
+	margin-top: 0;
+}
+
+a {
+	color: #009694;
+}
+
+table {
+	width: 100%;
+}
+
+table tr:first-child td {
+	border-top: 1px solid #C8DBB6;
+}
+
+td {
+	border: 0;
+	border-bottom: 1px solid #C8DBB6;
+}

@@ -1,5 +1,5 @@
 /* 
- * ProjectController.java
+ * DashboardController.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -17,51 +17,32 @@
  */
 package org.skydingo.skybase.web;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
-import org.skydingo.skybase.model.Project;
 import org.skydingo.skybase.service.ProjectService;
-import org.skydingo.skybase.web.navigation.Breadcrumb;
 import org.skydingo.skybase.web.navigation.NavigationUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Project controller.
+ * Dashboard controller.
  * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Controller
-@RequestMapping("/projects")
-public class ProjectController {
+public class DashboardController {
 	@Inject private ProjectService projectService;
 	
 	/**
-	 * Generates the new project form.
-	 * 
-	 * @param model model
 	 * @return logical view name
 	 */
-	@RequestMapping(value = "/new.do", method = RequestMethod.GET)
-	public String getNewProjectForm(Model model) {
-		
-		// TODO Create a utility method for this
-		List<Breadcrumb> breadcrumbs = NavigationUtils.createBreadcrumbs(
-				new Breadcrumb("New project", "/projects/new.do"));
-		model.addAttribute(breadcrumbs);
-		
-		model.addAttribute(new Project());
-		return "project/newProject";
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String getDashboard(Model model) {
+		model.addAttribute(NavigationUtils.createBreadcrumbs());
+		model.addAttribute(projectService.getProjects());
+		return "dashboard/dashboard";
 	}
-	
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public String getProject(@PathVariable String id, Model model) {
-		model.addAttribute(projectService.getProject(id));
-		return "project/projectDetails";
-	}
+
 }

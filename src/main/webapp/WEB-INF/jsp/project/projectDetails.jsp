@@ -4,7 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title><c:out value="${project.name}" /></title>
+</head>
 <body>
+
 <h1><c:out value="${project.name}" /></h1>
 
 <h2>Members</h2>
