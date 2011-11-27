@@ -76,7 +76,7 @@ ul.menu li:first-child {
 }
 
 #bdFtWrapper {
-	width: 950px;
+	width: 960px;
 	margin: 20px auto;
 	padding: 10px 20px;
 }
@@ -110,6 +110,7 @@ ul.menu li:first-child {
 
 .paneHead h2 {
 	display: inline;
+	line-height: 1.0;
 }
 
 .paneBody {
@@ -233,15 +234,11 @@ input[type=text], textarea {
 /* 	background-color: #FFE; */
 /* } */
 
-textarea {
-	width: 640px;
-}
-
 textarea.shortHeight {
 	height: 80px;
 }
 
-input[type=submit] {
+input[type=submit].btn, button.btn {
 	padding: 10px;
 	font-family: lucida grande, verdana, arial, sans-serif;
 }

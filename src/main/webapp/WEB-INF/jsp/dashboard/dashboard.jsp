@@ -30,10 +30,10 @@
 	</c:if>
 	<div class="yui-g">
 		<div class="yui-u first">
-			<jsp:include page="projectPane.jsp" />
+			<jsp:include page="projectsPane.jsp" />
 		</div>
 		<div class="yui-u">
-			<jsp:include page="updatePane.jsp" />
+			<jsp:include page="updatesPane.jsp" />
 		</div>
 	</div>
 </div>
