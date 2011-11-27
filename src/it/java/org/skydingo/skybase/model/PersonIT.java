@@ -51,7 +51,7 @@ public class PersonIT {
 	
 	@Test
 	public void persistedPersonShouldBeRetrievableFromGraphDb() {
-		Person willie = template.save(new Person("Willie", "Wheeler"));
+		Person willie = template.save(new Person("willie", "Willie", "Wheeler"));
 		Person retrievedPerson = template.findOne(willie.getId(), Person.class);
 		assertEquals(willie.getFirstName(), retrievedPerson.getFirstName());
 	}

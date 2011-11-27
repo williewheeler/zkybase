@@ -19,10 +19,11 @@ package org.skydingo.skybase.web;
 
 import javax.inject.Inject;
 
-import org.skydingo.skybase.service.ProjectService;
-import org.skydingo.skybase.web.navigation.NavigationUtils;
+import org.skydingo.skybase.repository.ProjectRepository;
+import org.skydingo.skybase.util.CollectionsUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -32,16 +33,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Controller
-public class DashboardController {
-	@Inject private ProjectService projectService;
+public class DashboardController extends AbstractController {
+	@Inject private ProjectRepository projectRepo;
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.AbstractController#doInitBinder(org.springframework.web.bind.WebDataBinder)
+	 */
+	@Override
+	public void doInitBinder(WebDataBinder binder) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	/**
 	 * @return logical view name
 	 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String getDashboard(Model model) {
-		model.addAttribute(NavigationUtils.createBreadcrumbs());
-		model.addAttribute(projectService.getProjects());
+		model.addAttribute(CollectionsUtil.toList(projectRepo.findAll()));
 		return "dashboard/dashboard";
 	}
 

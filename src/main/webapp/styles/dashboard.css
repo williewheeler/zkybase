@@ -8,7 +8,19 @@
 	background: url('../images/icons/folder--plus.png') left no-repeat;
 }
 
-#rssLink {
-	padding-left: 20px;
-	background: url('../images/icons/feed.png') left no-repeat;
+#updatesPane .paneHead ul {
+	margin: 0;
+	padding: 0;
+}
+
+#updatesPane .paneHead li {
+	margin: 0;
+	padding: 0;
+	display: inline;
+}
+
+.updater {
+/* 	font-weight: bold; */
+	font-size: 116%;
+	color: #333;
 }

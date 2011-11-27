@@ -17,7 +17,9 @@
  */
 package org.skydingo.skybase.repository;
 
+import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.model.Project;
+import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
@@ -25,5 +27,16 @@ import org.springframework.data.neo4j.repository.GraphRepository;
  */
 public interface ProjectRepository extends GraphRepository<Project> {
 	
+	/**
+	 * Returns the project having the given ID.
+	 * 
+	 * @param id project ID
+	 * @return project with the given ID
+	 */
 	Project findProjectById(String id);
+	
+	Project findProjectByName(String name);
+	
+	@Query("start person=node({0}) match person-->project return project")
+	Iterable<Project> getProjects(Person person);
 }

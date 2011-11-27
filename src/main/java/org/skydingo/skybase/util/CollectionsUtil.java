@@ -1,5 +1,5 @@
 /* 
- * PersonRepository.java
+ * CollectionsUtil.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,21 +15,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.repository;
+package org.skydingo.skybase.util;
 
-import org.skydingo.skybase.model.Person;
-import org.springframework.data.neo4j.repository.GraphRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface PersonRepository extends GraphRepository<Person> {
+public final class CollectionsUtil {
 	
 	/**
-	 * Returns the person having the given username.
-	 * 
-	 * @param username username
-	 * @return person with the given username
+	 * @param iterable iterable
+	 * @return list
 	 */
-	Person findPersonByUsername(String username);
+	public static <E> List<E> toList(Iterable<E> iterable) {
+		List<E> list = new ArrayList<E>();
+		for (E element : iterable) { list.add(element); }
+		return list;
+	}
 }

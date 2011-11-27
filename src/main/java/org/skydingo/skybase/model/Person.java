@@ -20,6 +20,10 @@ package org.skydingo.skybase.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
 import org.skydingo.skybase.model.relationship.ProjectMembership;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.NodeEntity;
@@ -33,8 +37,10 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
 @NodeEntity
 public class Person {
 	@GraphId private Long id;
+	private String username;
 	private String firstName;
 	private String lastName;
+	private String email;
 	
 	@RelatedTo(type = "MEMBER_OF")
 	private Set<Project> projects = new HashSet<Project>();
@@ -48,49 +54,73 @@ public class Person {
 	/**
 	 * Creates a person with the given first name and last name.
 	 * 
+	 * @param username username
 	 * @param firstName first name
 	 * @param lastName last name
 	 */
-	public Person(String firstName, String lastName) {
+	public Person(String username, String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
 	
-	public Long getId() {
-		return id;
-	}
+	public Long getId() { return id; }
 	
-	public void setId(Long id) {
-		this.id = id;
-	}
+	public void setId(Long id) { this.id = id; }
+	
+	/**
+	 * @return username
+	 */
+	@NotNull
+	@Size(max = 40)
+	public String getUsername() { return username; }
+	
+	/**
+	 * @param username username
+	 */
+	public void setUsername(String username) { this.username = username; }
 	
 	/**
 	 * @return the firstName
 	 */
-	public String getFirstName() {
-		return firstName;
-	}
+	@NotNull
+	@Size(max = 40)
+	public String getFirstName() { return firstName; }
 
 	/**
 	 * @param firstName the firstName to set
 	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+	public void setFirstName(String firstName) { this.firstName = firstName; }
 
 	/**
 	 * @return the lastName
 	 */
-	public String getLastName() {
-		return lastName;
-	}
+	@NotNull
+	@Size(max = 40)
+	public String getLastName() { return lastName; }
 
 	/**
 	 * @param lastName the lastName to set
 	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastName(String lastName) { this.lastName = lastName; }
+	
+	/**
+	 * @return first and last names
+	 */
+	public String getFirstNameLastName() {
+		return firstName + " " + lastName;
 	}
+	
+	/**
+	 * @return e-mail
+	 */
+	@Email
+	@Size(max = 80)
+	public String getEmail() { return email; }
+	
+	/**
+	 * @param email e-mail
+	 */
+	public void setEmail(String email) { this.email = email; }
 	
 	/**
 	 * @return projects of which this person is a member
@@ -106,5 +136,18 @@ public class Person {
 		ProjectMembership membership = new ProjectMembership(project, this, role);
 		project.getMembers().add(this);
 		return membership;
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "[Person "
+				+ ": username=" + username
+				+ ", firstName=" + firstName
+				+ ", lastName=" + lastName
+				+ ", email=" + email
+				+ "]";
 	}
 }

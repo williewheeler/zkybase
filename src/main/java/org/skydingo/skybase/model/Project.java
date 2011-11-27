@@ -20,9 +20,11 @@ package org.skydingo.skybase.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.neo4j.graphdb.Direction;
-import org.skydingo.skybase.model.relationship.BuiltFrom;
-import org.skydingo.skybase.model.relationship.ProjectMembership;
+import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
@@ -37,12 +39,13 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
 public class Project {
 	
 	// Internal node ID
-	@GraphId private Long nodeId;
+	@SuppressWarnings("unused") @GraphId private Long nodeId;
 	
 	// External ID
 	@Indexed private String id;
+	@Indexed private String name;
 	
-	private String name;
+	private String shortDescription;
 	
 	@RelatedTo(type = "MEMBER_OF", direction = Direction.INCOMING)
 	private Set<Person> members = new HashSet<Person>();
@@ -50,6 +53,7 @@ public class Project {
 //	@RelatedToVia(type = "MEMBER_OF", direction = Direction.INCOMING)
 //	private Iterable<ProjectMembership> memberships;
 	
+	@Fetch
 	@RelatedTo(type = "BUILT_FROM", direction = Direction.INCOMING)
 	private Set<Package> packages = new HashSet<Package>();
 	
@@ -67,6 +71,8 @@ public class Project {
 		this.name = name;
 	}
 	
+	@NotNull
+	@Size(max = 40)
 	public String getId() { return id; }
 	
 	public void setId(String id) { this.id = id; }
@@ -76,6 +82,8 @@ public class Project {
 	 * 
 	 * @return project name
 	 */
+	@NotNull
+	@Size(max = 160)
 	public String getName() { return name; }
 	
 	/**
@@ -84,6 +92,19 @@ public class Project {
 	 * @param name project name
 	 */
 	public void setName(String name) { this.name = name; }
+	
+	/**
+	 * @return short description
+	 */
+	@Size(max = 160)
+	public String getShortDescription() { return shortDescription; }
+	
+	/**
+	 * @param shortDescription short description
+	 */
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
 	
 	/**
 	 * @return project members

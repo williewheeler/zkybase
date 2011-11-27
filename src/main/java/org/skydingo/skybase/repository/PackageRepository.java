@@ -20,6 +20,8 @@ package org.skydingo.skybase.repository;
 import java.util.List;
 
 import org.skydingo.skybase.model.Package;
+import org.skydingo.skybase.model.Project;
+import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
@@ -34,4 +36,13 @@ public interface PackageRepository extends GraphRepository<Package> {
 	 * @return all packages having the given name
 	 */
 	List<Package> findPackageByName(String name);
+	
+	/**
+	 * Returns the packages for the given project.
+	 * 
+	 * @param project project
+	 * @return packages for the given project
+	 */
+	@Query("start project=node({0}) match package-->project return package")
+	Iterable<Package> getPackages(Project project);
 }
