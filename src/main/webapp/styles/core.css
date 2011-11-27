@@ -4,11 +4,7 @@ http://kuler.adobe.com/#themeID/1641683
 24221F (charcoal), 363F45 (very dk blue/gray), 4B5F6D (dk blue/gray), 5E7C88 (med blue/gray), FEB41C (bright orange) 
 */
 
-html {
-	margin: 0;
-	padding: 0;
-	background-color: #FFF;
-}
+html { margin: 0; padding: 0; background-color: #FFF; }
 
 body {
 	margin: 0;
@@ -17,11 +13,7 @@ body {
 	line-height: 1.5;
 }
 
-#doc3 {
-	margin: 0;
-	overflow: hidden;
-	background-color: #FFF;
-}
+#doc3 { margin: 0; overflow: hidden; background-color: #FFF; }
 
 #hd {
 	padding: 5px 10px;
@@ -33,64 +25,29 @@ body {
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
 }
 
-#hd a {
-	color: #FFF;
-}
+#hd a { color: #FFF; }
 
-#logo a {
-	text-transform: uppercase;
-	text-decoration: none;
-}
+#logo { float: left; }
 
-#sessionInfo {
-	text-align: right;
-}
+#logo a { text-transform: uppercase; text-decoration: none; }
 
-#sessionInfo li:first-child:before {
-	content: "";
-}
+#sessionInfo { float: right; text-align: right; }
 
-#sessionInfo li:before {
-	content: " | ";
-}
+#sessionInfo li:first-child:before { content: ""; color: #FEB41C; }
 
-ul.menu, #breadcrumbs ul, #sessionInfo ul {
-	margin: 0;
-	padding: 0;
-}
+#sessionInfo li:before { content: " | "; color: #FEB41C; }
 
-ul.menu li, #breadcrumbs li, #sessionInfo li {
-	display: inline;
-}
+ul.menu, #breadcrumbs ul, #sessionInfo ul { margin: 0; padding: 0; }
 
-ul.menu li {
-	margin-left: 10px;
-}
+ul.menu li, #breadcrumbs li, #sessionInfo li { display: inline; }
 
-ul.menu li:first-child {
-	margin-left: 0;
-}
+ul.menu li { margin-left: 10px; }
 
-#breadcrumbs li:after {
-	content: " > ";
-}
+ul.menu li:first-child { margin-left: 0; }
 
-#bdFtWrapper {
-	width: 960px;
-	margin: 20px auto;
-	padding: 10px 20px;
-}
+#breadcrumbs li:after { content: " > "; }
 
-#bd {
-}
-
-#pageHead {
-	margin: 0 0 20px;
-}
-
-#pageBody {
-	margin: 20px 0;
-}
+#bdFtWrapper { width: 960px; margin: 20px auto; padding: 10px 20px; }
 
 #ft {
 	margin-top: 30px;
@@ -102,25 +59,15 @@ ul.menu li:first-child {
 
 /* COMPONENTS ======================================================================================================= */
 
-.alert-message {
-	width: 640px;
-	margin: 20px auto;
-	padding: 20px;
-}
+.alert-message { width: 640px; margin: 20px auto; padding: 20px; }
 
-.paneHead h2 {
-	display: inline;
-	line-height: 1.0;
-}
+.modal-header, .modal-body { text-align: left; }
 
-.paneBody {
-	margin-top: 5px;
-}
+.paneHead h2 { display: inline; line-height: 1.0; }
 
-.secondary {
-	font-size: 93%;
-	color: #999;
-}
+.paneBody { margin-top: 5px; }
+
+.secondary { font-size: 93%; color: #999; }
 
 .gravatar img {
 	width: 64px;
@@ -129,18 +76,11 @@ ul.menu li:first-child {
 	border-radius: 5px;
 }
 
-div.table {
-	display: table;
-	width: 100%;
-}
+div.table { display: table; width: 100%; }
 
-div.tr {
-	display: table-row;
-}
+div.tr { display: table-row; }
 
-div.td {
-	display: table-cell;
-}
+div.td { display: table-cell; }
 
 
 /* ELEMENTS ========================================================================================================= */

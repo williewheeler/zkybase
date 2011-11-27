@@ -87,7 +87,7 @@
 			</form:errors>
 		</div>
 		<div class="formSubmit">
-			<input class="btn primary" type="submit" value="Create project" />
+			<input class="btn primary" type="submit" value="Save project" />
 			<button class="btn" style="margin-left:5px">Cancel</button>
 		</div>
 	</form:form>

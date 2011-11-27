@@ -158,7 +158,7 @@ public class ProjectController extends AbstractController {
 		pProject.setShortDescription(project.getShortDescription());
 		
 		projectRepo.save(pProject);
-		return "redirect:/?updated=true";
+		return "redirect:/projects/" + key + "?updated=true";
 	}
 	
 	

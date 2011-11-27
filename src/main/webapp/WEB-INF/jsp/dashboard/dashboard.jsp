@@ -12,29 +12,21 @@
 </head>
 <body>
 
-<div id="pageHead">
-	<h1 id="dashboardTitle">Dashboard</h1>
-</div>
-<div id="pageBody">
-	<c:if test="${param.created}">
-		<div class="alert-message success">
-			<a class="close" href="#">x</a>
-			<p>Project successfully created.</p>
-		</div>
-	</c:if>
-	<c:if test="${param.updated}">
-		<div class="alert-message success">
-			<a class="close" href="#">x</a>
-			<p>Project successfully updated.</p>
-		</div>
-	</c:if>
-	<div class="yui-g">
-		<div class="yui-u first">
-			<jsp:include page="projectsPane.jsp" />
-		</div>
-		<div class="yui-u">
-			<jsp:include page="updatesPane.jsp" />
-		</div>
+<h1 id="dashboardTitle">Dashboard</h1>
+
+<c:if test="${param.created}">
+	<div class="alert-message success">
+		<a href="#" class="close">&times;</a>
+		<p>Project successfully created.</p>
+	</div>
+</c:if>
+
+<div class="row">
+	<div class="span10">
+		<jsp:include page="projectsPane.jsp" />
+	</div>
+	<div class="span6">
+		<jsp:include page="updatesPane.jsp" />
 	</div>
 </div>
 

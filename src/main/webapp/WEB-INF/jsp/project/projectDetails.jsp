@@ -8,6 +8,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title><c:out value="${project.name}" /></title>
+<script type="text/javascript">
+$(function() {
+	$("#deleteDialog").modal({
+		backdrop: true,
+		keyboard: true
+	});
+	$("#deleteProjectLink").click(function() {
+		$("#deleteDialog").modal("show");
+		return false;
+	});
+});
+</script>
 </head>
 <body>
 
@@ -15,14 +27,25 @@
 	<div class="span16">
 		<h1 style="display:inline"><c:out value="${project.name}" /></h1>
 		<span style="color:#666;">(<c:out value="${project.id}" />)</span>
-		<ul class="menu" style="display:inline;margin-left:10px">
+		<ul class="menu" style="display:inline;margin-left:20px">
+			<li><span class="editProject icon"><a href="${editUrl}">Edit</a></span></li>
+			<li><span class="deleteProject icon"><a id="deleteProjectLink" href="#">Delete</a></span></li>
+			<li></li>
 			<li><span class="json icon"><a href="#">JSON</a></span></li>
 			<li><span class="xml icon"><a href="#">XML</a></span></li>
-			<li><span class="editProject icon"><a href="${editUrl}">Edit</a></span></li>
-			<li><span class="deleteProject icon"><a href="#">Delete</a></span></li>
 		</ul>
 	</div>
 </div>
+<c:if test="${param.updated}">
+	<div class="row">
+		<div class="span16">
+			<div class="alert-message success">
+				<a href="#" class="close">&times;</a>
+				<p>Project successfully updated.</p>
+			</div>
+		</div>
+	</div>
+</c:if>
 <div class="row" style="margin-top:20px">
 	<div class="span10">
 		<c:if test="${not empty project.shortDescription}">
@@ -33,6 +56,21 @@
 		<jsp:include page="teamPane.jsp" />
 	</div>
 	<div class="span6"><jsp:include page="updatesPane.jsp" /></div>
+</div>
+
+<!-- sample modal content -->
+<div id="deleteDialog" class="modal hide fade">
+	<div class="modal-header">
+		<a href="#" class="close">&times;</a>
+		<h3>Delete project</h3>
+	</div>
+	<div class="modal-body">
+		<p>This will delete the project permanently. Are you sure?</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn danger">Delete</a>
+		<a href="#" class="btn">Cancel</a>
+	</div>
 </div>
 
 </body>
