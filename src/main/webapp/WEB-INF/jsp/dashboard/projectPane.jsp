@@ -15,7 +15,7 @@
 				<p>None.</p>
 			</c:when>
 			<c:otherwise>
-				<table class="zebra-striped">
+				<table class="bordered-table zebra-striped" style="border-top:0">
 					<tbody>
 						<c:forEach var="project" items="${projectList}">
 							<c:url var="projectUrl" value="/projects/${project.id}" />
@@ -50,7 +50,7 @@
 				<p>None.</p>
 			</c:when>
 			<c:otherwise>
-				<table class="zebra-striped">
+				<table class="bordered-table zebra-striped" style="border-top:0">
 					<tbody>
 						<c:forEach var="project" items="${projectList}">
 							<c:url var="projectUrl" value="/projects/${project.id}" />
