@@ -3,7 +3,7 @@
 		<div class="tr">
 			<div class="td"><h2><span class="users icon">Team</span></h2></div>
 			<div class="td" style="text-align:right">
-				<span class="add icon"><a href="#">Add member</a></span>
+				<span class="add icon"><a href="#" title="Adds an existing person to this project as a team member">Add member</a></span>
 			</div>
 		</div>
 	</div>

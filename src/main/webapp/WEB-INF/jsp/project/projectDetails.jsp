@@ -31,8 +31,8 @@ $(function() {
 			<li><span class="editProject icon"><a href="${editUrl}">Edit</a></span></li>
 			<li><span class="deleteProject icon"><a id="deleteProjectLink" href="#">Delete</a></span></li>
 			<li></li>
-			<li><span class="json icon"><a href="#">JSON</a></span></li>
-			<li><span class="xml icon"><a href="#">XML</a></span></li>
+			<li><span class="json icon"><a href="#" title="Renders a JSON view of this project">JSON</a></span></li>
+			<li><span class="xml icon"><a href="#" title="Renders an XML view of this project">XML</a></span></li>
 		</ul>
 	</div>
 </div>

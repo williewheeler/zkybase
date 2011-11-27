@@ -10,6 +10,7 @@
 <%-- JavaScript --%>
 <c:url var="jqueryJsUrl" value="/scripts/jquery-1.7.1.min.js" />
 <c:url var="modalJsUrl" value="/scripts/bootstrap-modal-1.4.0.js" />
+<c:url var="twipsyJsUrl" value="/scripts/bootstrap-twipsy-1.4.0.js" />
 <c:url var="coreJsUrl" value="/scripts/core.js" />
 
 <c:url var="faviconUrl" value="/images/icons/favicon.ico" />
@@ -28,6 +29,7 @@
 
 <script type="text/javascript" src="${jqueryJsUrl}"></script>
 <script type="text/javascript" src="${modalJsUrl}"></script>
+<script type="text/javascript" src="${twipsyJsUrl}"></script>
 <script type="text/javascript" src="${coreJsUrl}"></script>
 
 <decorator:head />

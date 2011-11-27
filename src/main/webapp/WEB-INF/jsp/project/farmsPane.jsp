@@ -3,7 +3,7 @@
 		<div class="tr">
 			<div class="td"><h2><span class="servers icon">Farms</span></h2></div>
 			<div class="td" style="text-align:right">
-				<span class="add icon"><a href="#">Add farm</a></span>
+				<span class="add icon"><a id="addFarmLink" href="#" title="Adds an existing farm to this project">Add farm</a></span>
 			</div>
 		</div>
 	</div>
