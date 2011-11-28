@@ -3,21 +3,27 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:url var="dashboardCssUrl" value="/styles/dashboard.css" />
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Dashboard</title>
-<link rel="stylesheet" type="text/css" href="${dashboardCssUrl}" />
+<style type="text/css">
+	.updater { font-size: 116%; color: #333; }
+</style>
 </head>
 <body>
 
-<h1 id="dashboardTitle">Dashboard</h1>
+<h1><span class="dashboard icon">Dashboard</span></h1>
 
-<c:if test="${param.created}">
+<c:if test="${param.a == 'created'}">
 	<div class="alert-message success">
 		<a href="#" class="close">&times;</a>
 		<p>Project successfully created.</p>
+	</div>
+</c:if>
+<c:if test="${param.a == 'cancelled'}">
+	<div class="alert-message info">
+		<a href="#" class="close">&times;</a>
+		<p>Project creation cancelled.</p>
 	</div>
 </c:if>
 

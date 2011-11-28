@@ -40,6 +40,9 @@ public class Person {
 	private String username;
 	private String firstName;
 	private String lastName;
+	private String title;
+	private String workPhone;
+	private String mobilePhone;
 	private String email;
 	
 	@RelatedTo(type = "MEMBER_OF")
@@ -109,6 +112,39 @@ public class Person {
 	public String getFirstNameLastName() {
 		return firstName + " " + lastName;
 	}
+	
+	/**
+	 * @return title
+	 */
+	@Size(max = 80)
+	public String getTitle() { return title; }
+	
+	/**
+	 * @param title title
+	 */
+	public void setTitle(String title) { this.title = title; }
+	
+	/**
+	 * @return work phone
+	 */
+	@Size(max = 20)
+	public String getWorkPhone() { return workPhone; }
+	
+	/**
+	 * @param workPhone work phone
+	 */
+	public void setWorkPhone(String workPhone) { this.workPhone = workPhone; }
+	
+	/**
+	 * @return mobile phone
+	 */
+	@Size(max = 20)
+	public String getMobilePhone() { return mobilePhone; }
+	
+	/**
+	 * @param mobilePhone mobile phone
+	 */
+	public void setMobilePhone(String mobilePhone) { this.mobilePhone = mobilePhone; }
 	
 	/**
 	 * @return e-mail

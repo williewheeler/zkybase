@@ -16,50 +16,56 @@
 </head>
 <body>
 
-<div id="pageHead">
-	<div class="yui-g">
-		<div class="yui-u first">
-			<h1>People</h1>
-		</div>
-		<div class="yui-u" style="padding-top:12px;text-align:right">
-			<span class="addUser icon"><a href="${addPersonUrl}">Add person</a></span>
-		</div>
+<div class="row">
+	<div class="span16">
+		<h1 style="display:inline">People</h1>
+		<ul class="menu" style="display:inline;margin-left:20px">
+			<li><span class="addUser icon"><a href="${addPersonUrl}" title="Create a new person">Create person</a></span></li>
+			<li></li>
+			<li><span class="json icon"><a href="#" title="Render a JSON view of all people">JSON</a></span></li>
+			<li><span class="xml icon"><a href="#" title="Render an XML view of all people">XML</a></span></li>
+		</ul>
 	</div>
 </div>
-<div id="pageBody">
-	<c:if test="${param.created}">
-		<div class="info alert">
-			<div class="message">Person added successfully.</div>
+
+<c:if test="${param.a == 'created'}">
+	<div class="row">
+		<div class="span16">
+			<div class="alert-message success fade in">
+				<a href="#" class="close">&times;</a>
+				<p>Person successfully created.</p>
+			</div>
 		</div>
-	</c:if>
-	<c:choose>
-		<c:when test="${empty personList}">
-			<p>None.</p>
-		</c:when>
-		<c:otherwise>
-			<c:forEach var="person" items="${personList}">
-				<c:url var="personUrl" value="/people/${person.username}" />
-				<div class="person">
-					<div class="personPhoto">
-						<div class="gravatar"><img src="http://www.gravatar.com/avatar/b0a72ae61c5c74a51fe46cf66599b6c5.png" /></div>
-					</div>
-					<div>
-						<div>
-							<span class="personName"><a href="${personUrl}"><c:out value="${person.firstNameLastName}" /></a></span>
-							<span class="personUsername secondary">(<c:out value="${person.username}" />)</span>
-						</div>
-						<c:if test="${not empty person.email}">
-							<div class="personEmail">
-								<a href="mailto:<c:out value="${person.email}" />"><c:out value="${person.email}" /></a>
-							</div>
-						</c:if>
-					</div>
-					<div style="clear:both"></div>
+	</div>
+</c:if>
+
+<c:choose>
+	<c:when test="${empty personList}">
+		<p>None.</p>
+	</c:when>
+	<c:otherwise>
+		<c:forEach var="person" items="${personList}">
+			<c:url var="personUrl" value="/people/${person.username}" />
+			<div class="person">
+				<div class="personPhoto">
+					<div class="gravatar"><img src="http://www.gravatar.com/avatar/b0a72ae61c5c74a51fe46cf66599b6c5.png" /></div>
 				</div>
-			</c:forEach>
-		</c:otherwise>
-	</c:choose>
-</div>
+				<div>
+					<div>
+						<span class="personName"><a href="${personUrl}"><c:out value="${person.firstNameLastName}" /></a></span>
+						<span class="personUsername secondary">(<c:out value="${person.username}" />)</span>
+					</div>
+					<c:if test="${not empty person.email}">
+						<div class="personEmail">
+							<a href="mailto:<c:out value="${person.email}" />"><c:out value="${person.email}" /></a>
+						</div>
+					</c:if>
+				</div>
+				<div style="clear:both"></div>
+			</div>
+		</c:forEach>
+	</c:otherwise>
+</c:choose>
 
 </body>
 </html>

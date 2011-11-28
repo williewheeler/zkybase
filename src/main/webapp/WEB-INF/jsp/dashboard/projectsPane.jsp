@@ -39,7 +39,7 @@
 					<h2>All projects</h2>
 				</div>
 				<div class="td" style="text-align:right">
-					<span id="addProjectLink"><a href="${createProjectUrl}">Create project</a></span>
+					<span class="createProject icon"><a href="${createProjectUrl}">Create project</a></span>
 				</div>
 			</div>
 		</div>

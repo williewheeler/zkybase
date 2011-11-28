@@ -91,7 +91,7 @@ public class ProjectController extends AbstractController {
 		}
 		
 		projectRepo.save(project);
-		return "redirect:/?created=true";
+		return "redirect:/?a=created";
 	}
 	
 	/**
@@ -158,7 +158,7 @@ public class ProjectController extends AbstractController {
 		pProject.setShortDescription(project.getShortDescription());
 		
 		projectRepo.save(pProject);
-		return "redirect:/projects/" + key + "?updated=true";
+		return "redirect:/projects/" + key + "?a=updated";
 	}
 	
 	

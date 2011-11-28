@@ -16,10 +16,27 @@
 	
 	<context:component-scan base-package="org.skydingo.skybase.web" />
 	
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-		p:prefix="/WEB-INF/jsp/"
-		p:suffix=".jsp" />
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="mediaTypes">
+			<map>
+				<entry key="do" value="text/html" />
+				<entry key="html" value="text/html" />
+				<entry key="json" value="application/json" />
+				<entry key="xml" value="application/xml" />
+			</map>
+		</property>
+		<property name="viewResolvers">
+			<list>
+				<bean id="viewResolver"
+					class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+					p:prefix="/WEB-INF/jsp/"
+					p:suffix=".jsp" />
+			</list>
+		</property>
+		<property name="defaultViews">
+			<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+		</property>
+	</bean>
 	
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource"

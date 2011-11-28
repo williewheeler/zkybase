@@ -40,7 +40,6 @@ public abstract class AbstractController {
 	 */
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		log.debug("Initializing binder");
 		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
 		doInitBinder(binder);
 	}

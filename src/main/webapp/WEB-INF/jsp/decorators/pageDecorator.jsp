@@ -5,12 +5,15 @@
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 
 <%-- CSS --%>
+<c:url var="jqueryUiCssUrl" value="/scripts/jquery-ui-1.8.16.custom/css/cupertino/jquery-ui-1.8.16.custom.css" />
 <c:url var="coreCssUrl" value="/styles/core.css" />
 
 <%-- JavaScript --%>
 <c:url var="jqueryJsUrl" value="/scripts/jquery-1.7.1.min.js" />
-<c:url var="modalJsUrl" value="/scripts/bootstrap-modal-1.4.0.js" />
-<c:url var="twipsyJsUrl" value="/scripts/bootstrap-twipsy-1.4.0.js" />
+<c:url var="jqueryUiJsUrl" value="/scripts/jquery-ui-1.8.16.custom/js/jquery-ui-1.8.16.custom.min.js" />
+<c:url var="bsAlertsJsUrl" value="/scripts/bootstrap-alerts-1.4.0.js" />
+<c:url var="bsModalJsUrl" value="/scripts/bootstrap-modal-1.4.0.js" />
+<c:url var="bsTwipsyJsUrl" value="/scripts/bootstrap-twipsy-1.4.0.js" />
 <c:url var="coreJsUrl" value="/scripts/core.js" />
 
 <c:url var="faviconUrl" value="/images/icons/favicon.ico" />
@@ -24,12 +27,15 @@
 <title><decorator:title /></title>
 <link rel="shortcut icon" type="image/x-icon" href="${faviconUrl}" />
 
+<link rel="stylesheet" type="text/css" href="${jqueryUiCssUrl}" />
 <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="${coreCssUrl}" />
 
 <script type="text/javascript" src="${jqueryJsUrl}"></script>
-<script type="text/javascript" src="${modalJsUrl}"></script>
-<script type="text/javascript" src="${twipsyJsUrl}"></script>
+<script type="text/javascript" src="${jqueryUiJsUrl}"></script>
+<script type="text/javascript" src="${bsAlertsJsUrl}"></script>
+<script type="text/javascript" src="${bsModalJsUrl}"></script>
+<script type="text/javascript" src="${bsTwipsyJsUrl}"></script>
 <script type="text/javascript" src="${coreJsUrl}"></script>
 
 <decorator:head />
@@ -63,7 +69,11 @@
 			<decorator:body />
 		</div>
 		<div id="ft">
-			<div>[FOOTER STUFF]</div>
+			<p>Skybase is open source software.
+			To participate in its development, please visit <a href="https://github.com/williewheeler/skybase">https://github.com/williewheeler/skybase</a>.</p>
+			
+			<p>Copyright &copy; 2011-2012 <a href="http://wheelersoftware.com/">Willie Wheeler</a> and the original authors. All rights reserved.<br />
+			Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.</p>
 		</div>
 	</div>
 </div>

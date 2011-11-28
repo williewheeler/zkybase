@@ -17,6 +17,9 @@
  */
 package org.skydingo.skybase.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -34,6 +37,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Project controller.
@@ -52,7 +57,9 @@ public class PersonController extends AbstractController {
 	 */
 	@Override
 	protected void doInitBinder(WebDataBinder binder) {
-		binder.setAllowedFields(new String[] { "username", "firstName", "lastName", "email" });
+		binder.setAllowedFields(new String[] {
+			"username", "firstName", "lastName", "title", "workPhone", "mobilePhone", "email"
+		});
 	}
 	
 	/**
@@ -84,7 +91,7 @@ public class PersonController extends AbstractController {
 		} else {
 			log.debug("Valid person. Saving.");
 			personRepo.save(person);
-			return "redirect:/people?created=true";
+			return "redirect:/people?a=created";
 		}
 	}
 	
@@ -97,6 +104,20 @@ public class PersonController extends AbstractController {
 		addBreadcrumbs(model);
 		model.addAttribute(CollectionsUtil.toList(personRepo.findAll()));
 		return "person/personList";
+	}
+	
+	/**
+	 * @param query search query
+	 * @return search results
+	 */
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public @ResponseBody List<String> getPeopleSearchResults(@RequestParam("q") String query) {
+		List<String> results = new ArrayList<String>();
+		Iterable<Person> personIt = personRepo.findAll();
+		for (Person person : personIt) {
+			results.add(person.getFirstNameLastName() + " (" + person.getUsername() + ")");
+		}
+		return results;
 	}
 	
 	/**

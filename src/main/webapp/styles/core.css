@@ -53,8 +53,10 @@ ul.menu li:first-child { margin-left: 0; }
 	margin-top: 30px;
 	border-top: 2px solid #EEE;
 	padding: 20px 0;
-	font-size: 93%;
+	text-align: center;
 }
+
+#ft p { font-size: 93%; }
 
 
 /* COMPONENTS ======================================================================================================= */
@@ -85,27 +87,16 @@ div.td { display: table-cell; }
 
 /* ELEMENTS ========================================================================================================= */
 
-h1, h2, h3 {
-	font-weight: normal;
-	color: #4B5F6D;
-}
+h1, h2, h3 { font-weight: normal; color: #4B5F6D; }
 
-h1 {
-	margin-top: 0;
-	font-size: 182%;
-}
+h1 { margin-top: 0; font-size: 182%; }
 
-h2 {
-	font-size: 138.5%;
-}
+h2 { font-size: 138.5%; }
 
-a {
-	color: #009694;
-}
+a { color: #009694; }
 
-li {
-	list-style-type: square;
-}
+/* Don't do this, as widgets (e.g. autocomplete) assume no bullets */
+/* li { list-style-type: square; } */
 
 
 /* FORMS ============================================================================================================ */
@@ -132,38 +123,27 @@ li {
 	border-top: 2px solid #DDDDD0;
 }
 
-label {
-	color: #4B5F6D;
-}
+label { color: #4B5F6D; }
 
 .formItem.required label {
 	padding-left: 20px;
 	background: url('../images/icons/asterisk-small.png') left no-repeat;
 }
 
-.formField {
-	margin: 5px 0;
-}
+.formField { margin: 5px 0; }
 
-.formErrors {
-	margin: 10px 0;
-}
+.formErrors { margin: 10px 0; }
 
-.formHint {
-	font-size: 93%;
-	color: #666;
-}
+.formHint { font-size: 93%; color: #666; }
 
-.formSubmit {
-	margin-top: 20px;
-}
+.formSubmit { margin-top: 20px; }
 
 input[type=text], textarea {
 	border: 1px solid #CCC;
-	padding: 4px;
+/* 	padding: 4px; */
 	background-color: #FFF;
 	font-family: lucida grande, verdana, arial, sans-serif;
-	font-size: 116%;
+/* 	font-size: 116%; */
 	
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -178,7 +158,7 @@ textarea.shortHeight {
 	height: 80px;
 }
 
-input[type=submit].btn, button.btn {
+input[type=submit].btn, input[type=button], button.btn {
 	padding: 10px;
 	font-family: lucida grande, verdana, arial, sans-serif;
 }
@@ -195,7 +175,9 @@ input[type=submit].btn, button.btn {
 .add.icon { background-image: url('../images/icons/plus.png'); }
 .addUser.icon { background-image: url('../images/icons/user--plus.png'); }
 .asterisk.icon { background-image: url('../images/icons/asterisk-small.png'); }
+.createPerson.icon { background-image: url('../images/icons/user--plus.png'); }
 .createProject.icon { background-image: url('../images/icons/folder--plus.png'); }
+.dashboard.icon { background-image: url('../images/icons/dashboard.png'); }
 .deleteProject.icon { background-image: url('../images/icons/folder--minus.png'); }
 .editProject.icon { background-image: url('../images/icons/folder--pencil.png'); }
 .feed.icon { background-image: url('../images/icons/feed.png'); }

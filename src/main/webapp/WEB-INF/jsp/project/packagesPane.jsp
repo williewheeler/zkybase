@@ -3,7 +3,7 @@
 		<div class="tr">
 			<div class="td"><h2><span class="package icon">Packages</span></h2></div>
 			<div class="td" style="text-align:right">
-				<span class="add icon"><a href="#" title="Adds an existing package to this project">Add package</a></span>
+				<span class="add icon"><a href="#" title="Add an existing package to this project">Add package</a></span>
 			</div>
 		</div>
 	</div>
