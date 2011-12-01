@@ -19,6 +19,7 @@ package org.skydingo.skybase.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import javax.inject.Inject;
 
@@ -26,7 +27,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.repository.ProjectRepository;
+import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +44,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ProjectIT {
 	@Inject private ProjectRepository projectRepo;
+	@Inject private PersonRepository personRepo;
+	@Inject private Neo4jTemplate template;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -53,9 +58,21 @@ public class ProjectIT {
 	@Test
 	public void persistedProjectShouldBeRetrievableFromGraphDb() {
 		Project skybase = projectRepo.save(new Project("skybase", "Skybase"));
-		Project retrievedProject = projectRepo.findProjectById("skybase");
+		Project retrievedProject = projectRepo.findProjectByKey("skybase");
 		assertNotNull(retrievedProject);
 		assertEquals(skybase.getName(), retrievedProject.getName());
+	}
+	
+	@Test
+	public void testSaveProjectMembershipAndRetrieveItAgain() {
+		Project skybase = template.save(new Project("skybase", "Skybase"));
+		assertTrue(skybase.getId() > 0);
+		Person willie = template.save(new Person("willie", "Willie", "Wheeler"));
+		assertTrue(willie.getId() > 0);
+		willie.memberOf(skybase, "Lead Developer");
+		Project updatedSkybase = template.save(skybase);
+		assertTrue(updatedSkybase.getId() > 0);
+		assertEquals(1, updatedSkybase.getMemberships().size());
 	}
 	
 }

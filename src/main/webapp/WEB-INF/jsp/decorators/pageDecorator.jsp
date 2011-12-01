@@ -13,6 +13,7 @@
 <c:url var="jqueryUiJsUrl" value="/scripts/jquery-ui-1.8.16.custom/js/jquery-ui-1.8.16.custom.min.js" />
 <c:url var="bsAlertsJsUrl" value="/scripts/bootstrap-alerts-1.4.0.js" />
 <c:url var="bsModalJsUrl" value="/scripts/bootstrap-modal-1.4.0.js" />
+<c:url var="bsTabsJsUrl" value="/scripts/bootstrap-tabs-1.4.0.js" />
 <c:url var="bsTwipsyJsUrl" value="/scripts/bootstrap-twipsy-1.4.0.js" />
 <c:url var="coreJsUrl" value="/scripts/core.js" />
 
@@ -35,6 +36,7 @@
 <script type="text/javascript" src="${jqueryUiJsUrl}"></script>
 <script type="text/javascript" src="${bsAlertsJsUrl}"></script>
 <script type="text/javascript" src="${bsModalJsUrl}"></script>
+<script type="text/javascript" src="${bsTabsJsUrl}"></script>
 <script type="text/javascript" src="${bsTwipsyJsUrl}"></script>
 <script type="text/javascript" src="${coreJsUrl}"></script>
 

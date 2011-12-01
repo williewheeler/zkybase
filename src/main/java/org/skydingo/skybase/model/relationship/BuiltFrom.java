@@ -27,7 +27,7 @@ import org.springframework.data.neo4j.annotation.StartNode;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@RelationshipEntity
+@RelationshipEntity(type = "BUILT_FROM")
 public class BuiltFrom {
 	@GraphId private Long id;
 	@StartNode private Package pkg;

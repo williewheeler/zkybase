@@ -17,9 +17,16 @@
  */
 package org.skydingo.skybase.model.relationship;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.model.Project;
 import org.springframework.data.neo4j.annotation.EndNode;
+import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.RelationshipEntity;
 import org.springframework.data.neo4j.annotation.StartNode;
@@ -27,38 +34,34 @@ import org.springframework.data.neo4j.annotation.StartNode;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@RelationshipEntity
+@RelationshipEntity(type = "MEMBER_OF")
+@XmlAccessorType(XmlAccessType.NONE)
 public class ProjectMembership {
 	@GraphId private Long id;
-	@StartNode private Person person;
+	@Fetch @StartNode private Person person;
 	@EndNode private Project project;
 	private String role;
 	
+	/**
+	 * 
+	 */
 	public ProjectMembership() { }
 	
-	public ProjectMembership(Project project, Person person, String role) {
-		this.project = project;
+	/**
+	 * @param person
+	 * @param project
+	 * @param role
+	 */
+	public ProjectMembership(Person person, Project project, String role) {
 		this.person = person;
-		this.role = role;
-	}
-
-	/**
-	 * @return the project
-	 */
-	public Project getProject() {
-		return project;
-	}
-
-	/**
-	 * @param project the project to set
-	 */
-	public void setProject(Project project) {
 		this.project = project;
+		this.role = role;
 	}
 
 	/**
 	 * @return the person
 	 */
+	@XmlElement
 	public Person getPerson() {
 		return person;
 	}
@@ -71,8 +74,25 @@ public class ProjectMembership {
 	}
 
 	/**
+	 * @return the project
+	 */
+	@JsonIgnore
+	@XmlTransient
+	public Project getProject() {
+		return project;
+	}
+
+	/**
+	 * @param project the project to set
+	 */
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	/**
 	 * @return the role
 	 */
+	@XmlElement
 	public String getRole() {
 		return role;
 	}
@@ -83,5 +103,41 @@ public class ProjectMembership {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return String.format("[ProjectMembership: project=%s, person=%s, role=%]", project, person, role);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+
+		ProjectMembership that = (ProjectMembership) o;
+		if (id == null) {
+			return super.equals(o);
+		}
+		return id.equals(that.id);
+
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return id != null ? id.hashCode() : super.hashCode();
+	}
+
 }

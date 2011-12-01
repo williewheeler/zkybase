@@ -4,12 +4,12 @@
 <c:url var="starIconUrl" value="/images/icons/star.png" />
 <c:url var="emptyStarIconUrl" value="/images/icons/star-empty.png" />
 
-<div id="favoriteProjectsPane">
-	<div class="paneHead">
+<div class="titleDecorator">
+	<div class="title">
 		<h2 style="display:inline">Favorite projects</h2>
 		<span class="label success">New!</span>
 	</div>
-	<div class="paneBody">
+	<div class="target">
 		<c:choose>
 			<c:when test="${empty projectList}">
 				<p>None.</p>
@@ -18,7 +18,7 @@
 				<table class="bordered-table zebra-striped" style="border-top:0">
 					<tbody>
 						<c:forEach var="project" items="${projectList}">
-							<c:url var="projectUrl" value="/projects/${project.id}" />
+							<c:url var="projectUrl" value="/projects/${project.key}" />
 							<tr>
 								<td style="width:100%"><a href="${projectUrl}"><c:out value="${project.name}" /></a></td>
 								<td><img src="${starIconUrl}" alt="Favorite" /></td>
@@ -31,20 +31,20 @@
 	</div>
 </div>
 
-<div id="allProjectsPane" style="margin-top:20px">
-	<div class="paneHead">
+<div class="titleDecorator" style="margin-top:20px">
+	<div class="title">
 		<div class="table">
 			<div class="tr">
 				<div class="td">
 					<h2>All projects</h2>
 				</div>
 				<div class="td" style="text-align:right">
-					<span class="createProject icon"><a href="${createProjectUrl}">Create project</a></span>
+					<a href="${createProjectUrl}" class="btn"><span class="createProject icon">New project</span></a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="paneBody">
+	<div class="target">
 		<c:choose>
 			<c:when test="${empty projectList}">
 				<p>None.</p>
@@ -53,7 +53,7 @@
 				<table class="bordered-table zebra-striped" style="border-top:0">
 					<tbody>
 						<c:forEach var="project" items="${projectList}">
-							<c:url var="projectUrl" value="/projects/${project.id}" />
+							<c:url var="projectUrl" value="/projects/${project.key}" />
 							<tr>
 								<td style="width:100%"><a href="${projectUrl}"><c:out value="${project.name}" /></a></td>
 								<td><img src="${starIconUrl}" alt="Favorite" /></td>

@@ -12,10 +12,12 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	
 	<context:property-placeholder location="classpath:/spring/environment.properties" />
+	
 	<context:annotation-config />
 	<context:spring-configured />
-	<context:component-scan base-package="org.skydingo.skybase.service" />
 	
+	<context:component-scan base-package="org.skydingo.skybase.service" />
+		
 	<tx:annotation-driven mode="proxy" />
 	
 	<neo4j:config storeDirectory="${graphDb.dir}" />

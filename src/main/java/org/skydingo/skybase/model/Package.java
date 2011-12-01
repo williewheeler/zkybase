@@ -32,7 +32,7 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
  */
 @NodeEntity
 public class Package {
-	@GraphId private Long nodeId;
+	@SuppressWarnings("unused") @GraphId private Long nodeId;
 	@Indexed private String name;
 	
 	@RelatedTo(type = "BUILT_FROM")
@@ -57,17 +57,17 @@ public class Package {
 	
 	public void setInstances(Set<Instance> instances) { this.instances = instances; }
 	
-	public BuiltFrom builtFrom(Project project) {
-		BuiltFrom builtFrom = new BuiltFrom(this, project);
-		this.project = project;
-		project.getPackages().add(this);
-		return builtFrom;
-	}
+//	public BuiltFrom builtFrom(Project project) {
+//		BuiltFrom builtFrom = new BuiltFrom(this, project);
+//		this.project = project;
+//		project.getPackages().add(this);
+//		return builtFrom;
+//	}
 	
-	public DeployedTo deployedTo(Instance instance) {
-		DeployedTo deployedTo = new DeployedTo(this, instance);
-		instances.add(instance);
-		instance.getPackages().add(this);
-		return deployedTo;
-	}
+//	public DeployedTo deployedTo(Instance instance) {
+//		DeployedTo deployedTo = new DeployedTo(this, instance);
+//		instances.add(instance);
+//		instance.getPackages().add(this);
+//		return deployedTo;
+//	}
 }

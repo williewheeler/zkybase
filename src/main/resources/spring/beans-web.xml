@@ -4,17 +4,54 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:oxm="http://www.springframework.org/schema/oxm"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-3.0.xsd
+		">
 
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
 <!-- 	<mvc:resources mapping="/images/**" location="/images/" /> -->
 <!-- 	<mvc:resources mapping="/resources/**" location="/resources/" /> -->
 	
+	<mvc:annotation-driven conversion-service="conversionService" />
+	
+	<!-- Must register this explicitly, or else we use the old PropertyEditor approach. -->
+	<!--
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<ref bean="keyToProjectConverter" />
+			</list>
+		</property>
+	</bean>
+	-->
+	
+	<context:component-scan base-package="org.skydingo.skybase.converter" />
 	<context:component-scan base-package="org.skydingo.skybase.web" />
+	
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+		p:basename="classpath:/spring/messages" />
+	
+	
+	<!-- =========================================================================================================== -->
+	<!-- Views                                                                                                       -->
+	<!-- =========================================================================================================== -->
+	
+	<!-- JAXB -->
+	<oxm:jaxb2-marshaller id="marshaller">
+		<oxm:class-to-be-bound name="org.skydingo.skybase.model.Person" />
+		<oxm:class-to-be-bound name="org.skydingo.skybase.model.Project" />
+		<oxm:class-to-be-bound name="org.skydingo.skybase.model.relationship.ProjectMembership" />
+	</oxm:jaxb2-marshaller>
+	
+	<!-- Jackson -->
+	<bean id="jacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper"/>
+	<bean class="org.codehaus.jackson.xc.JaxbAnnotationIntrospector" />
 	
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="mediaTypes">
@@ -34,11 +71,16 @@
 			</list>
 		</property>
 		<property name="defaultViews">
-			<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" p:objectMapper-ref="jacksonObjectMapper">
+					<property name="renderedAttributes">
+						<set>
+							<value>project</value>
+						</set>
+					</property>
+				</bean>
+				<bean class="org.springframework.web.servlet.view.xml.MarshallingView" p:marshaller-ref="marshaller" />
+			</list>
 		</property>
 	</bean>
-	
-	<bean id="messageSource"
-		class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
-		p:basename="classpath:/spring/messages" />
 </beans>

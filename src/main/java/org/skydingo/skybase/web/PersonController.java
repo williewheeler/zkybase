@@ -18,11 +18,13 @@
 package org.skydingo.skybase.web;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.neo4j.helpers.collection.IteratorUtil;
 import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.util.CollectionsUtil;
@@ -126,10 +128,14 @@ public class PersonController extends AbstractController {
 	 * @return logical view name
 	 */
 	@RequestMapping(value = "/{username}", method = RequestMethod.GET)
-	public String getPerson(@PathVariable String username, Model model) {
+	public String getPersonDetails(@PathVariable String username, Model model) {
 		Person person = personRepo.findPersonByUsername(username);
+		Collection<Person> collaborators = IteratorUtil.asCollection(personRepo.findCollaborators(person));
+		
 		addBreadcrumbs(model, new Breadcrumb("People", "/people"));
 		model.addAttribute(person);
+		model.addAttribute("collaborators", collaborators);
+		
 		return "person/personDetails";
 	}
 }

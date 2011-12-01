@@ -27,7 +27,7 @@ import org.springframework.data.neo4j.annotation.StartNode;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@RelationshipEntity
+@RelationshipEntity(type = "DEPLOYED_TO")
 public class DeployedTo {
 	@GraphId private Long id;
 	@StartNode private Package pkg;

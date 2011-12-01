@@ -5,5 +5,9 @@ $(function() {
 	
 	// Modal dialogs
 	$(".modal").modal({ backdrop: true, keyboard: true });
-	$(".modalCancelButton").click(function() { $(this).closest(".modal").modal("hide"); });
+	$(".modal .btn.cancel").click(function() { $(this).closest(".modal").modal("hide"); });
+	
+	// Tabs and pills
+	$(".tabs").tabs();
+	$(".pills").pills();
 });

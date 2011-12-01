@@ -17,18 +17,30 @@
  */
 package org.skydingo.skybase.model;
 
-import java.util.HashSet;
+import java.util.Collection;
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.neo4j.graphdb.Direction;
+import org.neo4j.helpers.collection.IteratorUtil;
+import org.skydingo.skybase.model.relationship.ProjectMembership;
 import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
+import org.springframework.data.neo4j.annotation.RelatedToVia;
 
 /**
  * Project domain object.
@@ -36,46 +48,59 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @NodeEntity
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class Project {
 	
 	// Internal node ID
-	@SuppressWarnings("unused") @GraphId private Long nodeId;
+	@GraphId private Long nodeId;
 	
 	// External ID
-	@Indexed private String id;
+	@Indexed private String key;
 	@Indexed private String name;
 	
 	private String shortDescription;
 	
 	@RelatedTo(type = "MEMBER_OF", direction = Direction.INCOMING)
-	private Set<Person> members = new HashSet<Person>();
+	private Set<Person> members;
 	
-//	@RelatedToVia(type = "MEMBER_OF", direction = Direction.INCOMING)
-//	private Iterable<ProjectMembership> memberships;
-	
+	// Use Iterable (read-only) for incoming??
 	@Fetch
-	@RelatedTo(type = "BUILT_FROM", direction = Direction.INCOMING)
-	private Set<Package> packages = new HashSet<Package>();
-	
-//	@RelatedToVia(type = "BUILT_FROM", direction = Direction.INCOMING)
-//	private Iterable<BuiltFrom> builtFroms;
+	@RelatedToVia(type = "MEMBER_OF", direction = Direction.INCOMING)
+	private Iterable<ProjectMembership> memberships;
 	
 	public Project() { }
 	
 	/**
-	 * @param id project ID
+	 * @param key project key
 	 * @param name project name
 	 */
-	public Project(String id, String name) {
-		this.id = id;
+	public Project(String key, String name) {
+		this.key = key;
 		this.name = name;
 	}
 	
+	@JsonIgnore
+	@XmlTransient
+	public Long getId() { return nodeId; }
+	
+	public void setId(Long id) { this.nodeId = id; }
+	
+	/**
+	 * Returns the project key, which is globally unique across projects and serves as an external reference.
+	 * 
+	 * @return project key
+	 */
 	@NotNull
 	@Size(max = 40)
-	public String getId() { return id; }
+	@Pattern(regexp = "^[\\w\\-]*$")
+	@XmlAttribute
+	public String getKey() { return key; }
 	
-	public void setId(String id) { this.id = id; }
+	/**
+	 * @param key project key
+	 */
+	public void setKey(String key) { this.key = key; }
 	
 	/**
 	 * Returns the project name.
@@ -84,6 +109,7 @@ public class Project {
 	 */
 	@NotNull
 	@Size(max = 160)
+	@XmlElement
 	public String getName() { return name; }
 	
 	/**
@@ -97,6 +123,7 @@ public class Project {
 	 * @return short description
 	 */
 	@Size(max = 160)
+	@XmlElement
 	public String getShortDescription() { return shortDescription; }
 	
 	/**
@@ -109,6 +136,8 @@ public class Project {
 	/**
 	 * @return project members
 	 */
+	@JsonIgnore
+	@XmlTransient
 	public Set<Person> getMembers() { return members; }
 	
 	/**
@@ -116,17 +145,53 @@ public class Project {
 	 */
 	public void setMembers(Set<Person> members) { this.members = members; }
 
-//	public Iterable<ProjectMembership> getMemberships() { return memberships; }
-	
 	/**
-	 * @return packages built from this project
+	 * @return read-only view of the project memberships
 	 */
-	public Set<Package> getPackages() { return packages; }
+	@XmlElementWrapper(name = "memberships")
+	@XmlElement(name = "membership")
+	public Collection<ProjectMembership> getMemberships() {
+		return IteratorUtil.asCollection(memberships);
+	}
 	
-	/**
-	 * @param packages packages built from this project
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	public void setPackages(Set<Package> packages) { this.packages = packages; }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+
+		Project that = (Project) o;
+		if (nodeId == null) {
+			return super.equals(o);
+		}
+		return nodeId.equals(that.nodeId);
+
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return nodeId != null ? nodeId.hashCode() : super.hashCode();
+	}
 	
-//	public Iterable<BuiltFrom> getBuiltFroms() { return builtFroms; }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "[Project"
+				+ ": nodeId=" + nodeId
+				+ ", key=" + key
+				+ ", name=" + name
+				+ "]";
+	}
+
 }

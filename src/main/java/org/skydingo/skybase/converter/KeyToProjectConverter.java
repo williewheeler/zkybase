@@ -1,5 +1,5 @@
 /* 
- * ProjectRepository.java
+ * ProjectConverter.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,28 +15,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.repository;
+package org.skydingo.skybase.converter;
 
-import org.skydingo.skybase.model.Person;
+import static org.springframework.util.Assert.notNull;
+
+import javax.inject.Inject;
+
 import org.skydingo.skybase.model.Project;
-import org.springframework.data.neo4j.annotation.Query;
-import org.springframework.data.neo4j.repository.GraphRepository;
+import org.skydingo.skybase.repository.ProjectRepository;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface ProjectRepository extends GraphRepository<Project> {
-	
-	/**
-	 * Returns the project having the given key.
-	 * 
-	 * @param key project key
-	 * @return project with the given key
+@Component
+public class KeyToProjectConverter implements Converter<String, Project> {
+	@Inject private ProjectRepository projectRepo;
+
+	/* (non-Javadoc)
+	 * @see org.springframework.core.convert.converter.Converter#convert(java.lang.Object)
 	 */
-	Project findProjectByKey(String key);
-	
-	Project findProjectByName(String name);
-	
-	@Query("start person=node({0}) match person-->project return project")
-	Iterable<Project> getProjects(Person person);
+	@Override
+	public Project convert(String key) {
+		notNull(key);
+		return projectRepo.findProjectByKey(key);
+	}
+
 }

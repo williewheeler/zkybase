@@ -21,13 +21,13 @@
 	<c:otherwise>
 		<c:set var="title">Edit project</c:set>
 		<c:set var="iconType">editProject</c:set>
-		<c:set var="formAction" value="/projects/${project.id}" />
+		<c:set var="formAction" value="/projects/${project.key}" />
 		<c:set var="formMethod">PUT</c:set>
 		<c:set var="instructions">
 			<p>Edit this project using the form below.</p>
 		</c:set>
 		<c:set var="readOnly">true</c:set>
-		<c:set var="cancelPath" value="/projects/${project.id}?a=cancelled" />
+		<c:set var="cancelPath" value="/projects/${project.key}?a=cancelled" />
 	</c:otherwise>
 </c:choose>
 
@@ -37,11 +37,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title><c:out value="${title}" /></title>
-<script type="text/javascript">
-	$(function() {
-		$("#cancelButton").click(function() { window.location = "${cancelUrl}"; });
-	});
-</script>
 </head>
 <body>
 
@@ -62,11 +57,11 @@
 		<div class="formHint">The name must be unique across projects.</div>
 	</div>
 	<div class="formItem required">
-		<label for="id">Choose a project key:</label>
-		<div class="formField"><form:input type="text" path="id" cssClass="span4" readonly="${readOnly}" /></div>
-		<form:errors path="id">
+		<label for="key">Choose a project key:</label>
+		<div class="formField"><form:input type="text" path="key" cssClass="span4" readonly="${readOnly}" /></div>
+		<form:errors path="key">
 			<div class="formErrors">
-				<span class="warning icon"><form:errors path="id" /></span>
+				<span class="warning icon"><form:errors path="key" /></span>
 			</div>
 		</form:errors>
 		<div class="formHint">
@@ -93,7 +88,7 @@
 	</div>
 	<div class="formSubmit">
 		<input class="btn primary" type="submit" value="Save project" />
-		<input id="cancelButton" class="btn" type="button" value="Cancel" style="margin-left:5px" />
+		<a href="${cancelUrl}" class="btn">Cancel</a>
 	</div>
 </form:form>
 

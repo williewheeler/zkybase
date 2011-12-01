@@ -14,11 +14,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Add a new person</title>
-<script type="text/javascript">
-	$(function() {
-		$("#cancelButton").click(function() { window.location = "${cancelUrl}"; });
-	});
-</script>
 </head>
 <body>
 
@@ -28,7 +23,7 @@
 
 <form:form cssClass="form-stacked pageForm main" modelAttribute="person" action="${peopleUrl}" method="post">
 	<div class="formItem required first">
-		<label for="username">Username:</label>
+		<label for="username">Username (must be unique across users):</label>
 		<div class="formField"><form:input type="text" path="username" cssClass="span4" /></div>
 		<form:errors path="username">
 			<div class="formErrors">
@@ -36,7 +31,6 @@
 			</div>
 		</form:errors>
 		<div class="formHint">
-			<p>The username must be unique across users.</p>
 			<p><span class="label important">Important</span> Choose carefully, as you cannot change the username once it's been set.</p>
 		</div>
 	</div>
@@ -98,7 +92,7 @@
 	</div>
 	<div class="formSubmit">
 		<input class="btn primary" type="submit" value="Save person" />
-		<input id="cancelButton" class="btn" type="button" value="Cancel" style="margin-left:5px" />
+		<a class="btn" href="${cancelUrl}">Cancel</a>
 	</div>
 </form:form>
 

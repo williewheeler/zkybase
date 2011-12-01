@@ -20,11 +20,18 @@ package org.skydingo.skybase.web;
 import static org.springframework.util.Assert.isTrue;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.skydingo.skybase.converter.KeyToProjectConverter;
+import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.model.Project;
+import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.repository.ProjectRepository;
+import org.skydingo.skybase.service.ProjectService;
 import org.skydingo.skybase.web.navigation.Breadcrumb;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,6 +40,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Project controller.
@@ -42,15 +50,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/projects")
 public class ProjectController extends AbstractController {
+	private static final Logger log = LoggerFactory.getLogger(ProjectController.class);
+	
+	@Inject private KeyToProjectConverter keyToProjectConverter;
+	
+	@Inject private PersonRepository personRepo;
 	@Inject private ProjectRepository projectRepo;
+	
+	@Inject private ProjectService projectService;
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.AbstractController#doInitBinder(org.springframework.web.bind.WebDataBinder)
 	 */
 	@Override
 	protected void doInitBinder(WebDataBinder binder) {
-		binder.setAllowedFields(new String[] { "id", "name", "shortDescription" });
+		binder.setAllowedFields(new String[] { "key", "name", "shortDescription" });
 	}
+	
+	
+	// =================================================================================================================
+	// CRUD
+	// =================================================================================================================
 	
 	/**
 	 * Generates the project creator form.
@@ -72,13 +92,13 @@ public class ProjectController extends AbstractController {
 	public String createProject(@ModelAttribute @Valid Project project, BindingResult result, Model model) {
 		
 		// FIXME Need to do these checks in the same transaction and the create to avoid races.
-		String key = project.getId();
+		String key = project.getKey();
 		String name = project.getName();
 		
 		// Check for duplicate name or key. Currently we have to do this manually because Neo4j doesn't support
 		// unique constraints. :-/
 		// http://forum.springsource.org/showthread.php?110179-does-neo4j-support-unique-index-constraint
-		if (key != null && projectRepo.findProjectById(key) != null) {
+		if (key != null && projectRepo.findProjectByKey(key) != null) {
 			result.rejectValue("id", "error.project.duplicateKey");
 		}
 		
@@ -102,9 +122,10 @@ public class ProjectController extends AbstractController {
 	 * @return logical view name
 	 */
 	@RequestMapping(value = "/{key}", method = RequestMethod.GET)
-	public String getProject(@PathVariable String key, Model model) {
+	public String getProjectDetails(@PathVariable String key, Model model) {
 		addBreadcrumbs(model);
-		model.addAttribute(projectRepo.findProjectById(key));
+		Project project = projectService.findProjectByKey(key);
+		model.addAttribute(project);
 		return "project/projectDetails";
 	}
 	
@@ -117,7 +138,7 @@ public class ProjectController extends AbstractController {
 	 */
 	@RequestMapping(value = "/{key}/edit", method = RequestMethod.GET)
 	public String getProjectEditor(@PathVariable String key, Model model) {
-		Project project = projectRepo.findProjectById(key);
+		Project project = projectRepo.findProjectByKey(key);
 		model.addAttribute(project);
 		return doGetProjectEditor(project, model);
 	}
@@ -134,7 +155,7 @@ public class ProjectController extends AbstractController {
 			Model model) {
 		
 		// Prevent POJO injection.
-		isTrue(key.equals(project.getId()));
+		isTrue(key.equals(project.getKey()));
 		
 		// Check for duplicate name.
 		// http://forum.springsource.org/showthread.php?110179-does-neo4j-support-unique-index-constraint
@@ -142,7 +163,7 @@ public class ProjectController extends AbstractController {
 		String name = project.getName();
 		if (name != null) {
 			Project found = projectRepo.findProjectByName(name);
-			if (found != null && !key.equals(found.getId())) {
+			if (found != null && !key.equals(found.getKey())) {
 				result.rejectValue("name", "error.project.duplicateName");
 			}
 		}
@@ -153,12 +174,50 @@ public class ProjectController extends AbstractController {
 		
 		// Copy the form data into the persistent project and save the latter. Otherwise we're going to create a new
 		// project with a new node ID.
-		Project pProject = projectRepo.findProjectById(key);
+		Project pProject = projectRepo.findProjectByKey(key);
 		pProject.setName(project.getName());
 		pProject.setShortDescription(project.getShortDescription());
 		
 		projectRepo.save(pProject);
 		return "redirect:/projects/" + key + "?a=updated";
+	}
+	
+	
+	// =================================================================================================================
+	// Associations
+	// =================================================================================================================
+	
+	/**
+	 * @param key
+	 * @param person
+	 * @return
+	 */
+	@RequestMapping(value = "/{key}/members", method = RequestMethod.POST)
+	public String addMember(
+			@PathVariable String key,
+			@RequestParam("member") String memberStr,
+			HttpServletResponse res) {
+		
+		log.debug("Adding member {} to project {}", memberStr, key);
+		
+		// FIXME Think I need to look up the member in a transaction so that the entity will be persistent
+//		Project project = projectRepo.findProjectByKey(key);
+		
+		// FIXME Figure out how to get the converter to kick in automatically. Should be possible; see
+		// http://blog.springsource.org/2009/11/17/spring-3-type-conversion-and-validation/
+		Project project = keyToProjectConverter.convert(key);
+		log.debug("Loaded project: {}", project);
+		
+		// FIXME Temporary parsing approach
+		int start = memberStr.indexOf('(') + 1;
+		int end = memberStr.indexOf(')');
+		String username = memberStr.substring(start, end);
+		
+		Person member = personRepo.findPersonByUsername(username);
+		log.debug("Loaded person: {}", member);
+		projectService.addMember(project, member, "Developer");
+		
+		return null;
 	}
 	
 	
@@ -176,8 +235,8 @@ public class ProjectController extends AbstractController {
 		setMode(model, MODE_EDIT);
 		
 		// Have to do this in case the user edited the project name.
-		String key = project.getId();
-		Project origProject = projectRepo.findProjectById(key);
+		String key = project.getKey();
+		Project origProject = projectRepo.findProjectByKey(key);
 		
 		addBreadcrumbs(model, new Breadcrumb(origProject.getName(), "/projects/" + key));
 		return doGetProjectForm();

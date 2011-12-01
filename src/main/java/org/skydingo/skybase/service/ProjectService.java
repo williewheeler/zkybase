@@ -1,5 +1,5 @@
 /* 
- * PersonRepository.java
+ * ProjectService.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,25 +15,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.repository;
+package org.skydingo.skybase.service;
 
 import org.skydingo.skybase.model.Person;
-import org.springframework.data.neo4j.annotation.Query;
-import org.springframework.data.neo4j.repository.GraphRepository;
+import org.skydingo.skybase.model.Project;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface PersonRepository extends GraphRepository<Person> {
+public interface ProjectService {
 	
 	/**
-	 * Returns the person having the given username.
-	 * 
-	 * @param username username
-	 * @return person with the given username
+	 * @param key
+	 * @return
 	 */
-	Person findPersonByUsername(String username);
+	Project findProjectByKey(String key);
 	
-	@Query("start person=node({0}) match person-[:MEMBER_OF]->project<-[:MEMBER_OF]-collaborator return collaborator")
-	Iterable<Person> findCollaborators(Person person);
+	/**
+	 * @param project
+	 * @param member
+	 * @param role
+	 */
+	void addMember(Project project, Person member, String role);
 }
