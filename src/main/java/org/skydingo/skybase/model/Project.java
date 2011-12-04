@@ -61,6 +61,9 @@ public class Project {
 	
 	private String shortDescription;
 	
+	@RelatedTo(type = "SUPPORTS", direction = Direction.INCOMING)
+	private Set<Farm> farms;
+	
 	@RelatedTo(type = "MEMBER_OF", direction = Direction.INCOMING)
 	private Set<Person> members;
 	
@@ -132,6 +135,12 @@ public class Project {
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
 	}
+	
+	@JsonIgnore
+	@XmlTransient
+	public Set<Farm> getFarms() { return farms; }
+	
+	public void setFarms(Set<Farm> farms) { this.farms = farms; }
 	
 	/**
 	 * @return project members

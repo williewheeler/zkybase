@@ -53,6 +53,22 @@
 	<bean id="jacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper"/>
 	<bean class="org.codehaus.jackson.xc.JaxbAnnotationIntrospector" />
 	
+	<!-- Tiles -->
+	<bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles/**/views.xml</value>
+			</list>
+		</property>
+		
+		<!-- Initialize expression language support for use in Tiles definitions. -->
+		<property name="tilesProperties">
+			<props>
+				<prop key="org.apache.tiles.evaluator.AttributeEvaluator">org.apache.tiles.evaluator.el.ELAttributeEvaluator</prop>
+			</props>
+		</property>        
+	</bean>
+	
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="mediaTypes">
 			<map>
@@ -64,8 +80,8 @@
 		</property>
 		<property name="viewResolvers">
 			<list>
-				<bean id="viewResolver"
-					class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+				<bean class="org.springframework.web.servlet.view.tiles2.TilesViewResolver" />
+				<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 					p:prefix="/WEB-INF/jsp/"
 					p:suffix=".jsp" />
 			</list>

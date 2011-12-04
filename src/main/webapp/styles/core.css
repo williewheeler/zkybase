@@ -13,7 +13,7 @@ body {
 	line-height: 1.5;
 }
 
-#doc3 { margin: 0; overflow: hidden; background-color: #FFF; }
+#doc3 { margin: 0; overflow: hidden; }
 
 #hd {
 	padding: 5px 10px;
@@ -49,6 +49,10 @@ ul.menu li:first-child { margin-left: 0; }
 
 #bdFtWrapper { width: 960px; margin: 20px auto; padding: 10px 20px; }
 
+#titleBar { margin: 0 0 30px 0; }
+
+.alert-message { width: 480px; margin: 30px auto; padding: 20px; text-align: center; }
+
 #ft {
 	margin-top: 30px;
 	border-top: 2px solid #EEE;
@@ -61,8 +65,6 @@ ul.menu li:first-child { margin-left: 0; }
 
 /* COMPONENTS ======================================================================================================= */
 
-.alert-message { width: 640px; margin: 20px auto; padding: 20px; }
-
 .modal-header, .modal-body { text-align: left; }
 
 .secondary { font-size: 93%; color: #999; }
@@ -74,7 +76,7 @@ ul.menu li:first-child { margin-left: 0; }
 	border-radius: 5px;
 }
 
-.titleDecorator .target { margin-top: 3px; }
+.titleDecorator .target { margin-top: 4px; }
 
 div.table { display: table; width: 100%; }
 

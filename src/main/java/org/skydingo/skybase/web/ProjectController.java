@@ -114,19 +114,36 @@ public class ProjectController extends AbstractController {
 		return "redirect:/?a=created";
 	}
 	
-	/**
-	 * Generates the project details view.
-	 * 
-	 * @param key project key
-	 * @param model model
-	 * @return logical view name
-	 */
 	@RequestMapping(value = "/{key}", method = RequestMethod.GET)
-	public String getProjectDetails(@PathVariable String key, Model model) {
+	public String getCurrentConfiguration(@PathVariable String key, Model model) {
 		addBreadcrumbs(model);
 		Project project = projectService.findProjectByKey(key);
 		model.addAttribute(project);
-		return "project/projectDetails";
+		return "project/details/current";
+	}
+	
+	@RequestMapping(value = "/{key}/deployment", method = RequestMethod.GET)
+	public String getDeployments(@PathVariable String key, Model model) {
+		addBreadcrumbs(model);
+		Project project = projectService.findProjectByKey(key);
+		model.addAttribute(project);
+		return "project/details/deployments";
+	}
+	
+	@RequestMapping(value = "/{key}/packages", method = RequestMethod.GET)
+	public String getPackages(@PathVariable String key, Model model) {
+		addBreadcrumbs(model);
+		Project project = projectService.findProjectByKey(key);
+		model.addAttribute(project);
+		return "project/details/packages";
+	}
+	
+	@RequestMapping(value = "/{key}/team", method = RequestMethod.GET)
+	public String getTeam(@PathVariable String key, Model model) {
+		addBreadcrumbs(model);
+		Project project = projectService.findProjectByKey(key);
+		model.addAttribute(project);
+		return "project/details/team";
 	}
 	
 	/**
@@ -228,7 +245,7 @@ public class ProjectController extends AbstractController {
 	private String doGetProjectCreator(Model model) {
 		setMode(model, MODE_CREATE);
 		addBreadcrumbs(model);
-		return doGetProjectForm();
+		return "project/form/createForm";
 	}
 	
 	private String doGetProjectEditor(Project project, Model model) {
@@ -239,10 +256,6 @@ public class ProjectController extends AbstractController {
 		Project origProject = projectRepo.findProjectByKey(key);
 		
 		addBreadcrumbs(model, new Breadcrumb(origProject.getName(), "/projects/" + key));
-		return doGetProjectForm();
-	}
-	
-	private String doGetProjectForm() {
-		return "project/projectForm";
+		return "project/form/editForm";
 	}
 }
