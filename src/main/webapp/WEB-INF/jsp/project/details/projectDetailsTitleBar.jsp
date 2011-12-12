@@ -26,15 +26,15 @@ $(function() {
 		<h1 style="display:inline"><c:out value="${project.name}" /></h1>
 		<span style="color:#666;">(<c:out value="${project.key}" />)</span>
 		<ul class="menu" style="display:inline;margin-left:20px;white-space:nowrap;">
-			<li><a href="${editUrl}" title="${editProjectTooltip}" class="btn"><span class="editProject icon"><spring:message code="label.common.edit" /></span></a></li>
-			<li><a id="deleteProjectLink" href="#" title="${deleteProjectTooltip}" class="btn"><span class="deleteProject icon"><spring:message code="label.common.delete" /></span></a></li>
+			<li><span class="json icon"><a href="${jsonUrl}" title="${jsonTooltip}"><spring:message code="label.common.json" /></a></span></li>
+			<li><span class="xml icon"><a href="${xmlUrl}" title="${xmlTooltip}"><spring:message code="label.common.xml" /></a></span></li>
 		</ul>
 	</div>
 	<div class="span6" style="text-align:right">
 		<h1 style="display:inline"></h1> <%-- Valigns the following menu --%>
 		<ul class="menu" style="display:inline;margin-left:20px">
-			<li><span class="json icon"><a href="${jsonUrl}" title="${jsonTooltip}"><spring:message code="label.common.json" /></a></span></li>
-			<li><span class="xml icon"><a href="${xmlUrl}" title="${xmlTooltip}"><spring:message code="label.common.xml" /></a></span></li>
+			<li><a href="${editUrl}" title="${editProjectTooltip}" class="btn"><span class="editProject icon"><spring:message code="label.common.edit" /></span></a></li>
+			<li><a id="deleteProjectLink" href="#" title="${deleteProjectTooltip}" class="btn"><span class="deleteProject icon"><spring:message code="label.common.delete" /></span></a></li>
 		</ul>
 	</div>
 </div>

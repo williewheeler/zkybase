@@ -38,5 +38,5 @@ public interface ProjectRepository extends GraphRepository<Project> {
 	Project findProjectByName(String name);
 	
 	@Query("start person=node({0}) match person-->project return project")
-	Iterable<Project> getProjects(Person person);
+	Iterable<Project> findByPerson(Person person);
 }

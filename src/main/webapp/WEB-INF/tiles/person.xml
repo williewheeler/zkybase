@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+		"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	
+	<!-- Create person form -->
+	<definition name="createPersonForm" extends="pageTemplate">
+		<put-attribute name="title" value="Create new person" />
+		<put-attribute name="titleBar" value="/WEB-INF/jsp/person/form/personFormTitleBar.jsp" />
+		<put-attribute name="alerts" value="/WEB-INF/jsp/person/form/personFormAlerts.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/person/form/personForm.jsp" />
+	</definition>
+	
+	<!-- Person list -->
+	<definition name="personList" extends="pageTemplate">
+		<put-attribute name="title" value="People" />
+		<put-attribute name="titleBar" value="/WEB-INF/jsp/person/list/personListTitleBar.jsp" />
+		<put-attribute name="alerts" value="/WEB-INF/jsp/person/list/personListAlerts.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/person/list/personList.jsp" />
+	</definition>
+	
+	<!-- Person details -->
+	<definition name="personDetails" extends="pageTemplate">
+		<put-attribute name="title" value="Person [FIXME]" />
+		<put-attribute name="titleBar" value="/WEB-INF/jsp/person/details/personDetailsTitleBar.jsp" />
+		<put-attribute name="alerts" value="/WEB-INF/jsp/person/details/personDetailsAlerts.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/person/details/personDetails.jsp" />
+	</definition>
+
+	<!-- Edit person form -->
+	<definition name="editPersonForm" extends="pageTemplate">
+		<put-attribute name="title" value="Edit person" />
+		<put-attribute name="titleBar" value="/WEB-INF/jsp/person/form/personFormTitleBar.jsp" />
+		<put-attribute name="alerts" value="/WEB-INF/jsp/person/form/personFormAlerts.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/person/form/personForm.jsp" />
+	</definition>
+</tiles-definitions>

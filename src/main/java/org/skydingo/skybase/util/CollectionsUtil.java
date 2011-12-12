@@ -20,6 +20,8 @@ package org.skydingo.skybase.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.neo4j.helpers.collection.IteratorUtil;
+
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
@@ -29,9 +31,7 @@ public final class CollectionsUtil {
 	 * @param iterable iterable
 	 * @return list
 	 */
-	public static <E> List<E> toList(Iterable<E> iterable) {
-		List<E> list = new ArrayList<E>();
-		for (E element : iterable) { list.add(element); }
-		return list;
+	public static <E> List<E> asList(Iterable<E> iterable) {
+		return new ArrayList<E>(IteratorUtil.asCollection(iterable));
 	}
 }

@@ -20,6 +20,5 @@ package org.skydingo.skybase.model;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class FarmTemplate {
-
+public class FarmTemplate extends AbstractFarm {
 }

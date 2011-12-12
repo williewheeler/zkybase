@@ -35,7 +35,7 @@ public interface PackageRepository extends GraphRepository<Package> {
 	 * @param name package name
 	 * @return all packages having the given name
 	 */
-	List<Package> findPackageByName(String name);
+//	List<Package> findPackageByName(String name);
 	
 	/**
 	 * Returns the packages for the given project.
@@ -44,5 +44,5 @@ public interface PackageRepository extends GraphRepository<Package> {
 	 * @return packages for the given project
 	 */
 	@Query("start project=node({0}) match package-->project return package")
-	Iterable<Package> getPackages(Project project);
+	Iterable<Package> findPackagesByProject(Project project);
 }

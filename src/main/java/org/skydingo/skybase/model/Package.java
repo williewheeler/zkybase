@@ -17,57 +17,92 @@
  */
 package org.skydingo.skybase.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.skydingo.skybase.model.relationship.BuiltFrom;
-import org.skydingo.skybase.model.relationship.DeployedTo;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 
 /**
+ * Package entity.
+ * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @NodeEntity
 public class Package {
-	@SuppressWarnings("unused") @GraphId private Long nodeId;
-	@Indexed private String name;
+	@GraphId private Long id;
 	
 	@RelatedTo(type = "BUILT_FROM")
 	private Project project;
 	
-	@RelatedTo(type = "DEPLOYED_TO")
-	private Set<Instance> instances = new HashSet<Instance>();
+	@Indexed private String groupId;
+	@Indexed private String packageId;
+	@Indexed private String version;
 	
+	/**
+	 * 
+	 */
 	public Package() { }
 	
-	public Package(String name) { this.name = name; }
+	/**
+	 * @param project
+	 * @param groupId
+	 * @param packageId
+	 * @param version
+	 */
+	public Package(Project project, String groupId, String packageId, String version) {
+		this.project = project;
+		this.groupId = groupId;
+		this.packageId = packageId;
+		this.version = version;
+	}
 	
-	public String getName() { return name; }
+	/**
+	 * @return
+	 */
+	public Long getId() { return id; }
 	
-	public void setName(String name) { this.name = name; }
+	/**
+	 * @param id
+	 */
+	public void setId(Long id) { this.id = id; }
 	
+	/**
+	 * @return project this package was built from
+	 */
 	public Project getProject() { return project; }
 	
+	/**
+	 * @param project project this package was built from
+	 */
 	public void setProject(Project project) { this.project = project; }
 	
-	public Set<Instance> getInstances() { return instances; }
+	/**
+	 * @return
+	 */
+	public String getGroupId() { return groupId; }
 	
-	public void setInstances(Set<Instance> instances) { this.instances = instances; }
+	/**
+	 * @param groupId
+	 */
+	public void setGroupId(String groupId) { this.groupId = groupId; }
 	
-//	public BuiltFrom builtFrom(Project project) {
-//		BuiltFrom builtFrom = new BuiltFrom(this, project);
-//		this.project = project;
-//		project.getPackages().add(this);
-//		return builtFrom;
-//	}
+	/**
+	 * @return
+	 */
+	public String getPackageId() { return packageId; }
 	
-//	public DeployedTo deployedTo(Instance instance) {
-//		DeployedTo deployedTo = new DeployedTo(this, instance);
-//		instances.add(instance);
-//		instance.getPackages().add(this);
-//		return deployedTo;
-//	}
+	/**
+	 * @param packageId
+	 */
+	public void setPackageId(String packageId) { this.packageId = packageId; }
+	
+	/**
+	 * @return
+	 */
+	public String getVersion() { return version; }
+	
+	/**
+	 * @param version
+	 */
+	public void setVersion(String version) { this.version = version; }
 }

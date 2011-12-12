@@ -4,9 +4,9 @@
 	<div class="title">
 		<div class="table">
 			<div class="tr">
-				<div class="td"><h2><span class="servers icon">Farms</span></h2></div>
+				<div class="td"><h2><span class="servers icon">Farm templates</span></h2></div>
 				<div class="td" style="text-align:right">
-					<a id="addFarmLink" href="#" title="Add an existing farm to this project" class="btn"><span class="add icon">Add farm</span></a>
+					<a href="#section2" title="Creates a farm template for this project" class="btn"><span class="add icon">Create farm template</span></a>
 				</div>
 			</div>
 		</div>
@@ -16,26 +16,26 @@
 			<thead>
 				<tr>
 					<th>Farm</th>
-					<th>Package</th>
+					<th>Instances</th>
+					<th>Instance Type</th>
+					<th>Image ID</th>
+					<th>Security Group</th>
+					<th>Key Pair</th>
+					<th>IP Address</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td><a href="#">Skybase Development</a></td>
-					<td><a href="#">1.1.0-SNAPSHOT</a></td>
-				</tr>
-				<tr>
-					<td><a href="#">Skybase QA</a></td>
-					<td><a href="#">1.1.0.132</a></td>
-				</tr>
-				<tr>
-					<td><a href="#">Skybase System Test</a></td>
-					<td><a href="#">1.0.1.129</a></td>
-				</tr>
-				<tr>
-					<td><a href="#">Skybase Production</a></td>
-					<td><a href="#">1.0.1.129</a></td>
-				</tr>
+				<c:forEach var="farmTemplate" items="${farmTemplateList}">
+					<tr>
+						<td><a href="#"><c:out value="${farmTemplate.name}" /></a></td>
+						<td></td>
+						<td><c:out value="${farmTemplate.instanceType}" /></td>
+						<td><c:out value="${farmTemplate.imageId}" /></td>
+						<td><c:out value="${farmTemplate.securityGroup}" /></td>
+						<td><c:out value="${farmTemplate.keyPair}" /></td>
+						<td><c:out value="${farmTemplate.ipAddress}" /></td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

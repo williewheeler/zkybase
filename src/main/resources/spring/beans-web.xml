@@ -31,7 +31,7 @@
 	-->
 	
 	<context:component-scan base-package="org.skydingo.skybase.converter" />
-	<context:component-scan base-package="org.skydingo.skybase.web" />
+	<context:component-scan base-package="org.skydingo.skybase.web.controller" />
 	
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
@@ -46,18 +46,23 @@
 	<oxm:jaxb2-marshaller id="marshaller">
 		<oxm:class-to-be-bound name="org.skydingo.skybase.model.Person" />
 		<oxm:class-to-be-bound name="org.skydingo.skybase.model.Project" />
+
 		<oxm:class-to-be-bound name="org.skydingo.skybase.model.relationship.ProjectMembership" />
+		<oxm:class-to-be-bound name="org.skydingo.skybase.web.jit.JitNode" />
 	</oxm:jaxb2-marshaller>
 	
 	<!-- Jackson -->
-	<bean id="jacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper"/>
-	<bean class="org.codehaus.jackson.xc.JaxbAnnotationIntrospector" />
+	<bean id="jaxbAnnIntrospector" class="org.codehaus.jackson.xc.JaxbAnnotationIntrospector" />
+	<bean id="jacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper">
+		<property name="serializationConfig.annotationIntrospector" ref="jaxbAnnIntrospector" />
+		<property name="deserializationConfig.annotationIntrospector" ref="jaxbAnnIntrospector" />
+	</bean>
 	
 	<!-- Tiles -->
 	<bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
 		<property name="definitions">
 			<list>
-				<value>/WEB-INF/tiles/**/views.xml</value>
+				<value>/WEB-INF/tiles/**/*.xml</value>
 			</list>
 		</property>
 		
@@ -74,6 +79,10 @@
 			<map>
 				<entry key="do" value="text/html" />
 				<entry key="html" value="text/html" />
+				
+				<!-- FIXME -->
+				<entry key="jit" value="application/jit" />
+				
 				<entry key="json" value="application/json" />
 				<entry key="xml" value="application/xml" />
 			</map>
@@ -91,11 +100,16 @@
 				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" p:objectMapper-ref="jacksonObjectMapper">
 					<property name="renderedAttributes">
 						<set>
+							<value>json</value>
+							<value>person</value>
 							<value>project</value>
 						</set>
 					</property>
 				</bean>
 				<bean class="org.springframework.web.servlet.view.xml.MarshallingView" p:marshaller-ref="marshaller" />
+				
+				<!-- FIXME We'll need different views for different objects, just like with RssView -->
+				<bean class="org.skydingo.skybase.web.view.JitView" p:objectMapper-ref="jacksonObjectMapper" />
 			</list>
 		</property>
 	</bean>

@@ -7,12 +7,17 @@
 <tiles:useAttribute name="activeTab" />
 
 <c:choose>
+<%--
 	<c:when test="${activeTab == 'current'}">
 		<c:set var="currentClass">active</c:set>
 	</c:when>
 	<c:when test="${activeTab == 'deployments'}">
 		<c:set var="deploymentsClass">active</c:set>
 	</c:when>
+	<c:when test="${activeTab == 'farms'}">
+		<c:set var="farmsClass">active</c:set>
+	</c:when>
+--%>
 	<c:when test="${activeTab == 'packages'}">
 		<c:set var="packagesClass">active</c:set>
 	</c:when>
@@ -21,14 +26,20 @@
 	</c:when>
 </c:choose>
 
+<%--
 <c:url var="currentUrl" value="${projectPath}" />
 <c:url var="deploymentUrl" value="${projectPath}/deployment" />
+<c:url var="farmsUrl" value="${projectPath}/farms" />
+--%>
 <c:url var="packagesUrl" value="${projectPath}/packages" />
 <c:url var="teamUrl" value="${projectPath}/team" />
 
 <ul class="tabs">
+<%--
 	<li class="${currentClass}"><a href="${currentUrl}">Current Configuration</a></li>
-	<li class="${deploymentsClass}"><a href="${deploymentUrl}">Deployment Planning</a></li>
+	<li class="${deploymentsClass}"><a href="${deploymentUrl}">Desired Configuration</a></li>
+	<li class="${farmsClass}"><a href="${farmsUrl}">Farms</a></li>
+--%>
 	<li class="${packagesClass}"><a href="${packagesUrl}">Packages</a></li>
 	<li class="${teamClass}"><a href="${teamUrl}">Team</a></li>
 </ul>

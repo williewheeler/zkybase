@@ -17,7 +17,10 @@
  */
 package org.skydingo.skybase.repository;
 
+import java.util.Set;
+
 import org.skydingo.skybase.model.Person;
+import org.skydingo.skybase.model.Project;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
@@ -32,8 +35,17 @@ public interface PersonRepository extends GraphRepository<Person> {
 	 * @param username username
 	 * @return person with the given username
 	 */
-	Person findPersonByUsername(String username);
+	Person findByUsername(String username);
 	
+	// Return a Set here (instead of an Iterable) to eliminate duplicates
+	@Query("start project=node({0}) match project<--person return person")
+	Set<Person> findByProject(Project project);
+	
+	/**
+	 * @param person
+	 * @return
+	 */
+	// Return a Set here (instead of an Iterable) to eliminate duplicates
 	@Query("start person=node({0}) match person-[:MEMBER_OF]->project<-[:MEMBER_OF]-collaborator return collaborator")
-	Iterable<Person> findCollaborators(Person person);
+	Set<Person> findCollaborators(Person person);
 }

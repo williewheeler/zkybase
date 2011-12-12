@@ -41,13 +41,17 @@ ul.menu, #breadcrumbs ul, #sessionInfo ul { margin: 0; padding: 0; }
 
 ul.menu li, #breadcrumbs li, #sessionInfo li { display: inline; }
 
-ul.menu li { margin-left: 10px; }
+ul.menu li { margin-left: 5px; }
 
 ul.menu li:first-child { margin-left: 0; }
 
 #breadcrumbs li:after { content: " > "; }
 
-#bdFtWrapper { width: 960px; margin: 20px auto; padding: 10px 20px; }
+#bdFtWrapper {
+	width: 940px;
+	margin: 20px auto;
+/* 	padding: 10px 20px; */
+}
 
 #titleBar { margin: 0 0 30px 0; }
 
@@ -84,14 +88,24 @@ div.tr { display: table-row; }
 
 div.td { display: table-cell; }
 
-.pane {
+.section.first {
+	margin: 0 0 20px 0;
+}
+
+.section {
 	margin: 20px 0;
 }
 
 .grid {
+	margin: 0;
 }
 
-.grid .row {
+.gridBody {
+	margin: 0;
+	border-top: 2px solid #DDDDD0;
+}
+
+.gridBody .row {
 	margin: 0;
 	padding: 15px 0;
 	border-top: 1px solid #FFF;
@@ -99,11 +113,7 @@ div.td { display: table-cell; }
 	background-color: #EEEEE0;
 }
 
-.grid .row.first {
-	border-top: 2px solid #DDDDD0;
-}
-
-.grid .span3 {
+.gridLabel {
 	text-align: right;
 }
 
@@ -128,10 +138,12 @@ a { color: #009694; }
 	width: 680px;
 	margin: 20px 0;
 	padding: 0;
-	
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+}
+
+.modalForm {
+	width: 100%;
+	margin: 20px 0;
+	padding: 0;
 }
 
 .formItem {
@@ -207,6 +219,7 @@ a.btn { outline: 0; }
 .add.icon { background-image: url('../images/icons/plus.png'); }
 .addUser.icon { background-image: url('../images/icons/user--plus.png'); }
 .asterisk.icon { background-image: url('../images/icons/asterisk-small.png'); }
+.createPackage.icon { background-image: url('../images/icons/box--plus.png'); }
 .createPerson.icon { background-image: url('../images/icons/user--plus.png'); }
 .createProject.icon { background-image: url('../images/icons/folder--plus.png'); }
 .dashboard.icon { background-image: url('../images/icons/dashboard.png'); }
@@ -214,10 +227,17 @@ a.btn { outline: 0; }
 .deleteProject.icon { background-image: url('../images/icons/folder--minus.png'); }
 .editPerson.icon { background-image: url('../images/icons/user--pencil.png'); }
 .editProject.icon { background-image: url('../images/icons/folder--pencil.png'); }
+.email.icon { background-image: url('../images/icons/mail.png'); }
 .feed.icon { background-image: url('../images/icons/feed.png'); }
 .json.icon { background-image: url('../images/icons/json.png'); }
+.mobilePhone.icon { background-image: url('../images/icons/mobile-phone.png'); }
 .package.icon { background-image: url('../images/icons/box.png'); }
 .servers.icon { background-image: url('../images/icons/servers.png'); }
+.telephone.icon { background-image: url('../images/icons/telephone.png'); }
 .users.icon { background-image: url('../images/icons/users.png'); }
 .warning.icon { background-image: url('../images/icons/exclamation.png'); }
 .xml.icon { background-image: url('../images/icons/document-code.png'); }
+
+#viewport { overflow: hidden; width: 940px; }
+.scrollPane { width: 2400px; }
+.scrollPane .sub { float: left; width: 940px; padding-right: 80px; }

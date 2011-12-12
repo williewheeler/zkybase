@@ -22,7 +22,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.model.Project;
 import org.springframework.data.neo4j.annotation.EndNode;
@@ -39,7 +38,7 @@ import org.springframework.data.neo4j.annotation.StartNode;
 public class ProjectMembership {
 	@GraphId private Long id;
 	@Fetch @StartNode private Person person;
-	@EndNode private Project project;
+	@Fetch @EndNode private Project project;
 	private String role;
 	
 	/**
@@ -62,47 +61,34 @@ public class ProjectMembership {
 	 * @return the person
 	 */
 	@XmlElement
-	public Person getPerson() {
-		return person;
-	}
+	public Person getPerson() { return person; }
 
 	/**
 	 * @param person the person to set
 	 */
-	public void setPerson(Person person) {
-		this.person = person;
-	}
+	public void setPerson(Person person) { this.person = person; }
 
 	/**
 	 * @return the project
 	 */
-	@JsonIgnore
 	@XmlTransient
-	public Project getProject() {
-		return project;
-	}
+	public Project getProject() { return project; }
 
 	/**
 	 * @param project the project to set
 	 */
-	public void setProject(Project project) {
-		this.project = project;
-	}
+	public void setProject(Project project) { this.project = project; }
 
 	/**
 	 * @return the role
 	 */
 	@XmlElement
-	public String getRole() {
-		return role;
-	}
+	public String getRole() { return role; }
 
 	/**
 	 * @param role the role to set
 	 */
-	public void setRole(String role) {
-		this.role = role;
-	}
+	public void setRole(String role) { this.role = role; }
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -117,19 +103,11 @@ public class ProjectMembership {
 	 */
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-
+		if (this == o) { return true; }
+		if (o == null || getClass() != o.getClass()) { return false; }
 		ProjectMembership that = (ProjectMembership) o;
-		if (id == null) {
-			return super.equals(o);
-		}
+		if (id == null) { return super.equals(o); }
 		return id.equals(that.id);
-
 	}
 
 	/* (non-Javadoc)

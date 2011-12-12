@@ -53,10 +53,10 @@ public class ProjectServiceImpl implements ProjectService {
 		notNull(key);
 		Project project = projectRepo.findProjectByKey(key);
 		log.debug("Found project: {}", project);
-		Set<Person> members = project.getMembers();
-		for (Person member : members) {
-			log.debug("Member: {}", member);
-		}
+//		Set<Person> members = project.getMembers();
+//		for (Person member : members) {
+//			log.debug("Member: {}", member);
+//		}
 		return project;
 	}
 	

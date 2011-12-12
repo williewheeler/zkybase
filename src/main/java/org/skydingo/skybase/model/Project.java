@@ -17,7 +17,6 @@
  */
 package org.skydingo.skybase.model;
 
-import java.util.Collection;
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
@@ -31,9 +30,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.neo4j.graphdb.Direction;
-import org.neo4j.helpers.collection.IteratorUtil;
 import org.skydingo.skybase.model.relationship.ProjectMembership;
 import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.GraphId;
@@ -62,10 +59,13 @@ public class Project {
 	private String shortDescription;
 	
 	@RelatedTo(type = "SUPPORTS", direction = Direction.INCOMING)
-	private Set<Farm> farms;
+	private Set<FarmTemplate> farmTemplates;
 	
-	@RelatedTo(type = "MEMBER_OF", direction = Direction.INCOMING)
-	private Set<Person> members;
+	@RelatedTo(type = "BUILT_FROM", direction = Direction.INCOMING)
+	private Set<Package> packages;
+	
+//	@RelatedTo(type = "MEMBER_OF", direction = Direction.INCOMING)
+//	private Set<Person> members;
 	
 	// Use Iterable (read-only) for incoming??
 	@Fetch
@@ -83,8 +83,6 @@ public class Project {
 		this.name = name;
 	}
 	
-	@JsonIgnore
-	@XmlTransient
 	public Long getId() { return nodeId; }
 	
 	public void setId(Long id) { this.nodeId = id; }
@@ -136,51 +134,52 @@ public class Project {
 		this.shortDescription = shortDescription;
 	}
 	
-	@JsonIgnore
+	/**
+	 * @return
+	 */
 	@XmlTransient
-	public Set<Farm> getFarms() { return farms; }
+	public Set<FarmTemplate> getFarmTemplates() { return farmTemplates; }
 	
-	public void setFarms(Set<Farm> farms) { this.farms = farms; }
+	/**
+	 * @param farmTemplates
+	 */
+	public void setFarmTemplates(Set<FarmTemplate> farmTemplates) { this.farmTemplates = farmTemplates; }
+	
+	/**
+	 * @return
+	 */
+	@XmlTransient
+	public Set<Package> getPackages() { return packages; }
 	
 	/**
 	 * @return project members
 	 */
-	@JsonIgnore
-	@XmlTransient
-	public Set<Person> getMembers() { return members; }
+//	@XmlTransient
+//	public Set<Person> getMembers() { return members; }
 	
 	/**
 	 * @param members project members
 	 */
-	public void setMembers(Set<Person> members) { this.members = members; }
+//	public void setMembers(Set<Person> members) { this.members = members; }
 
 	/**
 	 * @return read-only view of the project memberships
 	 */
-	@XmlElementWrapper(name = "memberships")
-	@XmlElement(name = "membership")
-	public Collection<ProjectMembership> getMemberships() {
-		return IteratorUtil.asCollection(memberships);
-	}
+//	@XmlElementWrapper(name = "memberships")
+//	@XmlElement(name = "membership")
+	@XmlTransient
+	public Iterable<ProjectMembership> getMemberships() { return memberships; }
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-
+		if (this == o) { return true; }
+		if (o == null || getClass() != o.getClass()) { return false; }
 		Project that = (Project) o;
-		if (nodeId == null) {
-			return super.equals(o);
-		}
+		if (nodeId == null) { return super.equals(o); }
 		return nodeId.equals(that.nodeId);
-
 	}
 
 	/* (non-Javadoc)

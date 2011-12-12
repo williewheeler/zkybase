@@ -1,4 +1,5 @@
 $(function() {
+	$.localScroll();
 	$("a").twipsy({ delayIn: 1000 });
 	$("form.main :input:not(:hidden, :submit):first").focus();
 	$(".alert-message").alert().hide().fadeIn("fast");

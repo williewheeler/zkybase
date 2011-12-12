@@ -52,12 +52,12 @@ public class PackageIT {
 	public void tearDown() throws Exception {
 	}
 	
-	@Test
-	public void persistedProjectShouldBeRetrievableFromGraphDb() {
-		Package pkg = pkgRepo.save(new Package("skybase"));
-		List<Package> retrievedPkgs = pkgRepo.findPackageByName("skybase");
-		Package retrievedPkg = retrievedPkgs.get(0);
-		assertNotNull(retrievedPkgs);
-		assertEquals("skybase", retrievedPkg.getName());
-	}
+//	@Test
+//	public void persistedProjectShouldBeRetrievableFromGraphDb() {
+//		Package pkg = pkgRepo.save(new Package("skybase"));
+//		List<Package> retrievedPkgs = pkgRepo.findPackageByName("skybase");
+//		Package retrievedPkg = retrievedPkgs.get(0);
+//		assertNotNull(retrievedPkgs);
+//		assertEquals("skybase", retrievedPkg.getPackageId());
+//	}
 }

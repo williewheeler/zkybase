@@ -17,7 +17,6 @@
  */
 package org.skydingo.skybase.model;
 
-import java.util.Collection;
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
@@ -30,8 +29,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
+import org.neo4j.graphdb.Direction;
 import org.skydingo.skybase.model.relationship.ProjectMembership;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
@@ -41,23 +40,24 @@ import org.springframework.data.neo4j.annotation.RelatedToVia;
 import org.springframework.data.neo4j.support.index.IndexType;
 
 /**
- * Person domain object.
+ * Person entity.
  * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @NodeEntity
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class Person {
-	@GraphId private Long nodeId;
+public class Person implements Comparable<Person> {
+	@GraphId private Long id;
 	
+	// TODO Figure out why it's not good enough to put @Indexed here without the index name or type.
 	@Indexed(indexType = IndexType.FULLTEXT, indexName = "searchByUsername")
 	private String username;
 	
-	@Indexed(indexType = IndexType.FULLTEXT, indexName = "searchByFirstName")
+//	@Indexed(indexType = IndexType.FULLTEXT, indexName = "searchByFirstName")
 	private String firstName;
 	
-	@Indexed(indexType = IndexType.FULLTEXT, indexName = "searchByLastName")
+//	@Indexed(indexType = IndexType.FULLTEXT, indexName = "searchByLastName")
 	private String lastName;
 	
 	private String title;
@@ -65,12 +65,16 @@ public class Person {
 	private String mobilePhone;
 	private String email;
 	
-	@RelatedTo(type = "MEMBER_OF")
-	private Set<Project> projects;
+	// FIXME Don't allow graph cycles here
+//	@Fetch
+	@RelatedTo(type = "REPORTS_TO")
+	private Person manager;
 	
-	// Use Collection for outgoing?
+	@RelatedTo(type = "REPORTS_TO", direction = Direction.INCOMING)
+	private Set<Person> directReports;
+	
 	@RelatedToVia(type = "MEMBER_OF")
-	private Collection<ProjectMembership> memberships;
+	private Set<ProjectMembership> memberships;
 	
 	/**
 	 * Creates a new person.
@@ -91,11 +95,10 @@ public class Person {
 		this.lastName = lastName;
 	}
 	
-	@JsonIgnore
-	@XmlTransient
-	public Long getId() { return nodeId; }
+	@XmlAttribute
+	public Long getId() { return id; }
 	
-	public void setId(Long id) { this.nodeId = id; }
+	public void setId(Long id) { this.id = id; }
 	
 	/**
 	 * @return username
@@ -103,7 +106,7 @@ public class Person {
 	@NotNull
 	@Size(max = 40)
 	@Pattern(regexp = "^[\\w\\-]*$")
-	@XmlAttribute
+	@XmlElement
 	public String getUsername() { return username; }
 	
 	/**
@@ -140,7 +143,6 @@ public class Person {
 	/**
 	 * @return first and last names
 	 */
-	@JsonIgnore
 	@XmlTransient
 	public String getFirstNameLastName() {
 		return firstName + " " + lastName;
@@ -198,27 +200,28 @@ public class Person {
 	/**
 	 * @return
 	 */
-	@JsonIgnore
-	@XmlTransient
-	public Set<Project> getProjects() {
-		return projects;
-	}
+	public Person getManager() { return manager; }
 	
 	/**
-	 * @param projects
+	 * @param manager
 	 */
-	public void setProjects(Set<Project> projects) {
-		this.projects = projects;
-	}
+	public void setManager(Person manager) { this.manager = manager; }
 	
 	/**
 	 * @return
 	 */
-	@JsonIgnore
+	public Set<Person> getDirectReports() { return directReports; }
+	
+	/**
+	 * @param directReports
+	 */
+	public void setDirectReports(Set<Person> directReports) { this.directReports = directReports; }
+	
+	/**
+	 * @return
+	 */
 	@XmlTransient
-	public Iterable<ProjectMembership> getMemberships() {
-		return memberships;
-	}
+	public Iterable<ProjectMembership> getMemberships() { return memberships; }
 	
 	/**
 	 * Adds this person on as a member of the given project, with the given role.
@@ -228,29 +231,21 @@ public class Person {
 	 * @return membership
 	 */
 	public ProjectMembership memberOf(Project project, String role) {
-		final ProjectMembership membership = new ProjectMembership(this, project, role);
+		ProjectMembership membership = new ProjectMembership(this, project, role);
 		memberships.add(membership);
 		return membership;
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-
+		if (this == o) { return true; }
+		if (o == null || getClass() != o.getClass()) { return false; }
 		Person that = (Person) o;
-		if (nodeId == null) {
-			return super.equals(o);
-		}
-		return nodeId.equals(that.nodeId);
-
+		if (id == null) { return super.equals(o); }
+		return id.equals(that.id);
 	}
 
 	/* (non-Javadoc)
@@ -258,7 +253,16 @@ public class Person {
 	 */
 	@Override
 	public int hashCode() {
-		return (nodeId != null ? nodeId.hashCode() : super.hashCode());
+		return (id != null ? id.hashCode() : super.hashCode());
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(Person that) {
+		int comp = getFirstNameLastName().compareTo(that.getFirstNameLastName());
+		return (comp == 0 ? getUsername().compareTo(that.getUsername()) : comp);
 	}
 	
 	/* (non-Javadoc)
@@ -267,7 +271,7 @@ public class Person {
 	@Override
 	public String toString() {
 		return "[Person"
-				+ ": nodeId=" + nodeId
+				+ ": nodeId=" + id
 				+ ", username=" + username
 				+ ", firstName=" + firstName
 				+ ", lastName=" + lastName

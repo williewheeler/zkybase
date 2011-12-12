@@ -8,13 +8,19 @@
 <c:url var="jqueryUiCssUrl" value="/scripts/jquery-ui-1.8.16.custom/css/cupertino/jquery-ui-1.8.16.custom.css" />
 <c:url var="coreCssUrl" value="/styles/core.css" />
 
-<%-- JavaScript --%>
+<%-- jQuery --%>
 <c:url var="jqueryJsUrl" value="/scripts/jquery-1.7.1.min.js" />
+<c:url var="jqueryLocalScrollJsUrl" value="/scripts/jquery.localscroll-1.2.7-min.js" />
+<c:url var="jqueryScrollToJsUrl" value="/scripts/jquery.scrollTo-1.4.2-min.js" />
 <c:url var="jqueryUiJsUrl" value="/scripts/jquery-ui-1.8.16.custom/js/jquery-ui-1.8.16.custom.min.js" />
+
+<%-- Twitter Bootstrap --%>
 <c:url var="bsAlertsJsUrl" value="/scripts/bootstrap-alerts-1.4.0.js" />
 <c:url var="bsModalJsUrl" value="/scripts/bootstrap-modal-1.4.0.js" />
 <c:url var="bsTabsJsUrl" value="/scripts/bootstrap-tabs-1.4.0.js" />
 <c:url var="bsTwipsyJsUrl" value="/scripts/bootstrap-twipsy-1.4.0.js" />
+
+<%-- Custom JS --%>
 <c:url var="coreJsUrl" value="/scripts/core.js" />
 
 <c:url var="faviconUrl" value="/images/icons/favicon.ico" />
@@ -33,6 +39,8 @@
 <link rel="stylesheet" type="text/css" href="${coreCssUrl}" />
 
 <script type="text/javascript" src="${jqueryJsUrl}"></script>
+<script type="text/javascript" src="${jqueryScrollToJsUrl}"></script>
+<script type="text/javascript" src="${jqueryLocalScrollJsUrl}"></script>
 <script type="text/javascript" src="${jqueryUiJsUrl}"></script>
 <script type="text/javascript" src="${bsAlertsJsUrl}"></script>
 <script type="text/javascript" src="${bsModalJsUrl}"></script>
@@ -41,8 +49,8 @@
 <script type="text/javascript" src="${coreJsUrl}"></script>
 </head>
 <body>
-
 <div id="hd">
+	<a name="top" />
 	<div id="logo" style="float:left"><a href="${dashboardUrl}">Skybase</a></div>
 	<div id="sessionInfo" style="float:right">
 		<ul>
@@ -78,6 +86,7 @@
 				To participate in its development, please visit <a href="https://github.com/williewheeler/skybase">https://github.com/williewheeler/skybase</a>.</p>
 				<p>Copyright &copy; 2011-2012 <a href="http://wheelersoftware.com/">Willie Wheeler</a> and the original authors. All rights reserved.<br />
 				Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.</p>
+				<p><a href="#top">Top</a></p>
 			</div>
 		</div>
 	</div>

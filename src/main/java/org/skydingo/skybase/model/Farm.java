@@ -1,5 +1,5 @@
 /* 
- * Farm.java
+ * FarmInstance.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -17,49 +17,9 @@
  */
 package org.skydingo.skybase.model;
 
-import org.springframework.data.neo4j.annotation.GraphId;
-import org.springframework.data.neo4j.annotation.NodeEntity;
-import org.springframework.data.neo4j.annotation.RelatedTo;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@NodeEntity
-public class Farm {
-	@GraphId private Long nodeId;
-	
-	private String name;
-	
-	@RelatedTo(type = "SUPPORTS")
-	private Project project;
-	
-	/**
-	 * @return
-	 */
-	public Long getId() { return nodeId; }
-	
-	/**
-	 * @param id
-	 */
-	public void setId(Long id) { this.nodeId = id; }
-	
-	/**
-	 * @return
-	 */
-	public String getName() { return name; }
-	
-	/**
-	 * @param name
-	 */
-	public void setName(String name) { this.name = name; }
-	
-	/**
-	 * @return
-	 */
-	public Project getProject() { return project; }
-	
-	/**
-	 * @param project
-	 */
-	public void setProject(Project project) { this.project = project; }
+public class Farm extends AbstractFarm {
 }

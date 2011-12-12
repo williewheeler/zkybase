@@ -10,8 +10,10 @@
 	<packaging>war</packaging>
 	
 	<properties>
-		<spring.version>3.0.6.RELEASE</spring.version>
+		<aspectj.version>1.6.12</aspectj.version>
 		<jackson.version>1.9.2</jackson.version>
+		<spring.data.neo4j.version>2.0.0.RC1</spring.data.neo4j.version>
+		<spring.version>3.0.6.RELEASE</spring.version>
 		<tiles.version>2.2.2</tiles.version>
 	</properties>
 	
@@ -122,7 +124,14 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-neo4j</artifactId>
-			<version>2.0.0.RC1</version>
+			<version>${spring.data.neo4j.version}</version>
+		</dependency>
+		
+		<!-- For advanced mapping -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-neo4j-aspects</artifactId>
+			<version>${spring.data.neo4j.version}</version>
 		</dependency>
 		
 		<!-- Neo4j -->
@@ -155,6 +164,16 @@
 			<groupId>org.apache.tiles</groupId>
 			<artifactId>tiles-servlet</artifactId>
 			<version>${tiles.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+			<version>${aspectj.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>

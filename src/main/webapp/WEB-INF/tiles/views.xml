@@ -4,6 +4,12 @@
 		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
+
+
+	<!-- =========================================================================================================== -->
+	<!-- Templates                                                                                                   -->
+	<!-- =========================================================================================================== -->
+	
 	<definition name="pageTemplate" template="/WEB-INF/jsp/templates/pageTemplate.jsp">
 		<put-attribute name="alerts" value="/WEB-INF/jsp/templates/dummy.jsp" />
 	</definition>
@@ -22,10 +28,39 @@
 	
 	
 	<!-- =========================================================================================================== -->
-	<!-- Project details                                                                                             -->
+	<!-- Packages                                                                                                    -->
 	<!-- =========================================================================================================== -->
 	
-	<!-- Tile template -->
+	<!-- Package list -->
+	<definition name="packagesTile" extends="projectDetailsTileTemplate">
+		<put-attribute name="activeTab" value="packages" />
+		<put-attribute name="content" value="/WEB-INF/jsp/packages/list/packageList.jsp" />
+	</definition>
+	<definition name="packageList" extends="projectDetailsPageTemplate">
+		<put-attribute name="title" value="Packages" />
+		<put-attribute name="content" value="packagesTile" />
+	</definition>
+	
+	<!-- Create package form -->
+	<definition name="createPackageFormTile" template="/WEB-INF/jsp/packages/form/packageForm.jsp">
+		<put-attribute name="submitPath" value="/packages" />
+		<put-attribute name="formMethod" value="POST" />
+		<put-attribute name="instructionsCode" value="content.createPackageForm.instructions" />
+		<put-attribute name="readOnly" value="false" />
+		<put-attribute name="cancelPath" value="/?a=cancelled" />
+	</definition>
+	<definition name="createPackageForm" extends="pageTemplate">
+		<put-attribute name="title" value="Create new package" />
+		<put-attribute name="titleBar" value="/WEB-INF/jsp/packages/form/createFormTitleBar.jsp" />
+		<put-attribute name="content" value="createPackageFormTile" />
+	</definition>
+	
+	
+	<!-- =========================================================================================================== -->
+	<!-- Projects                                                                                                    -->
+	<!-- =========================================================================================================== -->
+	
+	<!-- Tile templates -->
 	<definition name="projectDetailsTileTemplate" template="/WEB-INF/jsp/project/details/projectDetailsTemplate.jsp" />
 	
 	<!-- Tiles -->
@@ -37,16 +72,8 @@
 		<put-attribute name="activeTab" value="deployments" />
 		<put-attribute name="content" value="/WEB-INF/jsp/project/details/deployment/deployments.jsp" />
 	</definition>
-	<definition name="packagesTile" extends="projectDetailsTileTemplate">
-		<put-attribute name="activeTab" value="packages" />
-		<put-attribute name="content" value="/WEB-INF/jsp/project/details/packages.jsp" />
-	</definition>
-	<definition name="teamTile" extends="projectDetailsTileTemplate">
-		<put-attribute name="activeTab" value="team" />
-		<put-attribute name="content" value="/WEB-INF/jsp/project/details/team.jsp" />
-	</definition>
 	
-	<!-- Page template -->
+	<!-- Page templates -->
 	<definition name="projectDetailsPageTemplate" extends="pageTemplate">
 		<put-attribute name="titleBar" value="/WEB-INF/jsp/project/details/projectDetailsTitleBar.jsp" />
 		<put-attribute name="alerts" value="/WEB-INF/jsp/project/details/projectDetailsAlerts.jsp" />
@@ -60,14 +87,6 @@
 	<definition name="project/details/deployments" extends="projectDetailsPageTemplate">
 		<put-attribute name="title" value="Deployment Planning" />
 		<put-attribute name="content" value="deploymentsTile" />
-	</definition>
-	<definition name="project/details/packages" extends="projectDetailsPageTemplate">
-		<put-attribute name="title" value="Packages" />
-		<put-attribute name="content" value="packagesTile" />
-	</definition>
-	<definition name="project/details/team" extends="projectDetailsPageTemplate">
-		<put-attribute name="title" value="Team" />
-		<put-attribute name="content" value="teamTile" />
 	</definition>
 	
 
