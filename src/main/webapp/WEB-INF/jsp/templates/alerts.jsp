@@ -6,6 +6,12 @@
 		<p>Created.</p>
 	</div>
 </c:if>
+<c:if test="${param.a == 'deleted'}">
+	<div class="alert-message success fade in">
+		<a href="#" class="close">&times;</a>
+		<p>Deleted.</p>
+	</div>
+</c:if>
 <c:if test="${param.a == 'updated'}">
 	<div class="alert-message success fade in">
 		<a href="#" class="close">&times;</a>

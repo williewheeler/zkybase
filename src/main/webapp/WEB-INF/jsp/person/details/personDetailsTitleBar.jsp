@@ -3,6 +3,7 @@
 
 <c:set var="personPath" value="/people/${person.id}" />
 
+<c:url var="personUrl" value="${personPath}" />
 <c:url var="editUrl" value="${personPath}/edit" />
 <c:url var="jsonUrl" value="${personPath}.json" />
 <c:url var="xmlUrl" value="${personPath}.xml" />
@@ -49,7 +50,10 @@ $(function() {
 		<p>This will delete the person permanently. Are you sure?</p>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn submit danger">Delete</a>
-		<a href="#" class="btn cancel">Cancel</a>
+		<form action="${personUrl}" method="post">
+			<input type="hidden" name="_method" value="delete" />
+			<input type="submit" value="Delete" class="btn danger" />
+			<a href="#" class="btn cancel">Cancel</a>
+		</form>
 	</div>
 </div>

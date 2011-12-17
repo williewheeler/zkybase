@@ -27,6 +27,7 @@ import javax.validation.Valid;
 import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.model.relationship.ProjectMembership;
 import org.skydingo.skybase.repository.PersonRepository;
+import org.skydingo.skybase.service.PersonService;
 import org.skydingo.skybase.util.CollectionsUtil;
 import org.skydingo.skybase.web.navigation.Breadcrumb;
 import org.slf4j.Logger;
@@ -53,6 +54,7 @@ public class PersonController extends AbstractController {
 	private static final Logger log = LoggerFactory.getLogger(PersonController.class);
 	
 	@Inject private PersonRepository personRepo;
+	@Inject private PersonService personService;
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.AbstractController#doInitBinder(org.springframework.web.bind.WebDataBinder)
@@ -170,6 +172,13 @@ public class PersonController extends AbstractController {
 		return doGetEditPersonForm(person, model);
 	}
 	
+	/**
+	 * @param id
+	 * @param person
+	 * @param result
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public String editPerson(
 			@PathVariable Long id,
@@ -199,5 +208,15 @@ public class PersonController extends AbstractController {
 			new Breadcrumb("People", "/people"),
 			new Breadcrumb(person.getFirstNameLastName(), "/people/" + person.getId()));
 		return "editPersonForm";
+	}
+	
+	/**
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	public String deletePerson(@PathVariable Long id) {
+		personService.deletePerson(id);
+		return "redirect:/people?a=deleted";
 	}
 }
