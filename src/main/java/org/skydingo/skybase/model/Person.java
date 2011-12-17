@@ -164,6 +164,7 @@ public class Person implements Comparable<Person> {
 	 * @return work phone
 	 */
 	@Size(max = 20)
+	@Pattern(regexp = "^\\d{3}-\\d{3}-\\d{4}$")
 	@XmlElement
 	public String getWorkPhone() { return workPhone; }
 	
@@ -176,6 +177,7 @@ public class Person implements Comparable<Person> {
 	 * @return mobile phone
 	 */
 	@Size(max = 20)
+	@Pattern(regexp = "^\\d{3}-\\d{3}-\\d{4}$")
 	@XmlElement
 	public String getMobilePhone() { return mobilePhone; }
 	

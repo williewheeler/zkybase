@@ -14,83 +14,76 @@
 <div id="instructions">
 	<spring:message code="${instructionsCode}" />
 </div>
+
 <div id="personForm">
 	<form:form cssClass="pageForm main" modelAttribute="person" action="${submitUrl}" method="post">
 		<fieldset>
 			<input type="hidden" name="_method" value="${formMethod}" />
-			<div class="clearfix">
+			<div class="clearfix <form:errors path="username">error</form:errors>">
 				<label for="username">Username:</label>
 				<div class="input">
 					<form:input type="text" path="username" cssClass="span4" />
-					<span class="help-block">The username must be globally unique.</span>
+					<form:errors path="username">
+						<span class="help-inline"><form:errors path="username" /></span>
+					</form:errors>
+<!-- 					<span class="help-block">The username must be globally unique.</span> -->
 				</div>
-<%-- 				<form:errors path="username"> --%>
-<!-- 					<div class="formErrors"> -->
-<%-- 						<span class="warning icon"><form:errors path="username" /></span> --%>
-<!-- 					</div> -->
-<%-- 				</form:errors> --%>
 			</div>
-			<div class="clearfix">
+			<div class="clearfix <form:errors path="firstName">error</form:errors>">
 				<label for="firstName">First name:</label>
-				<div class="input"><form:input type="text" path="firstName" cssClass="span4" /></div>
-<%-- 				<form:errors path="firstName"> --%>
-<!-- 					<div class="formErrors"> -->
-<%-- 						<span class="warning icon"><form:errors path="firstName" /></span> --%>
-<!-- 					</div> -->
-<%-- 				</form:errors> --%>
+				<div class="input">
+					<form:input type="text" path="firstName" cssClass="span4" />
+					<form:errors path="firstName">
+						<span class="help-inline"><form:errors path="firstName" /></span>
+					</form:errors>
+				</div>
 			</div>
-			<div class="clearfix">
+			<div class="clearfix <form:errors path="lastName">error</form:errors>">
 				<label for="lastName">Last name:</label>
-				<div class="input"><form:input type="text" path="lastName" cssClass="span4" /></div>
-<%-- 				<form:errors path="lastName"> --%>
-<!-- 					<div class="formErrors"> -->
-<%-- 						<span class="warning icon"><form:errors path="lastName" /></span> --%>
-<!-- 					</div> -->
-<%-- 				</form:errors> --%>
+				<div class="input">
+					<form:input type="text" path="lastName" cssClass="span4" />
+					<form:errors path="lastName">
+						<span class="help-inline"><form:errors path="lastName" /></span>
+					</form:errors>
+				</div>
 			</div>
-			<div class="clearfix">
+			<div class="clearfix <form:errors path="title">error</form:errors>">
 				<label for="title">Title:</label>
-				<div class="input"><form:input type="text" path="title" cssClass="span6" /></div>
-<%-- 				<form:errors path="title"> --%>
-<!-- 					<div class="formErrors"> -->
-<%-- 						<span class="warning icon"><form:errors path="title" /></span> --%>
-<!-- 					</div> -->
-<%-- 				</form:errors> --%>
+				<div class="input">
+					<form:input type="text" path="title" cssClass="span6" />
+					<form:errors path="title">
+						<span class="help-inline"><form:errors path="title" /></span>
+					</form:errors>
+				</div>
 			</div>
-			<div class="clearfix">
+			<div class="clearfix <form:errors path="workPhone">error</form:errors>">
 				<label for="workPhone">Work phone:</label>
 				<div class="input">
 					<form:input type="text" path="workPhone" cssClass="span4" />
+					<form:errors path="workPhone">
+						<span class="help-inline"><form:errors path="workPhone" /></span>
+					</form:errors>
 					<span class="help-block">Format is xxx-xxx-xxxx.</span>
 				</div>
-<%-- 				<form:errors path="workPhone"> --%>
-<!-- 					<div class="formErrors"> -->
-<%-- 						<span class="warning icon"><form:errors path="workPhone" /></span> --%>
-<!-- 					</div> -->
-<%-- 				</form:errors> --%>
 			</div>
-			<div class="clearfix">
+			<div class="clearfix <form:errors path="mobilePhone">error</form:errors>">
 				<label for="mobilePhone">Mobile phone:</label>
 				<div class="input">
 					<form:input type="text" path="mobilePhone" cssClass="span4" />
+					<form:errors path="mobilePhone">
+						<span class="help-inline"><form:errors path="mobilePhone" /></span>
+					</form:errors>
 					<span class="help-block">Format is xxx-xxx-xxxx.</span>
 				</div>
-<%-- 				<form:errors path="mobilePhone"> --%>
-<!-- 					<div class="formErrors"> -->
-<%-- 						<span class="warning icon"><form:errors path="mobilePhone" /></span> --%>
-<!-- 					</div> -->
-<%-- 				</form:errors> --%>
 			</div>
-			<div class="clearfix">
+			<div class="clearfix <form:errors path="email">error</form:errors>">
 				<label for="email">E-mail:</label>
 				<div class="input">
 					<form:input type="text" path="email" cssClass="span6" />
+					<form:errors path="email">
+						<span class="help-inline"><form:errors path="email" /></span>
+					</form:errors>
 				</div>
-<%-- 				<form:errors path="email"> --%>
-<!-- 					<div class="formErrors"> -->
-<%-- 						<span class="warning icon"><form:errors path="email" /></span> --%>
-<!-- 					</div> -->
-<%-- 				</form:errors> --%>
 			</div>
 			<div class="actions">
 				<input class="btn primary" type="submit" value="Save person" />
