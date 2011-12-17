@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:url var="createPackageUrl" value="/projects/${project.key}/packages/new" />
+<c:url var="createPackageUrl" value="/projects/${project.id}/packages/new" />
 
 <div class="titleDecorator">
 	<div class="title">
@@ -19,7 +19,7 @@
 				<p>No packages.</p>
 			</c:when>
 			<c:otherwise>
-				<table class="bordered-table zebra-striped">
+				<table class="bordered-table zebra-striped sortable">
 					<thead>
 						<tr>
 							<th>Group</th>
@@ -29,7 +29,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<%-- TODO --%>
+						<c:forEach var="package" items="${packageList}">
+							<tr>
+								<td><c:out value="${package.groupId}" /></td>
+								<td><c:out value="${package.packageId}" /></td>
+								<td><c:out value="${package.version}" /></td>
+								<td></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</c:otherwise>

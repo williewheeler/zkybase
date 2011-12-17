@@ -5,20 +5,21 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
 <%-- CSS --%>
-<c:url var="jqueryUiCssUrl" value="/scripts/jquery-ui-1.8.16.custom/css/cupertino/jquery-ui-1.8.16.custom.css" />
+<c:url var="jqueryUiCssUrl" value="/scripts/jquery/jquery-ui-1.8.16.custom/css/cupertino/jquery-ui-1.8.16.custom.css" />
 <c:url var="coreCssUrl" value="/styles/core.css" />
 
 <%-- jQuery --%>
-<c:url var="jqueryJsUrl" value="/scripts/jquery-1.7.1.min.js" />
-<c:url var="jqueryLocalScrollJsUrl" value="/scripts/jquery.localscroll-1.2.7-min.js" />
-<c:url var="jqueryScrollToJsUrl" value="/scripts/jquery.scrollTo-1.4.2-min.js" />
-<c:url var="jqueryUiJsUrl" value="/scripts/jquery-ui-1.8.16.custom/js/jquery-ui-1.8.16.custom.min.js" />
+<c:url var="jqueryJsUrl" value="/scripts/jquery/jquery-1.7.1.min.js" />
+<c:url var="jqueryLocalScrollJsUrl" value="/scripts/jquery/jquery.localscroll-1.2.7-min.js" />
+<c:url var="jqueryScrollToJsUrl" value="/scripts/jquery/jquery.scrollTo-1.4.2-min.js" />
+<c:url var="jqueryTablesorterJsUrl" value="/scripts/jquery/jquery.tablesorter.min.js" />
+<c:url var="jqueryUiJsUrl" value="/scripts/jquery/jquery-ui-1.8.16.custom/js/jquery-ui-1.8.16.custom.min.js" />
 
 <%-- Twitter Bootstrap --%>
-<c:url var="bsAlertsJsUrl" value="/scripts/bootstrap-alerts-1.4.0.js" />
-<c:url var="bsModalJsUrl" value="/scripts/bootstrap-modal-1.4.0.js" />
-<c:url var="bsTabsJsUrl" value="/scripts/bootstrap-tabs-1.4.0.js" />
-<c:url var="bsTwipsyJsUrl" value="/scripts/bootstrap-twipsy-1.4.0.js" />
+<c:url var="bsAlertsJsUrl" value="/scripts/bootstrap/bootstrap-alerts-1.4.0.js" />
+<c:url var="bsModalJsUrl" value="/scripts/bootstrap/bootstrap-modal-1.4.0.js" />
+<c:url var="bsTabsJsUrl" value="/scripts/bootstrap/bootstrap-tabs-1.4.0.js" />
+<c:url var="bsTwipsyJsUrl" value="/scripts/bootstrap/bootstrap-twipsy-1.4.0.js" />
 
 <%-- Custom JS --%>
 <c:url var="coreJsUrl" value="/scripts/core.js" />
@@ -41,6 +42,7 @@
 <script type="text/javascript" src="${jqueryJsUrl}"></script>
 <script type="text/javascript" src="${jqueryScrollToJsUrl}"></script>
 <script type="text/javascript" src="${jqueryLocalScrollJsUrl}"></script>
+<script type="text/javascript" src="${jqueryTablesorterJsUrl}"></script>
 <script type="text/javascript" src="${jqueryUiJsUrl}"></script>
 <script type="text/javascript" src="${bsAlertsJsUrl}"></script>
 <script type="text/javascript" src="${bsModalJsUrl}"></script>
@@ -78,7 +80,7 @@
 					</c:if>
 					<div id="titleBar"><tiles:insertAttribute name="titleBar" /></div>
 				</div>
-				<div id="alerts"><tiles:insertAttribute name="alerts" /></div>
+				<div id="alerts"><jsp:include page="alerts.jsp" /></div>
 				<div id="content"><tiles:insertAttribute name="content" /></div>
 			</div>
 			<div id="ft">

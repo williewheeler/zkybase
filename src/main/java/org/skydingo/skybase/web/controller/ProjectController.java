@@ -20,12 +20,7 @@ package org.skydingo.skybase.web.controller;
 import static org.springframework.util.Assert.isTrue;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -36,12 +31,10 @@ import org.skydingo.skybase.converter.KeyToProjectConverter;
 import org.skydingo.skybase.model.FarmTemplate;
 import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.model.Project;
-import org.skydingo.skybase.model.relationship.ProjectMembership;
 import org.skydingo.skybase.repository.FarmTemplateRepository;
 import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.repository.ProjectRepository;
 import org.skydingo.skybase.service.ProjectService;
-import org.skydingo.skybase.web.jit.JitNode;
 import org.skydingo.skybase.web.navigation.Breadcrumb;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,9 +86,9 @@ public class ProjectController extends AbstractController {
 	 * @return logical view name
 	 */
 	@RequestMapping(value = "/new.do", method = RequestMethod.GET)
-	public String getProjectCreator(Model model) {
+	public String getCreateProjectForm(Model model) {
 		model.addAttribute(new Project());
-		return doGetProjectCreator(model);
+		return doGetCreateProjectForm(model);
 	}
 	
 	/**
@@ -121,18 +114,16 @@ public class ProjectController extends AbstractController {
 		}
 		
 		if (result.hasErrors()) {
-			return doGetProjectCreator(model);
+			return doGetCreateProjectForm(model);
 		}
 		
 		projectRepo.save(project);
 		return "redirect:/?a=created";
 	}
 	
-	@RequestMapping(value = "/{key}", method = RequestMethod.GET)
-	public String getProjectDetails(@PathVariable String key, Model model) {
-		addBreadcrumbs(model);
-		model.addAttribute(projectService.findProjectByKey(key));
-		return "redirect:/projects/" + key + "/packages";
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public String getProjectDetails(@PathVariable Long id, Model model) {
+		return "redirect:/projects/" + id + "/packages";
 	}
 	
 	/**
@@ -152,43 +143,6 @@ public class ProjectController extends AbstractController {
 		model.addAttribute(new FarmTemplate());
 		return "project/details/deployments";
 	}
-	
-	@RequestMapping(value = "/{key}/team", method = RequestMethod.GET)
-	public String getTeam(@PathVariable String key, Model model) {
-		addBreadcrumbs(model);
-		model.addAttribute(projectService.findProjectByKey(key));
-		return "project/details/team";
-	}
-	
-	// FIXME TEMPORARY
-//	@RequestMapping(value = "/{key}/team.json", method = RequestMethod.GET)
-//	public String getTeamAsJit(@PathVariable String key, Model model) {
-//		Project project = projectService.findProjectByKey(key);
-//		Collection<ProjectMembership> memberships = project.getMemberships();
-//		
-//		JitNode projectNode = new JitNode();
-//		projectNode.setId("project_" + project.getId());
-//		projectNode.setName(project.getName());
-//		
-//		Set<JitNode> children = new HashSet<JitNode>();
-//		for (ProjectMembership membership : memberships) {
-//			Person member = membership.getPerson();
-//			String role = membership.getRole();
-//			
-//			JitNode memberNode = new JitNode();
-//			memberNode.setId("member_" + member.getId());
-//			memberNode.setName(member.getFirstNameLastName());
-//			Map<String, String> data = new HashMap<String, String>();
-//			data.put("role", role);
-//			memberNode.setData(data);
-//			memberNode.setChildren(new HashSet<JitNode>());
-//			children.add(memberNode);
-//		}
-//		projectNode.setChildren(children);
-//		
-//		model.addAttribute("json", projectNode);
-//		return "project/details/team";
-//	}
 	
 	/**
 	 * Generates the project editor form.
@@ -286,7 +240,7 @@ public class ProjectController extends AbstractController {
 	// Helpers
 	// =================================================================================================================
 	
-	private String doGetProjectCreator(Model model) {
+	private String doGetCreateProjectForm(Model model) {
 		setMode(model, MODE_CREATE);
 		addBreadcrumbs(model);
 		return "project/form/createForm";

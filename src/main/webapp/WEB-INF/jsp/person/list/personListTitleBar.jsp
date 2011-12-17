@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:url var="addPersonUrl" value="/people/new.do" />
+<c:url var="addPersonUrl" value="/people/new" />
 
 <div class="row">
 	<div class="span8">

@@ -8,7 +8,7 @@
 		<put-attribute name="activeTab" value="team" />
 		<put-attribute name="content" value="/WEB-INF/jsp/team/details/teamDetails.jsp" />
 	</definition>
-	<definition name="project/details/team" extends="projectDetailsPageTemplate">
+	<definition name="teamDetails" extends="projectDetailsPageTemplate">
 		<put-attribute name="title" value="Team" />
 		<put-attribute name="content" value="teamTile" />
 	</definition>

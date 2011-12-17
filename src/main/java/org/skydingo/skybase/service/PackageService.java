@@ -1,5 +1,5 @@
 /* 
- * CollectionsUtil.java
+ * PackageService.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,34 +15,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.util;
+package org.skydingo.skybase.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.neo4j.helpers.collection.IteratorUtil;
+import org.skydingo.skybase.model.Package;
+import org.springframework.validation.Errors;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public final class CollectionsUtil {
+public interface PackageService {
 	
 	/**
-	 * @param iterable iterable
-	 * @return list
+	 * @param pkg package to create
+	 * @param errors errors
 	 */
-	public static <E> List<E> asList(Iterable<E> iterable) {
-		return new ArrayList<E>(IteratorUtil.asCollection(iterable));
-	}
-	
-	/**
-	 * @param iterable
-	 * @return
-	 */
-	public static <E extends Comparable<E>> List<E> asSortedList(Iterable<E> iterable) {
-		List<E> list = asList(iterable);
-		Collections.sort(list);
-		return list;
-	}
+	void createPackage(Package pkg, Errors errors);
 }

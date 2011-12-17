@@ -17,28 +17,36 @@
  */
 package org.skydingo.skybase.web.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
-import org.neo4j.helpers.collection.IteratorUtil;
 import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.model.Project;
 import org.skydingo.skybase.repository.PackageRepository;
 import org.skydingo.skybase.repository.ProjectRepository;
+import org.skydingo.skybase.service.PackageService;
+import org.skydingo.skybase.util.CollectionsUtil;
+import org.skydingo.skybase.web.navigation.Breadcrumb;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
+ * Package controller.
+ * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Controller
 public class PackageController extends AbstractController {
+	@Inject private PackageService packageService;
 	@Inject private PackageRepository packageRepo;
 	@Inject private ProjectRepository projectRepo;
 
@@ -47,30 +55,73 @@ public class PackageController extends AbstractController {
 	 */
 	@Override
 	protected void doInitBinder(WebDataBinder binder) {
-		binder.setAllowedFields(new String[] { "name" });
+		binder.setAllowedFields(new String[] { "groupId", "packageId", "version" });
 	}
 	
-	@RequestMapping("/projects/{key}/packages/new")
-	public String getCreatePackageForm(@PathVariable String key, Model model) {
-		Project project = projectRepo.findProjectByKey(key);
+	/**
+	 * @param projectId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/projects/{projectId}/packages/new")
+	public String getCreatePackageForm(@PathVariable Long projectId, Model model) {
+		Project project = projectRepo.findOne(projectId);
+		model.addAttribute("package", new Package());
+		return doGetCreatePackageForm(project, model);
+	}
+	
+	/**
+	 * @param projectId
+	 * @param pkg
+	 * @param result
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/projects/{projectId}/packages")
+	public String postCreatePackageForm(
+			@PathVariable Long projectId,
+			@ModelAttribute("package") @Valid Package pkg,
+			BindingResult result,
+			Model model) {
 		
-		addBreadcrumbs(model);
+		Project project = projectRepo.findOne(projectId);
+		pkg.setProject(project);
+		packageService.createPackage(pkg, result);
+		
+		if (result.hasErrors()) {
+			return doGetCreatePackageForm(project, model);
+		}
+		
+		return "redirect:/projects/" + projectId + "/packages?a=created";
+	}
+	
+	/**
+	 * @param projectId project ID
+	 * @param pkg package
+	 * @param result result
+	 */
+//	@RequestMapping("/projects/{projectId}/packages")
+//	public void postCreatePackageBody(
+//			@PathVariable Long projectId,
+//			@RequestBody @Valid Package pkg,
+//			BindingResult result) {
+//		
+//		
+//	}
+	
+	private String doGetCreatePackageForm(Project project, Model model) {
+		addBreadcrumbs(model, new Breadcrumb(project.getName(), "/projects/" + project.getId()));
 		model.addAttribute(project);
-		model.addAttribute("pkg", new Package());
-		
 		return "createPackageForm";
 	}
 	
-	@RequestMapping(value = "/projects/{key}/packages", method = RequestMethod.GET)
-	public String getPackageList(@PathVariable String key, Model model) {
-		Project project = projectRepo.findProjectByKey(key);
-		List<Package> packages =
-			new ArrayList<Package>(IteratorUtil.asCollection(packageRepo.findPackagesByProject(project)));
-		
+	@RequestMapping(value = "/projects/{projectId}/packages", method = RequestMethod.GET)
+	public String getPackageList(@PathVariable Long projectId, Model model) {
+		Project project = projectRepo.findOne(projectId);
+		List<Package> packages = CollectionsUtil.asSortedList(packageRepo.findPackagesByProject(project));
 		addBreadcrumbs(model);
 		model.addAttribute(project);
 		model.addAttribute(packages);
-		
 		return "packageList";
 	}
 

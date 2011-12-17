@@ -9,7 +9,7 @@
 			<p>There aren't any people.</p>
 		</c:when>
 		<c:otherwise>
-			<table class="bordered-table zebra-striped">
+			<table class="bordered-table zebra-striped sortable">
 				<thead>
 					<tr>
 						<th>Person</th>

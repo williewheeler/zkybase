@@ -17,6 +17,9 @@
  */
 package org.skydingo.skybase.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
@@ -28,7 +31,7 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @NodeEntity
-public class Package {
+public class Package implements Comparable<Package> {
 	@GraphId private Long id;
 	
 	@RelatedTo(type = "BUILT_FROM")
@@ -79,6 +82,8 @@ public class Package {
 	/**
 	 * @return
 	 */
+	@NotNull
+	@Size(min = 1, max = 200)
 	public String getGroupId() { return groupId; }
 	
 	/**
@@ -89,6 +94,8 @@ public class Package {
 	/**
 	 * @return
 	 */
+	@NotNull
+	@Size(min = 1, max = 200)
 	public String getPackageId() { return packageId; }
 	
 	/**
@@ -99,10 +106,24 @@ public class Package {
 	/**
 	 * @return
 	 */
+	@NotNull
+	@Size(min = 1, max = 80)
 	public String getVersion() { return version; }
 	
 	/**
 	 * @param version
 	 */
 	public void setVersion(String version) { this.version = version; }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(Package that) {
+		int groupComp = groupId.compareTo(that.groupId);
+		if (groupComp != 0) { return groupComp; }
+		int packageComp = packageId.compareTo(that.packageId);
+		if (packageComp != 0) { return packageComp; }
+		return version.compareTo(that.version);
+	}
 }

@@ -70,7 +70,7 @@ public class PersonController extends AbstractController {
 	 * @param model model
 	 * @return logical view name
 	 */
-	@RequestMapping(value = "/new.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String getCreatePersonForm(Model model) {
 		model.addAttribute(new Person());
 		return doGetCreatePersonForm(model);

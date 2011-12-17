@@ -16,13 +16,34 @@
 	<spring:message code="${instructionsCode}" />
 </div>
 
-<form:form cssClass="main" modelAttribute="pkg" action="${submitUrl}" method="post">
+<form:form cssClass="main" modelAttribute="package" action="${submitUrl}" method="post">
 	<fieldset>
 		<input type="hidden" name="_method" value="${formMethod}" />
-		<div class="clearfix">
-			<label for="name">Name:</label>
+		<div class="clearfix <form:errors path="groupId">error</form:errors>">
+			<label for="groupId">Group ID:</label>
 			<div class="input">
-				<form:input cssClass="span8" path="name" />
+				<form:input cssClass="span6" cssErrorClass="span6 error" path="groupId" />
+				<form:errors path="groupId">
+					<span class="help-inline"><form:errors path="groupId" /></span>
+				</form:errors>
+			</div>
+		</div>
+		<div class="clearfix <form:errors path="packageId">error</form:errors>">
+			<label for="packageId">Package ID:</label>
+			<div class="input">
+				<form:input cssClass="span6" path="packageId" />
+				<form:errors path="packageId">
+					<span class="help-inline"><form:errors path="packageId" /></span>
+				</form:errors>
+			</div>
+		</div>
+		<div class="clearfix <form:errors path="version">error</form:errors>">
+			<label for="version">Version:</label>
+			<div class="input">
+				<form:input cssClass="span4" path="version" />
+				<form:errors path="version">
+					<span class="help-inline"><form:errors path="version" /></span>
+				</form:errors>
 			</div>
 		</div>
 		<div class="actions">

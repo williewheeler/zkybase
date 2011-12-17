@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
-<c:set var="projectPath" value="/projects/${project.key}" />
+<c:set var="projectPath" value="/projects/${project.id}" />
 
 <tiles:useAttribute name="activeTab" />
 

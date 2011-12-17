@@ -18,7 +18,7 @@
 				<table class="bordered-table zebra-striped" style="border-top:0">
 					<tbody>
 						<c:forEach var="project" items="${projectList}">
-							<c:url var="projectUrl" value="/projects/${project.key}" />
+							<c:url var="projectUrl" value="/projects/${project.id}" />
 							<tr>
 								<td style="width:100%"><a href="${projectUrl}"><c:out value="${project.name}" /></a></td>
 								<td><img src="${starIconUrl}" alt="Favorite" /></td>
@@ -53,7 +53,7 @@
 				<table class="bordered-table zebra-striped" style="border-top:0">
 					<tbody>
 						<c:forEach var="project" items="${projectList}">
-							<c:url var="projectUrl" value="/projects/${project.key}" />
+							<c:url var="projectUrl" value="/projects/${project.id}" />
 							<tr>
 								<td style="width:100%"><a href="${projectUrl}"><c:out value="${project.name}" /></a></td>
 								<td><img src="${starIconUrl}" alt="Favorite" /></td>

@@ -6,18 +6,22 @@
 <tiles-definitions>
 	
 	<!-- Create person form -->
+	<definition name="createPersonFormTile" template="/WEB-INF/jsp/person/form/personForm.jsp">
+		<put-attribute name="formMethod" value="post" />
+		<put-attribute name="instructionsCode" value="content.createPersonForm.instructions" />
+		<put-attribute name="submitPath" value="/people" />
+		<put-attribute name="cancelPath" value="/people?a=cancelled" />
+	</definition>
 	<definition name="createPersonForm" extends="pageTemplate">
 		<put-attribute name="title" value="Create new person" />
 		<put-attribute name="titleBar" value="/WEB-INF/jsp/person/form/personFormTitleBar.jsp" />
-		<put-attribute name="alerts" value="/WEB-INF/jsp/person/form/personFormAlerts.jsp" />
-		<put-attribute name="content" value="/WEB-INF/jsp/person/form/personForm.jsp" />
+		<put-attribute name="content" value="createPersonFormTile" />
 	</definition>
 	
 	<!-- Person list -->
 	<definition name="personList" extends="pageTemplate">
 		<put-attribute name="title" value="People" />
 		<put-attribute name="titleBar" value="/WEB-INF/jsp/person/list/personListTitleBar.jsp" />
-		<put-attribute name="alerts" value="/WEB-INF/jsp/person/list/personListAlerts.jsp" />
 		<put-attribute name="content" value="/WEB-INF/jsp/person/list/personList.jsp" />
 	</definition>
 	
@@ -25,7 +29,6 @@
 	<definition name="personDetails" extends="pageTemplate">
 		<put-attribute name="title" value="Person [FIXME]" />
 		<put-attribute name="titleBar" value="/WEB-INF/jsp/person/details/personDetailsTitleBar.jsp" />
-		<put-attribute name="alerts" value="/WEB-INF/jsp/person/details/personDetailsAlerts.jsp" />
 		<put-attribute name="content" value="/WEB-INF/jsp/person/details/personDetails.jsp" />
 	</definition>
 
@@ -33,7 +36,6 @@
 	<definition name="editPersonForm" extends="pageTemplate">
 		<put-attribute name="title" value="Edit person" />
 		<put-attribute name="titleBar" value="/WEB-INF/jsp/person/form/personFormTitleBar.jsp" />
-		<put-attribute name="alerts" value="/WEB-INF/jsp/person/form/personFormAlerts.jsp" />
 		<put-attribute name="content" value="/WEB-INF/jsp/person/form/personForm.jsp" />
 	</definition>
 </tiles-definitions>

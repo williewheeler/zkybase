@@ -11,7 +11,6 @@
 	<!-- =========================================================================================================== -->
 	
 	<definition name="pageTemplate" template="/WEB-INF/jsp/templates/pageTemplate.jsp">
-		<put-attribute name="alerts" value="/WEB-INF/jsp/templates/dummy.jsp" />
 	</definition>
 	
 	
@@ -22,37 +21,7 @@
 	<definition name="dashboard/dashboard" extends="pageTemplate">
 		<put-attribute name="title" value="Dashboard" />
 		<put-attribute name="titleBar" value="/WEB-INF/jsp/dashboard/dashboardTitleBar.jsp" />
-		<put-attribute name="alerts" value="/WEB-INF/jsp/dashboard/dashboardAlerts.jsp" />
 		<put-attribute name="content" value="/WEB-INF/jsp/dashboard/dashboard.jsp" />
-	</definition>
-	
-	
-	<!-- =========================================================================================================== -->
-	<!-- Packages                                                                                                    -->
-	<!-- =========================================================================================================== -->
-	
-	<!-- Package list -->
-	<definition name="packagesTile" extends="projectDetailsTileTemplate">
-		<put-attribute name="activeTab" value="packages" />
-		<put-attribute name="content" value="/WEB-INF/jsp/packages/list/packageList.jsp" />
-	</definition>
-	<definition name="packageList" extends="projectDetailsPageTemplate">
-		<put-attribute name="title" value="Packages" />
-		<put-attribute name="content" value="packagesTile" />
-	</definition>
-	
-	<!-- Create package form -->
-	<definition name="createPackageFormTile" template="/WEB-INF/jsp/packages/form/packageForm.jsp">
-		<put-attribute name="submitPath" value="/packages" />
-		<put-attribute name="formMethod" value="POST" />
-		<put-attribute name="instructionsCode" value="content.createPackageForm.instructions" />
-		<put-attribute name="readOnly" value="false" />
-		<put-attribute name="cancelPath" value="/?a=cancelled" />
-	</definition>
-	<definition name="createPackageForm" extends="pageTemplate">
-		<put-attribute name="title" value="Create new package" />
-		<put-attribute name="titleBar" value="/WEB-INF/jsp/packages/form/createFormTitleBar.jsp" />
-		<put-attribute name="content" value="createPackageFormTile" />
 	</definition>
 	
 	
@@ -76,7 +45,6 @@
 	<!-- Page templates -->
 	<definition name="projectDetailsPageTemplate" extends="pageTemplate">
 		<put-attribute name="titleBar" value="/WEB-INF/jsp/project/details/projectDetailsTitleBar.jsp" />
-		<put-attribute name="alerts" value="/WEB-INF/jsp/project/details/projectDetailsAlerts.jsp" />
 	</definition>
 	
 	<!-- Pages -->
@@ -103,10 +71,10 @@
 		<put-attribute name="cancelPath" value="/?a=cancelled" />
 	</definition>
 	<definition name="editProjectFormTile" template="/WEB-INF/jsp/project/form/projectForm.jsp">
-		<put-attribute name="submitPath" expression="/projects/${project.key}" />
 		<put-attribute name="formMethod" value="PUT" />
 		<put-attribute name="instructionsCode" value="content.editProjectForm.instructions" />
 		<put-attribute name="readOnly" value="true" />
+		<put-attribute name="submitPath" expression="/projects/${project.id}" />
 		<put-attribute name="cancelPath" expression="/projects/${project.key}?a=cancelled" />
 	</definition>
 	

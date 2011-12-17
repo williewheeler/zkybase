@@ -3,18 +3,17 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
-<%-- <tiles:useAttribute name="submitPath" /> --%>
-<%-- <tiles:useAttribute name="formMethod" /> --%>
-<%-- <tiles:useAttribute name="instructionsCode" /> --%>
-<%-- <tiles:useAttribute name="readOnly" /> --%>
-<%-- <tiles:useAttribute name="cancelPath" /> --%>
+<tiles:useAttribute name="formMethod" />
+<tiles:useAttribute name="instructionsCode" />
+<tiles:useAttribute name="submitPath" />
+<tiles:useAttribute name="cancelPath" />
 
-<%-- <c:url var="submitUrl" value="${submitPath}" /> --%>
-<%-- <c:url var="cancelUrl" value="${cancelPath}" /> --%>
+<c:url var="submitUrl" value="${submitPath}" />
+<c:url var="cancelUrl" value="${cancelPath}" />
 
-<!-- <div id="instructions"> -->
-<%-- 	<spring:message code="${instructionsCode}" /> --%>
-<!-- </div> -->
+<div id="instructions">
+	<spring:message code="${instructionsCode}" />
+</div>
 <div id="personForm">
 	<form:form cssClass="pageForm main" modelAttribute="person" action="${submitUrl}" method="post">
 		<fieldset>
