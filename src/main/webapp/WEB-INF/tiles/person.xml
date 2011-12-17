@@ -14,7 +14,7 @@
 	</definition>
 	<definition name="createPersonForm" extends="pageTemplate">
 		<put-attribute name="title" value="Create new person" />
-		<put-attribute name="titleBar" value="/WEB-INF/jsp/person/form/personFormTitleBar.jsp" />
+		<put-attribute name="titleBar" value="/WEB-INF/jsp/person/form/createPersonFormTitleBar.jsp" />
 		<put-attribute name="content" value="createPersonFormTile" />
 	</definition>
 	
@@ -27,15 +27,21 @@
 	
 	<!-- Person details -->
 	<definition name="personDetails" extends="pageTemplate">
-		<put-attribute name="title" value="Person [FIXME]" />
+		<put-attribute name="title" expression="${person.firstNameLastName}" />
 		<put-attribute name="titleBar" value="/WEB-INF/jsp/person/details/personDetailsTitleBar.jsp" />
 		<put-attribute name="content" value="/WEB-INF/jsp/person/details/personDetails.jsp" />
 	</definition>
 
 	<!-- Edit person form -->
+	<definition name="editPersonFormTile" template="/WEB-INF/jsp/person/form/personForm.jsp">
+		<put-attribute name="formMethod" value="put" />
+		<put-attribute name="instructionsCode" value="content.editPersonForm.instructions" />
+		<put-attribute name="submitPath" expression="/people/${person.id}" />
+		<put-attribute name="cancelPath" expression="/people/${person.id}?a=cancelled" />
+	</definition>
 	<definition name="editPersonForm" extends="pageTemplate">
 		<put-attribute name="title" value="Edit person" />
-		<put-attribute name="titleBar" value="/WEB-INF/jsp/person/form/personFormTitleBar.jsp" />
-		<put-attribute name="content" value="/WEB-INF/jsp/person/form/personForm.jsp" />
+		<put-attribute name="titleBar" value="/WEB-INF/jsp/person/form/editPersonFormTitleBar.jsp" />
+		<put-attribute name="content" value="editPersonFormTile" />
 	</definition>
 </tiles-definitions>

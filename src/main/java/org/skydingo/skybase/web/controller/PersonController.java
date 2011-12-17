@@ -134,13 +134,13 @@ public class PersonController extends AbstractController {
 	}
 	
 	/**
-	 * @param username username
+	 * @param id person ID
 	 * @param model model
 	 * @return logical view name
 	 */
-	@RequestMapping(value = "/{username}", method = RequestMethod.GET)
-	public String getPersonDetails(@PathVariable String username, Model model) {
-		Person person = personRepo.findByUsername(username);
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public String getPersonDetails(@PathVariable Long id, Model model) {
+		Person person = personRepo.findOne(id);
 		List<ProjectMembership> memberships = CollectionsUtil.asList(person.getMemberships());
 		List<Person> directReports = CollectionsUtil.asList(person.getDirectReports());
 		List<Person> collaborators = CollectionsUtil.asList(personRepo.findCollaborators(person));
@@ -156,5 +156,48 @@ public class PersonController extends AbstractController {
 		model.addAttribute("collaborators", collaborators);
 		
 		return "personDetails";
+	}
+	
+	/**
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
+	public String getEditPersonForm(@PathVariable Long id, Model model) {
+		Person person = personRepo.findOne(id);
+		model.addAttribute(person);
+		return doGetEditPersonForm(person, model);
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public String editPerson(
+			@PathVariable Long id,
+			@ModelAttribute @Valid Person person,
+			BindingResult result,
+			Model model) {
+		
+		person.setId(id);
+		
+		// FIXME Need to check for errors following the attempt to save.
+		
+		if (result.hasErrors()) {
+			Person pPerson = personRepo.findOne(id);
+			return doGetEditPersonForm(pPerson, model);
+		} else {
+			personRepo.save(person);
+			return "redirect:/people/" + id;
+		}
+	}
+	
+	/**
+	 * @param model
+	 * @return
+	 */
+	private String doGetEditPersonForm(Person person, Model model) {
+		addBreadcrumbs(model,
+			new Breadcrumb("People", "/people"),
+			new Breadcrumb(person.getFirstNameLastName(), "/people/" + person.getId()));
+		return "editPersonForm";
 	}
 }

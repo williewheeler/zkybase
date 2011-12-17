@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<c:set var="personPath" value="/people/${person.username}" />
+<c:set var="personPath" value="/people/${person.id}" />
 
 <c:url var="editUrl" value="${personPath}/edit" />
 <c:url var="jsonUrl" value="${personPath}.json" />

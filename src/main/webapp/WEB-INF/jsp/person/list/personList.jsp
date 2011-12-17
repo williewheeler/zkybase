@@ -22,7 +22,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="person" items="${personList}">
-						<c:url var="personUrl" value="/people/${person.username}" />
+						<c:url var="personUrl" value="/people/${person.id}" />
 						<tr>
 							<td>
 								<a href="${personUrl}"><c:out value="${person.firstNameLastName}" /></a>
