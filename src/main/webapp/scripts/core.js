@@ -1,9 +1,17 @@
 $(function() {
+	
+	// Alerts
+	$(".alert-message").alert().hide().fadeIn("fast");
+	
+	// Links
 	$.localScroll();
 	$("a").twipsy({ delayIn: 1000 });
-	$("form.main :input:not(:hidden, :submit):first").focus();
-	$(".alert-message").alert().hide().fadeIn("fast");
+	
+	// Tables
 	$(".sortable").tablesorter();
+	
+	// Forms
+	$("form.main :input:not(:hidden, :submit):first").focus();
 	
 	// Modal dialogs
 	$(".modal").modal({ backdrop: true, keyboard: true });

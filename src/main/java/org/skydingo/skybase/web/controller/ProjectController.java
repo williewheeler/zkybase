@@ -35,7 +35,6 @@ import org.skydingo.skybase.repository.FarmTemplateRepository;
 import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.repository.ProjectRepository;
 import org.skydingo.skybase.service.ProjectService;
-import org.skydingo.skybase.web.navigation.Breadcrumb;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -137,7 +136,6 @@ public class ProjectController extends AbstractController {
 		List<FarmTemplate> farmTemplates = new ArrayList<FarmTemplate>(
 				IteratorUtil.asCollection(farmTemplateRepo.findFarmTemplatesByProject(project)));
 		
-		addBreadcrumbs(model);
 		model.addAttribute(project);
 		model.addAttribute(farmTemplates);
 		model.addAttribute(new FarmTemplate());
@@ -242,7 +240,6 @@ public class ProjectController extends AbstractController {
 	
 	private String doGetCreateProjectForm(Model model) {
 		setMode(model, MODE_CREATE);
-		addBreadcrumbs(model);
 		return "project/form/createForm";
 	}
 	
@@ -253,7 +250,6 @@ public class ProjectController extends AbstractController {
 		String key = project.getKey();
 		Project origProject = projectRepo.findProjectByKey(key);
 		
-		addBreadcrumbs(model, new Breadcrumb(origProject.getName(), "/projects/" + key));
 		return "project/form/editForm";
 	}
 }

@@ -6,26 +6,22 @@
 <tiles-definitions>
 	
 	<!-- Create package form -->
-	<definition name="createPackageFormTile" template="/WEB-INF/jsp/packages/form/packageForm.jsp">
+	<definition name="createPackageFormTile" template="/WEB-INF/jsp/package/packageForm.jsp">
 		<put-attribute name="formMethod" value="POST" />
 		<put-attribute name="instructionsCode" value="content.createPackageForm.instructions" />
-		<put-attribute name="readOnly" value="false" />
 		<put-attribute name="submitPath" expression="/projects/${project.id}/packages" />
 		<put-attribute name="cancelPath" expression="/projects/${project.id}/packages?a=cancelled" />
 	</definition>
 	<definition name="createPackageForm" extends="pageTemplate">
-		<put-attribute name="title" value="Create new package" />
-		<put-attribute name="titleBar" value="/WEB-INF/jsp/packages/form/createFormTitleBar.jsp" />
 		<put-attribute name="content" value="createPackageFormTile" />
 	</definition>
 	
 	<!-- Package list -->
 	<definition name="packagesTile" extends="projectDetailsTileTemplate">
 		<put-attribute name="activeTab" value="packages" />
-		<put-attribute name="content" value="/WEB-INF/jsp/packages/list/packageList.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/package/packageList.jsp" />
 	</definition>
 	<definition name="packageList" extends="projectDetailsPageTemplate">
-		<put-attribute name="title" value="Packages" />
 		<put-attribute name="content" value="packagesTile" />
 	</definition>
 </tiles-definitions>

@@ -29,7 +29,7 @@ import org.skydingo.skybase.model.relationship.ProjectMembership;
 import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.service.PersonService;
 import org.skydingo.skybase.util.CollectionsUtil;
-import org.skydingo.skybase.web.navigation.Breadcrumb;
+import org.skydingo.skybase.web.navigation.Sitemap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -95,8 +95,7 @@ public class PersonController extends AbstractController {
 	}
 	
 	private String doGetCreatePersonForm(Model model) {
-		addBreadcrumbs(model, new Breadcrumb("People", "/people"));
-		return "createPersonForm";
+		return addNavigation(model, Sitemap.CREATE_PERSON_ID);
 	}
 	
 	/**
@@ -114,11 +113,8 @@ public class PersonController extends AbstractController {
 	public String getPersonList(Model model) {
 		List<Person> people = CollectionsUtil.asList(personRepo.findAll());
 		Collections.sort(people);
-		
-		addBreadcrumbs(model);
 		model.addAttribute(people);
-		
-		return "personList";
+		return addNavigation(model, Sitemap.PERSON_LIST_ID);
 	}
 	
 	/**
@@ -151,13 +147,12 @@ public class PersonController extends AbstractController {
 		Collections.sort(directReports);
 		Collections.sort(collaborators);
 		
-		addBreadcrumbs(model, new Breadcrumb("People", "/people"));
 		model.addAttribute(person);
 		model.addAttribute("memberships", memberships);
 		model.addAttribute("directReports", directReports);
 		model.addAttribute("collaborators", collaborators);
 		
-		return "personDetails";
+		return addNavigation(model, Sitemap.PERSON_DETAILS_ID);
 	}
 	
 	/**
@@ -191,7 +186,11 @@ public class PersonController extends AbstractController {
 		// FIXME Need to check for errors following the attempt to save.
 		
 		if (result.hasErrors()) {
+			
+			// FIXME This person isn't on the navigation context, so the breadcrumbs are going to have the wrong name.
+			// Fix is to use "personData" for the form bean.
 			Person pPerson = personRepo.findOne(id);
+			
 			return doGetEditPersonForm(pPerson, model);
 		} else {
 			personRepo.save(person);
@@ -204,10 +203,7 @@ public class PersonController extends AbstractController {
 	 * @return
 	 */
 	private String doGetEditPersonForm(Person person, Model model) {
-		addBreadcrumbs(model,
-			new Breadcrumb("People", "/people"),
-			new Breadcrumb(person.getFirstNameLastName(), "/people/" + person.getId()));
-		return "editPersonForm";
+		return addNavigation(model, Sitemap.EDIT_PERSON_ID);
 	}
 	
 	/**

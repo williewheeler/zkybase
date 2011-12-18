@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+		"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	
+	<!-- OS stack template list -->
+	<definition name="osStackTemplateList" extends="pageTemplate">
+		<put-attribute name="title" value="OS stack templates" />
+		<put-attribute name="titleBar" value="/WEB-INF/jsp/template/osStack/list/osStackTemplateListTitleBar.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/template/osStack/list/osStackTemplateList.jsp" />
+	</definition>
+</tiles-definitions>

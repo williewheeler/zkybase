@@ -10,7 +10,7 @@
 			<div class="tr">
 				<div class="td"><h2>Updates</h2></div>
 				<div class="td" style="text-align:right">
-					<ul class="menu">
+					<ul class="inlineLinks">
 						<li><a href="#" title="Show more"><img src="${plusIconUrl}" alt="Show more" /></a></li>
 						<li><a href="#" title="Show less"><img src="${minusIconUrl}" alt="Show less" /></a></li>
 						<li><a href="#" title="RSS feed"><img src="${feedIconUrl}" alt="RSS" /></a></li>

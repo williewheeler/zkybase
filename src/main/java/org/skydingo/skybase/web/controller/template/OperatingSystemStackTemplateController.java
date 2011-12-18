@@ -1,5 +1,5 @@
 /* 
- * DashboardController.java
+ * OperatingSystemStackTemplateController.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,13 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.controller;
+package org.skydingo.skybase.web.controller.template;
 
-import javax.inject.Inject;
-
-import org.skydingo.skybase.repository.ProjectRepository;
-import org.skydingo.skybase.util.CollectionsUtil;
-import org.skydingo.skybase.web.navigation.Sitemap;
+import org.skydingo.skybase.web.controller.AbstractController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -29,29 +25,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Dashboard controller.
- * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Controller
-public class DashboardController extends AbstractController {
-	@Inject private ProjectRepository projectRepo;
+@RequestMapping("/templates/osstacks")
+public class OperatingSystemStackTemplateController extends AbstractController {
 
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.AbstractController#doInitBinder(org.springframework.web.bind.WebDataBinder)
+	 * @see org.skydingo.skybase.web.controller.AbstractController#doInitBinder(org.springframework.web.bind.WebDataBinder)
 	 */
 	@Override
-	public void doInitBinder(WebDataBinder binder) {
-		// No-op
+	protected void doInitBinder(WebDataBinder binder) {
+		// TODO Auto-generated method stub
+		
 	}
 	
-	/**
-	 * @return logical view name
-	 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String getDashboard(Model model) {
-		model.addAttribute(CollectionsUtil.asList(projectRepo.findAll()));
-		return addNavigation(model, Sitemap.DASHBOARD_ID);
+	public String getTemplates(Model model) {
+		model.addAttribute("activeNavigationItem", "templates");
+		return "osStackTemplateList";
 	}
-
 }

@@ -3,31 +3,8 @@
 		"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
 		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
+<!-- FIXME Make this file match the others -->
 <tiles-definitions>
-
-
-	<!-- =========================================================================================================== -->
-	<!-- Templates                                                                                                   -->
-	<!-- =========================================================================================================== -->
-	
-	<definition name="pageTemplate" template="/WEB-INF/jsp/templates/pageTemplate.jsp">
-	</definition>
-	
-	
-	<!-- =========================================================================================================== -->
-	<!-- Dashboard                                                                                                   -->
-	<!-- =========================================================================================================== -->
-	
-	<definition name="dashboard/dashboard" extends="pageTemplate">
-		<put-attribute name="title" value="Dashboard" />
-		<put-attribute name="titleBar" value="/WEB-INF/jsp/dashboard/dashboardTitleBar.jsp" />
-		<put-attribute name="content" value="/WEB-INF/jsp/dashboard/dashboard.jsp" />
-	</definition>
-	
-	
-	<!-- =========================================================================================================== -->
-	<!-- Projects                                                                                                    -->
-	<!-- =========================================================================================================== -->
 	
 	<!-- Tile templates -->
 	<definition name="projectDetailsTileTemplate" template="/WEB-INF/jsp/project/details/projectDetailsTemplate.jsp" />

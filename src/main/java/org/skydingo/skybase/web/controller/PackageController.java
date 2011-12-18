@@ -28,14 +28,13 @@ import org.skydingo.skybase.repository.PackageRepository;
 import org.skydingo.skybase.repository.ProjectRepository;
 import org.skydingo.skybase.service.PackageService;
 import org.skydingo.skybase.util.CollectionsUtil;
-import org.skydingo.skybase.web.navigation.Breadcrumb;
+import org.skydingo.skybase.web.navigation.Sitemap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -110,19 +109,19 @@ public class PackageController extends AbstractController {
 //	}
 	
 	private String doGetCreatePackageForm(Project project, Model model) {
-		addBreadcrumbs(model, new Breadcrumb(project.getName(), "/projects/" + project.getId()));
 		model.addAttribute(project);
-		return "createPackageForm";
+		return addNavigation(model, Sitemap.CREATE_PACKAGE_ID);
 	}
 	
 	@RequestMapping(value = "/projects/{projectId}/packages", method = RequestMethod.GET)
 	public String getPackageList(@PathVariable Long projectId, Model model) {
 		Project project = projectRepo.findOne(projectId);
 		List<Package> packages = CollectionsUtil.asSortedList(packageRepo.findPackagesByProject(project));
-		addBreadcrumbs(model);
+		
 		model.addAttribute(project);
 		model.addAttribute(packages);
-		return "packageList";
+		
+		return addNavigation(model, Sitemap.PACKAGE_LIST_ID);
 	}
 
 }

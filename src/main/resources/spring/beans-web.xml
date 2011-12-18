@@ -33,6 +33,12 @@
 	<context:component-scan base-package="org.skydingo.skybase.converter" />
 	<context:component-scan base-package="org.skydingo.skybase.web.controller" />
 	
+	<bean class="org.skydingo.skybase.web.navigation.Sitemap">
+		<property name="expressionParser">
+			<bean class="org.springframework.expression.spel.standard.SpelExpressionParser" />
+		</property>
+	</bean>
+	
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
 		p:basename="classpath:/spring/messages" />

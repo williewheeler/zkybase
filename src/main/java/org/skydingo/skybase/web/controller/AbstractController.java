@@ -17,10 +17,10 @@
  */
 package org.skydingo.skybase.web.controller;
 
-import org.skydingo.skybase.web.navigation.Breadcrumb;
-import org.skydingo.skybase.web.navigation.NavigationUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.inject.Inject;
+
+import org.skydingo.skybase.web.navigation.Navigation;
+import org.skydingo.skybase.web.navigation.Sitemap;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -33,7 +33,7 @@ public abstract class AbstractController {
 	protected static final String MODE_CREATE = "create";
 	protected static final String MODE_EDIT = "edit";
 	
-	private static final Logger log = LoggerFactory.getLogger(AbstractController.class);
+	@Inject private Sitemap sitemap;
 	
 	/**
 	 * @param binder binder
@@ -50,13 +50,8 @@ public abstract class AbstractController {
 		model.addAttribute("mode", mode);
 	}
 	
-	/**
-	 * Puts the given breadcrumbs on the model. This method provides the Dashboard breadcrumb automatically.
-	 * 
-	 * @param model model
-	 * @param breadcrumbs breadcrumbs
-	 */
-	protected void addBreadcrumbs(Model model, Breadcrumb... breadcrumbs) {
-		model.addAttribute(NavigationUtils.createBreadcrumbs(breadcrumbs));
+	protected String addNavigation(Model model, String currentNodeId) {
+		model.addAttribute(new Navigation(sitemap, currentNodeId, model.asMap()));
+		return currentNodeId;
 	}
 }

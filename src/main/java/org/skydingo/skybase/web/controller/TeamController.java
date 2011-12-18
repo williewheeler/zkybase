@@ -20,6 +20,7 @@ package org.skydingo.skybase.web.controller;
 import javax.inject.Inject;
 
 import org.skydingo.skybase.repository.ProjectRepository;
+import org.skydingo.skybase.web.navigation.Sitemap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -52,9 +53,8 @@ public class TeamController extends AbstractController {
 	 */
 	@RequestMapping(value = "/projects/{projectId}/team", method = RequestMethod.GET)
 	public String getTeam(@PathVariable Long projectId, Model model) {
-		addBreadcrumbs(model);
 		model.addAttribute(projectRepo.findOne(projectId));
-		return "teamDetails";
+		return addNavigation(model, Sitemap.TEAM_DETAILS_ID);
 	}
 	
 	// FIXME TEMPORARY

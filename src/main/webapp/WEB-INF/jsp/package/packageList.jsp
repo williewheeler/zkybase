@@ -8,7 +8,7 @@
 			<div class="tr">
 				<div class="td"><h2><span class="package icon">Packages</span></h2></div>
 				<div class="td" style="text-align:right">
-					<a href="${createPackageUrl}" title="Add an existing package to this project" class="btn"><span class="add icon">Create package</span></a>
+					<a href="${createPackageUrl}" title="Create a package and add it to this project" class="btn"><span class="add icon">Create package</span></a>
 				</div>
 			</div>
 		</div>
