@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-3.0.xsd
+		">
+
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
+<!-- 	<mvc:resources mapping="/images/**" location="/images/" /> -->
+<!-- 	<mvc:resources mapping="/resources/**" location="/resources/" /> -->
+	
+	<mvc:annotation-driven conversion-service="conversionService" />
+	
+	<!-- Must register this explicitly, or else we use the old PropertyEditor approach. -->
+	<!--
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<ref bean="keyToProjectConverter" />
+			</list>
+		</property>
+	</bean>
+	-->
+	
+	<context:component-scan base-package="org.skydingo.skybase.converter" />
+	<context:component-scan base-package="org.skydingo.skybase.web.controller" />
+	
+	<bean class="org.skydingo.skybase.web.navigation.Sitemap">
+		<property name="expressionParser">
+			<bean class="org.springframework.expression.spel.standard.SpelExpressionParser" />
+		</property>
+	</bean>
+	
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+		p:basename="classpath:/spring/messages" />
+	
+	
+	<!-- =========================================================================================================== -->
+	<!-- Views                                                                                                       -->
+	<!-- =========================================================================================================== -->
+	
+	<!-- JAXB -->
+	<oxm:jaxb2-marshaller id="marshaller">
+		<oxm:class-to-be-bound name="org.skydingo.skybase.model.Person" />
+		<oxm:class-to-be-bound name="org.skydingo.skybase.model.Project" />
+
+		<oxm:class-to-be-bound name="org.skydingo.skybase.model.relationship.ProjectMembership" />
+		<oxm:class-to-be-bound name="org.skydingo.skybase.web.jit.JitNode" />
+	</oxm:jaxb2-marshaller>
+	
+	<!-- Jackson -->
+	<bean id="jaxbAnnIntrospector" class="org.codehaus.jackson.xc.JaxbAnnotationIntrospector" />
+	<bean id="jacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper">
+		<property name="serializationConfig.annotationIntrospector" ref="jaxbAnnIntrospector" />
+		<property name="deserializationConfig.annotationIntrospector" ref="jaxbAnnIntrospector" />
+	</bean>
+	
+	<!-- Tiles -->
+	<bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles/**/*.xml</value>
+			</list>
+		</property>
+		
+		<!-- Initialize expression language support for use in Tiles definitions. -->
+		<property name="tilesProperties">
+			<props>
+				<prop key="org.apache.tiles.evaluator.AttributeEvaluator">org.apache.tiles.evaluator.el.ELAttributeEvaluator</prop>
+			</props>
+		</property>        
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="mediaTypes">
+			<map>
+				<entry key="do" value="text/html" />
+				<entry key="html" value="text/html" />
+				
+				<!-- FIXME -->
+				<entry key="jit" value="application/jit" />
+				
+				<entry key="json" value="application/json" />
+				<entry key="xml" value="application/xml" />
+			</map>
+		</property>
+		<property name="viewResolvers">
+			<list>
+				<bean class="org.springframework.web.servlet.view.tiles2.TilesViewResolver" />
+				<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+					p:prefix="/WEB-INF/jsp/"
+					p:suffix=".jsp" />
+			</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" p:objectMapper-ref="jacksonObjectMapper">
+					<property name="renderedAttributes">
+						<set>
+							<value>json</value>
+							<value>person</value>
+							<value>project</value>
+						</set>
+					</property>
+				</bean>
+				<bean class="org.springframework.web.servlet.view.xml.MarshallingView" p:marshaller-ref="marshaller" />
+				
+				<!-- FIXME We'll need different views for different objects, just like with RssView -->
+				<bean class="org.skydingo.skybase.web.view.JitView" p:objectMapper-ref="jacksonObjectMapper" />
+			</list>
+		</property>
+	</bean>
+</beans>
