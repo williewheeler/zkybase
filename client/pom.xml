@@ -12,4 +12,12 @@
 	</parent>
 	<artifactId>org.skydingo.skybase.client</artifactId>
 	<name>Skybase Client</name>
+	
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>org.skydingo.skybase.domain</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
 </project>
