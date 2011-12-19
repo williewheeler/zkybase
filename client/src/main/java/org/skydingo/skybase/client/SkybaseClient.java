@@ -39,6 +39,15 @@ public class SkybaseClient {
 	public void setRestTemplate(RestTemplate template) { this.template = template; }
 	
 	/**
+	 * @param pkg package
+	 * @return package ID
+	 */
+	public Long createPackage(Package pkg) {
+		// TODO Create package
+		return 1L;
+	}
+	
+	/**
 	 * @return all packages, sorted
 	 */
 	public List<Package> getPackages() {

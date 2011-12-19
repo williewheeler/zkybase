@@ -27,24 +27,43 @@ import org.skydingo.skybase.model.Package;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * @goal sayhi
+ * Package goal mojo.
+ * 
+ * @goal package
  * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class GreetingMojo extends AbstractMojo {
-
+public class PackageMojo extends AbstractMojo {
+	
+	/**
+	 * @parameter expression="${package.groupId}" 
+	 */
+	private String groupId;
+	
+	/**
+	 * @parameter expression="${package.packageId}"
+	 */
+	private String packageId;
+	
+	/**
+	 * @parameter expression="${package.version}"
+	 */
+	private String version;
+	
 	/* (non-Javadoc)
 	 * @see org.apache.maven.plugin.Mojo#execute()
 	 */
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		
-		// Say hi
-		getLog().info("Hello, world.");
-		
-		// Display packages
 		SkybaseClient client = new SkybaseClient();
 		client.setRestTemplate(new RestTemplate());
+		
+		// Create new package
+		Package newPkg = new Package(groupId, packageId, version);
+		Long newPkgId = client.createPackage(newPkg);
+		getLog().info("newPackage=" + newPkg + ", id=" + newPkgId);
+		
+		// Display packages
 		List<Package> pkgs = client.getPackages();
 		for (Package pkg : pkgs) {
 			getLog().info(pkg.toString());
