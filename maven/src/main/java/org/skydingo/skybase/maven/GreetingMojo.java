@@ -1,5 +1,5 @@
 /* 
- * Tester.java
+ * GreetingMojo.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,27 +15,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.client;
+package org.skydingo.skybase.maven;
 
 import java.util.List;
 
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.skydingo.skybase.client.SkybaseClient;
 import org.skydingo.skybase.model.Package;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
 /**
+ * @goal sayhi
+ * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class Tester {
-	private static final Logger log = LoggerFactory.getLogger(Tester.class);
-	
-	public static void main(String[] args) {
+public class GreetingMojo extends AbstractMojo {
+
+	/* (non-Javadoc)
+	 * @see org.apache.maven.plugin.Mojo#execute()
+	 */
+	@Override
+	public void execute() throws MojoExecutionException, MojoFailureException {
+		
+		// Say hi
+		getLog().info("Hello, world.");
+		
+		// Display packages
 		SkybaseClient client = new SkybaseClient();
 		client.setRestTemplate(new RestTemplate());
 		List<Package> pkgs = client.getPackages();
 		for (Package pkg : pkgs) {
-			log.debug("Package: {}", pkg);
+			getLog().info(pkg.toString());
 		}
 	}
+
 }

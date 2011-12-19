@@ -13,6 +13,7 @@
 		<module>domain</module>
 		<module>service</module>
 		<module>client</module>
+		<module>maven</module>
 	</modules>
 	
 	<properties>
