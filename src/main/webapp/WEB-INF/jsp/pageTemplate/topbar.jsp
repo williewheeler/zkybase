@@ -22,7 +22,6 @@
 			<div class="container">
 				<h3><a href="${dashboardUrl}">Skybase</a></h3>
 				<ul class="nav">
-					<li id="dashboardArea"><a href="${dashboardUrl}">Dashboard</a></li>
 					<li id="currentArea" class="dropdown">
 						<a href="#" class="dropdown-toggle">Current</a>
 						<ul class="dropdown-menu">

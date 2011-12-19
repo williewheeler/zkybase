@@ -17,24 +17,17 @@
  */
 package org.skydingo.skybase.web.controller;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.validation.Valid;
 
 import org.skydingo.skybase.model.Package;
-import org.skydingo.skybase.model.Project;
-import org.skydingo.skybase.repository.PackageRepository;
-import org.skydingo.skybase.repository.ProjectRepository;
 import org.skydingo.skybase.service.PackageService;
-import org.skydingo.skybase.util.CollectionsUtil;
 import org.skydingo.skybase.web.navigation.Sitemap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -44,10 +37,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Controller
+@RequestMapping("/packages")
 public class PackageController extends AbstractController {
 	@Inject private PackageService packageService;
-	@Inject private PackageRepository packageRepo;
-	@Inject private ProjectRepository projectRepo;
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.AbstractController#doInitBinder(org.springframework.web.bind.WebDataBinder)
@@ -57,71 +49,65 @@ public class PackageController extends AbstractController {
 		binder.setAllowedFields(new String[] { "groupId", "packageId", "version" });
 	}
 	
+	
+	// =================================================================================================================
+	// Create
+	// =================================================================================================================
+	
 	/**
-	 * @param projectId
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/projects/{projectId}/packages/new")
-	public String getCreatePackageForm(@PathVariable Long projectId, Model model) {
-		Project project = projectRepo.findOne(projectId);
+	@RequestMapping(value = "/new", method = RequestMethod.GET)
+	public String getCreatePackageForm(Model model) {
 		model.addAttribute("package", new Package());
-		return doGetCreatePackageForm(project, model);
+		return addNavigation(model, Sitemap.CREATE_PACKAGE_ID);
 	}
 	
 	/**
-	 * @param projectId
 	 * @param pkg
 	 * @param result
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/projects/{projectId}/packages")
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String postCreatePackageForm(
-			@PathVariable Long projectId,
 			@ModelAttribute("package") @Valid Package pkg,
 			BindingResult result,
 			Model model) {
 		
-		Project project = projectRepo.findOne(projectId);
-		pkg.setProject(project);
 		packageService.createPackage(pkg, result);
 		
 		if (result.hasErrors()) {
-			return doGetCreatePackageForm(project, model);
+			return addNavigation(model, Sitemap.CREATE_PACKAGE_ID);
 		}
 		
-		return "redirect:/projects/" + projectId + "/packages?a=created";
+		return "redirect:/packages?a=created";
 	}
+	
+	
+	// =================================================================================================================
+	// Read
+	// =================================================================================================================
 	
 	/**
-	 * @param projectId project ID
-	 * @param pkg package
-	 * @param result result
+	 * @param model
+	 * @return
 	 */
-//	@RequestMapping("/projects/{projectId}/packages")
-//	public void postCreatePackageBody(
-//			@PathVariable Long projectId,
-//			@RequestBody @Valid Package pkg,
-//			BindingResult result) {
-//		
-//		
-//	}
-	
-	private String doGetCreatePackageForm(Project project, Model model) {
-		model.addAttribute(project);
-		return addNavigation(model, Sitemap.CREATE_PACKAGE_ID);
-	}
-	
-	@RequestMapping(value = "/projects/{projectId}/packages", method = RequestMethod.GET)
-	public String getPackageList(@PathVariable Long projectId, Model model) {
-		Project project = projectRepo.findOne(projectId);
-		List<Package> packages = CollectionsUtil.asSortedList(packageRepo.findPackagesByProject(project));
-		
-		model.addAttribute(project);
-		model.addAttribute(packages);
-		
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String getPackageList(Model model) {
+		model.addAttribute(packageService.findPackages());
 		return addNavigation(model, Sitemap.PACKAGE_LIST_ID);
 	}
 
+	
+	// =================================================================================================================
+	// Update
+	// =================================================================================================================
+	
+	
+	// =================================================================================================================
+	// Delete
+	// =================================================================================================================
+	
 }

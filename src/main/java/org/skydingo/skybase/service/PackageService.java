@@ -17,6 +17,8 @@
  */
 package org.skydingo.skybase.service;
 
+import java.util.List;
+
 import org.skydingo.skybase.model.Package;
 import org.springframework.validation.Errors;
 
@@ -30,4 +32,9 @@ public interface PackageService {
 	 * @param errors errors
 	 */
 	void createPackage(Package pkg, Errors errors);
+	
+	/**
+	 * @return all packages, sorted
+	 */
+	List<Package> findPackages();
 }

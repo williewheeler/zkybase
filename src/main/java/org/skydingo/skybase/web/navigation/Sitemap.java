@@ -48,8 +48,8 @@ public class Sitemap {
 	public Sitemap() {
 		Node dashboard = buildNode(DASHBOARD_ID, "'Dashboard'", getDashboardPath(), null);
 		
-		Node packageList = buildNode(PACKAGE_LIST_ID, "#this[project].name", getProjectPath(), dashboard);
-		Node createPackage = buildNode(CREATE_PACKAGE_ID, "#this[project].name", getProjectPath(), dashboard);
+		Node packageList = buildNode(PACKAGE_LIST_ID, "'Packages'", getPackageListPath(), dashboard);
+		Node createPackage = buildNode(CREATE_PACKAGE_ID, "#this[package].packageName", getCreatePackagePath(), dashboard);
 		
 		Node teamDetails = buildNode(TEAM_DETAILS_ID, "#this[project].name", getProjectPath(), dashboard);
 		
@@ -81,6 +81,12 @@ public class Sitemap {
 	private String getDashboardPath() { return "'/'"; }
 	
 	private String getProjectPath() { return "'/project/' + #this[project].id"; }
+	
+	private String getPackageListPath() { return "'/packages'"; }
+	
+	private String getCreatePackagePath() { return getPackageListPath() + " + '/new'"; }
+	
+	private String getPackagePath() { return getPackageListPath() + " + '/' + #this[package].id"; }
 	
 	private String getPersonListPath() { return "'/people'"; }
 	

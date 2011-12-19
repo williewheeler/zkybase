@@ -13,9 +13,16 @@ body {
 	line-height: 1.5;
 }
 
-#doc3 { margin: 0; overflow: hidden; }
+.topbar .container {
+	padding-left: 20px;
+	padding-right: 20px;
+}
 
-#bdFtWrapper { width: 940px; margin: 20px auto; }
+#bdFtWrapper {
+	width: 940px;
+	margin: 20px auto;
+	padding: 0 20px;
+}
 
 #titleBar { margin: 20px 0; }
 
@@ -81,6 +88,10 @@ div.td { display: table-cell; }
 
 	border-bottom: 1px solid #E8E8E0;
 	background-color: #F8F8F0;
+}
+
+.gridBody .row.actions {
+	background-color: #E8E8E0;
 }
 
 .gridLabel {

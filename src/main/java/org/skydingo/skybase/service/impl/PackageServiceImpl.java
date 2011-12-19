@@ -17,11 +17,14 @@
  */
 package org.skydingo.skybase.service.impl;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.repository.PackageRepository;
 import org.skydingo.skybase.service.PackageService;
+import org.skydingo.skybase.util.CollectionsUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
@@ -31,7 +34,7 @@ import org.springframework.validation.Errors;
 @Service
 public class PackageServiceImpl implements PackageService {
 	@Inject private PackageRepository packageRepo;
-
+	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.PackageService#createPackage(java.lang.Package, org.springframework.validation.Errors)
 	 */
@@ -43,4 +46,11 @@ public class PackageServiceImpl implements PackageService {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.PackageService#findPackages()
+	 */
+	@Override
+	public List<Package> findPackages() {
+		return CollectionsUtil.asSortedList(packageRepo.findAll());
+	}
 }

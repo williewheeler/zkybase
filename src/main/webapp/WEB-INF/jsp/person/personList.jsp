@@ -6,7 +6,7 @@
 <div>
 	<c:choose>
 		<c:when test="${empty personList}">
-			<p>There aren't any people.</p>
+			<p>No people.</p>
 		</c:when>
 		<c:otherwise>
 			<table class="bordered-table zebra-striped sortable">
