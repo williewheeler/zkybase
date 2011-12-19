@@ -4,14 +4,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.skydingo.skybase</groupId>
-	<artifactId>org.skydingo.skybase</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	
-	<modules>
-		<module>domain</module>
-		<module>service</module>
-		<module>client</module>
-	</modules>
+	<parent>
+		<artifactId>org.skydingo.skybase</artifactId>
+		<groupId>org.skydingo.skybase</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	<artifactId>domain</artifactId>
+	<name>Skybase Domain</name>
 </project>
