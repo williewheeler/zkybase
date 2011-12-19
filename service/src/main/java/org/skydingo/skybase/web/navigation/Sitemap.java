@@ -49,7 +49,7 @@ public class Sitemap {
 		Node dashboard = buildNode(DASHBOARD_ID, "'Dashboard'", getDashboardPath(), null);
 		
 		Node packageList = buildNode(PACKAGE_LIST_ID, "'Packages'", getPackageListPath(), dashboard);
-		Node createPackage = buildNode(CREATE_PACKAGE_ID, "#this[package].packageName", getCreatePackagePath(), dashboard);
+		Node createPackage = buildNode(CREATE_PACKAGE_ID, "'Create package'", getCreatePackagePath(), packageList);
 		
 		Node teamDetails = buildNode(TEAM_DETAILS_ID, "#this[project].name", getProjectPath(), dashboard);
 		

@@ -50,9 +50,10 @@
 	
 	<!-- JAXB -->
 	<oxm:jaxb2-marshaller id="marshaller">
+		<oxm:class-to-be-bound name="org.skydingo.skybase.model.Package" />
+		<oxm:class-to-be-bound name="org.skydingo.skybase.model.Package$ListWrapper" />
 		<oxm:class-to-be-bound name="org.skydingo.skybase.model.Person" />
 		<oxm:class-to-be-bound name="org.skydingo.skybase.model.Project" />
-
 		<oxm:class-to-be-bound name="org.skydingo.skybase.model.relationship.ProjectMembership" />
 		<oxm:class-to-be-bound name="org.skydingo.skybase.web.jit.JitNode" />
 	</oxm:jaxb2-marshaller>
@@ -103,15 +104,10 @@
 		</property>
 		<property name="defaultViews">
 			<list>
-				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" p:objectMapper-ref="jacksonObjectMapper">
-					<property name="renderedAttributes">
-						<set>
-							<value>json</value>
-							<value>person</value>
-							<value>project</value>
-						</set>
-					</property>
-				</bean>
+				<!-- JSON -->
+<!-- 				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" p:objectMapper-ref="jacksonObjectMapper" /> -->
+				
+				<!-- XML -->
 				<bean class="org.springframework.web.servlet.view.xml.MarshallingView" p:marshaller-ref="marshaller" />
 				
 				<!-- FIXME We'll need different views for different objects, just like with RssView -->

@@ -17,13 +17,19 @@
  */
 package org.skydingo.skybase.model;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
-import org.springframework.data.neo4j.annotation.RelatedTo;
 
 /**
  * Package entity.
@@ -31,12 +37,10 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @NodeEntity
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class Package implements Comparable<Package> {
 	@GraphId private Long id;
-	
-	@RelatedTo(type = "BUILT_FROM")
-	private Project project;
-	
 	@Indexed private String groupId;
 	@Indexed private String packageId;
 	@Indexed private String version;
@@ -47,13 +51,11 @@ public class Package implements Comparable<Package> {
 	public Package() { }
 	
 	/**
-	 * @param project
 	 * @param groupId
 	 * @param packageId
 	 * @param version
 	 */
-	public Package(Project project, String groupId, String packageId, String version) {
-		this.project = project;
+	public Package(String groupId, String packageId, String version) {
 		this.groupId = groupId;
 		this.packageId = packageId;
 		this.version = version;
@@ -62,6 +64,7 @@ public class Package implements Comparable<Package> {
 	/**
 	 * @return
 	 */
+	@XmlAttribute
 	public Long getId() { return id; }
 	
 	/**
@@ -70,20 +73,11 @@ public class Package implements Comparable<Package> {
 	public void setId(Long id) { this.id = id; }
 	
 	/**
-	 * @return project this package was built from
-	 */
-	public Project getProject() { return project; }
-	
-	/**
-	 * @param project project this package was built from
-	 */
-	public void setProject(Project project) { this.project = project; }
-	
-	/**
 	 * @return
 	 */
 	@NotNull
 	@Size(min = 1, max = 200)
+	@XmlElement
 	public String getGroupId() { return groupId; }
 	
 	/**
@@ -96,6 +90,7 @@ public class Package implements Comparable<Package> {
 	 */
 	@NotNull
 	@Size(min = 1, max = 200)
+	@XmlElement
 	public String getPackageId() { return packageId; }
 	
 	/**
@@ -108,6 +103,7 @@ public class Package implements Comparable<Package> {
 	 */
 	@NotNull
 	@Size(min = 1, max = 80)
+	@XmlElement
 	public String getVersion() { return version; }
 	
 	/**
@@ -125,5 +121,31 @@ public class Package implements Comparable<Package> {
 		int packageComp = packageId.compareTo(that.packageId);
 		if (packageComp != 0) { return packageComp; }
 		return version.compareTo(that.version);
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "[Package: id=" + id
+			+ ", groupId=" + groupId
+			+ ", packageId=" + packageId
+			+ ", version=" + version
+			+ "]";
+	}
+	
+	@XmlRootElement(name = "packages")
+	public static class ListWrapper {
+		private List<Package> list;
+		
+		public ListWrapper() { }
+		
+		public ListWrapper(List<Package> list) { this.list = list; }
+		
+		@XmlElement(name = "package")
+		public List<Package> getList() { return list; }
+		
+		public void setList(List<Package> list) { this.list = list; }
 	}
 }

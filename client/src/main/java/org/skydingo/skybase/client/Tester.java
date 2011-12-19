@@ -1,5 +1,5 @@
 /* 
- * SkybaseClient.java
+ * Tester.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -20,30 +20,22 @@ package org.skydingo.skybase.client;
 import java.util.List;
 
 import org.skydingo.skybase.model.Package;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class SkybaseClient {
-	private RestTemplate template;
+public class Tester {
+	private static final Logger log = LoggerFactory.getLogger(Tester.class);
 	
-	/**
-	 * @return REST template
-	 */
-	public RestTemplate getRestTemplate() { return template; }
-	
-	/**
-	 * @param template REST template
-	 */
-	public void setRestTemplate(RestTemplate template) { this.template = template; }
-	
-	/**
-	 * @return all packages, sorted
-	 */
-	public List<Package> getPackages() {
-		return template
-			.getForObject("http://localhost:8080/packages.xml", Package.ListWrapper.class)
-			.getList();
+	public static void main(String[] args) {
+		SkybaseClient client = new SkybaseClient();
+		client.setRestTemplate(new RestTemplate());
+		List<Package> pkgs = client.getPackages();
+		for (Package pkg : pkgs) {
+			log.debug("Package: {}", pkg);
+		}
 	}
 }

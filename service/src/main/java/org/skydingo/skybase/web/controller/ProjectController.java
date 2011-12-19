@@ -239,12 +239,10 @@ public class ProjectController extends AbstractController {
 	// =================================================================================================================
 	
 	private String doGetCreateProjectForm(Model model) {
-		setMode(model, MODE_CREATE);
 		return "project/form/createForm";
 	}
 	
 	private String doGetProjectEditor(Project project, Model model) {
-		setMode(model, MODE_EDIT);
 		
 		// Have to do this in case the user edited the project name.
 		String key = project.getKey();

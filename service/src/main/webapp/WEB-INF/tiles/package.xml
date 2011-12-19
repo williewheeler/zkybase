@@ -9,8 +9,8 @@
 	<definition name="createPackageFormTile" template="/WEB-INF/jsp/package/packageForm.jsp">
 		<put-attribute name="formMethod" value="POST" />
 		<put-attribute name="instructionsCode" value="content.createPackageForm.instructions" />
-		<put-attribute name="submitPath" expression="/projects/${project.id}/packages" />
-		<put-attribute name="cancelPath" expression="/projects/${project.id}/packages?a=cancelled" />
+		<put-attribute name="submitPath" expression="/packages" />
+		<put-attribute name="cancelPath" expression="/packages?a=cancelled" />
 	</definition>
 	<definition name="createPackageForm" extends="createPageTemplate">
 		<put-attribute name="content" value="createPackageFormTile" />

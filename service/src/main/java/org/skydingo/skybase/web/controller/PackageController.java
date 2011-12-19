@@ -17,6 +17,9 @@
  */
 package org.skydingo.skybase.web.controller;
 
+import java.io.IOException;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -30,6 +33,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Package controller.
@@ -37,7 +41,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Controller
-@RequestMapping("/packages")
 public class PackageController extends AbstractController {
 	@Inject private PackageService packageService;
 
@@ -58,9 +61,9 @@ public class PackageController extends AbstractController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/new", method = RequestMethod.GET)
+	@RequestMapping(value = "/packages/new", method = RequestMethod.GET)
 	public String getCreatePackageForm(Model model) {
-		model.addAttribute("package", new Package());
+		model.addAttribute(new Package());
 		return addNavigation(model, Sitemap.CREATE_PACKAGE_ID);
 	}
 	
@@ -70,7 +73,7 @@ public class PackageController extends AbstractController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "", method = RequestMethod.POST)
+	@RequestMapping(value = "/packages", method = RequestMethod.POST)
 	public String postCreatePackageForm(
 			@ModelAttribute("package") @Valid Package pkg,
 			BindingResult result,
@@ -92,12 +95,27 @@ public class PackageController extends AbstractController {
 	
 	/**
 	 * @param model
+	 * @param req
+	 * @param out
 	 * @return
+	 * @throws IOException
 	 */
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = "/packages", method = RequestMethod.GET)
 	public String getPackageList(Model model) {
-		model.addAttribute(packageService.findPackages());
+		List<Package> pkgs = packageService.findPackages();
+		model.addAttribute(pkgs);
 		return addNavigation(model, Sitemap.PACKAGE_LIST_ID);
+	}
+	
+	@RequestMapping(value = "/packages.json", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Package> getPackageListAsJson() {
+		return packageService.findPackages();
+	}
+	
+	@RequestMapping(value = "/packages.xml", method = RequestMethod.GET)
+	public void getPackageListAsXml(Model model) {
+		model.addAttribute(new Package.ListWrapper(packageService.findPackages()));
 	}
 
 	

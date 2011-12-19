@@ -30,9 +30,6 @@ import org.springframework.web.bind.annotation.InitBinder;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public abstract class AbstractController {
-	protected static final String MODE_CREATE = "create";
-	protected static final String MODE_EDIT = "edit";
-	
 	@Inject private Sitemap sitemap;
 	
 	/**
@@ -45,10 +42,6 @@ public abstract class AbstractController {
 	}
 	
 	protected abstract void doInitBinder(WebDataBinder binder);
-	
-	protected void setMode(Model model, String mode) {
-		model.addAttribute("mode", mode);
-	}
 	
 	protected String addNavigation(Model model, String currentNodeId) {
 		model.addAttribute(new Navigation(sitemap, currentNodeId, model.asMap()));

@@ -19,5 +19,11 @@
 			<artifactId>org.skydingo.skybase.domain</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
 	</dependencies>
 </project>
