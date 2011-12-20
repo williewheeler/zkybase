@@ -61,7 +61,11 @@ public class PackageMojo extends AbstractMojo {
 		// Create new package
 		Package newPkg = new Package(groupId, packageId, version);
 		Long newPkgId = client.createPackage(newPkg);
-		getLog().info("newPackage=" + newPkg + ", id=" + newPkgId);
+		if (newPkgId == 0L) {
+			getLog().info("Package already exists");
+		} else {
+			getLog().info("Created package id " + newPkgId);
+		}
 		
 		// Display packages
 		List<Package> pkgs = client.getPackages();
