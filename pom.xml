@@ -20,7 +20,7 @@
 		<aspectj.version>1.6.12</aspectj.version>
 		<jackson.version>1.9.2</jackson.version>
 		<spring.data.neo4j.version>2.0.0.RC1</spring.data.neo4j.version>
-		<spring.version>3.0.6.RELEASE</spring.version>
+		<spring.version>3.1.0.RELEASE</spring.version>
 		<tiles.version>2.2.2</tiles.version>
 	</properties>
 	

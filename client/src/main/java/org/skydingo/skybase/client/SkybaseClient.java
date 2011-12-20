@@ -17,15 +17,20 @@
  */
 package org.skydingo.skybase.client;
 
+import java.net.URI;
 import java.util.List;
 
 import org.skydingo.skybase.model.Package;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public class SkybaseClient {
+	private static final Logger log = LoggerFactory.getLogger(SkybaseClient.class);
+	
 	private RestTemplate template;
 	
 	/**
@@ -40,11 +45,17 @@ public class SkybaseClient {
 	
 	/**
 	 * @param pkg package
-	 * @return package ID
+	 * @return package ID, or 0 if no package was created
 	 */
 	public Long createPackage(Package pkg) {
-		// TODO Create package
-		return 1L;
+		URI location = template.postForLocation("http://localhost:8080/packages", pkg);
+		if (location == null) {
+			return 0L;
+		} else {
+			String s = location.toString();
+			log.debug("location={}", s);
+			return Long.parseLong(s.substring(s.lastIndexOf('/') + 1));
+		}
 	}
 	
 	/**
