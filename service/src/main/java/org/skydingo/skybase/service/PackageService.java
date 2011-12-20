@@ -19,6 +19,7 @@ package org.skydingo.skybase.service;
 
 import java.util.List;
 
+import org.skydingo.skybase.exception.DuplicateEntityException;
 import org.skydingo.skybase.model.Package;
 import org.springframework.validation.Errors;
 
@@ -26,6 +27,12 @@ import org.springframework.validation.Errors;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public interface PackageService {
+	
+	/**
+	 * @param pkg
+	 * @throws DuplicateEntityException if the package already exists
+	 */
+	void createPackage(Package pkg);
 	
 	/**
 	 * @param pkg package to create

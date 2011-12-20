@@ -11,9 +11,7 @@
 <c:url var="submitUrl" value="${submitPath}" />
 <c:url var="cancelUrl" value="${cancelPath}" />
 
-<div id="instructions">
-	<spring:message code="${instructionsCode}" />
-</div>
+<p id="instructions"><spring:message code="${instructionsCode}" /></p>
 
 <form:form cssClass="pageForm main" modelAttribute="package" action="${submitUrl}" method="post">
 	<fieldset>
@@ -50,6 +48,9 @@
 				<div class="row actions">
 					<input class="btn primary" type="submit" value="Save" />
 					<a class="btn" href="${cancelUrl}">Cancel</a>
+					<form:errors>
+						<span class="globalError help-inline"><form:errors /></span>
+					</form:errors>
 				</div>
 			</div>
 		</div>

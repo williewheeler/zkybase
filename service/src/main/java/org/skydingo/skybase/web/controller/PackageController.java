@@ -21,16 +21,23 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.skydingo.skybase.exception.DuplicateEntityException;
 import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.service.PackageService;
 import org.skydingo.skybase.web.navigation.Sitemap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,7 +49,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class PackageController extends AbstractController {
+	private static final Logger log = LoggerFactory.getLogger(PackageController.class);
+	
 	@Inject private PackageService packageService;
+	
+	@Value("#{config['app.baseUrl']}")
+	private String appBaseUrl;
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.AbstractController#doInitBinder(org.springframework.web.bind.WebDataBinder)
@@ -86,6 +98,27 @@ public class PackageController extends AbstractController {
 		}
 		
 		return "redirect:/packages?a=created";
+	}
+	
+	// consumes : Spring 3.1
+	@RequestMapping(value = "/packages", method = RequestMethod.POST, consumes = "application/xml")
+	public void postPackage(@RequestBody Package pkg, HttpServletRequest req, HttpServletResponse res) {
+		log.debug("Posting package: {}", pkg);
+		
+		try {
+			packageService.createPackage(pkg);
+			res.setHeader("Location", appBaseUrl + "/packages/" + pkg.getId());
+		} catch (DuplicateEntityException e) {
+			log.info("Package already exists; ignoring: {}", pkg);
+			
+			// http://stackoverflow.com/questions/3825990/http-response-code-for-post-when-resource-already-exists
+//			log.warn("Package already exists: {}", pkg);
+//			res.setStatus(HttpServletResponse.SC_CONFLICT);
+			
+			// This seems better:
+			// http://stackoverflow.com/questions/283957/rest-correct-http-response-code-for-a-post-which-is-ignored
+			res.setStatus(HttpServletResponse.SC_OK);
+		}
 	}
 	
 	

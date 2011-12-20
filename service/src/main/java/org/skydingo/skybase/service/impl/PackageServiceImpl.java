@@ -17,32 +17,60 @@
  */
 package org.skydingo.skybase.service.impl;
 
+import static org.springframework.util.Assert.notNull;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.skydingo.skybase.exception.DuplicateEntityException;
 import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.repository.PackageRepository;
 import org.skydingo.skybase.service.PackageService;
 import org.skydingo.skybase.util.CollectionsUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
+@Transactional
 public class PackageServiceImpl implements PackageService {
 	@Inject private PackageRepository packageRepo;
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.PackageService#createPackage(org.skydingo.skybase.model.Package)
+	 */
+	@Override
+	public void createPackage(Package pkg) {
+		notNull(pkg);
+		
+		List<Package> duplicates =
+			packageRepo.findByGroupIdAndPackageIdAndVersion(pkg.getGroupId(), pkg.getPackageId(), pkg.getVersion());
+		
+		if (!duplicates.isEmpty()) {
+			throw new DuplicateEntityException();
+		}
+		
+		packageRepo.save(pkg);
+	}
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.PackageService#createPackage(java.lang.Package, org.springframework.validation.Errors)
 	 */
 	@Override
 	public void createPackage(Package pkg, Errors errors) {
+		notNull(pkg);
+		notNull(errors);
+		
 		if (!errors.hasErrors()) {
-			// TODO Check for duplicates
-			packageRepo.save(pkg);
+			try {
+				createPackage(pkg);
+			} catch (DuplicateEntityException e) {
+				errors.reject("error.package.duplicatePackage");
+			}
 		}
 	}
 

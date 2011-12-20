@@ -154,6 +154,9 @@ label { color: #4B5F6D; }
 
 .formSubmit { margin-top: 20px; }
 
+/* Based on Twitter Bootstrap color */
+.globalError { color: #b94a48; }
+
 input[type=text], textarea {
 	border: 1px solid #CCC;
 /* 	padding: 4px; */
@@ -209,6 +212,7 @@ a.btn { outline: 0; }
 .editPerson.icon { background-image: url('../images/icons/user--pencil.png'); }
 .editProject.icon { background-image: url('../images/icons/folder--pencil.png'); }
 .email.icon { background-image: url('../images/icons/mail.png'); }
+.error.icon { background-image: url('../images/icons/exclamation.png'); }
 .feed.icon { background-image: url('../images/icons/feed.png'); }
 .json.icon { background-image: url('../images/icons/json.png'); }
 .mobilePhone.icon { background-image: url('../images/icons/mobile-phone.png'); }

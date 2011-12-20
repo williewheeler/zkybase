@@ -30,12 +30,13 @@ import org.springframework.data.neo4j.repository.GraphRepository;
 public interface PackageRepository extends GraphRepository<Package> {
 	
 	/**
-	 * Finds a list of packages by name.
-	 * 
-	 * @param name package name
-	 * @return all packages having the given name
+	 * @param groupId
+	 * @param packageId
+	 * @param version
+	 * @return
 	 */
-//	List<Package> findPackageByName(String name);
+	// http://stackoverflow.com/questions/8032979/cypher-query-to-get-nodes-with-given-property-values
+	List<Package> findByGroupIdAndPackageIdAndVersion(String groupId, String packageId, String version);
 	
 	/**
 	 * Returns the packages for the given project.
