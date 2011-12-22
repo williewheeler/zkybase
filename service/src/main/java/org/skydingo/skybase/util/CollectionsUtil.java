@@ -33,7 +33,11 @@ public final class CollectionsUtil {
 	 * @return list
 	 */
 	public static <E> List<E> asList(Iterable<E> iterable) {
-		return new ArrayList<E>(IteratorUtil.asCollection(iterable));
+		if (iterable == null) {
+			return new ArrayList<E>();
+		} else {
+			return new ArrayList<E>(IteratorUtil.asCollection(iterable));
+		}
 	}
 	
 	/**

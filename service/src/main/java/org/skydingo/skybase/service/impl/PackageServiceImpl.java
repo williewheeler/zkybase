@@ -46,14 +46,11 @@ public class PackageServiceImpl implements PackageService {
 	@Override
 	public void createPackage(Package pkg) {
 		notNull(pkg);
-		
 		List<Package> duplicates =
 			packageRepo.findByGroupIdAndPackageIdAndVersion(pkg.getGroupId(), pkg.getPackageId(), pkg.getVersion());
-		
 		if (!duplicates.isEmpty()) {
 			throw new DuplicateEntityException();
 		}
-		
 		packageRepo.save(pkg);
 	}
 	

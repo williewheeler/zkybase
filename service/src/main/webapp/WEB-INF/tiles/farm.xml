@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+		"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	
+	<!-- Create farm form -->
+	<definition name="createFarmFormTile" template="/WEB-INF/jsp/farm/farmForm.jsp">
+		<put-attribute name="formMethod" value="POST" />
+		<put-attribute name="instructionsCode" value="content.createFarmForm.instructions" />
+		<put-attribute name="submitPath" expression="/farms" />
+		<put-attribute name="cancelPath" expression="/farms?a=cancelled" />
+	</definition>
+	<definition name="createFarmForm" extends="createPageTemplate">
+		<put-attribute name="content" value="createFarmFormTile" />
+	</definition>
+	
+	<!-- Farm list -->
+	<definition name="farmList" extends="listPageTemplate">
+		<put-attribute name="actionLinks" value="/WEB-INF/jsp/farm/farmListActionLinks.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/farm/farmList.jsp" />
+	</definition>
+</tiles-definitions>

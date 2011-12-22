@@ -34,6 +34,9 @@ public class Sitemap {
 	public static final String PACKAGE_LIST_ID = "packageList";
 	public static final String CREATE_PACKAGE_ID = "createPackageForm";
 	
+	public static final String FARM_LIST_ID = "farmList";
+	public static final String CREATE_FARM_ID = "createFarmForm";
+	
 	public static final String TEAM_DETAILS_ID = "teamDetails";
 	
 	public static final String PERSON_LIST_ID = "personList";
@@ -46,10 +49,16 @@ public class Sitemap {
 	private final Map<String, Node> nodes = new HashMap<String, Node>();
 	
 	public Sitemap() {
+		
+		// FIXME All these apostrophes suck. Figure out a better way to do this. [WLW]
+		
 		Node dashboard = buildNode(DASHBOARD_ID, "'Dashboard'", getDashboardPath(), null);
 		
 		Node packageList = buildNode(PACKAGE_LIST_ID, "'Packages'", getPackageListPath(), dashboard);
 		Node createPackage = buildNode(CREATE_PACKAGE_ID, "'Create package'", getCreatePackagePath(), packageList);
+		
+		Node farmList = buildNode(FARM_LIST_ID, "'Farms'", getFarmListPath(), dashboard);
+		Node createFarm = buildNode(CREATE_FARM_ID, "'Create farm'", getCreateFarmPath(), farmList);
 		
 		Node teamDetails = buildNode(TEAM_DETAILS_ID, "#this[project].name", getProjectPath(), dashboard);
 		
@@ -78,21 +87,34 @@ public class Sitemap {
 		return (String) expr.getValue(evalContext);
 	}
 	
-	private String getDashboardPath() { return "'/'"; }
+	
+	// FIXME All these apostrophes suck. Figure out a better way to do this. [WLW]
+	
+	private String getDashboardPath() { return apostropheify("/"); }
 	
 	private String getProjectPath() { return "'/project/' + #this[project].id"; }
 	
-	private String getPackageListPath() { return "'/packages'"; }
+	private String getPackageListPath() { return apostropheify("/packages"); }
 	
-	private String getCreatePackagePath() { return getPackageListPath() + " + '/new'"; }
+	private String getCreatePackagePath() { return newify(getPackageListPath()); }
 	
 	private String getPackagePath() { return getPackageListPath() + " + '/' + #this[package].id"; }
 	
-	private String getPersonListPath() { return "'/people'"; }
+	private String getFarmListPath() { return apostropheify("/farms"); }
 	
-	private String getCreatePersonPath() { return getPersonListPath() + " + '/new'"; }
+	private String getCreateFarmPath() { return newify(getFarmListPath()); }
+	
+	private String getPersonListPath() { return apostropheify("/people"); }
+	
+	private String getCreatePersonPath() { return newify(getPersonListPath()); }
 	
 	private String getPersonPath() { return getPersonListPath() + " + '/' + #this[person].id"; }
 	
 	private String getEditPersonPath() { return getPersonPath() + " + '/edit'"; }
+	
+	@Deprecated
+	private String apostropheify(String path) { return "'" + path + "'"; }
+	
+	@Deprecated
+	private String newify(String path) { return path + " + '/new'"; }
 }

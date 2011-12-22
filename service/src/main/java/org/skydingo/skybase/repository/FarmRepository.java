@@ -1,5 +1,5 @@
 /* 
- * FarmInstance.java
+ * FarmRepository.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,36 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.model;
+package org.skydingo.skybase.repository;
 
-import org.springframework.data.neo4j.annotation.GraphId;
-import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.skydingo.skybase.model.Farm;
+import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@NodeEntity
-public class Farm {
-	@GraphId private Long nodeId;
-	private String name;
-	
-	/**
-	 * @return
-	 */
-	public Long getId() { return nodeId; }
-	
-	/**
-	 * @param id
-	 */
-	public void setId(Long id) { this.nodeId = id; }
-	
-	/**
-	 * @return
-	 */
-	public String getName() { return name; }
-	
-	/**
-	 * @param name
-	 */
-	public void setName(String name) { this.name = name; }
+public interface FarmRepository extends GraphRepository<Farm> {
+
 }

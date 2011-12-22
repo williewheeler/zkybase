@@ -203,6 +203,7 @@ a.btn { outline: 0; }
 .add.icon { background-image: url('../images/icons/plus.png'); }
 .addUser.icon { background-image: url('../images/icons/user--plus.png'); }
 .asterisk.icon { background-image: url('../images/icons/asterisk-small.png'); }
+.createFarm.icon { background-image: url('../images/icons/plus.png'); }
 .createPackage.icon { background-image: url('../images/icons/box--plus.png'); }
 .createPerson.icon { background-image: url('../images/icons/user--plus.png'); }
 .createProject.icon { background-image: url('../images/icons/folder--plus.png'); }
