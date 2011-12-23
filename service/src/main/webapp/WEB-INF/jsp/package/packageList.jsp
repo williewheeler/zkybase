@@ -16,8 +16,8 @@
 						<th>Version</th>
 						<th>Status</th>
 						<th style="width:0"></th>
-						<th style="width:0"></th>
-						<th style="width:0"></th>
+<!-- 						<th style="width:0"></th> -->
+<!-- 						<th style="width:0"></th> -->
 					</tr>
 				</thead>
 				<tbody>
