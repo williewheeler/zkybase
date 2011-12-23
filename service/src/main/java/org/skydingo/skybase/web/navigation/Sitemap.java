@@ -34,6 +34,7 @@ public class Sitemap {
 	public static final String PACKAGE_LIST_ID = "packageList";
 	public static final String CREATE_PACKAGE_ID = "createPackageForm";
 	public static final String PACKAGE_DETAILS_ID = "packageDetails";
+	public static final String EDIT_PACKAGE_ID = "editPackageForm";
 	
 	public static final String FARM_LIST_ID = "farmList";
 	public static final String CREATE_FARM_ID = "createFarmForm";
@@ -58,6 +59,7 @@ public class Sitemap {
 		Node packageList = buildNode(PACKAGE_LIST_ID, "'Packages'", getPackageListPath(), dashboard);
 		Node createPackage = buildNode(CREATE_PACKAGE_ID, "'Create package'", getCreatePackagePath(), packageList);
 		Node packageDetails = buildNode(PACKAGE_DETAILS_ID, "#this[package].packageId", getPackagePath(), packageList);
+		Node editPackage = buildNode(EDIT_PACKAGE_ID, "'Edit package'", getEditPackagePath(), packageDetails);
 		
 		Node farmList = buildNode(FARM_LIST_ID, "'Farms'", getFarmListPath(), dashboard);
 		Node createFarm = buildNode(CREATE_FARM_ID, "'Create farm'", getCreateFarmPath(), farmList);
@@ -101,6 +103,8 @@ public class Sitemap {
 	private String getCreatePackagePath() { return newify(getPackageListPath()); }
 	
 	private String getPackagePath() { return getPackageListPath() + " + '/' + #this[package].id"; }
+	
+	private String getEditPackagePath() { return getPackagePath() + " + '/edit'"; }
 	
 	private String getFarmListPath() { return apostropheify("/farms"); }
 	

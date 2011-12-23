@@ -176,6 +176,19 @@ public class PackageController extends AbstractController {
 	// Update
 	// =================================================================================================================
 	
+	/**
+	 * Generates the specified edit package page.
+	 * 
+	 * @param id package ID
+	 * @param model model
+	 * @return view name
+	 */
+	@RequestMapping(value = "/packages/{id}/edit", method = RequestMethod.GET)
+	public String getEditPackageForm(@PathVariable Long id, Model model) {
+		model.addAttribute(packageService.findPackage(id));
+		return addNavigation(model, Sitemap.EDIT_PACKAGE_ID);
+	}
+	
 	
 	// =================================================================================================================
 	// Delete

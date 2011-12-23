@@ -27,4 +27,15 @@
 		<put-attribute name="actionLinks" value="/WEB-INF/jsp/package/packageDetailsActionLinks.jsp" />
 		<put-attribute name="content" value="/WEB-INF/jsp/package/packageDetails.jsp" />
 	</definition>
+	
+	<!-- Edit package form -->
+	<definition name="editPackageFormTile" template="/WEB-INF/jsp/package/packageForm.jsp">
+		<put-attribute name="formMethod" value="put" />
+		<put-attribute name="instructionsCode" value="content.editPackageForm.instructions" />
+		<put-attribute name="submitPath" expression="/people/${package.id}" />
+		<put-attribute name="cancelPath" expression="/people/${package.id}?a=cancelled" />
+	</definition>
+	<definition name="editPackageForm" extends="editPageTemplate">
+		<put-attribute name="content" value="editPackageFormTile" />
+	</definition>
 </tiles-definitions>

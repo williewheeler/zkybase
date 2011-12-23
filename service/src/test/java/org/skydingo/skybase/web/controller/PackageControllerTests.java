@@ -91,4 +91,10 @@ public class PackageControllerTests {
 		String viewName = controller.getPackage(1L, model);
 		assertEquals("packageDetails", viewName);
 	}
+	
+	@Test
+	public void testGetEditPackageForm() {
+		String viewName = controller.getEditPackageForm(1L, model);
+		assertEquals("editPackageForm", viewName);
+	}
 }
