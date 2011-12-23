@@ -11,19 +11,22 @@
 			<table class="bordered-table zebra-striped sortable">
 				<thead>
 					<tr>
-						<th>Group</th>
-						<th>Package</th>
+						<th>Group ID</th>
+						<th>Package ID</th>
 						<th>Version</th>
 						<th>Status</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="package" items="${packageList}">
+						<c:url var="packageUrl" value="/packages/${package.id}" />
 						<tr>
 							<td><c:out value="${package.groupId}" /></td>
 							<td><c:out value="${package.packageId}" /></td>
 							<td><c:out value="${package.version}" /></td>
-							<td></td>
+							<td>TODO</td>
+							<td><a href="${packageUrl}">Details</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

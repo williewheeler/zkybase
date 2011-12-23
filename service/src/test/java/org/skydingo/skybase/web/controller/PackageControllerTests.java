@@ -1,5 +1,5 @@
 /* 
- * FarmControllerTests.java
+ * PackageControllerTests.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -23,13 +23,16 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.skydingo.skybase.repository.FarmRepository;
+import org.skydingo.skybase.model.Package;
+import org.skydingo.skybase.service.PackageService;
 import org.skydingo.skybase.web.navigation.Node;
 import org.skydingo.skybase.web.navigation.Sitemap;
 import org.springframework.ui.Model;
@@ -37,21 +40,28 @@ import org.springframework.ui.Model;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class FarmControllerTests {
-	@InjectMocks private FarmController controller;
+public class PackageControllerTests {
+	@InjectMocks private PackageController controller;
+	
+	// Dependencies
 	@Mock private Sitemap sitemap;
+	@Mock private PackageService pkgService;
+	
+	// Test objects
 	@Mock private Node node;
-	@Mock private FarmRepository farmRepo;
 	@Mock private Model model;
+	@Mock private Package pkg;
 	
 	/**
 	 * @throws Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		this.controller = new FarmController();
+		this.controller = new PackageController();
 		MockitoAnnotations.initMocks(this);
 		when(sitemap.getNode((String) any())).thenReturn(node);
+		when(pkgService.findPackages()).thenReturn(new ArrayList<Package>());
+		when(pkgService.findPackage((Long) any())).thenReturn(pkg);
 	}
 	
 	/**
@@ -62,14 +72,23 @@ public class FarmControllerTests {
 	}
 	
 	/**
-	 * 
+	 * Happy path test to get the package list.
 	 */
 	@Test
-	public void testGetFarmList() {
-		String viewName = controller.getFarmList(model);
-		assertEquals("farmList", viewName);
+	public void testGetPackageList() {
+		String viewName = controller.getPackageList(model);
+		assertEquals("packageList", viewName);
 		
 		// Once for navigation, once for farm list
 		verify(model, times(2)).addAttribute(any());
+	}
+	
+	/**
+	 * Happy path test to get a package details page.
+	 */
+	@Test
+	public void testGetPackageDetails() {
+		String viewName = controller.getPackage(1L, model);
+		assertEquals("packageDetails", viewName);
 	}
 }

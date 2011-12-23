@@ -23,7 +23,7 @@ $(function() {
 	<li><a id="deletePersonLink" href="#" title="${deletePersonTooltip}" class="btn"><span class="deletePerson icon"><spring:message code="label.common.delete" /></span></a></li>
 </ul>
 
-<%-- Delete project dialog --%>
+<%-- Delete person dialog --%>
 <div id="deletePersonDialog" class="modal hide fade">
 	<div class="modal-header">
 		<a href="#" class="close">&times;</a>

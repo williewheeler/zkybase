@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -28,7 +28,7 @@
 <%-- Custom JS --%>
 <c:url var="coreJsUrl" value="/scripts/core.js" />
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 	<head>
 		<title><c:out value="${navigation.currentNode.name}" /> - Skybase</title>
 		<link rel="shortcut icon" type="image/x-icon" href="${faviconUrl}" />
@@ -49,18 +49,14 @@
 	</head>
 	<body>
 		<jsp:include page="topbar.jsp" />
-		<div id="bdFtWrapper">
-			<div class="row">
-				<div class="span16">
-					<div id="bd">
-						<jsp:include page="breadcrumbs.jsp" />
-						<jsp:include page="alerts.jsp" />
-						<jsp:include page="titleBar.jsp" />
-						<div id="content"><tiles:insertAttribute name="content" /></div>
-					</div>
-					<jsp:include page="footer.jsp" />
-				</div>
+		<div id="body">
+			<div class="container">
+				<jsp:include page="breadcrumbs.jsp" />
+				<jsp:include page="alerts.jsp" />
+				<jsp:include page="titleBar.jsp" />
+				<div id="content"><tiles:insertAttribute name="content" /></div>
 			</div>
 		</div>
+		<jsp:include page="footer.jsp" />
 	</body>
 </html>

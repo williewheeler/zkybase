@@ -78,4 +78,12 @@ public class PackageServiceImpl implements PackageService {
 	public List<Package> findPackages() {
 		return CollectionsUtil.asSortedList(packageRepo.findAll());
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.PackageService#findPackage(java.lang.Long)
+	 */
+	@Override
+	public Package findPackage(Long id) {
+		return packageRepo.findOne(id);
+	}
 }

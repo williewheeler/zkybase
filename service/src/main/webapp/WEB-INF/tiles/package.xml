@@ -21,4 +21,10 @@
 		<put-attribute name="actionLinks" value="/WEB-INF/jsp/package/packageListActionLinks.jsp" />
 		<put-attribute name="content" value="/WEB-INF/jsp/package/packageList.jsp" />
 	</definition>
+	
+	<!-- Package details -->
+	<definition name="packageDetails" extends="detailsPageTemplate">
+		<put-attribute name="actionLinks" value="/WEB-INF/jsp/package/packageDetailsActionLinks.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/package/packageDetails.jsp" />
+	</definition>
 </tiles-definitions>

@@ -37,6 +37,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -140,17 +141,36 @@ public class PackageController extends AbstractController {
 		return addNavigation(model, Sitemap.PACKAGE_LIST_ID);
 	}
 	
+	/**
+	 * @return
+	 */
 	@RequestMapping(value = "/packages.json", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Package> getPackageListAsJson() {
 		return packageService.findPackages();
 	}
 	
+	/**
+	 * @param model
+	 */
 	@RequestMapping(value = "/packages.xml", method = RequestMethod.GET)
 	public void getPackageListAsXml(Model model) {
 		model.addAttribute(new Package.ListWrapper(packageService.findPackages()));
 	}
-
+	
+	/**
+	 * Generates the specified package details page.
+	 * 
+	 * @param id package ID
+	 * @param model model
+	 * @return view name
+	 */
+	@RequestMapping(value = "/packages/{id}", method = RequestMethod.GET)
+	public String getPackage(@PathVariable Long id, Model model) {
+		model.addAttribute(packageService.findPackage(id));
+		return addNavigation(model, Sitemap.PACKAGE_DETAILS_ID);
+	}
+	
 	
 	// =================================================================================================================
 	// Update

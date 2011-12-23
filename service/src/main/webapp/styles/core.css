@@ -13,32 +13,25 @@ body {
 	line-height: 1.5;
 }
 
-.topbar .container {
-	padding-left: 20px;
-	padding-right: 20px;
-}
+.container { padding: 0 20px; }
 
-#bdFtWrapper {
-	width: 940px;
-	margin: 20px auto;
-	padding: 0 20px;
-}
+#body { margin: 10px 0 20px; }
 
-#titleBar { margin: 20px 0; }
-
-.alert-message { width: 480px; margin: 30px auto; padding: 20px; text-align: center; }
-
-#ft {
+#footer {
 	margin-top: 30px;
 	border-top: 2px solid #EEE;
 	padding: 20px 0;
 	text-align: center;
 }
 
-#ft p { font-size: 93%; }
+#footer p { font-size: 93%; }
 
 
 /* COMPONENTS ======================================================================================================= */
+
+#titleBar { margin: 20px 0; }
+
+.alert-message { width: 480px; margin: 30px auto; padding: 20px; text-align: center; }
 
 ul.inlineLinks { margin: 0; padding: 0; display: inline; margin-left: 20px; }
 
@@ -200,29 +193,31 @@ a.btn { outline: 0; }
 	background-repeat: no-repeat;
 }
 
-.add.icon { background-image: url('../images/icons/plus.png'); }
-.addUser.icon { background-image: url('../images/icons/user--plus.png'); }
-.asterisk.icon { background-image: url('../images/icons/asterisk-small.png'); }
-.createFarm.icon { background-image: url('../images/icons/plus.png'); }
-.createPackage.icon { background-image: url('../images/icons/box--plus.png'); }
-.createPerson.icon { background-image: url('../images/icons/user--plus.png'); }
-.createProject.icon { background-image: url('../images/icons/folder--plus.png'); }
-.dashboard.icon { background-image: url('../images/icons/dashboard.png'); }
-.deletePerson.icon { background-image: url('../images/icons/user--minus.png'); }
-.deleteProject.icon { background-image: url('../images/icons/folder--minus.png'); }
-.editPerson.icon { background-image: url('../images/icons/user--pencil.png'); }
-.editProject.icon { background-image: url('../images/icons/folder--pencil.png'); }
-.email.icon { background-image: url('../images/icons/mail.png'); }
-.error.icon { background-image: url('../images/icons/exclamation.png'); }
-.feed.icon { background-image: url('../images/icons/feed.png'); }
-.json.icon { background-image: url('../images/icons/json.png'); }
-.mobilePhone.icon { background-image: url('../images/icons/mobile-phone.png'); }
-.package.icon { background-image: url('../images/icons/box.png'); }
-.servers.icon { background-image: url('../images/icons/servers.png'); }
-.telephone.icon { background-image: url('../images/icons/telephone.png'); }
-.users.icon { background-image: url('../images/icons/users.png'); }
-.warning.icon { background-image: url('../images/icons/exclamation.png'); }
-.xml.icon { background-image: url('../images/icons/document-code.png'); }
+.add.icon { background-image: url(../images/icons/plus.png); }
+.addUser.icon { background-image: url(../images/icons/user--plus.png); }
+.asterisk.icon { background-image: url(../images/icons/asterisk-small.png); }
+.createFarm.icon { background-image: url(../images/icons/plus.png); }
+.createPackage.icon { background-image: url(../images/icons/box--plus.png); }
+.createPerson.icon { background-image: url(../images/icons/user--plus.png); }
+.createProject.icon { background-image: url(../images/icons/folder--plus.png); }
+.dashboard.icon { background-image: url(../images/icons/dashboard.png); }
+.deletePackage.icon { background-image: url(../images/icons/box--minus.png); }
+.deletePerson.icon { background-image: url(../images/icons/user--minus.png); }
+.deleteProject.icon { background-image: url(../images/icons/folder--minus.png); }
+.editPackage.icon { background-image: url(../images/icons/box--pencil.png); }
+.editPerson.icon { background-image: url(../images/icons/user--pencil.png); }
+.editProject.icon { background-image: url(../images/icons/folder--pencil.png); }
+.email.icon { background-image: url(../images/icons/mail.png); }
+.error.icon { background-image: url(../images/icons/exclamation.png); }
+.feed.icon { background-image: url(../images/icons/feed.png); }
+.json.icon { background-image: url(../images/icons/json.png); }
+.mobilePhone.icon { background-image: url(../images/icons/mobile-phone.png); }
+.package.icon { background-image: url(../images/icons/box.png); }
+.servers.icon { background-image: url(../images/icons/servers.png); }
+.telephone.icon { background-image: url(../images/icons/telephone.png); }
+.users.icon { background-image: url(../images/icons/users.png); }
+.warning.icon { background-image: url(../images/icons/exclamation.png); }
+.xml.icon { background-image: url(../images/icons/document-code.png); }
 
 #viewport { overflow: hidden; width: 940px; }
 .scrollPane { width: 2400px; }

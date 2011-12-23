@@ -44,4 +44,12 @@ public interface PackageService {
 	 * @return all packages, sorted
 	 */
 	List<Package> findPackages();
+	
+	/**
+	 * Finds a package by ID.
+	 * 
+	 * @param id package ID
+	 * @return requested package
+	 */
+	Package findPackage(Long id);
 }
