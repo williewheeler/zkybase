@@ -22,6 +22,10 @@
 		<spring.data.neo4j.version>2.0.0.RC1</spring.data.neo4j.version>
 		<spring.version>3.1.0.RELEASE</spring.version>
 		<tiles.version>2.2.2</tiles.version>
+		
+		<!-- See http://docs.codehaus.org/display/MAVENUSER/POM+Element+for+Source+File+Encoding -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 	
 	<repositories>
@@ -56,20 +60,21 @@
 			</dependency>
 			<dependency>
 				<groupId>javax.servlet</groupId>
-				<artifactId>com.springsource.javax.servlet</artifactId>
-				<version>2.5.0</version>
+				<artifactId>servlet-api</artifactId>
+				<version>2.5</version>
 	<!-- 			<scope>provided</scope> -->
 			</dependency>
 			<dependency>
 				<groupId>javax.servlet</groupId>
-				<artifactId>com.springsource.javax.servlet.jsp</artifactId>
-				<version>2.1.0</version>
+				<artifactId>jsp-api</artifactId>
+				<!-- 2.1?? -->
+				<version>2.0</version>
 	<!-- 			<scope>provided</scope> -->
 			</dependency>
 			<dependency>
 				<groupId>javax.servlet</groupId>
-				<artifactId>com.springsource.javax.servlet.jsp.jstl</artifactId>
-				<version>1.2.0</version>
+				<artifactId>jstl</artifactId>
+				<version>1.2</version>
 			</dependency>
 			
 			<!-- Spring -->

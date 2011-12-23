@@ -17,6 +17,8 @@
  */
 package org.skydingo.skybase.web.navigation;
 
+import static org.springframework.util.Assert.notNull;
+
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +43,7 @@ public class Navigation {
 	
 	// Recursive method
 	private Node buildNavigationNode(Node sitemapNode) {
+		notNull(sitemapNode);
 		log.debug("Building navigation node: {}", sitemapNode.getId());
 		Node node = new Node(
 			sitemapNode.getId(),

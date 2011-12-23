@@ -21,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 
@@ -32,6 +33,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.skydingo.skybase.model.Farm;
 import org.skydingo.skybase.repository.FarmRepository;
+import org.skydingo.skybase.web.navigation.Node;
+import org.skydingo.skybase.web.navigation.Sitemap;
 import org.springframework.ui.Model;
 
 /**
@@ -39,6 +42,8 @@ import org.springframework.ui.Model;
  */
 public class FarmControllerTests {
 	@InjectMocks private FarmController controller;
+	@Mock private Sitemap sitemap;
+	@Mock private Node node;
 	@Mock private FarmRepository farmRepo;
 	@Mock private Model model;
 	
@@ -49,6 +54,7 @@ public class FarmControllerTests {
 	public void setUp() throws Exception {
 		this.controller = new FarmController();
 		MockitoAnnotations.initMocks(this);
+		when(sitemap.getNode((String) any())).thenReturn(node);
 	}
 	
 	/**
@@ -63,6 +69,8 @@ public class FarmControllerTests {
 	public void testGetFarmList() {
 		String viewName = controller.getFarmList(model);
 		assertEquals("farmList", viewName);
-		verify(model, times(1)).addAttribute((List<Farm>) any());
+		
+		// Once for navigation, once for farm list
+		verify(model, times(2)).addAttribute((List<Farm>) any());
 	}
 }
