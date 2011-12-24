@@ -30,8 +30,6 @@ import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.service.PersonService;
 import org.skydingo.skybase.util.CollectionsUtil;
 import org.skydingo.skybase.web.navigation.Sitemap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -51,10 +49,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/people")
 public class PersonController extends AbstractController {
-	private static final Logger log = LoggerFactory.getLogger(PersonController.class);
-	
-	@Inject private PersonRepository personRepo;
 	@Inject private PersonService personService;
+	
+	// TODO Figure out if we want to keep using repositories directly, or what.
+	@Inject private PersonRepository personRepo;
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.AbstractController#doInitBinder(org.springframework.web.bind.WebDataBinder)
@@ -65,6 +63,11 @@ public class PersonController extends AbstractController {
 			"username", "firstName", "lastName", "title", "workPhone", "mobilePhone", "email"
 		});
 	}
+	
+	
+	// =================================================================================================================
+	// Create
+	// =================================================================================================================
 	
 	/**
 	 * Generates the add person form.
@@ -84,19 +87,21 @@ public class PersonController extends AbstractController {
 	 */
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String createPerson(Model model, @ModelAttribute @Valid Person person, BindingResult result) {
+		personService.createPerson(person, result);
 		if (result.hasErrors()) {
-			log.debug("Invalid person");
 			return doGetCreatePersonForm(model);
-		} else {
-			log.debug("Valid person. Saving.");
-			personRepo.save(person);
-			return "redirect:/people?a=created";
 		}
+		return "redirect:/people?a=created";
 	}
 	
 	private String doGetCreatePersonForm(Model model) {
 		return addNavigation(model, Sitemap.CREATE_PERSON_ID);
 	}
+	
+	
+	// =================================================================================================================
+	// Read
+	// =================================================================================================================
 	
 	/**
 	 * <p>
@@ -137,8 +142,8 @@ public class PersonController extends AbstractController {
 	 * @return logical view name
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public String getPersonDetails(@PathVariable Long id, Model model) {
-		Person person = personRepo.findOne(id);
+	public String getPerson(@PathVariable Long id, Model model) {
+		Person person = personService.findPerson(id);
 		List<ProjectMembership> memberships = CollectionsUtil.asList(person.getMemberships());
 		List<Person> directReports = CollectionsUtil.asList(person.getDirectReports());
 		List<Person> collaborators = CollectionsUtil.asList(personRepo.findCollaborators(person));
@@ -154,6 +159,11 @@ public class PersonController extends AbstractController {
 		
 		return addNavigation(model, Sitemap.PERSON_DETAILS_ID);
 	}
+	
+	
+	// =================================================================================================================
+	// Update
+	// =================================================================================================================
 	
 	/**
 	 * @param id
@@ -175,7 +185,7 @@ public class PersonController extends AbstractController {
 	 * @return
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public String editPerson(
+	public String putEditPersonForm(
 			@PathVariable Long id,
 			@ModelAttribute @Valid Person person,
 			BindingResult result,
@@ -194,7 +204,7 @@ public class PersonController extends AbstractController {
 			return doGetEditPersonForm(pPerson, model);
 		} else {
 			personRepo.save(person);
-			return "redirect:/people/" + id;
+			return "redirect:/people/" + id + "?a=updated";
 		}
 	}
 	
@@ -205,6 +215,11 @@ public class PersonController extends AbstractController {
 	private String doGetEditPersonForm(Person person, Model model) {
 		return addNavigation(model, Sitemap.EDIT_PERSON_ID);
 	}
+	
+	
+	// =================================================================================================================
+	// Delete
+	// =================================================================================================================
 	
 	/**
 	 * @param id

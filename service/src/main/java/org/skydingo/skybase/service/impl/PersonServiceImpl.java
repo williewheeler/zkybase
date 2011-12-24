@@ -17,12 +17,19 @@
  */
 package org.skydingo.skybase.service.impl;
 
+import static org.springframework.util.Assert.notNull;
+
+import java.util.List;
+
 import javax.inject.Inject;
 
+import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.service.PersonService;
+import org.skydingo.skybase.util.CollectionsUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Errors;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -31,6 +38,61 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PersonServiceImpl implements PersonService {
 	@Inject private PersonRepository personRepo;
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.PersonService#createPerson(org.skydingo.skybase.model.Person)
+	 */
+	@Override
+	public void createPerson(Person person) {
+		notNull(person);
+		personRepo.save(person);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.PersonService#createPerson(org.skydingo.skybase.model.Person, org.springframework.validation.Errors)
+	 */
+	@Override
+	public void createPerson(Person person, Errors errors) {
+		if (!errors.hasErrors()) {
+			createPerson(person);
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.PersonService#findPeople()
+	 */
+	@Override
+	public List<Person> findPeople() {
+		return CollectionsUtil.asList(personRepo.findAll());
+	}
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.PersonService#findPerson(java.lang.Long)
+	 */
+	@Override
+	public Person findPerson(Long id) {
+		notNull(id);
+		return personRepo.findOne(id);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.PersonService#updatePerson(org.skydingo.skybase.model.Person)
+	 */
+	@Override
+	public void updatePerson(Person person) {
+		notNull(person);
+		personRepo.save(person);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.PersonService#updatePerson(org.skydingo.skybase.model.Person, org.springframework.validation.Errors)
+	 */
+	@Override
+	public void updatePerson(Person person, Errors errors) {
+		if (!errors.hasErrors()) {
+			updatePerson(person);
+		}
+	}
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.PersonService#deletePerson(java.lang.Long)
