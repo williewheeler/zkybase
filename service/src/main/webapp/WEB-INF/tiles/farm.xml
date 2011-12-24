@@ -18,7 +18,6 @@
 	
 	<!-- Farm list -->
 	<definition name="farmList" extends="listPageTemplate">
-		<put-attribute name="actionLinks" value="/WEB-INF/jsp/farm/farmListActionLinks.jsp" />
 		<put-attribute name="content" value="/WEB-INF/jsp/farm/farmList.jsp" />
 	</definition>
 </tiles-definitions>

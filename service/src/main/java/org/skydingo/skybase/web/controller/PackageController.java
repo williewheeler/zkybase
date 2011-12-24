@@ -227,4 +227,13 @@ public class PackageController extends AbstractController {
 	// Delete
 	// =================================================================================================================
 	
+	/**
+	 * @param id
+	 * @param res
+	 */
+	@RequestMapping(value = "/packages/{id}", method = RequestMethod.DELETE)
+	public String deletePackage(@PathVariable Long id, HttpServletResponse res) {
+		packageService.deletePackage(id);
+		return "redirect:/packages?a=deleted";
+	}
 }

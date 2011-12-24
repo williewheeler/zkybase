@@ -20,6 +20,7 @@
 
 <%-- Twitter Bootstrap --%>
 <c:url var="bsAlertsJsUrl" value="/scripts/bootstrap/bootstrap-alerts-1.4.0.js" />
+<c:url var="bsButtonsJsUrl" value="/scripts/bootstrap/bootstrap-buttons-1.4.0.js" />
 <c:url var="bsDropdownJsUrl" value="/scripts/bootstrap/bootstrap-dropdown-1.4.0.js" />
 <c:url var="bsModalJsUrl" value="/scripts/bootstrap/bootstrap-modal-1.4.0.js" />
 <c:url var="bsTabsJsUrl" value="/scripts/bootstrap/bootstrap-tabs-1.4.0.js" />
@@ -41,6 +42,7 @@
 		<script type="text/javascript" src="${jqueryTablesorterJsUrl}"></script>
 		<script type="text/javascript" src="${jqueryUiJsUrl}"></script>
 		<script type="text/javascript" src="${bsAlertsJsUrl}"></script>
+		<script type="text/javascript" src="${bsButtonsJsUrl}"></script>
 		<script type="text/javascript" src="${bsDropdownJsUrl}"></script>
 		<script type="text/javascript" src="${bsModalJsUrl}"></script>
 		<script type="text/javascript" src="${bsTabsJsUrl}"></script>

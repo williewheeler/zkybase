@@ -63,4 +63,9 @@ public interface PackageService {
 	 * @param errors
 	 */
 	void updatePackage(Package pkg, Errors errors);
+	
+	/**
+	 * @param id package ID
+	 */
+	void deletePackage(Long id);
 }

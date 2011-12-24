@@ -18,13 +18,11 @@
 	
 	<!-- Person list -->
 	<definition name="personList" extends="listPageTemplate">
-		<put-attribute name="actionLinks" value="/WEB-INF/jsp/person/personListActionLinks.jsp" />
 		<put-attribute name="content" value="/WEB-INF/jsp/person/personList.jsp" />
 	</definition>
 	
 	<!-- Person details -->
 	<definition name="personDetails" extends="detailsPageTemplate">
-		<put-attribute name="actionLinks" value="/WEB-INF/jsp/person/personDetailsActionLinks.jsp" />
 		<put-attribute name="content" value="/WEB-INF/jsp/person/personDetails.jsp" />
 	</definition>
 

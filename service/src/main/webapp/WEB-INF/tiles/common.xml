@@ -4,16 +4,29 @@
 		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
+	
+	<!-- Base template -->
 	<definition name="pageTemplate" template="/WEB-INF/jsp/pageTemplate/pageTemplate.jsp">
 		<put-attribute name="viewLinks" value="" />
 		<put-attribute name="actionLinks" value="" />
 	</definition>
+	
+	<!-- Create form -->
 	<definition name="createPageTemplate" extends="pageTemplate" />
+	
+	<!-- List page -->
 	<definition name="listPageTemplate" extends="pageTemplate">
 		<put-attribute name="viewLinks" value="/WEB-INF/jsp/pageTemplate/jsonXmlViewLinks.jsp" />
+		<put-attribute name="actionLinks" value="/WEB-INF/jsp/pageTemplate/listPageActionLinks.jsp" />
 	</definition>
+	
+	<!-- Details page -->
 	<definition name="detailsPageTemplate" extends="pageTemplate">
 		<put-attribute name="viewLinks" value="/WEB-INF/jsp/pageTemplate/jsonXmlViewLinks.jsp" />
+		<put-attribute name="actionLinks" value="/WEB-INF/jsp/pageTemplate/detailsPageActionLinks.jsp" />
 	</definition>
+	
+	<!-- Edit form -->
 	<definition name="editPageTemplate" extends="pageTemplate" />
+	
 </tiles-definitions>

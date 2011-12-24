@@ -115,4 +115,13 @@ public class PackageServiceImpl implements PackageService {
 			updatePackage(pkg);
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.PackageService#deletePackage(java.lang.Long)
+	 */
+	@Override
+	public void deletePackage(Long id) {
+		notNull(id);
+		packageRepo.delete(id);
+	}
 }

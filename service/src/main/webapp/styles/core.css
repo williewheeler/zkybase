@@ -196,14 +196,17 @@ a.btn { outline: 0; }
 .add.icon { background-image: url(../images/icons/plus.png); }
 .addUser.icon { background-image: url(../images/icons/user--plus.png); }
 .asterisk.icon { background-image: url(../images/icons/asterisk-small.png); }
+.create.icon { background-image: url(../images/icons/plus.png); }
 .createFarm.icon { background-image: url(../images/icons/plus.png); }
 .createPackage.icon { background-image: url(../images/icons/box--plus.png); }
 .createPerson.icon { background-image: url(../images/icons/user--plus.png); }
 .createProject.icon { background-image: url(../images/icons/folder--plus.png); }
 .dashboard.icon { background-image: url(../images/icons/dashboard.png); }
+.delete.icon { background-image: url(../images/icons/minus.png); }
 .deletePackage.icon { background-image: url(../images/icons/box--minus.png); }
 .deletePerson.icon { background-image: url(../images/icons/user--minus.png); }
 .deleteProject.icon { background-image: url(../images/icons/folder--minus.png); }
+.edit.icon { background-image: url(../images/icons/pencil.png); }
 .editPackage.icon { background-image: url(../images/icons/box--pencil.png); }
 .editPerson.icon { background-image: url(../images/icons/user--pencil.png); }
 .editProject.icon { background-image: url(../images/icons/folder--pencil.png); }

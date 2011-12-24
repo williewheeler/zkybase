@@ -25,6 +25,8 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,6 +54,7 @@ public class PackageControllerTests {
 	@Mock private Node node;
 	@Mock private BindingResult result;
 	@Mock private Model model;
+	@Mock private HttpServletResponse response;
 	@Mock private Package pkg;
 	
 	/**
@@ -104,7 +107,7 @@ public class PackageControllerTests {
 	}
 	
 	/**
-	 * Happy path test to test submitting the edit package form.
+	 * Happy path test to submit the edit package form.
 	 */
 	@Test
 	public void testPutEditPackageForm() {
@@ -120,5 +123,14 @@ public class PackageControllerTests {
 		when(result.hasErrors()).thenReturn(true);
 		String viewName = controller.putEditPackageForm(1L, pkg, result, model);
 		assertEquals("editPackageForm", viewName);
+	}
+	
+	/**
+	 * Happy path test to delete a package.
+	 */
+	@Test
+	public void testDeletePackage() {
+		String viewName = controller.deletePackage(1L, response);
+		assertEquals("redirect:/packages?a=deleted", viewName);
 	}
 }
