@@ -51,6 +51,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class PackageController extends AbstractController {
 	private static final Logger log = LoggerFactory.getLogger(PackageController.class);
+	private static final String MK_PACKAGE_DTO = "packageDto";
 	
 	@Inject private PackageService packageService;
 	
@@ -76,7 +77,7 @@ public class PackageController extends AbstractController {
 	 */
 	@RequestMapping(value = "/packages/new", method = RequestMethod.GET)
 	public String getCreatePackageForm(Model model) {
-		model.addAttribute(new Package());
+		model.addAttribute(MK_PACKAGE_DTO, new Package());
 		return addNavigation(model, Sitemap.CREATE_PACKAGE_ID);
 	}
 	
@@ -88,7 +89,7 @@ public class PackageController extends AbstractController {
 	 */
 	@RequestMapping(value = "/packages", method = RequestMethod.POST)
 	public String postCreatePackageForm(
-			@ModelAttribute("package") @Valid Package pkg,
+			@ModelAttribute(MK_PACKAGE_DTO) @Valid Package pkg,
 			BindingResult result,
 			Model model) {
 		
@@ -185,7 +186,39 @@ public class PackageController extends AbstractController {
 	 */
 	@RequestMapping(value = "/packages/{id}/edit", method = RequestMethod.GET)
 	public String getEditPackageForm(@PathVariable Long id, Model model) {
+		model.addAttribute(MK_PACKAGE_DTO, packageService.findPackage(id));
+		return prepareEditPackageForm(id, model);
+	}
+	
+	/**
+	 * @param id
+	 * @param pkg
+	 * @param result
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/packages/{id}", method = RequestMethod.PUT)
+	public String putEditPackageForm(
+			@PathVariable Long id,
+			@ModelAttribute(MK_PACKAGE_DTO) @Valid Package pkg,
+			BindingResult result,
+			Model model) {
+		
+		pkg.setId(id);
+		packageService.updatePackage(pkg, result);
+		
+		if (result.hasErrors()) {
+			return prepareEditPackageForm(id, model);
+		}
+		
+		return "redirect:/packages/" + id + "?a=updated";
+	}
+	
+	private String prepareEditPackageForm(Long id, Model model) {
+		
+		// Need to load the entity itself since this is what drives the breadcrumb.
 		model.addAttribute(packageService.findPackage(id));
+		
 		return addNavigation(model, Sitemap.EDIT_PACKAGE_ID);
 	}
 	

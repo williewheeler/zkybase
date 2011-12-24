@@ -84,6 +84,35 @@ public class PackageServiceImpl implements PackageService {
 	 */
 	@Override
 	public Package findPackage(Long id) {
+		notNull(id);
 		return packageRepo.findOne(id);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.PackageService#updatePackage(org.skydingo.skybase.model.Package)
+	 */
+	@Override
+	public void updatePackage(Package pkg) {
+		notNull(pkg);
+		packageRepo.save(pkg);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.PackageService#updatePackage(org.skydingo.skybase.model.Package,
+	 * org.springframework.validation.Errors)
+	 */
+	@Override
+	public void updatePackage(Package pkg, Errors errors) {
+		notNull(pkg);
+		notNull(errors);
+		
+		if (!errors.hasErrors()) {
+			
+			// TODO Do we need to check for existence here? Or will the save fail if the package doesn't already
+			// exist? Need to check as this is potentially a security issue (allows people to create new packages
+			// through the edit form).
+			
+			updatePackage(pkg);
+		}
 	}
 }

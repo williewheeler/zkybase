@@ -13,7 +13,7 @@
 
 <p id="instructions"><spring:message code="${instructionsCode}" /></p>
 
-<form:form cssClass="pageForm main" modelAttribute="package" action="${submitUrl}" method="post">
+<form:form cssClass="pageForm main" modelAttribute="packageDto" action="${submitUrl}" method="post">
 	<fieldset>
 		<input type="hidden" name="_method" value="${formMethod}" />
 		<div class="grid">

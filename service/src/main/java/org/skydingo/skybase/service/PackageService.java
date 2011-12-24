@@ -52,4 +52,15 @@ public interface PackageService {
 	 * @return requested package
 	 */
 	Package findPackage(Long id);
+	
+	/**
+	 * @param pkg
+	 */
+	void updatePackage(Package pkg);
+	
+	/**
+	 * @param pkg
+	 * @param errors
+	 */
+	void updatePackage(Package pkg, Errors errors);
 }

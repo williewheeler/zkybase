@@ -36,6 +36,7 @@ import org.skydingo.skybase.service.PackageService;
 import org.skydingo.skybase.web.navigation.Node;
 import org.skydingo.skybase.web.navigation.Sitemap;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -49,6 +50,7 @@ public class PackageControllerTests {
 	
 	// Test objects
 	@Mock private Node node;
+	@Mock private BindingResult result;
 	@Mock private Model model;
 	@Mock private Package pkg;
 	
@@ -84,7 +86,7 @@ public class PackageControllerTests {
 	}
 	
 	/**
-	 * Happy path test to get a package details page.
+	 * Happy path test to get the package details page.
 	 */
 	@Test
 	public void testGetPackageDetails() {
@@ -92,9 +94,31 @@ public class PackageControllerTests {
 		assertEquals("packageDetails", viewName);
 	}
 	
+	/**
+	 * Happy path test to get the edit package form.
+	 */
 	@Test
 	public void testGetEditPackageForm() {
 		String viewName = controller.getEditPackageForm(1L, model);
+		assertEquals("editPackageForm", viewName);
+	}
+	
+	/**
+	 * Happy path test to test submitting the edit package form.
+	 */
+	@Test
+	public void testPutEditPackageForm() {
+		String viewName = controller.putEditPackageForm(1L, pkg, result, model);
+		assertEquals("redirect:/packages/" + 1L + "?a=updated", viewName);
+	}
+	
+	/**
+	 * Confirms that we handle validation errors properly.
+	 */
+	@Test
+	public void testPutEditPackageFormWithErrors() {
+		when(result.hasErrors()).thenReturn(true);
+		String viewName = controller.putEditPackageForm(1L, pkg, result, model);
 		assertEquals("editPackageForm", viewName);
 	}
 }
