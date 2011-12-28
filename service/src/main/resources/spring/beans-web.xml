@@ -18,7 +18,8 @@
 <!-- 	<mvc:resources mapping="/images/**" location="/images/" /> -->
 <!-- 	<mvc:resources mapping="/resources/**" location="/resources/" /> -->
 	
-	<mvc:annotation-driven conversion-service="conversionService" />
+<!-- 	<mvc:annotation-driven conversion-service="conversionService" /> -->
+	<mvc:annotation-driven />
 	
 	<!-- Must register this explicitly, or else we use the old PropertyEditor approach. -->
 	<!--

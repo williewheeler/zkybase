@@ -19,14 +19,14 @@ package org.skydingo.skybase.service.impl;
 
 import static org.springframework.util.Assert.notNull;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.service.PersonService;
-import org.skydingo.skybase.util.CollectionsUtil;
+import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
@@ -37,16 +37,8 @@ import org.springframework.validation.Errors;
 @Service
 @Transactional
 public class PersonServiceImpl implements PersonService {
+	@Inject private Neo4jTemplate template;
 	@Inject private PersonRepository personRepo;
-
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.PersonService#createPerson(org.skydingo.skybase.model.Person)
-	 */
-	@Override
-	public void createPerson(Person person) {
-		notNull(person);
-		personRepo.save(person);
-	}
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.PersonService#createPerson(org.skydingo.skybase.model.Person, org.springframework.validation.Errors)
@@ -54,34 +46,26 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public void createPerson(Person person, Errors errors) {
 		if (!errors.hasErrors()) {
-			createPerson(person);
+			personRepo.save(person);
 		}
 	}
-
+	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.PersonService#findPeople()
+	 * @see org.skydingo.skybase.service.PersonService#findPersonDetails(java.lang.Long)
 	 */
 	@Override
-	public List<Person> findPeople() {
-		return CollectionsUtil.asList(personRepo.findAll());
-	}
-
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.PersonService#findPerson(java.lang.Long)
-	 */
-	@Override
-	public Person findPerson(Long id) {
+	public Person findPersonDetails(Long id) {
 		notNull(id);
-		return personRepo.findOne(id);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.PersonService#updatePerson(org.skydingo.skybase.model.Person)
-	 */
-	@Override
-	public void updatePerson(Person person) {
-		notNull(person);
-		personRepo.save(person);
+		Person person = personRepo.findOne(id);
+		
+		// For now this is how you do it.
+		// http://stackoverflow.com/questions/8218864/fetch-annotation-in-sdg-2-0-fetching-strategy-questions
+		Set<Person> reports = person.getDirectReports();
+		for (Person report : reports) {
+			template.fetch(report);
+		}
+		
+		return person;
 	}
 
 	/* (non-Javadoc)
@@ -90,16 +74,7 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public void updatePerson(Person person, Errors errors) {
 		if (!errors.hasErrors()) {
-			updatePerson(person);
+			personRepo.save(person);
 		}
 	}
-
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.PersonService#deletePerson(java.lang.Long)
-	 */
-	@Override
-	public void deletePerson(Long id) {
-		personRepo.delete(id);
-	}
-
 }

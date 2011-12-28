@@ -23,7 +23,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.junit.After;
 import org.junit.Before;
@@ -73,8 +73,7 @@ public class PersonControllerTests {
 		when(sitemap.getEditFormId(Person.class)).thenReturn("editPersonForm");
 		when(viewNames.putEditFormSuccessViewName(Person.class, 1L)).thenReturn("redirect:/people/1?a=updated");
 		when(viewNames.deleteSuccessViewName(Person.class)).thenReturn("redirect:/people?a=deleted");
-		when(personService.findPeople()).thenReturn(new ArrayList<Person>());
-		when(personService.findPerson((Long) any())).thenReturn(person);
+		when(personService.findPersonDetails((Long) any())).thenReturn(person);
 	}
 	
 	/**

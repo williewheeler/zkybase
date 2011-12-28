@@ -47,9 +47,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public abstract class AbstractEntityController<T extends Entity<T>> {
 	public static final String MK_FORM_DATA = "formData";
 	
-	@Inject private Paths paths;
-	@Inject private Sitemap sitemap;
-	@Inject private ViewNames viewNames;
+	@Inject protected Paths paths;
+	@Inject protected Sitemap sitemap;
+	@Inject protected ViewNames viewNames;
 	
 	private Class<T> entityClass;
 	
@@ -175,7 +175,7 @@ public abstract class AbstractEntityController<T extends Entity<T>> {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String getDetails(@PathVariable Long id, Model model) {
-		T entity = getRepository().findOne(id);
+		T entity = doGetDetails(id, model);
 		
 		// For generic capabilities (e.g. navigation)
 		model.addAttribute("entity", entity);
@@ -184,6 +184,16 @@ public abstract class AbstractEntityController<T extends Entity<T>> {
 		model.addAttribute(entity);
 		
 		return addNavigation(model, sitemap.getEntityDetailsViewId(getEntityClass()));
+	}
+	
+	/**
+	 * Subclasses can override this method as necessary.
+	 * 
+	 * @param id ID
+	 * @return entity
+	 */
+	protected T doGetDetails(Long id, Model model) {
+		return getRepository().findOne(id);
 	}
 	
 	

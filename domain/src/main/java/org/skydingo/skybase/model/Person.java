@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.validator.constraints.Email;
 import org.neo4j.graphdb.Direction;
 import org.skydingo.skybase.model.relationship.ProjectMembership;
+import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
@@ -56,7 +57,7 @@ public class Person extends AbstractEntity<Person> {
 	private String email;
 	
 	// FIXME Don't allow graph cycles here
-//	@Fetch
+	@Fetch
 	@RelatedTo(type = "REPORTS_TO")
 	private Person manager;
 	

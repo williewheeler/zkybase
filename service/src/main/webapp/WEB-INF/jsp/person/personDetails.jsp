@@ -69,7 +69,7 @@
 			<c:set var="manager" value="${person.manager}" />
 			<c:choose>
 				<c:when test="${not empty manager}">
-					<c:url var="managerUrl" value="/people/${manager.username}" />
+					<c:url var="managerUrl" value="/people/${manager.id}" />
 					<a href="${managerUrl}"><c:out value="${manager.firstNameLastName}" /></a>
 				</c:when>
 				<c:otherwise>None</c:otherwise>
@@ -81,7 +81,7 @@
 				<h2>Direct reports</h2>
 				<ul style="margin:0;padding:0;list-style-type:none">
 					<c:forEach var="report" items="${directReports}">
-						<c:url var="reportUrl" value="/people/${report.username}" />
+						<c:url var="reportUrl" value="/people/${report.id}" />
 						<li><a href="${reportUrl}"><c:out value="${report.firstNameLastName}" /></a></li>
 					</c:forEach>
 				</ul>

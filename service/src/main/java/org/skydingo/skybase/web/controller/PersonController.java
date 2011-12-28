@@ -18,16 +18,23 @@
 package org.skydingo.skybase.web.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Person;
+import org.skydingo.skybase.model.relationship.ProjectMembership;
 import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.service.PersonService;
+import org.skydingo.skybase.util.CollectionsUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,6 +48,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/people")
 public class PersonController extends AbstractEntityController<Person> {
+	private static final Logger log = LoggerFactory.getLogger(PersonController.class);
+	
 	@Inject private PersonRepository personRepo;
 	@Inject private PersonService personService;
 	
@@ -63,6 +72,29 @@ public class PersonController extends AbstractEntityController<Person> {
 	// Read
 	// =================================================================================================================
 	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#doGetDetails
+	 * (java.lang.Long, org.springframework.ui.Model)
+	 */
+	@Override
+	protected Person doGetDetails(Long id, Model model) {
+		log.debug("Getting extended person details");
+		Person person = personService.findPersonDetails(id);
+		
+		List<Person> directReports = CollectionsUtil.asList(person.getDirectReports());
+//		List<ProjectMembership> memberships = CollectionsUtil.asList(person.getMemberships());
+//		List<Person> collaborators = CollectionsUtil.asList(personRepo.findCollaborators(person));
+		
+		Collections.sort(directReports);
+//		Collections.sort(collaborators);
+		
+		model.addAttribute("directReports", directReports);
+//		model.addAttribute("memberships", memberships);
+//		model.addAttribute("collaborators", collaborators);
+		
+		return person;
+	}
+	
 	/**
 	 * @param query search query
 	 * @return search results
@@ -76,27 +108,4 @@ public class PersonController extends AbstractEntityController<Person> {
 		}
 		return results;
 	}
-	
-//	/**
-//	 * @param id person ID
-//	 * @param model model
-//	 * @return logical view name
-//	 */
-//	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-//	public String getPerson(@PathVariable Long id, Model model) {
-//		Person person = personService.findPerson(id);
-//		List<ProjectMembership> memberships = CollectionsUtil.asList(person.getMemberships());
-//		List<Person> directReports = CollectionsUtil.asList(person.getDirectReports());
-//		List<Person> collaborators = CollectionsUtil.asList(personRepo.findCollaborators(person));
-//		
-//		Collections.sort(directReports);
-//		Collections.sort(collaborators);
-//		
-//		model.addAttribute(person);
-//		model.addAttribute("memberships", memberships);
-//		model.addAttribute("directReports", directReports);
-//		model.addAttribute("collaborators", collaborators);
-//		
-//		return addNavigation(model, Sitemap.PERSON_DETAILS_ID);
-//	}
 }

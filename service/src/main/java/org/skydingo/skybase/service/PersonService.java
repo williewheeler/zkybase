@@ -17,8 +17,6 @@
  */
 package org.skydingo.skybase.service;
 
-import java.util.List;
-
 import org.skydingo.skybase.model.Person;
 import org.springframework.validation.Errors;
 
@@ -29,39 +27,19 @@ public interface PersonService {
 	
 	/**
 	 * @param person
-	 */
-	void createPerson(Person person);
-	
-	/**
-	 * @param person
 	 * @param errors
 	 */
 	void createPerson(Person person, Errors errors);
 	
 	/**
-	 * @return
+	 * @param id person ID
+	 * @return person details
 	 */
-	List<Person> findPeople();
-	
-	/**
-	 * @param id
-	 * @return
-	 */
-	Person findPerson(Long id);
-	
-	/**
-	 * @param person
-	 */
-	void updatePerson(Person person);
+	Person findPersonDetails(Long id);
 	
 	/**
 	 * @param person
 	 * @param errors
 	 */
 	void updatePerson(Person person, Errors errors);
-	
-	/**
-	 * @param id
-	 */
-	void deletePerson(Long id);
 }
