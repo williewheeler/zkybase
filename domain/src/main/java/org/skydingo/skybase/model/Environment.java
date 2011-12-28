@@ -1,5 +1,5 @@
 /* 
- * Farm.java
+ * Environment.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -17,11 +17,12 @@
  */
 package org.skydingo.skybase.model;
 
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class Farm extends AbstractEntity<Farm> {
+public class Environment extends AbstractEntity<Environment> {
 	private String name;
 	
 	/**
@@ -38,5 +39,6 @@ public class Farm extends AbstractEntity<Farm> {
 	 * @see org.skydingo.skybase.model.Entity#getDisplayName()
 	 */
 	@Override
+	@XmlTransient
 	public String getDisplayName() { return name; }
 }

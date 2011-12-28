@@ -1,7 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:url var="createPackageUrl" value="/packages/new" />
-
 <div>
 	<c:choose>
 		<c:when test="${empty packageList}">

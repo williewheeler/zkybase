@@ -1,5 +1,5 @@
 /* 
- * Farm.java
+ * EnvironmentRepository.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,28 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.model;
+package org.skydingo.skybase.repository;
 
+import org.skydingo.skybase.model.Environment;
+import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class Farm extends AbstractEntity<Farm> {
-	private String name;
-	
-	/**
-	 * @return
-	 */
-	public String getName() { return name; }
-	
-	/**
-	 * @param name
-	 */
-	public void setName(String name) { this.name = name; }
-	
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.model.Entity#getDisplayName()
-	 */
-	@Override
-	public String getDisplayName() { return name; }
+public interface EnvironmentRepository extends GraphRepository<Environment> {
+
 }

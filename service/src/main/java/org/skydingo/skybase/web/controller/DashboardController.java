@@ -43,7 +43,9 @@ public class DashboardController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String getDashboard(Model model) {
 		model.addAttribute(CollectionsUtil.asList(projectRepo.findAll()));
-//		return addNavigation(model, Sitemap.DASHBOARD_ID);
+		
+		// FIXME Need to add navigation so we can have a page title. Probably want to move addNavigation to Sitemap.
+//		return addNavigation(model, getDashboardId());
 		return sitemap.getDashboardId();
 	}
 

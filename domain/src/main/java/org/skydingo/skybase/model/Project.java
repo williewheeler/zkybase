@@ -22,18 +22,14 @@ import java.util.Set;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.neo4j.graphdb.Direction;
 import org.skydingo.skybase.model.relationship.ProjectMembership;
 import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.Indexed;
-import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
 
@@ -42,9 +38,6 @@ import org.springframework.data.neo4j.annotation.RelatedToVia;
  * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@NodeEntity
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class Project extends AbstractEntity<Project> {
 	
 	// External ID

@@ -43,7 +43,7 @@ public class Navigation {
 	
 	// Recursive method
 	private Node buildNavigationNode(Node sitemapNode) {
-		notNull(sitemapNode);
+		notNull(sitemapNode, "sitemapNode can't be null. Add relevant nodes to Sitemap.");
 		log.debug("Building navigation node: {}", sitemapNode.getId());
 		Node node = new Node(
 			sitemapNode.getId(),

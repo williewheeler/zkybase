@@ -145,6 +145,7 @@ public abstract class AbstractEntityController<T extends Entity<T>> {
 	 * @return view name
 	 */
 	private String prepareCreateForm(Model model) {
+		model.addAttribute("formMethod", "post");
 		model.addAttribute("submitPath", paths.getSubmitCreateFormPath(getEntityClass()));
 		model.addAttribute("cancelPath", paths.getBasePath(getEntityClass()) + "?a=cancelled");
 		return addNavigation(model, sitemap.getCreateFormId(getEntityClass()));
@@ -237,6 +238,7 @@ public abstract class AbstractEntityController<T extends Entity<T>> {
 		// changes to impact them. Can optimize this by giving the entities clone constructors.
 		model.addAttribute("entity", getRepository().findOne(id));
 		
+		model.addAttribute("formMethod", "put");
 		model.addAttribute("submitPath", paths.getSubmitEditFormPath(getEntityClass(), id));
 		model.addAttribute("cancelPath", paths.getDetailsPath(getEntityClass(), id) + "?a=cancelled");
 		

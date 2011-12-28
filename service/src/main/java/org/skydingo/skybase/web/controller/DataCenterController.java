@@ -1,5 +1,5 @@
 /* 
- * RegionController.java
+ * DataCenterController.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -19,8 +19,8 @@ package org.skydingo.skybase.web.controller;
 
 import javax.inject.Inject;
 
-import org.skydingo.skybase.model.Region;
-import org.skydingo.skybase.repository.RegionRepository;
+import org.skydingo.skybase.model.DataCenter;
+import org.skydingo.skybase.repository.DataCenterRepository;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -30,15 +30,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Controller
-@RequestMapping("/regions")
-public class RegionController extends AbstractEntityController<Region> {
-	@Inject private RegionRepository regionRepo;
+@RequestMapping("/datacenters")
+public class DataCenterController extends AbstractEntityController<DataCenter> {
+	@Inject private DataCenterRepository dataCenterRepo;
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getRepository()
 	 */
 	@Override
-	public GraphRepository<Region> getRepository() { return regionRepo; }
+	public GraphRepository<DataCenter> getRepository() { return dataCenterRepo; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractController#doInitBinder(

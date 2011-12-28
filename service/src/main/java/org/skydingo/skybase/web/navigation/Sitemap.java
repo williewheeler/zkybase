@@ -22,6 +22,8 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.skydingo.skybase.model.DataCenter;
+import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.model.Farm;
 import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.model.Person;
@@ -55,6 +57,8 @@ public class Sitemap {
 	@PostConstruct
 	public void postConstruct() {
 		Node dashboard = buildNode(getDashboardId(), wrap("Dashboard"), wrap("/"), null);
+		buildCrudNodes(DataCenter.class, dashboard);
+		buildCrudNodes(Environment.class, dashboard);
 		buildCrudNodes(Farm.class, dashboard);
 		buildCrudNodes(Package.class, dashboard);
 		buildCrudNodes(Person.class, dashboard);
@@ -68,7 +72,7 @@ public class Sitemap {
 		String listTitleCode = "entity." + uncapSimpleName + ".sentenceCase.plural";
 		log.debug("Looking up message code: {}", listTitleCode);
 		String listTitle = wrap(messageSource.getMessage(listTitleCode, null, null));
-		String listPath = wrap(paths.getBasePath(entityClass));
+		String listPath = wrap(paths.getListPath(entityClass));
 		
 		String createTitleCode = "entity." + uncapSimpleName + ".lowercase.singular";
 		log.debug("Looking up message code: {}", createTitleCode);

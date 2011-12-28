@@ -2,8 +2,8 @@
 
 <div>
 	<c:choose>
-		<c:when test="${empty regionList}">
-			<p>No regions.</p>
+		<c:when test="${empty environmentList}">
+			<p>No environments.</p>
 		</c:when>
 		<c:otherwise>
 			<table class="bordered-table zebra-striped sortable">
@@ -13,10 +13,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="region" items="${regionList}">
-						<c:url var="regionUrl" value="/regions/${region.id}" />
+					<c:forEach var="environment" items="${environmentList}">
+						<c:url var="environmentUrl" value="/environments/${environment.id}" />
 						<tr>
-							<td><a href="${regionUrl}"><c:out value="${region.name}" /></a></td>
+							<td><a href="${environmentUrl}"><c:out value="${environment.name}" /></a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

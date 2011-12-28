@@ -21,22 +21,16 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.data.neo4j.annotation.Indexed;
-import org.springframework.data.neo4j.annotation.NodeEntity;
 
 /**
  * Package entity.
  * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@NodeEntity
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class Package extends AbstractEntity<Package> {
 	@Indexed private String groupId;
 	@Indexed private String packageId;

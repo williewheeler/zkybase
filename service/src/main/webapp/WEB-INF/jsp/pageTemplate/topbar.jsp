@@ -1,9 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- Menu items -->
+<%-- FIXME Source from Paths --%>
 <c:url var="dashboardUrl" value="/" />
 <c:url var="packagesUrl" value="/packages" />
 <c:url var="regionsUrl" value="/regions" />
+<c:url var="dataCentersUrl" value="/datacenters" />
+<c:url var="environmentsUrl" value="/environments" />
 <c:url var="farmsUrl" value="/farms" />
 <c:url var="osStackTemplatesUrl" value="/templates/osstacks" />
 <c:url var="middlewareStackTemplatesUrl" value="/templates/middlewarestacks" />
@@ -29,8 +32,8 @@
 							<li><a href="${packagesUrl}">Packages</a></li>
 							<li class="divider"></li>
 							<li><a href="${regionsUrl}">Regions</a></li>
-							<li><a href="#">Data centers</a></li>
-							<li><a href="#">Environments</a></li>
+							<li><a href="${dataCentersUrl}">Data centers</a></li>
+							<li><a href="${environmentsUrl}">Environments</a></li>
 							<li><a href="${farmsUrl}">Farms</a></li>
 							<li><a href="#">Instances</a></li>
 						</ul>

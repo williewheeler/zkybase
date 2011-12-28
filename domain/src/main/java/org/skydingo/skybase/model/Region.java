@@ -19,12 +19,9 @@ package org.skydingo.skybase.model;
 
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.springframework.data.neo4j.annotation.NodeEntity;
-
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@NodeEntity
 public class Region extends AbstractEntity<Region> {
 	private String name;
 	

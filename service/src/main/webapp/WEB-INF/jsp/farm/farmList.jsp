@@ -1,7 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:url var="createFarmUrl" value="/farms/new" />
-
 <div>
 	<c:choose>
 		<c:when test="${empty farmList}">
