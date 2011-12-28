@@ -1,5 +1,5 @@
 /* 
- * InstanceRepository.java
+ * Entity.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,23 +15,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.repository;
-
-import org.skydingo.skybase.model.Instance;
-import org.springframework.data.neo4j.repository.GraphRepository;
+package org.skydingo.skybase.model;
 
 /**
- * Instance repository.
- * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface InstanceRepository extends GraphRepository<Instance> {
+public interface Entity<T extends Entity<T>> extends Comparable<T> {
 	
 	/**
-	 * Finds an instance by its ID.
-	 * 
-	 * @param id instance ID
-	 * @return instance having the given ID
+	 * @return entity ID
 	 */
-	Instance findInstanceById(String id);
+	Long getId();
+	
+	/**
+	 * @param id entity ID
+	 */
+	void setId(Long id);
+	
+	String getDisplayName();
 }

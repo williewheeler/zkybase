@@ -1,5 +1,5 @@
 /* 
- * FarmTemplateRepository.java
+ * Region.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,18 +15,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.repository;
+package org.skydingo.skybase.model;
 
-import org.skydingo.skybase.model.FarmTemplate;
-import org.skydingo.skybase.model.Project;
-import org.springframework.data.neo4j.annotation.Query;
-import org.springframework.data.neo4j.repository.GraphRepository;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.springframework.data.neo4j.annotation.NodeEntity;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface FarmTemplateRepository extends GraphRepository<FarmTemplate> {
+@NodeEntity
+public class Region extends AbstractEntity<Region> {
+	private String name;
 	
-	@Query("start project=node({0}) match project<-[:SUPPORTS]-farmTemplate return farmTemplate")
-	Iterable<FarmTemplate> findFarmTemplatesByProject(Project project);
+	/**
+	 * @return
+	 */
+	public String getName() { return name; }
+	
+	/**
+	 * @param name
+	 */
+	public void setName(String name) { this.name = name; }
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.model.Entity#getDisplayName()
+	 */
+	@Override
+	@XmlTransient
+	public String getDisplayName() { return name; }
 }

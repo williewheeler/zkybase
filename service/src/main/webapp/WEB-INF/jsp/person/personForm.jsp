@@ -11,11 +11,7 @@
 <c:url var="submitUrl" value="${submitPath}" />
 <c:url var="cancelUrl" value="${cancelPath}" />
 
-<div id="instructions">
-	<spring:message code="${instructionsCode}" />
-</div>
-
-<form:form cssClass="pageForm main" modelAttribute="person" action="${submitUrl}" method="post">
+<form:form cssClass="pageForm main" modelAttribute="formData" action="${submitUrl}" method="post">
 	<fieldset>
 		<input type="hidden" name="_method" value="${formMethod}" />
 		<div class="grid">

@@ -1,5 +1,5 @@
 /* 
- * OperatingSystemStackTemplateController.java
+ * FarmController.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,34 +15,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.controller.template;
+package org.skydingo.skybase.web.controller;
 
-import org.skydingo.skybase.web.controller.AbstractController;
+import javax.inject.Inject;
+
+import org.skydingo.skybase.model.Region;
+import org.skydingo.skybase.repository.RegionRepository;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Controller
-@RequestMapping("/templates/osstacks")
-public class OperatingSystemStackTemplateController extends AbstractController {
-
+@RequestMapping("/regions")
+public class RegionController extends AbstractEntityController<Region> {
+	@Inject private RegionRepository regionRepo;
+	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.controller.AbstractController#doInitBinder(org.springframework.web.bind.WebDataBinder)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getRepository()
+	 */
+	@Override
+	public GraphRepository<Region> getRepository() { return regionRepo; }
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractController#doInitBinder(
+	 * org.springframework.web.bind.WebDataBinder)
 	 */
 	@Override
 	protected void doInitBinder(WebDataBinder binder) {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String getTemplates(Model model) {
-		model.addAttribute("activeNavigationItem", "templates");
-		return "osStackTemplateList";
 	}
 }

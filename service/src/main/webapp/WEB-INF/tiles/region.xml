@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+		"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	
+	<!-- Region list -->
+	<definition name="regionList" extends="listPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/region/regionList.jsp" />
+	</definition>
+	
+	<!-- Region details -->
+	<definition name="regionDetails" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/region/regionDetails.jsp" />
+	</definition>
+	
+	<!-- Create region form -->
+	<definition name="createRegionFormTile" template="/WEB-INF/jsp/region/regionForm.jsp">
+		<put-attribute name="formMethod" value="POST" />
+	</definition>
+	<definition name="createRegionForm" extends="createPageTemplate">
+		<put-attribute name="content" value="createRegionFormTile" />
+	</definition>
+
+	<!-- Edit region form -->
+	<definition name="editRegionFormTile" template="/WEB-INF/jsp/region/regionForm.jsp">
+		<put-attribute name="formMethod" value="put" />
+	</definition>
+	<definition name="editRegionForm" extends="editPageTemplate">
+		<put-attribute name="content" value="editRegionFormTile" />
+	</definition>
+</tiles-definitions>

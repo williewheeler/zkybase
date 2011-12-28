@@ -31,7 +31,7 @@ body {
 
 #titleBar { margin: 20px 0; }
 
-.alert-message { width: 480px; margin: 30px auto; padding: 20px; text-align: center; }
+.alert-message { margin: 30px 0; padding: 20px; text-align: center; }
 
 ul.inlineLinks { margin: 0; padding: 0; display: inline; margin-left: 20px; }
 

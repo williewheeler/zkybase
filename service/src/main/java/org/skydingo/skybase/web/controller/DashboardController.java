@@ -24,7 +24,6 @@ import org.skydingo.skybase.util.CollectionsUtil;
 import org.skydingo.skybase.web.navigation.Sitemap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -34,16 +33,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Controller
-public class DashboardController extends AbstractController {
+public class DashboardController {
+	@Inject private Sitemap sitemap;
 	@Inject private ProjectRepository projectRepo;
-
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.AbstractController#doInitBinder(org.springframework.web.bind.WebDataBinder)
-	 */
-	@Override
-	public void doInitBinder(WebDataBinder binder) {
-		// No-op
-	}
 	
 	/**
 	 * @return logical view name
@@ -51,7 +43,8 @@ public class DashboardController extends AbstractController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String getDashboard(Model model) {
 		model.addAttribute(CollectionsUtil.asList(projectRepo.findAll()));
-		return addNavigation(model, Sitemap.DASHBOARD_ID);
+//		return addNavigation(model, Sitemap.DASHBOARD_ID);
+		return sitemap.getDashboardId();
 	}
 
 }

@@ -1,5 +1,5 @@
 /* 
- * ProjectController.java
+ * PersonController.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -18,24 +18,16 @@
 package org.skydingo.skybase.web.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
 
 import org.skydingo.skybase.model.Person;
-import org.skydingo.skybase.model.relationship.ProjectMembership;
 import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.service.PersonService;
-import org.skydingo.skybase.util.CollectionsUtil;
-import org.skydingo.skybase.web.navigation.Sitemap;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,54 +40,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/people")
-public class PersonController extends AbstractController {
+public class PersonController extends AbstractEntityController<Person> {
+	@Inject private PersonRepository personRepo;
 	@Inject private PersonService personService;
 	
-	// TODO Figure out if we want to keep using repositories directly, or what.
-	@Inject private PersonRepository personRepo;
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getRepository()
+	 */
+	@Override
+	public GraphRepository<Person> getRepository() { return personRepo; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.AbstractController#doInitBinder(org.springframework.web.bind.WebDataBinder)
 	 */
 	@Override
 	protected void doInitBinder(WebDataBinder binder) {
-		binder.setAllowedFields(new String[] {
-			"username", "firstName", "lastName", "title", "workPhone", "mobilePhone", "email"
-		});
-	}
-	
-	
-	// =================================================================================================================
-	// Create
-	// =================================================================================================================
-	
-	/**
-	 * Generates the add person form.
-	 * 
-	 * @param model model
-	 * @return logical view name
-	 */
-	@RequestMapping(value = "/new", method = RequestMethod.GET)
-	public String getCreatePersonForm(Model model) {
-		model.addAttribute(new Person());
-		return doGetCreatePersonForm(model);
-	}
-	
-	/**
-	 * @param person person
-	 * @return logical view name
-	 */
-	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String createPerson(Model model, @ModelAttribute @Valid Person person, BindingResult result) {
-		personService.createPerson(person, result);
-		if (result.hasErrors()) {
-			return doGetCreatePersonForm(model);
-		}
-		return "redirect:/people?a=created";
-	}
-	
-	private String doGetCreatePersonForm(Model model) {
-		return addNavigation(model, Sitemap.CREATE_PERSON_ID);
+		binder.setAllowedFields("username", "firstName", "lastName", "title", "workPhone", "mobilePhone", "email");
 	}
 	
 	
@@ -104,130 +64,39 @@ public class PersonController extends AbstractController {
 	// =================================================================================================================
 	
 	/**
-	 * <p>
-	 * Returns a sorted list of all people.
-	 * </p>
-	 * <p>
-	 * Currently this is just a single list containing everybody. In the future this will be pageable.
-	 * </p> 
-	 * 
-	 * @param model model model
-	 * @return logical view name
-	 */
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String getPersonList(Model model) {
-		List<Person> people = CollectionsUtil.asList(personRepo.findAll());
-		Collections.sort(people);
-		model.addAttribute(people);
-		return addNavigation(model, Sitemap.PERSON_LIST_ID);
-	}
-	
-	/**
 	 * @param query search query
 	 * @return search results
 	 */
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public @ResponseBody List<String> getPeopleSearchResults(@RequestParam("q") String query) {
 		List<String> results = new ArrayList<String>();
-		Iterable<Person> personIt = personRepo.findAll();
+		Iterable<Person> personIt = getRepository().findAll();
 		for (Person person : personIt) {
 			results.add(person.getFirstNameLastName() + " (" + person.getUsername() + ")");
 		}
 		return results;
 	}
 	
-	/**
-	 * @param id person ID
-	 * @param model model
-	 * @return logical view name
-	 */
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public String getPerson(@PathVariable Long id, Model model) {
-		Person person = personService.findPerson(id);
-		List<ProjectMembership> memberships = CollectionsUtil.asList(person.getMemberships());
-		List<Person> directReports = CollectionsUtil.asList(person.getDirectReports());
-		List<Person> collaborators = CollectionsUtil.asList(personRepo.findCollaborators(person));
-		
-//		Collections.sort(memberships);
-		Collections.sort(directReports);
-		Collections.sort(collaborators);
-		
-		model.addAttribute(person);
-		model.addAttribute("memberships", memberships);
-		model.addAttribute("directReports", directReports);
-		model.addAttribute("collaborators", collaborators);
-		
-		return addNavigation(model, Sitemap.PERSON_DETAILS_ID);
-	}
-	
-	
-	// =================================================================================================================
-	// Update
-	// =================================================================================================================
-	
-	/**
-	 * @param id
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-	public String getEditPersonForm(@PathVariable Long id, Model model) {
-		Person person = personRepo.findOne(id);
-		model.addAttribute(person);
-		return doGetEditPersonForm(person, model);
-	}
-	
-	/**
-	 * @param id
-	 * @param person
-	 * @param result
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public String putEditPersonForm(
-			@PathVariable Long id,
-			@ModelAttribute @Valid Person person,
-			BindingResult result,
-			Model model) {
-		
-		person.setId(id);
-		
-		// FIXME Need to check for errors following the attempt to save.
-		
-		if (result.hasErrors()) {
-			
-			// FIXME This person isn't on the navigation context, so the breadcrumbs are going to have the wrong name.
-			// Fix is to use "personData" for the form bean.
-			Person pPerson = personRepo.findOne(id);
-			
-			return doGetEditPersonForm(pPerson, model);
-		} else {
-			personRepo.save(person);
-			return "redirect:/people/" + id + "?a=updated";
-		}
-	}
-	
-	/**
-	 * @param model
-	 * @return
-	 */
-	private String doGetEditPersonForm(Person person, Model model) {
-		return addNavigation(model, Sitemap.EDIT_PERSON_ID);
-	}
-	
-	
-	// =================================================================================================================
-	// Delete
-	// =================================================================================================================
-	
-	/**
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	public String deletePerson(@PathVariable Long id) {
-		personService.deletePerson(id);
-		return "redirect:/people?a=deleted";
-	}
+//	/**
+//	 * @param id person ID
+//	 * @param model model
+//	 * @return logical view name
+//	 */
+//	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+//	public String getPerson(@PathVariable Long id, Model model) {
+//		Person person = personService.findPerson(id);
+//		List<ProjectMembership> memberships = CollectionsUtil.asList(person.getMemberships());
+//		List<Person> directReports = CollectionsUtil.asList(person.getDirectReports());
+//		List<Person> collaborators = CollectionsUtil.asList(personRepo.findCollaborators(person));
+//		
+//		Collections.sort(directReports);
+//		Collections.sort(collaborators);
+//		
+//		model.addAttribute(person);
+//		model.addAttribute("memberships", memberships);
+//		model.addAttribute("directReports", directReports);
+//		model.addAttribute("collaborators", collaborators);
+//		
+//		return addNavigation(model, Sitemap.PERSON_DETAILS_ID);
+//	}
 }

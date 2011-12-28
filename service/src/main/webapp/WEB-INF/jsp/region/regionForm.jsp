@@ -4,9 +4,6 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
 <tiles:useAttribute name="formMethod" />
-<tiles:useAttribute name="instructionsCode" />
-<tiles:useAttribute name="submitPath" />
-<tiles:useAttribute name="cancelPath" />
 
 <c:url var="submitUrl" value="${submitPath}" />
 <c:url var="cancelUrl" value="${cancelPath}" />

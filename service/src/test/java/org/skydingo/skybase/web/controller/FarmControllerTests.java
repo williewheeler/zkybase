@@ -29,9 +29,12 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.skydingo.skybase.model.Farm;
 import org.skydingo.skybase.repository.FarmRepository;
 import org.skydingo.skybase.web.navigation.Node;
+import org.skydingo.skybase.web.navigation.Paths;
 import org.skydingo.skybase.web.navigation.Sitemap;
+import org.skydingo.skybase.web.view.ViewNames;
 import org.springframework.ui.Model;
 
 /**
@@ -39,9 +42,15 @@ import org.springframework.ui.Model;
  */
 public class FarmControllerTests {
 	@InjectMocks private FarmController controller;
+	
+	// Dependencies
+	@Mock private Paths paths;
 	@Mock private Sitemap sitemap;
-	@Mock private Node node;
+	@Mock private ViewNames viewNames;
 	@Mock private FarmRepository farmRepo;
+	
+	// Test objects
+	@Mock private Node node;
 	@Mock private Model model;
 	
 	/**
@@ -52,6 +61,7 @@ public class FarmControllerTests {
 		this.controller = new FarmController();
 		MockitoAnnotations.initMocks(this);
 		when(sitemap.getNode((String) any())).thenReturn(node);
+		when(sitemap.getEntityListViewId(Farm.class)).thenReturn("farmList");
 	}
 	
 	/**
@@ -66,7 +76,7 @@ public class FarmControllerTests {
 	 */
 	@Test
 	public void testGetFarmList() {
-		String viewName = controller.getFarmList(model);
+		String viewName = controller.getList(model);
 		assertEquals("farmList", viewName);
 		
 		// Once for navigation, once for farm list

@@ -43,13 +43,11 @@
 	<definition name="createProjectFormTile" template="/WEB-INF/jsp/project/form/projectForm.jsp">
 		<put-attribute name="submitPath" value="/projects" />
 		<put-attribute name="formMethod" value="POST" />
-		<put-attribute name="instructionsCode" value="content.createProjectForm.instructions" />
 		<put-attribute name="readOnly" value="false" />
 		<put-attribute name="cancelPath" value="/?a=cancelled" />
 	</definition>
 	<definition name="editProjectFormTile" template="/WEB-INF/jsp/project/form/projectForm.jsp">
 		<put-attribute name="formMethod" value="PUT" />
-		<put-attribute name="instructionsCode" value="content.editProjectForm.instructions" />
 		<put-attribute name="readOnly" value="true" />
 		<put-attribute name="submitPath" expression="/projects/${project.id}" />
 		<put-attribute name="cancelPath" expression="/projects/${project.key}?a=cancelled" />

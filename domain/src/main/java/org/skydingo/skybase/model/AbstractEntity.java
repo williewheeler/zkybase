@@ -1,5 +1,5 @@
 /* 
- * ApplicationStackTemplateController.java
+ * AbstractEntity.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,27 +15,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.controller.template;
+package org.skydingo.skybase.model;
 
-import org.skydingo.skybase.web.controller.AbstractController;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
+import javax.xml.bind.annotation.XmlAttribute;
+
+import org.springframework.data.neo4j.annotation.GraphId;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@Controller
-@RequestMapping("/templates/appstacks")
-public class ApplicationStackTemplateController extends AbstractController {
+public abstract class AbstractEntity<T extends Entity<T>> implements Entity<T> {
+	@GraphId private Long id;
 
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.controller.AbstractController#doInitBinder(org.springframework.web.bind.WebDataBinder)
+	 * @see org.skydingo.skybase.model.Entity#getId()
 	 */
 	@Override
-	protected void doInitBinder(WebDataBinder binder) {
-		// TODO Auto-generated method stub
-		
+	@XmlAttribute
+	public Long getId() { return id; }
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.model.Entity#setId(java.lang.Long)
+	 */
+	@Override
+	public void setId(Long id) { this.id = id; }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(T that) {
+		return getDisplayName().compareTo(that.getDisplayName());
 	}
 
 }

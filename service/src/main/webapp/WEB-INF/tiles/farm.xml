@@ -5,19 +5,21 @@
 
 <tiles-definitions>
 	
-	<!-- Create farm form -->
-	<definition name="createFarmFormTile" template="/WEB-INF/jsp/farm/farmForm.jsp">
-		<put-attribute name="formMethod" value="POST" />
-		<put-attribute name="instructionsCode" value="content.createFarmForm.instructions" />
-		<put-attribute name="submitPath" expression="/farms" />
-		<put-attribute name="cancelPath" expression="/farms?a=cancelled" />
-	</definition>
-	<definition name="createFarmForm" extends="createPageTemplate">
-		<put-attribute name="content" value="createFarmFormTile" />
-	</definition>
-	
 	<!-- Farm list -->
 	<definition name="farmList" extends="listPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/farm/farmList.jsp" />
+	</definition>
+	
+	<!-- Farm details -->
+	<definition name="farmDetails" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/farm/farmDetails.jsp" />
+	</definition>
+	
+	<!-- Create farm form -->
+	<definition name="createFarmFormTile" template="/WEB-INF/jsp/farm/farmForm.jsp">
+		<put-attribute name="formMethod" value="POST" />
+	</definition>
+	<definition name="createFarmForm" extends="createPageTemplate">
+		<put-attribute name="content" value="createFarmFormTile" />
 	</definition>
 </tiles-definitions>

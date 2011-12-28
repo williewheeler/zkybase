@@ -26,14 +26,12 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.neo4j.graphdb.Direction;
 import org.skydingo.skybase.model.relationship.ProjectMembership;
 import org.springframework.data.neo4j.annotation.Fetch;
-import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
@@ -47,19 +45,13 @@ import org.springframework.data.neo4j.annotation.RelatedToVia;
 @NodeEntity
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class Project {
-	
-	// Internal node ID
-	@GraphId private Long nodeId;
+public class Project extends AbstractEntity<Project> {
 	
 	// External ID
 	@Indexed private String key;
 	@Indexed private String name;
 	
 	private String shortDescription;
-	
-	@RelatedTo(type = "SUPPORTS", direction = Direction.INCOMING)
-	private Set<FarmTemplate> farmTemplates;
 	
 	@RelatedTo(type = "BUILT_FROM", direction = Direction.INCOMING)
 	private Set<Package> packages;
@@ -82,10 +74,6 @@ public class Project {
 		this.key = key;
 		this.name = name;
 	}
-	
-	public Long getId() { return nodeId; }
-	
-	public void setId(Long id) { this.nodeId = id; }
 	
 	/**
 	 * Returns the project key, which is globally unique across projects and serves as an external reference.
@@ -138,17 +126,6 @@ public class Project {
 	 * @return
 	 */
 	@XmlTransient
-	public Set<FarmTemplate> getFarmTemplates() { return farmTemplates; }
-	
-	/**
-	 * @param farmTemplates
-	 */
-	public void setFarmTemplates(Set<FarmTemplate> farmTemplates) { this.farmTemplates = farmTemplates; }
-	
-	/**
-	 * @return
-	 */
-	@XmlTransient
 	public Set<Package> getPackages() { return packages; }
 	
 	/**
@@ -171,6 +148,13 @@ public class Project {
 	public Iterable<ProjectMembership> getMemberships() { return memberships; }
 	
 	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.model.Entity#getDisplayName()
+	 */
+	@Override
+	@XmlTransient
+	public String getDisplayName() { return name; }
+	
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -178,8 +162,8 @@ public class Project {
 		if (this == o) { return true; }
 		if (o == null || getClass() != o.getClass()) { return false; }
 		Project that = (Project) o;
-		if (nodeId == null) { return super.equals(o); }
-		return nodeId.equals(that.nodeId);
+		if (getId() == null) { return super.equals(o); }
+		return getId().equals(that.getId());
 	}
 
 	/* (non-Javadoc)
@@ -187,7 +171,7 @@ public class Project {
 	 */
 	@Override
 	public int hashCode() {
-		return nodeId != null ? nodeId.hashCode() : super.hashCode();
+		return (getId() != null ? getId().hashCode() : super.hashCode());
 	}
 	
 	/* (non-Javadoc)
@@ -196,7 +180,7 @@ public class Project {
 	@Override
 	public String toString() {
 		return "[Project"
-				+ ": nodeId=" + nodeId
+				+ ": id=" + getId()
 				+ ", key=" + key
 				+ ", name=" + name
 				+ "]";

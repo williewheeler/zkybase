@@ -5,17 +5,6 @@
 
 <tiles-definitions>
 	
-	<!-- Create package form -->
-	<definition name="createPackageFormTile" template="/WEB-INF/jsp/package/packageForm.jsp">
-		<put-attribute name="formMethod" value="POST" />
-		<put-attribute name="instructionsCode" value="content.createPackageForm.instructions" />
-		<put-attribute name="submitPath" expression="/packages" />
-		<put-attribute name="cancelPath" expression="/packages?a=cancelled" />
-	</definition>
-	<definition name="createPackageForm" extends="createPageTemplate">
-		<put-attribute name="content" value="createPackageFormTile" />
-	</definition>
-	
 	<!-- Package list -->
 	<definition name="packageList" extends="listPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/package/packageList.jsp" />
@@ -26,12 +15,17 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/package/packageDetails.jsp" />
 	</definition>
 	
+	<!-- Create package form -->
+	<definition name="createPackageFormTile" template="/WEB-INF/jsp/package/packageForm.jsp">
+		<put-attribute name="formMethod" value="POST" />
+	</definition>
+	<definition name="createPackageForm" extends="createPageTemplate">
+		<put-attribute name="content" value="createPackageFormTile" />
+	</definition>
+	
 	<!-- Edit package form -->
 	<definition name="editPackageFormTile" template="/WEB-INF/jsp/package/packageForm.jsp">
 		<put-attribute name="formMethod" value="put" />
-		<put-attribute name="instructionsCode" value="content.editPackageForm.instructions" />
-		<put-attribute name="submitPath" expression="/packages/${package.id}" />
-		<put-attribute name="cancelPath" expression="/packages/${package.id}?a=cancelled" />
 	</definition>
 	<definition name="editPackageForm" extends="editPageTemplate">
 		<put-attribute name="content" value="editPackageFormTile" />

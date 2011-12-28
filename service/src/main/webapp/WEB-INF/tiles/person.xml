@@ -5,17 +5,6 @@
 
 <tiles-definitions>
 	
-	<!-- Create person form -->
-	<definition name="createPersonFormTile" template="/WEB-INF/jsp/person/personForm.jsp">
-		<put-attribute name="formMethod" value="post" />
-		<put-attribute name="instructionsCode" value="content.createPersonForm.instructions" />
-		<put-attribute name="submitPath" value="/people" />
-		<put-attribute name="cancelPath" value="/people?a=cancelled" />
-	</definition>
-	<definition name="createPersonForm" extends="createPageTemplate">
-		<put-attribute name="content" value="createPersonFormTile" />
-	</definition>
-	
 	<!-- Person list -->
 	<definition name="personList" extends="listPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/person/personList.jsp" />
@@ -25,13 +14,18 @@
 	<definition name="personDetails" extends="detailsPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/person/personDetails.jsp" />
 	</definition>
+	
+	<!-- Create person form -->
+	<definition name="createPersonFormTile" template="/WEB-INF/jsp/person/personForm.jsp">
+		<put-attribute name="formMethod" value="post" />
+	</definition>
+	<definition name="createPersonForm" extends="createPageTemplate">
+		<put-attribute name="content" value="createPersonFormTile" />
+	</definition>
 
 	<!-- Edit person form -->
 	<definition name="editPersonFormTile" template="/WEB-INF/jsp/person/personForm.jsp">
 		<put-attribute name="formMethod" value="put" />
-		<put-attribute name="instructionsCode" value="content.editPersonForm.instructions" />
-		<put-attribute name="submitPath" expression="/people/${person.id}" />
-		<put-attribute name="cancelPath" expression="/people/${person.id}?a=cancelled" />
 	</definition>
 	<definition name="editPersonForm" extends="editPageTemplate">
 		<put-attribute name="content" value="editPersonFormTile" />

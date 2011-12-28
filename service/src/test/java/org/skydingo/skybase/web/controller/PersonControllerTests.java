@@ -35,7 +35,9 @@ import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.service.PersonService;
 import org.skydingo.skybase.web.navigation.Node;
+import org.skydingo.skybase.web.navigation.Paths;
 import org.skydingo.skybase.web.navigation.Sitemap;
+import org.skydingo.skybase.web.view.ViewNames;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
@@ -46,15 +48,17 @@ public class PersonControllerTests {
 	@InjectMocks private PersonController controller;
 	
 	// Dependencies
+	@Mock private Paths paths;
 	@Mock private Sitemap sitemap;
-	@Mock private PersonService personService;
+	@Mock private ViewNames viewNames;
 	@Mock private PersonRepository personRepo;
+	@Mock private PersonService personService;
 	
 	// Test objects
 	@Mock private Node node;
 	@Mock private BindingResult result;
 	@Mock private Model model;
-	@Mock private Person pkg;
+	@Mock private Person person;
 	
 	/**
 	 * @throws Exception
@@ -64,8 +68,13 @@ public class PersonControllerTests {
 		this.controller = new PersonController();
 		MockitoAnnotations.initMocks(this);
 		when(sitemap.getNode((String) any())).thenReturn(node);
+		when(sitemap.getEntityListViewId(Person.class)).thenReturn("personList");
+		when(sitemap.getEntityDetailsViewId(Person.class)).thenReturn("personDetails");
+		when(sitemap.getEditFormId(Person.class)).thenReturn("editPersonForm");
+		when(viewNames.putEditFormSuccessViewName(Person.class, 1L)).thenReturn("redirect:/people/1?a=updated");
+		when(viewNames.deleteSuccessViewName(Person.class)).thenReturn("redirect:/people?a=deleted");
 		when(personService.findPeople()).thenReturn(new ArrayList<Person>());
-		when(personService.findPerson((Long) any())).thenReturn(pkg);
+		when(personService.findPerson((Long) any())).thenReturn(person);
 	}
 	
 	/**
@@ -80,7 +89,7 @@ public class PersonControllerTests {
 	 */
 	@Test
 	public void testGetPersonList() {
-		String viewName = controller.getPersonList(model);
+		String viewName = controller.getList(model);
 		assertEquals("personList", viewName);
 		
 		// Once for navigation, once for farm list
@@ -92,7 +101,7 @@ public class PersonControllerTests {
 	 */
 	@Test
 	public void testGetPersonDetails() {
-		String viewName = controller.getPerson(1L, model);
+		String viewName = controller.getDetails(1L, model);
 		assertEquals("personDetails", viewName);
 	}
 	
@@ -101,7 +110,7 @@ public class PersonControllerTests {
 	 */
 	@Test
 	public void testGetEditPersonForm() {
-		String viewName = controller.getEditPersonForm(1L, model);
+		String viewName = controller.getEditForm(1L, model);
 		assertEquals("editPersonForm", viewName);
 	}
 	
@@ -110,8 +119,8 @@ public class PersonControllerTests {
 	 */
 	@Test
 	public void testPutEditPersonForm() {
-		String viewName = controller.putEditPersonForm(1L, pkg, result, model);
-		assertEquals("redirect:/people/" + 1L + "?a=updated", viewName);
+		String viewName = controller.putEditForm(1L, person, result, model);
+		assertEquals("redirect:/people/1?a=updated", viewName);
 	}
 	
 	/**
@@ -120,7 +129,7 @@ public class PersonControllerTests {
 	@Test
 	public void testPutEditPersonFormWithErrors() {
 		when(result.hasErrors()).thenReturn(true);
-		String viewName = controller.putEditPersonForm(1L, pkg, result, model);
+		String viewName = controller.putEditForm(1L, person, result, model);
 		assertEquals("editPersonForm", viewName);
 	}
 	
@@ -129,7 +138,7 @@ public class PersonControllerTests {
 	 */
 	@Test
 	public void testDeletePerson() {
-		String viewName = controller.deletePerson(1L);
+		String viewName = controller.delete(1L);
 		assertEquals("redirect:/people?a=deleted", viewName);
 	}
 }

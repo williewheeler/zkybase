@@ -23,11 +23,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 
@@ -39,8 +37,7 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 @NodeEntity
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class Package implements Comparable<Package> {
-	@GraphId private Long id;
+public class Package extends AbstractEntity<Package> {
 	@Indexed private String groupId;
 	@Indexed private String packageId;
 	@Indexed private String version;
@@ -60,17 +57,6 @@ public class Package implements Comparable<Package> {
 		this.packageId = packageId;
 		this.version = version;
 	}
-	
-	/**
-	 * @return
-	 */
-	@XmlAttribute
-	public Long getId() { return id; }
-	
-	/**
-	 * @param id
-	 */
-	public void setId(Long id) { this.id = id; }
 	
 	/**
 	 * @return
@@ -110,9 +96,15 @@ public class Package implements Comparable<Package> {
 	 * @param version
 	 */
 	public void setVersion(String version) { this.version = version; }
-
+	
 	/* (non-Javadoc)
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 * @see org.skydingo.skybase.model.Entity#getDisplayName()
+	 */
+	@Override
+	public String getDisplayName() { return packageId; }
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.model.AbstractEntity#compareTo(org.skydingo.skybase.model.Entity)
 	 */
 	@Override
 	public int compareTo(Package that) {
@@ -128,7 +120,7 @@ public class Package implements Comparable<Package> {
 	 */
 	@Override
 	public String toString() {
-		return "[Package: id=" + id
+		return "[Package: id=" + getId()
 			+ ", groupId=" + groupId
 			+ ", packageId=" + packageId
 			+ ", version=" + version

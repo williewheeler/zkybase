@@ -20,57 +20,79 @@ package org.skydingo.skybase.web.navigation;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
+import org.skydingo.skybase.model.Farm;
+import org.skydingo.skybase.model.Package;
+import org.skydingo.skybase.model.Person;
+import org.skydingo.skybase.model.Region;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.util.StringUtils;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public class Sitemap {
-	public static final String DASHBOARD_ID = "dashboard";
+	private static final Logger log = LoggerFactory.getLogger(Sitemap.class);
 	
-	public static final String PACKAGE_LIST_ID = "packageList";
-	public static final String CREATE_PACKAGE_ID = "createPackageForm";
-	public static final String PACKAGE_DETAILS_ID = "packageDetails";
-	public static final String EDIT_PACKAGE_ID = "editPackageForm";
-	
-	public static final String FARM_LIST_ID = "farmList";
-	public static final String CREATE_FARM_ID = "createFarmForm";
-	
-	public static final String TEAM_DETAILS_ID = "teamDetails";
-	
-	public static final String PERSON_LIST_ID = "personList";
-	public static final String CREATE_PERSON_ID = "createPersonForm";
-	public static final String PERSON_DETAILS_ID = "personDetails";
-	public static final String EDIT_PERSON_ID = "editPersonForm";
-	
+	private MessageSource messageSource;
+	private Paths paths;
 	private ExpressionParser exprParser;
 	
 	private final Map<String, Node> nodes = new HashMap<String, Node>();
 	
-	public Sitemap() {
-		
-		// FIXME All these apostrophes suck. Figure out a better way to do this. [WLW]
-		
-		Node dashboard = buildNode(DASHBOARD_ID, "'Dashboard'", getDashboardPath(), null);
-		
-		Node packageList = buildNode(PACKAGE_LIST_ID, "'Packages'", getPackageListPath(), dashboard);
-		Node createPackage = buildNode(CREATE_PACKAGE_ID, "'Create package'", getCreatePackagePath(), packageList);
-		Node packageDetails = buildNode(PACKAGE_DETAILS_ID, "#this[package].packageId", getPackagePath(), packageList);
-		Node editPackage = buildNode(EDIT_PACKAGE_ID, "'Edit package'", getEditPackagePath(), packageDetails);
-		
-		Node farmList = buildNode(FARM_LIST_ID, "'Farms'", getFarmListPath(), dashboard);
-		Node createFarm = buildNode(CREATE_FARM_ID, "'Create farm'", getCreateFarmPath(), farmList);
-		
-		Node teamDetails = buildNode(TEAM_DETAILS_ID, "#this[project].name", getProjectPath(), dashboard);
-		
-		Node personList = buildNode(PERSON_LIST_ID, "'People'", getPersonListPath(), dashboard);
-		Node createPerson = buildNode(CREATE_PERSON_ID, "'Create person'", getCreatePersonPath(), personList);
-		Node personDetails = buildNode(PERSON_DETAILS_ID, "#this[person].firstNameLastName", getPersonPath(), personList);
-		Node editPerson = buildNode(EDIT_PERSON_ID, "'Edit person'", getEditPersonPath(), personDetails);
+	
+	// =================================================================================================================
+	// Build sitemap
+	// =================================================================================================================
+	
+	@PostConstruct
+	public void postConstruct() {
+		Node dashboard = buildNode(getDashboardId(), wrap("Dashboard"), wrap("/"), null);
+		buildCrudNodes(Farm.class, dashboard);
+		buildCrudNodes(Package.class, dashboard);
+		buildCrudNodes(Person.class, dashboard);
+		buildCrudNodes(Region.class, dashboard);
 	}
+	
+	private void buildCrudNodes(Class<?> entityClass, Node dashboard) {
+		String simpleName = entityClass.getSimpleName();
+		String uncapSimpleName = StringUtils.uncapitalize(simpleName);
+		
+		String listTitleCode = "entity." + uncapSimpleName + ".sentenceCase.plural";
+		log.debug("Looking up message code: {}", listTitleCode);
+		String listTitle = wrap(messageSource.getMessage(listTitleCode, null, null));
+		String listPath = wrap(paths.getBasePath(entityClass));
+		
+		String createTitleCode = "entity." + uncapSimpleName + ".lowercase.singular";
+		log.debug("Looking up message code: {}", createTitleCode);
+		String createTitle = wrap("Create " + messageSource.getMessage(createTitleCode, null, null));
+		String createPath = wrap(paths.getCreateFormPath(entityClass));
+		
+		String detailsTitle = "#this[entity].displayName";
+		String detailsPath = listPath + " + '/' + #this[entity].id";
+		
+		String editTitle = "'Edit ' + #this[entity].displayName";
+		String editPath = detailsPath + " + '/edit'";
+		
+		Node listNode = buildNode(getEntityListViewId(entityClass), listTitle, listPath, dashboard);
+		Node detailsNode = buildNode(getEntityDetailsViewId(entityClass), detailsTitle, detailsPath, listNode);
+		buildNode(getCreateFormId(entityClass), createTitle, createPath, listNode);
+		buildNode(getEditFormId(entityClass), editTitle, editPath, detailsNode);
+	}
+	
+	/**
+	 * @param path
+	 * @return
+	 */
+	@Deprecated
+	private String wrap(String path) { return "'" + StringUtils.replace(path, "'", "''") + "'"; }
 	
 	private Node buildNode(String id, String name, String path, Node parent) {
 		Node node = new Node(id, name, path);
@@ -79,9 +101,66 @@ public class Sitemap {
 		return node;
 	}
 	
+	
+	// =================================================================================================================
+	// Accessor methods
+	// =================================================================================================================
+	
+	public void setMessageSource(MessageSource messageSource) {
+		this.messageSource = messageSource;
+	}
+	
+	public void setPaths(Paths paths) {
+		this.paths = paths;
+	}
+	
 	public void setExpressionParser(ExpressionParser exprParser) {
 		this.exprParser = exprParser;
 	}
+	
+	
+	// =================================================================================================================
+	// Node IDs
+	// =================================================================================================================
+	
+	public String getDashboardId() { return "dashboard"; }
+	
+	/**
+	 * @param entityClass entity class
+	 * @return node ID
+	 */
+	public String getCreateFormId(Class<?> entityClass) {
+		return "create" + entityClass.getSimpleName() + "Form";
+	}
+	
+	/**
+	 * @param entityClass entity class
+	 * @return node ID
+	 */
+	public String getEntityListViewId(Class<?> entityClass) {
+		return StringUtils.uncapitalize(entityClass.getSimpleName()) + "List";
+	}
+	
+	/**
+	 * @param entityClass entity class
+	 * @return node ID
+	 */
+	public String getEntityDetailsViewId(Class<?> entityClass) {
+		return StringUtils.uncapitalize(entityClass.getSimpleName()) + "Details";
+	}
+	
+	/**
+	 * @param entityClass
+	 * @return
+	 */
+	public String getEditFormId(Class<?> entityClass) {
+		return "edit" + entityClass.getSimpleName() + "Form";
+	}
+	
+	
+	// =================================================================================================================
+	// Nodes
+	// =================================================================================================================
 	
 	public Node getNode(String id) { return nodes.get(id); }
 	
@@ -90,37 +169,4 @@ public class Sitemap {
 		EvaluationContext evalContext = new StandardEvaluationContext(context);
 		return (String) expr.getValue(evalContext);
 	}
-	
-	
-	// FIXME All these apostrophes suck. Figure out a better way to do this. [WLW]
-	
-	private String getDashboardPath() { return apostropheify("/"); }
-	
-	private String getProjectPath() { return "'/project/' + #this[project].id"; }
-	
-	private String getPackageListPath() { return apostropheify("/packages"); }
-	
-	private String getCreatePackagePath() { return newify(getPackageListPath()); }
-	
-	private String getPackagePath() { return getPackageListPath() + " + '/' + #this[package].id"; }
-	
-	private String getEditPackagePath() { return getPackagePath() + " + '/edit'"; }
-	
-	private String getFarmListPath() { return apostropheify("/farms"); }
-	
-	private String getCreateFarmPath() { return newify(getFarmListPath()); }
-	
-	private String getPersonListPath() { return apostropheify("/people"); }
-	
-	private String getCreatePersonPath() { return newify(getPersonListPath()); }
-	
-	private String getPersonPath() { return getPersonListPath() + " + '/' + #this[person].id"; }
-	
-	private String getEditPersonPath() { return getPersonPath() + " + '/edit'"; }
-	
-	@Deprecated
-	private String apostropheify(String path) { return "'" + path + "'"; }
-	
-	@Deprecated
-	private String newify(String path) { return path + " + '/new'"; }
 }

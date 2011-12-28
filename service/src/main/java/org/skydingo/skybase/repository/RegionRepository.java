@@ -1,5 +1,5 @@
 /* 
- * FarmTemplate.java
+ * RegionRepository.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,10 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.model;
+package org.skydingo.skybase.repository;
+
+import org.skydingo.skybase.model.Region;
+import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class FarmTemplate extends AbstractFarm {
+public interface RegionRepository extends GraphRepository<Region> {
+
 }

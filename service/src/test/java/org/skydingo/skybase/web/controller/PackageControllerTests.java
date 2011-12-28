@@ -32,9 +32,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.skydingo.skybase.model.Package;
+import org.skydingo.skybase.repository.PackageRepository;
 import org.skydingo.skybase.service.PackageService;
 import org.skydingo.skybase.web.navigation.Node;
+import org.skydingo.skybase.web.navigation.Paths;
 import org.skydingo.skybase.web.navigation.Sitemap;
+import org.skydingo.skybase.web.view.ViewNames;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
@@ -45,7 +48,10 @@ public class PackageControllerTests {
 	@InjectMocks private PackageController controller;
 	
 	// Dependencies
+	@Mock private Paths paths;
 	@Mock private Sitemap sitemap;
+	@Mock private ViewNames viewNames;
+	@Mock private PackageRepository pkgRepo;
 	@Mock private PackageService pkgService;
 	
 	// Test objects
@@ -62,6 +68,11 @@ public class PackageControllerTests {
 		this.controller = new PackageController();
 		MockitoAnnotations.initMocks(this);
 		when(sitemap.getNode((String) any())).thenReturn(node);
+		when(sitemap.getEntityListViewId(Package.class)).thenReturn("packageList");
+		when(sitemap.getEntityDetailsViewId(Package.class)).thenReturn("packageDetails");
+		when(sitemap.getEditFormId(Package.class)).thenReturn("editPackageForm");
+		when(viewNames.putEditFormSuccessViewName(Package.class, 1L)).thenReturn("redirect:/packages/1?a=updated");
+		when(viewNames.deleteSuccessViewName(Package.class)).thenReturn("redirect:/packages?a=deleted");
 		when(pkgService.findPackages()).thenReturn(new ArrayList<Package>());
 		when(pkgService.findPackage((Long) any())).thenReturn(pkg);
 	}
@@ -78,7 +89,7 @@ public class PackageControllerTests {
 	 */
 	@Test
 	public void testGetPackageList() {
-		String viewName = controller.getPackageList(model);
+		String viewName = controller.getList(model);
 		assertEquals("packageList", viewName);
 		
 		// Once for navigation, once for farm list
@@ -90,7 +101,7 @@ public class PackageControllerTests {
 	 */
 	@Test
 	public void testGetPackageDetails() {
-		String viewName = controller.getPackage(1L, model);
+		String viewName = controller.getDetails(1L, model);
 		assertEquals("packageDetails", viewName);
 	}
 	
@@ -99,7 +110,7 @@ public class PackageControllerTests {
 	 */
 	@Test
 	public void testGetEditPackageForm() {
-		String viewName = controller.getEditPackageForm(1L, model);
+		String viewName = controller.getEditForm(1L, model);
 		assertEquals("editPackageForm", viewName);
 	}
 	
@@ -108,7 +119,7 @@ public class PackageControllerTests {
 	 */
 	@Test
 	public void testPutEditPackageForm() {
-		String viewName = controller.putEditPackageForm(1L, pkg, result, model);
+		String viewName = controller.putEditForm(1L, pkg, result, model);
 		assertEquals("redirect:/packages/" + 1L + "?a=updated", viewName);
 	}
 	
@@ -118,7 +129,7 @@ public class PackageControllerTests {
 	@Test
 	public void testPutEditPackageFormWithErrors() {
 		when(result.hasErrors()).thenReturn(true);
-		String viewName = controller.putEditPackageForm(1L, pkg, result, model);
+		String viewName = controller.putEditForm(1L, pkg, result, model);
 		assertEquals("editPackageForm", viewName);
 	}
 	
@@ -127,7 +138,7 @@ public class PackageControllerTests {
 	 */
 	@Test
 	public void testDeletePackage() {
-		String viewName = controller.deletePackage(1L);
+		String viewName = controller.delete(1L);
 		assertEquals("redirect:/packages?a=deleted", viewName);
 	}
 }
