@@ -63,7 +63,7 @@ public class SkybaseClient {
 	 */
 	public List<Package> getPackages() {
 		return template
-			.getForObject("http://localhost:8080/packages.xml", Package.ListWrapper.class)
+			.getForObject("http://localhost:8080/packages?format=xml", Package.PackageListWrapper.class)
 			.getList();
 	}
 }

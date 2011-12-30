@@ -61,6 +61,7 @@ public abstract class AbstractEntityController<T extends Entity<T>> {
 	@Inject protected ViewNames viewNames;
 	@Inject protected ObjectMapper objectMapper;
 	
+	// IMPORTANT: Only getEntityClass() should access this directly!
 	private Class<T> entityClass;
 	
 	
@@ -201,7 +202,9 @@ public abstract class AbstractEntityController<T extends Entity<T>> {
 	public ListWrapper<T> getListAsXml(Model model) throws Exception {
 		log.debug("Getting list as XML");
 		
-		String wrapperClassName = entityClass.getName() + "$" + entityClass.getSimpleName() + "ListWrapper";
+		// IMPORTANT: We can't access entityClass directly (need to call getEntityClass() to guarantee initialization)
+		Class<T> eClass = getEntityClass();
+		String wrapperClassName = eClass.getName() + "$" + eClass.getSimpleName() + "ListWrapper";
 		Class<ListWrapper<T>> wrapperClass = (Class<ListWrapper<T>>) Class.forName(wrapperClassName);
 		ListWrapper<T> wrapper = wrapperClass.newInstance();
 		wrapper.setList(getSortedList());
