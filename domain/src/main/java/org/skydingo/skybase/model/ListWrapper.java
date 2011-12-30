@@ -1,5 +1,5 @@
 /* 
- * Farm.java
+ * ListWrapper.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -17,31 +17,14 @@
  */
 package org.skydingo.skybase.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
+import java.util.List;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@XmlRootElement
-public class Farm extends AbstractEntity<Farm> {
-	private String name;
+public interface ListWrapper<T extends Entity<T>> {
 	
-	/**
-	 * @return
-	 */
-	@XmlElement
-	public String getName() { return name; }
+	List<T> getList();
 	
-	/**
-	 * @param name
-	 */
-	public void setName(String name) { this.name = name; }
-	
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.model.Entity#getDisplayName()
-	 */
-	@Override
-	public String getDisplayName() { return name; }
+	void setList(List<T> list);
 }

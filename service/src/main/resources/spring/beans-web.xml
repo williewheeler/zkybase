@@ -14,14 +14,10 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 	
 	<mvc:annotation-driven />
-	<mvc:default-servlet-handler />
-<!-- 	<mvc:resources mapping="/images/**" location="/images/" /> -->
-<!-- 	<mvc:resources mapping="/resources/**" location="/resources/" /> -->
-	
 <!-- 	<mvc:annotation-driven conversion-service="conversionService" /> -->
-	<mvc:annotation-driven />
 	
 	<!-- Must register this explicitly, or else we use the old PropertyEditor approach. -->
+	<!-- Don't forget about the formatting version of this conversion service as well. -->
 	<!--
 	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
 		<property name="converters">
@@ -31,6 +27,11 @@
 		</property>
 	</bean>
 	-->
+	
+	<mvc:default-servlet-handler />
+	
+<!-- 	<mvc:resources mapping="/images/**" location="/images/" /> -->
+<!-- 	<mvc:resources mapping="/resources/**" location="/resources/" /> -->
 	
 	<context:component-scan base-package="org.skydingo.skybase.converter" />
 	<context:component-scan base-package="org.skydingo.skybase.web.controller" />
@@ -54,15 +55,11 @@
 	<!-- =========================================================================================================== -->
 	
 	<!-- JAXB -->
-	<oxm:jaxb2-marshaller id="marshaller">
-		<oxm:class-to-be-bound name="org.skydingo.skybase.model.Package" />
-		<oxm:class-to-be-bound name="org.skydingo.skybase.model.Package$ListWrapper" />
-		<oxm:class-to-be-bound name="org.skydingo.skybase.model.Person" />
-		<oxm:class-to-be-bound name="org.skydingo.skybase.model.Project" />
-		<oxm:class-to-be-bound name="org.skydingo.skybase.model.relationship.ProjectMembership" />
-		<oxm:class-to-be-bound name="org.skydingo.skybase.web.jit.JitNode" />
-	</oxm:jaxb2-marshaller>
-	
+	<!-- http://springinpractice.com/2011/12/29/its-back-the-classpathscanningjaxb2marshaller/ -->
+	<bean id="marshaller"
+		class="org.skydingo.skybase.util.ClasspathScanningJaxb2Marshaller"
+		p:basePackages="org.skydingo.skybase.model" />
+		
 	<!-- Jackson -->
 	<bean id="jaxbAnnIntrospector" class="org.codehaus.jackson.xc.JaxbAnnotationIntrospector" />
 	<bean id="jacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper">
@@ -86,17 +83,15 @@
 		</property>        
 	</bean>
 	
-	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver" p:favorParameter="true">
 		<property name="mediaTypes">
 			<map>
-				<entry key="do" value="text/html" />
-				<entry key="html" value="text/html" />
+				<!-- Don't need these, as we aren't using views to generate JSON and XML responses -->
+<!-- 				<entry key="json" value="application/json" /> -->
+<!-- 				<entry key="xml" value="application/xml" /> -->
 				
 				<!-- FIXME -->
-				<entry key="jit" value="application/jit" />
-				
-				<entry key="json" value="application/json" />
-				<entry key="xml" value="application/xml" />
+<!-- 				<entry key="jit" value="application/jit" /> -->
 			</map>
 		</property>
 		<property name="viewResolvers">
@@ -109,14 +104,12 @@
 		</property>
 		<property name="defaultViews">
 			<list>
-				<!-- JSON -->
+				<!-- Don't need these, as we aren't using views to generate JSON and XML responses -->
 <!-- 				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" p:objectMapper-ref="jacksonObjectMapper" /> -->
-				
-				<!-- XML -->
-				<bean class="org.springframework.web.servlet.view.xml.MarshallingView" p:marshaller-ref="marshaller" />
+<!-- 				<bean class="org.springframework.web.servlet.view.xml.MarshallingView" p:marshaller-ref="marshaller" /> -->
 				
 				<!-- FIXME We'll need different views for different objects, just like with RssView -->
-				<bean class="org.skydingo.skybase.web.view.JitView" p:objectMapper-ref="jacksonObjectMapper" />
+<!-- 				<bean class="org.skydingo.skybase.web.view.JitView" p:objectMapper-ref="jacksonObjectMapper" /> -->
 			</list>
 		</property>
 	</bean>

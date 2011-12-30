@@ -20,7 +20,6 @@ package org.skydingo.skybase.model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.NodeEntity;
@@ -29,7 +28,6 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @NodeEntity
-@XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
 public abstract class AbstractEntity<T extends Entity<T>> implements Entity<T> {
 	@GraphId private Long id;

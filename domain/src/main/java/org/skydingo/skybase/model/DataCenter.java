@@ -17,17 +17,23 @@
  */
 package org.skydingo.skybase.model;
 
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
+@XmlRootElement
 public class DataCenter extends AbstractEntity<DataCenter> {
 	private String name;
 	
 	/**
 	 * @return
 	 */
+	@XmlElement
 	public String getName() { return name; }
 	
 	/**
@@ -41,4 +47,22 @@ public class DataCenter extends AbstractEntity<DataCenter> {
 	@Override
 	@XmlTransient
 	public String getDisplayName() { return name; }
+	
+	@XmlRootElement(name = "dataCenters")
+	public static class DataCenterListWrapper implements ListWrapper<DataCenter> {
+		private List<DataCenter> list;
+		
+		/* (non-Javadoc)
+		 * @see org.skydingo.skybase.model.ListWrapper#getList()
+		 */
+		@Override
+		@XmlElement(name = "dataCenter")
+		public List<DataCenter> getList() { return list; }
+		
+		/* (non-Javadoc)
+		 * @see org.skydingo.skybase.model.ListWrapper#setList(java.util.List)
+		 */
+		@Override
+		public void setList(List<DataCenter> list) { this.list = list; }
+	}
 }

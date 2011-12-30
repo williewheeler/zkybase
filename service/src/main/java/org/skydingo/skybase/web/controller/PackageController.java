@@ -17,8 +17,6 @@
  */
 package org.skydingo.skybase.web.controller;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,12 +30,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Package controller.
@@ -93,29 +89,5 @@ public class PackageController extends AbstractEntityController<Package> {
 			// http://stackoverflow.com/questions/283957/rest-correct-http-response-code-for-a-post-which-is-ignored
 			res.setStatus(HttpServletResponse.SC_OK);
 		}
-	}
-	
-	
-	// =================================================================================================================
-	// Read
-	// =================================================================================================================
-	
-	/**
-	 * @return
-	 */
-	// FIXME Wrong request mapping
-	@RequestMapping(value = "/packages.json", method = RequestMethod.GET)
-	@ResponseBody
-	public List<Package> getPackageListAsJson() {
-		return packageService.findPackages();
-	}
-	
-	/**
-	 * @param model
-	 */
-	// FIXME Wrong request mapping
-	@RequestMapping(value = "/packages.xml", method = RequestMethod.GET)
-	public void getPackageListAsXml(Model model) {
-		model.addAttribute(new Package.ListWrapper(packageService.findPackages()));
 	}
 }

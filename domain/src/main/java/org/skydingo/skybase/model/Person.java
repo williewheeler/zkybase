@@ -17,12 +17,14 @@
  */
 package org.skydingo.skybase.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.Email;
@@ -39,6 +41,7 @@ import org.springframework.data.neo4j.support.index.IndexType;
  * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
+@XmlRootElement
 public class Person extends AbstractEntity<Person> {
 	
 	// TODO Figure out why it's not good enough to put @Indexed here without the index name or type.
@@ -272,5 +275,23 @@ public class Person extends AbstractEntity<Person> {
 				+ ", lastName=" + lastName
 				+ ", email=" + email
 				+ "]";
+	}
+	
+	@XmlRootElement(name = "people")
+	public static class PersonListWrapper implements ListWrapper<Person> {
+		private List<Person> list;
+		
+		/* (non-Javadoc)
+		 * @see org.skydingo.skybase.model.ListWrapper#getList()
+		 */
+		@Override
+		@XmlElement(name = "person")
+		public List<Person> getList() { return list; }
+		
+		/* (non-Javadoc)
+		 * @see org.skydingo.skybase.model.ListWrapper#setList(java.util.List)
+		 */
+		@Override
+		public void setList(List<Person> list) { this.list = list; }
 	}
 }

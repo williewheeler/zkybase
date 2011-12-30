@@ -26,11 +26,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.data.neo4j.annotation.Indexed;
 
+// Hm, with the @XmlRootElement annotation here, the JAXB message converter always beats out the Jackson message
+// converter. (This happens only when getting an individual entity--it doesn't affect the list views because the
+// JSON list is an unannotated java.util.List, whereas the XML list is an annotated ListWrapper.)
+// 
+// See AbstractEntityController.getDetailsAsJson() for the workaround.
+
 /**
  * Package entity.
  * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
+@XmlRootElement
 public class Package extends AbstractEntity<Package> {
 	@Indexed private String groupId;
 	@Indexed private String packageId;
@@ -122,16 +129,20 @@ public class Package extends AbstractEntity<Package> {
 	}
 	
 	@XmlRootElement(name = "packages")
-	public static class ListWrapper {
+	public static class PackageListWrapper implements ListWrapper<Package> {
 		private List<Package> list;
 		
-		public ListWrapper() { }
-		
-		public ListWrapper(List<Package> list) { this.list = list; }
-		
+		/* (non-Javadoc)
+		 * @see org.skydingo.skybase.model.ListWrapper#getList()
+		 */
+		@Override
 		@XmlElement(name = "package")
 		public List<Package> getList() { return list; }
 		
+		/* (non-Javadoc)
+		 * @see org.skydingo.skybase.model.ListWrapper#setList(java.util.List)
+		 */
+		@Override
 		public void setList(List<Package> list) { this.list = list; }
 	}
 }

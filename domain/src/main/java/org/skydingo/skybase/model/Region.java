@@ -17,17 +17,21 @@
  */
 package org.skydingo.skybase.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
+@XmlRootElement
 public class Region extends AbstractEntity<Region> {
 	private String name;
 	
 	/**
 	 * @return
 	 */
+	@XmlElement
 	public String getName() { return name; }
 	
 	/**
