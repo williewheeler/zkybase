@@ -20,9 +20,13 @@ package org.skydingo.skybase.web.controller;
 import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Farm;
+import org.skydingo.skybase.repository.DataCenterRepository;
+import org.skydingo.skybase.repository.EnvironmentRepository;
 import org.skydingo.skybase.repository.FarmRepository;
+import org.skydingo.skybase.util.CollectionsUtil;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -32,6 +36,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/farms")
 public class FarmController extends AbstractEntityController<Farm> {
+	@Inject private DataCenterRepository dataCenterRepo;
+	@Inject private EnvironmentRepository environmentRepo;
 	@Inject private FarmRepository farmRepo;
 	
 	/* (non-Javadoc)
@@ -46,7 +52,16 @@ public class FarmController extends AbstractEntityController<Farm> {
 	 */
 	@Override
 	protected void doInitBinder(WebDataBinder binder) {
-		// TODO Auto-generated method stub
-		
+		binder.setAllowedFields("name", "environment", "dataCenter");
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#addRelatedEntities
+	 * (org.springframework.ui.Model)
+	 */
+	@Override
+	protected void addRelatedEntities(Model model) {
+		model.addAttribute(CollectionsUtil.asSortedList(dataCenterRepo.findAll()));
+		model.addAttribute(CollectionsUtil.asSortedList(environmentRepo.findAll()));
 	}
 }

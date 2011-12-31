@@ -10,6 +10,8 @@
 				<thead>
 					<tr>
 						<th>Name</th>
+						<th>Environment</th>
+						<th>Data center</th>
 						<th>Instances</th>
 					</tr>
 				</thead>
@@ -18,6 +20,8 @@
 						<c:url var="farmUrl" value="/farms/${farm.id}" />
 						<tr>
 							<td><a href="${farmUrl}"><c:out value="${farm.name}" /></a></td>
+							<td><c:out value="${farm.environment.displayName}" /></td>
+							<td><c:out value="${farm.dataCenter.displayName}" /></td>
 							<td>TODO</td>
 						</tr>
 					</c:forEach>

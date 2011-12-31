@@ -16,10 +16,12 @@
 	</definition>
 	
 	<!-- Create farm form -->
-	<definition name="createFarmFormTile" template="/WEB-INF/jsp/farm/farmForm.jsp">
-		<put-attribute name="formMethod" value="POST" />
-	</definition>
 	<definition name="createFarmForm" extends="createPageTemplate">
-		<put-attribute name="content" value="createFarmFormTile" />
+		<put-attribute name="content" value="/WEB-INF/jsp/farm/farmForm.jsp" />
+	</definition>
+	
+	<!-- Edit farm form -->
+	<definition name="editFarmForm" extends="editPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/farm/farmForm.jsp" />
 	</definition>
 </tiles-definitions>

@@ -109,6 +109,10 @@ public abstract class AbstractEntityController<T extends Entity<T>> {
 	
 	protected abstract void doInitBinder(WebDataBinder binder);
 	
+	protected void addRelatedEntities(Model model) {
+		// Subclasses should implement as necessary.
+	}
+	
 	
 	// =================================================================================================================
 	// Navigation
@@ -143,6 +147,7 @@ public abstract class AbstractEntityController<T extends Entity<T>> {
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String postCreateForm(Model model, @ModelAttribute(MK_FORM_DATA) @Valid T formData, BindingResult result) {
 		if (result.hasErrors()) {
+			model.addAttribute("hasErrors", true);
 			return prepareCreateForm(model);
 		} else {
 			// FIXME Need to handle cases where save attempts generate validation errors (e.g. duplicate entities).
@@ -156,6 +161,7 @@ public abstract class AbstractEntityController<T extends Entity<T>> {
 	 * @return view name
 	 */
 	private String prepareCreateForm(Model model) {
+		addRelatedEntities(model);
 		model.addAttribute("formMethod", "post");
 		model.addAttribute("submitPath", paths.getSubmitCreateFormPath(getEntityClass()));
 		model.addAttribute("cancelPath", paths.getBasePath(getEntityClass()) + "?a=cancelled");
@@ -306,6 +312,7 @@ public abstract class AbstractEntityController<T extends Entity<T>> {
 		
 		// FIXME Need to check for errors *after* the update attempt.
 		if (result.hasErrors()) {
+			model.addAttribute("hasErrors", true);
 			return prepareEditForm(id, model);
 		} else {
 			// FIXME
@@ -321,6 +328,7 @@ public abstract class AbstractEntityController<T extends Entity<T>> {
 	 * @return
 	 */
 	private String prepareEditForm(Long id, Model model) {
+		addRelatedEntities(model);
 		
 		// Need to load the entity itself since the entity drives title and breadcrumbs, and we don't want form data
 		// changes to impact them. Can optimize this by giving the entities clone constructors.

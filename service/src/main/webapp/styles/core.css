@@ -27,6 +27,23 @@ body {
 #footer p { font-size: 93%; }
 
 
+/* SECTIONS ========================================================================================================= */
+
+section {
+	margin: 20px 0;
+}
+
+section.first {
+	margin-top: 0;
+}
+
+/* Deprecated */
+.section.first { margin: 0 0 20px 0; }
+
+/* Deprecated */
+.section { margin: 20px 0; }
+
+
 /* COMPONENTS ======================================================================================================= */
 
 #titleBar { margin: 20px 0; }
@@ -58,27 +75,21 @@ div.tr { display: table-row; }
 
 div.td { display: table-cell; }
 
-.section.first { margin: 0 0 20px 0; }
-
-.section { margin: 20px 0; }
-
 .grid { margin: 0; }
 
 .gridBody {
 	margin: 0;
-/* 	border-top: 2px solid #DDDDD0; */
 	border-top: 2px solid #E8E8E0;
 }
 
 .gridBody .row {
+	
+	/* This improves the visuals but wrecks the grid a bit since Bootstrap wants margin-left: -20px; */
 	margin: 0;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	
+	padding: 10px 0;
 	border-top: 1px solid #FFF;
 	
-/* 	border-bottom: 1px solid #DDDDD0; */
-/* 	background-color: #EEEEE0; */
-
 	border-bottom: 1px solid #E8E8E0;
 	background-color: #F8F8F0;
 }
@@ -88,7 +99,7 @@ div.td { display: table-cell; }
 }
 
 .gridLabel {
-	text-align: right;
+/* 	text-align: right; */
 }
 
 

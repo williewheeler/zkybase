@@ -17,11 +17,15 @@
  */
 package org.skydingo.skybase.model;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Environment entity.
+ * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
@@ -45,4 +49,22 @@ public class Environment extends AbstractEntity<Environment> {
 	@Override
 	@XmlTransient
 	public String getDisplayName() { return name; }
+	
+	@XmlRootElement(name = "environments")
+	public static class EnvironmentListWrapper implements ListWrapper<Environment> {
+		private List<Environment> list;
+		
+		/* (non-Javadoc)
+		 * @see org.skydingo.skybase.model.ListWrapper#getList()
+		 */
+		@Override
+		@XmlElement(name = "environment")
+		public List<Environment> getList() { return list; }
+		
+		/* (non-Javadoc)
+		 * @see org.skydingo.skybase.model.ListWrapper#setList(java.util.List)
+		 */
+		@Override
+		public void setList(List<Environment> list) { this.list = list; }
+	}
 }
