@@ -1,5 +1,5 @@
 /* 
- * DataCenterController.java
+ * IdToDataCenterConverter.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,38 +15,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.controller;
+package org.skydingo.skybase.converter;
 
 import javax.inject.Inject;
 
 import org.skydingo.skybase.model.DataCenter;
 import org.skydingo.skybase.repository.DataCenterRepository;
-import org.springframework.data.neo4j.repository.GraphRepository;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@Controller
-@RequestMapping("/datacenters")
-public class DataCenterController extends AbstractEntityController<DataCenter> {
+@Component
+public class IdToDataCenterConverter implements Converter<String, DataCenter> {
 	@Inject private DataCenterRepository dataCenterRepo;
-	
+
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getRepository()
+	 * @see org.springframework.core.convert.converter.Converter#convert(java.lang.Object)
 	 */
 	@Override
-	public GraphRepository<DataCenter> getRepository() { return dataCenterRepo; }
-	
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.controller.AbstractController#doInitBinder(
-	 * org.springframework.web.bind.WebDataBinder)
-	 */
-	@Override
-	protected void doInitBinder(WebDataBinder binder) {
-		// TODO Auto-generated method stub
-		
+	public DataCenter convert(String id) {
+		return dataCenterRepo.findOne(Long.parseLong(id));
 	}
+
 }

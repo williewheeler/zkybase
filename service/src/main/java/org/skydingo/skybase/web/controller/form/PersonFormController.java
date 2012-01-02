@@ -1,5 +1,5 @@
 /* 
- * ProjectConverter.java
+ * PersonFormController.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,31 +15,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.converter;
+package org.skydingo.skybase.web.controller.form;
 
-import static org.springframework.util.Assert.notNull;
-
-import javax.inject.Inject;
-
-import org.skydingo.skybase.model.Project;
-import org.skydingo.skybase.repository.ProjectRepository;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
+import org.skydingo.skybase.model.Person;
+import org.skydingo.skybase.web.controller.AbstractEntityFormController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-//@Component
-public class KeyToProjectConverter implements Converter<String, Project> {
-	@Inject private ProjectRepository projectRepo;
+@Controller
+@RequestMapping("/people")
+public class PersonFormController extends AbstractEntityFormController<Person> {
 
 	/* (non-Javadoc)
-	 * @see org.springframework.core.convert.converter.Converter#convert(java.lang.Object)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()
 	 */
 	@Override
-	public Project convert(String key) {
-		notNull(key);
-		return projectRepo.findProjectByKey(key);
+	protected String[] getAllowedFields() {
+		return new String[] { "username", "firstName", "lastName", "title", "workPhone", "mobilePhone", "email" };
 	}
 
 }

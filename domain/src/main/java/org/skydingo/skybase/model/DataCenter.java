@@ -22,11 +22,13 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
+@XmlType(propOrder = { "name" })
 public class DataCenter extends AbstractEntity<DataCenter> {
 	private String name;
 	

@@ -1,5 +1,5 @@
 /* 
- * ProjectConverter.java
+ * IdToEnvironmentConverter.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -17,29 +17,26 @@
  */
 package org.skydingo.skybase.converter;
 
-import static org.springframework.util.Assert.notNull;
-
 import javax.inject.Inject;
 
-import org.skydingo.skybase.model.Project;
-import org.skydingo.skybase.repository.ProjectRepository;
+import org.skydingo.skybase.model.Environment;
+import org.skydingo.skybase.repository.EnvironmentRepository;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-//@Component
-public class KeyToProjectConverter implements Converter<String, Project> {
-	@Inject private ProjectRepository projectRepo;
-
+@Component
+public class IdToEnvironmentConverter implements Converter<String, Environment> {
+	@Inject private EnvironmentRepository environmentRepo;
+	
 	/* (non-Javadoc)
 	 * @see org.springframework.core.convert.converter.Converter#convert(java.lang.Object)
 	 */
 	@Override
-	public Project convert(String key) {
-		notNull(key);
-		return projectRepo.findProjectByKey(key);
+	public Environment convert(String id) {
+		return environmentRepo.findOne(Long.parseLong(id));
 	}
 
 }

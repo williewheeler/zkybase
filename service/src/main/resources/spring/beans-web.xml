@@ -13,22 +13,20 @@
 		http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-3.1.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 	
-	<mvc:annotation-driven />
-<!-- 	<mvc:annotation-driven conversion-service="conversionService" /> -->
+	<mvc:default-servlet-handler />
+	
+<!-- 	<mvc:annotation-driven /> -->
+	<mvc:annotation-driven conversion-service="conversionService" />
 	
 	<!-- Must register this explicitly, or else we use the old PropertyEditor approach. -->
-	<!-- Don't forget about the formatting version of this conversion service as well. -->
-	<!--
-	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
 		<property name="converters">
 			<list>
-				<ref bean="keyToProjectConverter" />
+				<ref bean="idToDataCenterConverter" />
+				<ref bean="idToEnvironmentConverter" />
 			</list>
 		</property>
 	</bean>
-	-->
-	
-	<mvc:default-servlet-handler />
 	
 <!-- 	<mvc:resources mapping="/images/**" location="/images/" /> -->
 <!-- 	<mvc:resources mapping="/resources/**" location="/resources/" /> -->

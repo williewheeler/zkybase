@@ -15,12 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.controller;
+package org.skydingo.skybase.web.controller.form;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -44,8 +42,8 @@ import org.springframework.validation.BindingResult;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class PackageControllerTests {
-	@InjectMocks private PackageController controller;
+public class PackageFormControllerTests {
+	@InjectMocks private PackageFormController controller;
 	
 	// Dependencies
 	@Mock private Paths paths;
@@ -65,7 +63,7 @@ public class PackageControllerTests {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		this.controller = new PackageController();
+		this.controller = new PackageFormController();
 		MockitoAnnotations.initMocks(this);
 		when(sitemap.getNode((String) any())).thenReturn(node);
 		when(sitemap.getEntityListViewId(Package.class)).thenReturn("packageList");
@@ -82,27 +80,6 @@ public class PackageControllerTests {
 	 */
 	@After
 	public void tearDown() throws Exception {
-	}
-	
-	/**
-	 * Happy path test to get the package list.
-	 */
-	@Test
-	public void testGetPackageList() {
-		String viewName = controller.getList(model);
-		assertEquals("packageList", viewName);
-		
-		// Once for navigation, once for farm list
-		verify(model, times(2)).addAttribute(any());
-	}
-	
-	/**
-	 * Happy path test to get the package details page.
-	 */
-	@Test
-	public void testGetPackageDetails() {
-		String viewName = controller.getDetails(1L, model);
-		assertEquals("packageDetails", viewName);
 	}
 	
 	/**
@@ -131,14 +108,5 @@ public class PackageControllerTests {
 		when(result.hasErrors()).thenReturn(true);
 		String viewName = controller.putEditForm(1L, pkg, result, model);
 		assertEquals("editPackageForm", viewName);
-	}
-	
-	/**
-	 * Happy path test to delete a package.
-	 */
-	@Test
-	public void testDeletePackage() {
-		String viewName = controller.delete(1L);
-		assertEquals("redirect:/packages?a=deleted", viewName);
 	}
 }

@@ -15,15 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.controller;
+package org.skydingo.skybase.web.controller.form;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.util.HashSet;
 
 import org.junit.After;
 import org.junit.Before;
@@ -44,8 +40,8 @@ import org.springframework.validation.BindingResult;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class PersonControllerTests {
-	@InjectMocks private PersonController controller;
+public class PersonFormControllerTests {
+	@InjectMocks private PersonFormController controller;
 	
 	// Dependencies
 	@Mock private Paths paths;
@@ -65,7 +61,7 @@ public class PersonControllerTests {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		this.controller = new PersonController();
+		this.controller = new PersonFormController();
 		MockitoAnnotations.initMocks(this);
 		when(sitemap.getNode((String) any())).thenReturn(node);
 		when(sitemap.getEntityListViewId(Person.class)).thenReturn("personList");
@@ -81,27 +77,6 @@ public class PersonControllerTests {
 	 */
 	@After
 	public void tearDown() throws Exception {
-	}
-	
-	/**
-	 * Happy path test to get the person list.
-	 */
-	@Test
-	public void testGetPersonList() {
-		String viewName = controller.getList(model);
-		assertEquals("personList", viewName);
-		
-		// Once for navigation, once for farm list
-		verify(model, times(2)).addAttribute(any());
-	}
-	
-	/**
-	 * Happy path test to get the person details page.
-	 */
-	@Test
-	public void testGetPersonDetails() {
-		String viewName = controller.getDetails(1L, model);
-		assertEquals("personDetails", viewName);
 	}
 	
 	/**
@@ -130,14 +105,5 @@ public class PersonControllerTests {
 		when(result.hasErrors()).thenReturn(true);
 		String viewName = controller.putEditForm(1L, person, result, model);
 		assertEquals("editPersonForm", viewName);
-	}
-	
-	/**
-	 * Happy path test to delete a person.
-	 */
-	@Test
-	public void testDeletePerson() {
-		String viewName = controller.delete(1L);
-		assertEquals("redirect:/people?a=deleted", viewName);
 	}
 }

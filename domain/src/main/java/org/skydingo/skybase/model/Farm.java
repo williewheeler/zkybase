@@ -23,7 +23,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
+import org.springframework.data.neo4j.annotation.Fetch;
+import org.springframework.data.neo4j.annotation.RelatedTo;
 
 /**
  * Farm entity. A farm is a load-balanced set of functionally equivalent servers.
@@ -31,9 +34,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
+@XmlType(propOrder = { "name", "environment", "dataCenter" })
 public class Farm extends AbstractEntity<Farm> {
 	private String name;
+	
+	@Fetch
+	@RelatedTo(type = "IN_ENVIRONMENT")
 	private Environment environment;
+	
+	@Fetch
+	@RelatedTo(type = "IN_DATA_CENTER")
 	private DataCenter dataCenter;
 	
 	/**

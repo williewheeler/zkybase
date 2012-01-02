@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.controller;
+package org.skydingo.skybase.web.controller.noform;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,17 +24,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Person;
-import org.skydingo.skybase.model.relationship.ProjectMembership;
-import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.service.PersonService;
 import org.skydingo.skybase.util.CollectionsUtil;
+import org.skydingo.skybase.web.controller.AbstractEntityNoFormController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,25 +43,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/people")
-public class PersonController extends AbstractEntityController<Person> {
-	private static final Logger log = LoggerFactory.getLogger(PersonController.class);
+public class PersonNoFormController extends AbstractEntityNoFormController<Person> {
+	private static final Logger log = LoggerFactory.getLogger(PersonNoFormController.class);
 	
-	@Inject private PersonRepository personRepo;
 	@Inject private PersonService personService;
-	
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getRepository()
-	 */
-	@Override
-	public GraphRepository<Person> getRepository() { return personRepo; }
-	
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.AbstractController#doInitBinder(org.springframework.web.bind.WebDataBinder)
-	 */
-	@Override
-	protected void doInitBinder(WebDataBinder binder) {
-		binder.setAllowedFields("username", "firstName", "lastName", "title", "workPhone", "mobilePhone", "email");
-	}
 	
 	
 	// =================================================================================================================

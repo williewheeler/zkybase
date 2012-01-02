@@ -17,6 +17,8 @@
  */
 package org.skydingo.skybase.model;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -45,4 +47,22 @@ public class Region extends AbstractEntity<Region> {
 	@Override
 	@XmlTransient
 	public String getDisplayName() { return name; }
+	
+	@XmlRootElement(name = "regions")
+	public static class RegionListWrapper implements ListWrapper<Region> {
+		private List<Region> list;
+		
+		/* (non-Javadoc)
+		 * @see org.skydingo.skybase.model.ListWrapper#getList()
+		 */
+		@Override
+		@XmlElement(name = "region")
+		public List<Region> getList() { return list; }
+		
+		/* (non-Javadoc)
+		 * @see org.skydingo.skybase.model.ListWrapper#setList(java.util.List)
+		 */
+		@Override
+		public void setList(List<Region> list) { this.list = list; }
+	}
 }

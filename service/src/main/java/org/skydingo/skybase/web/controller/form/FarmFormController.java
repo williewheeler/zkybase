@@ -1,5 +1,5 @@
 /* 
- * FarmController.java
+ * FarmFormController.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,19 +15,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.controller;
+package org.skydingo.skybase.web.controller.form;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
+import org.skydingo.skybase.model.DataCenter;
+import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.model.Farm;
 import org.skydingo.skybase.repository.DataCenterRepository;
 import org.skydingo.skybase.repository.EnvironmentRepository;
-import org.skydingo.skybase.repository.FarmRepository;
 import org.skydingo.skybase.util.CollectionsUtil;
-import org.springframework.data.neo4j.repository.GraphRepository;
+import org.skydingo.skybase.web.controller.AbstractEntityFormController;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -35,33 +37,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/farms")
-public class FarmController extends AbstractEntityController<Farm> {
+public class FarmFormController extends AbstractEntityFormController<Farm> {
 	@Inject private DataCenterRepository dataCenterRepo;
 	@Inject private EnvironmentRepository environmentRepo;
-	@Inject private FarmRepository farmRepo;
 	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getRepository()
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()
 	 */
 	@Override
-	public GraphRepository<Farm> getRepository() { return farmRepo; }
+	protected String[] getAllowedFields() { return new String[] { "name", "environment", "dataCenter" }; }
 	
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.controller.AbstractController#doInitBinder(
-	 * org.springframework.web.bind.WebDataBinder)
+	/**
+	 * @return
 	 */
-	@Override
-	protected void doInitBinder(WebDataBinder binder) {
-		binder.setAllowedFields("name", "environment", "dataCenter");
+	@ModelAttribute("dataCenterList")
+	public List<DataCenter> populateDataCenters() {
+		return CollectionsUtil.asSortedList(dataCenterRepo.findAll());
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#addRelatedEntities
-	 * (org.springframework.ui.Model)
+	/**
+	 * @return
 	 */
-	@Override
-	protected void addRelatedEntities(Model model) {
-		model.addAttribute(CollectionsUtil.asSortedList(dataCenterRepo.findAll()));
-		model.addAttribute(CollectionsUtil.asSortedList(environmentRepo.findAll()));
+	@ModelAttribute("environmentList")
+	public List<Environment> populateEnvironments() {
+		return CollectionsUtil.asSortedList(environmentRepo.findAll());
 	}
 }

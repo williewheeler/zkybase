@@ -14,7 +14,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="dataCenter" items="${dataCenterList}">
-						<c:url var="dataCenterUrl" value="/datacenters/${region.id}" />
+						<c:url var="dataCenterUrl" value="/datacenters/${dataCenter.id}" />
 						<tr>
 							<td><a href="${dataCenterUrl}"><c:out value="${dataCenter.name}" /></a></td>
 						</tr>

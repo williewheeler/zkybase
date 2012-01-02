@@ -24,10 +24,9 @@
 		<div class="clearfix">
 			<label for="environment"><spring:message code="entity.environment.sentenceCase.singular" />:</label>
 			<div class="input">
-<%-- 				<form:input cssClass="span6" cssErrorClass="span6 error" path="environment" /> --%>
-				<form:select path="environment">
-					<form:option value="-- Choose one--" />
-					<form:options items="${environmentList}" itemLabel="displayName" itemValue="id" />
+				<form:select path="environment.id">
+<%-- 					<form:option value="" label="-- Choose one--" /> --%>
+					<form:options items="${environmentList}" itemValue="id" itemLabel="displayName" />
 				</form:select>
 				<form:errors path="environment">
 					<span class="help-inline"><span class="error icon"><form:errors path="environment" /></span></span>
@@ -37,10 +36,9 @@
 		<div class="clearfix">
 			<label for="dataCenter"><spring:message code="entity.dataCenter.sentenceCase.singular" />:</label>
 			<div class="input">
-<%-- 				<form:input cssClass="span6" cssErrorClass="span6 error" path="dataCenter" /> --%>
-				<form:select path="dataCenter">
-					<form:option value="-- Choose one--" />
-					<form:options items="${dataCenterList}" itemLabel="displayName" itemValue="id" />
+				<form:select path="dataCenter.id">
+<%-- 					<form:option value="" label="-- Choose one --" /> --%>
+					<form:options items="${dataCenterList}" itemValue="id" itemLabel="displayName" />
 				</form:select>
 				<form:errors path="dataCenter">
 					<span class="help-inline"><span class="error icon"><form:errors path="dataCenter" /></span></span>
@@ -50,9 +48,6 @@
 		<div class="actions">
 			<input class="btn primary" type="submit" value="${saveLabel}" />
 			<a class="btn" href="${cancelUrl}"><spring:message code="label.common.cancel" /></a>
-			<form:errors>
-				<span class="globalError help-inline"><form:errors /></span>
-			</form:errors>
 		</div>
 	</fieldset>
 </form:form>

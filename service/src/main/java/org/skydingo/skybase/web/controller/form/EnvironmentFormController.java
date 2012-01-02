@@ -1,5 +1,5 @@
 /* 
- * EnvironmentController.java
+ * EnvironmentFormController.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,15 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.controller;
-
-import javax.inject.Inject;
+package org.skydingo.skybase.web.controller.form;
 
 import org.skydingo.skybase.model.Environment;
-import org.skydingo.skybase.repository.EnvironmentRepository;
-import org.springframework.data.neo4j.repository.GraphRepository;
+import org.skydingo.skybase.web.controller.AbstractEntityFormController;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -31,22 +27,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/environments")
-public class EnvironmentController extends AbstractEntityController<Environment> {
-	@Inject private EnvironmentRepository environmentRepo;
+public class EnvironmentFormController extends AbstractEntityFormController<Environment> {
 	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getRepository()
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()
 	 */
 	@Override
-	public GraphRepository<Environment> getRepository() { return environmentRepo; }
-	
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.controller.AbstractController#doInitBinder(
-	 * org.springframework.web.bind.WebDataBinder)
-	 */
-	@Override
-	protected void doInitBinder(WebDataBinder binder) {
-		// TODO Auto-generated method stub
-		
-	}
+	protected String[] getAllowedFields() { return new String[] { "name" }; }
 }

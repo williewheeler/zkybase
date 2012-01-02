@@ -22,6 +22,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * Environment entity.
@@ -29,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
+@XmlType(propOrder = { "name" })
 public class Environment extends AbstractEntity<Environment> {
 	private String name;
 	

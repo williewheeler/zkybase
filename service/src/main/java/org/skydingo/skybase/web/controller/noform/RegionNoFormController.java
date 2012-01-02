@@ -15,15 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.controller;
-
-import javax.inject.Inject;
+package org.skydingo.skybase.web.controller.noform;
 
 import org.skydingo.skybase.model.Region;
-import org.skydingo.skybase.repository.RegionRepository;
-import org.springframework.data.neo4j.repository.GraphRepository;
+import org.skydingo.skybase.web.controller.AbstractEntityNoFormController;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -31,22 +27,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/regions")
-public class RegionController extends AbstractEntityController<Region> {
-	@Inject private RegionRepository regionRepo;
-	
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getRepository()
-	 */
-	@Override
-	public GraphRepository<Region> getRepository() { return regionRepo; }
-	
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.controller.AbstractController#doInitBinder(
-	 * org.springframework.web.bind.WebDataBinder)
-	 */
-	@Override
-	protected void doInitBinder(WebDataBinder binder) {
-		// TODO Auto-generated method stub
-		
-	}
-}
+public class RegionNoFormController extends AbstractEntityNoFormController<Region> { }
