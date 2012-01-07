@@ -20,6 +20,7 @@ package org.skydingo.skybase.web.controller.noform;
 import org.mockito.Mock;
 import org.skydingo.skybase.model.Region;
 import org.skydingo.skybase.repository.RegionRepository;
+import org.skydingo.skybase.service.RegionService;
 import org.skydingo.skybase.web.controller.AbstractEntityNoFormControllerTests;
 
 /**
@@ -29,4 +30,5 @@ public class RegionNoFormControllerTests extends AbstractEntityNoFormControllerT
 	
 	// Dependencies
 	@Mock private RegionRepository regionRepo;
+	@Mock private RegionService regionService;
 }

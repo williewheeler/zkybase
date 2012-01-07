@@ -1,5 +1,5 @@
 /* 
- * EnvironmentServiceImpl.java
+ * FarmServiceImplTests.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -17,15 +17,9 @@
  */
 package org.skydingo.skybase.service.impl;
 
-import org.skydingo.skybase.model.Environment;
-import org.skydingo.skybase.service.EnvironmentService;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@Service
-@Transactional
-public class EnvironmentServiceImpl extends AbstractEntityServiceImpl<Environment> implements EnvironmentService {
+public class FarmServiceImplTests {
+
 }

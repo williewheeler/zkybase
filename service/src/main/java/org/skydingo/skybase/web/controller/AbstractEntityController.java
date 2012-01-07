@@ -25,6 +25,7 @@ import javax.inject.Inject;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.skydingo.skybase.model.Entity;
+import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.web.navigation.Navigation;
 import org.skydingo.skybase.web.navigation.Paths;
 import org.skydingo.skybase.web.navigation.Sitemap;
@@ -47,42 +48,11 @@ abstract class AbstractEntityController<T extends Entity<T>> {
 	@Inject protected ViewNames viewNames;
 	@Inject protected ObjectMapper objectMapper;
 	
-	private GraphRepository<T> repository;
-	
 	// IMPORTANT: Only getEntityClass() should access this directly!
 	private Class<T> entityClass;
 	
-	/**
-	 * @return
-	 */
-	public GraphRepository<T> getRepository() { return repository; }
-	
-	/**
-	 * @param repository
-	 */
-	@Inject
-	@SuppressWarnings({ "unchecked", "unused" })
-	private void setRepository(List<GraphRepository<?>> repositories) {
-		
-		// FIXME This doesn't feel like a great implementation.
-		String matchName = getEntityClass().getSimpleName() + "Repository";
-		log.debug("matchName={}", matchName);
-		
-		for (GraphRepository<?> repo : repositories) {
-			log.debug("Examining repo: {}", repo);
-			Type[] types = repo.getClass().getGenericInterfaces();
-			for (Type type : types) {
-				log.debug("Examining type: {}", type);
-				
-				// FIXME Nasty
-				if (type.toString().endsWith(matchName)) {
-					log.debug("Injecting repository: {}", repo);
-					this.repository = (GraphRepository<T>) repo;
-					return;
-				}
-			}
-		}
-	}
+	private GraphRepository<T> repository;
+	private EntityService<T> service;
 	
 	/**
 	 * @return
@@ -105,6 +75,66 @@ abstract class AbstractEntityController<T extends Entity<T>> {
 		} catch (IllegalAccessException e) {
 			// Shouldn't happen
 			throw new RuntimeException(e);
+		}
+	}
+	
+	/**
+	 * @return
+	 */
+	protected GraphRepository<T> getRepository() { return repository; }
+	
+	/**
+	 * @param repository
+	 */
+	@Inject
+	@SuppressWarnings({ "unchecked", "unused" })
+	private void setRepository(List<GraphRepository<?>> repositories) {
+		log.debug("Setting repository for controller: {}", getClass());
+		
+		// FIXME This doesn't feel like a great implementation.
+		String matchName = getEntityClass().getSimpleName() + "Repository";
+		log.debug("matchName={}", matchName);
+		
+		for (GraphRepository<?> repo : repositories) {
+			log.debug("Examining repo: {}", repo);
+			Type[] types = repo.getClass().getGenericInterfaces();
+			for (Type type : types) {
+				log.debug("Examining type: {}", type);
+				
+				// FIXME Nasty
+				if (type.toString().endsWith(matchName)) {
+					log.debug("Injecting repository: {}", repo);
+					this.repository = (GraphRepository<T>) repo;
+					return;
+				}
+			}
+		}
+	}
+	
+	protected EntityService<T> getService() { return service; }
+	
+	@Inject
+	@SuppressWarnings({ "unchecked", "unused" })
+	private void setService(List<EntityService<?>> services) {
+		log.debug("Setting service for controller: {}", getClass());
+		
+		// FIXME This doesn't feel like a great implementation.
+		String matchName = getEntityClass().getSimpleName() + "Service";
+		log.debug("matchName={}", matchName);
+		
+		for (EntityService<?> service : services) {
+			log.debug("Examining service: {}", service);
+			Type[] types = service.getClass().getGenericInterfaces();
+			for (Type type : types) {
+				log.debug("Examining type: {}", type);
+				
+				// FIXME Nasty
+				if (type.toString().endsWith(matchName)) {
+					log.debug("Injecting service: {}", service);
+					this.service = (EntityService<T>) service;
+					return;
+				}
+			}
 		}
 	}
 	

@@ -19,8 +19,6 @@ package org.skydingo.skybase.service.impl;
 
 import static org.springframework.util.Assert.notNull;
 
-import java.util.Set;
-
 import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Person;
@@ -38,7 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-public class ProjectServiceImpl implements ProjectService {
+public class ProjectServiceImpl extends AbstractEntityServiceImpl<Project> implements ProjectService {
 	private static final Logger log = LoggerFactory.getLogger(ProjectServiceImpl.class);
 	
 	@Inject private ProjectRepository projectRepo;

@@ -37,7 +37,7 @@ import org.springframework.validation.Errors;
  */
 @Service
 @Transactional
-public class PackageServiceImpl implements PackageService {
+public class PackageServiceImpl extends AbstractEntityServiceImpl<Package> implements PackageService {
 	@Inject private PackageRepository packageRepo;
 	
 	/* (non-Javadoc)
@@ -51,7 +51,7 @@ public class PackageServiceImpl implements PackageService {
 		if (!duplicates.isEmpty()) {
 			throw new DuplicateEntityException();
 		}
-		packageRepo.save(pkg);
+		getRepository().save(pkg);
 	}
 	
 	/* (non-Javadoc)
@@ -76,7 +76,7 @@ public class PackageServiceImpl implements PackageService {
 	 */
 	@Override
 	public List<Package> findPackages() {
-		return CollectionsUtil.asSortedList(packageRepo.findAll());
+		return CollectionsUtil.asSortedList(getRepository().findAll());
 	}
 	
 	/* (non-Javadoc)
@@ -85,7 +85,7 @@ public class PackageServiceImpl implements PackageService {
 	@Override
 	public Package findPackage(Long id) {
 		notNull(id);
-		return packageRepo.findOne(id);
+		return getRepository().findOne(id);
 	}
 
 	/* (non-Javadoc)
@@ -94,7 +94,7 @@ public class PackageServiceImpl implements PackageService {
 	@Override
 	public void updatePackage(Package pkg) {
 		notNull(pkg);
-		packageRepo.save(pkg);
+		getRepository().save(pkg);
 	}
 
 	/* (non-Javadoc)
@@ -114,14 +114,5 @@ public class PackageServiceImpl implements PackageService {
 			
 			updatePackage(pkg);
 		}
-	}
-
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.PackageService#deletePackage(java.lang.Long)
-	 */
-	@Override
-	public void deletePackage(Long id) {
-		notNull(id);
-		packageRepo.delete(id);
 	}
 }

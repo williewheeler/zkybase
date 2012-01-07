@@ -20,6 +20,7 @@ package org.skydingo.skybase.web.controller.noform;
 import org.mockito.Mock;
 import org.skydingo.skybase.model.DataCenter;
 import org.skydingo.skybase.repository.DataCenterRepository;
+import org.skydingo.skybase.service.DataCenterService;
 import org.skydingo.skybase.web.controller.AbstractEntityNoFormControllerTests;
 
 /**
@@ -29,4 +30,5 @@ public class DataCenterNoFormControllerTests extends AbstractEntityNoFormControl
 	
 	// Dependencies
 	@Mock private DataCenterRepository dataCenterRepo;
+	@Mock private DataCenterService dataCenterService;
 }

@@ -19,12 +19,9 @@ package org.skydingo.skybase.service.impl;
 
 import static org.springframework.util.Assert.notNull;
 
-import javax.inject.Inject;
-
 import org.skydingo.skybase.model.DataCenter;
 import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.model.Farm;
-import org.skydingo.skybase.repository.FarmRepository;
 import org.skydingo.skybase.service.FarmService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,8 +32,7 @@ import org.springframework.validation.Errors;
  */
 @Service
 @Transactional
-public class FarmServiceImpl implements FarmService {
-	@Inject private FarmRepository farmRepo;
+public class FarmServiceImpl extends AbstractEntityServiceImpl<Farm> implements FarmService {
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.FarmService#create(org.skydingo.skybase.model.Farm)
@@ -47,7 +43,7 @@ public class FarmServiceImpl implements FarmService {
 		
 		// TODO Check for duplicates?
 		
-		farmRepo.save(farm);
+		getRepository().save(farm);
 	}
 
 	/* (non-Javadoc)

@@ -20,6 +20,7 @@ package org.skydingo.skybase.web.controller.noform;
 import org.mockito.Mock;
 import org.skydingo.skybase.model.Farm;
 import org.skydingo.skybase.repository.FarmRepository;
+import org.skydingo.skybase.service.FarmService;
 import org.skydingo.skybase.web.controller.AbstractEntityNoFormControllerTests;
 
 /**
@@ -29,4 +30,5 @@ public class FarmNoFormControllerTests extends AbstractEntityNoFormControllerTes
 	
 	// Dependencies
 	@Mock private FarmRepository farmRepo;
+	@Mock private FarmService farmService;
 }

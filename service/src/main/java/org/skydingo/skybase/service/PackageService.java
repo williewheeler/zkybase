@@ -26,7 +26,7 @@ import org.springframework.validation.Errors;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface PackageService {
+public interface PackageService extends EntityService<Package> {
 	
 	/**
 	 * @param pkg
@@ -63,9 +63,4 @@ public interface PackageService {
 	 * @param errors
 	 */
 	void updatePackage(Package pkg, Errors errors);
-	
-	/**
-	 * @param id package ID
-	 */
-	void deletePackage(Long id);
 }

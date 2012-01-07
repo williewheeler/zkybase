@@ -23,7 +23,7 @@ import org.springframework.validation.Errors;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface FarmService {
+public interface FarmService extends EntityService<Farm> {
 	
 	/**
 	 * @param farm farm

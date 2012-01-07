@@ -14,7 +14,6 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 	
 	<context:property-placeholder location="classpath:/spring/environment.properties" />
-	
 	<util:properties id="config" location="classpath:/spring/environment.properties" />
 	
 	<context:annotation-config />

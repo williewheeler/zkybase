@@ -17,6 +17,8 @@
  */
 package org.skydingo.skybase.web.controller;
 
+import static org.springframework.util.Assert.notNull;
+
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -163,7 +165,8 @@ public abstract class AbstractEntityNoFormController<T extends Entity<T>> extend
 	 */
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	public String delete(@PathVariable Long id) {
-		getRepository().delete(id);
+		notNull(id);
+		getService().delete(id);
 		return viewNames.deleteSuccessViewName(getEntityClass());
 	}
 }

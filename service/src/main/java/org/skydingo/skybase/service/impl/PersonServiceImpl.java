@@ -36,7 +36,7 @@ import org.springframework.validation.Errors;
  */
 @Service
 @Transactional
-public class PersonServiceImpl implements PersonService {
+public class PersonServiceImpl extends AbstractEntityServiceImpl<Person> implements PersonService {
 	@Inject private Neo4jTemplate template;
 	@Inject private PersonRepository personRepo;
 
@@ -60,6 +60,7 @@ public class PersonServiceImpl implements PersonService {
 		
 		// For now this is how you do it.
 		// http://stackoverflow.com/questions/8218864/fetch-annotation-in-sdg-2-0-fetching-strategy-questions
+		// http://springinpractice.com/2011/12/28/initializing-lazy-loaded-collections-with-spring-data-neo4j/
 		Set<Person> reports = person.getDirectReports();
 		for (Person report : reports) {
 			template.fetch(report);
