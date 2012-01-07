@@ -1,5 +1,5 @@
 /* 
- * EnvironmentControllerTests.java
+ * EnvironmentNoFormControllerTests.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -20,6 +20,7 @@ package org.skydingo.skybase.web.controller.noform;
 import org.mockito.Mock;
 import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.repository.EnvironmentRepository;
+import org.skydingo.skybase.service.EnvironmentService;
 import org.skydingo.skybase.web.controller.AbstractEntityNoFormControllerTests;
 
 /**
@@ -29,4 +30,5 @@ public class EnvironmentNoFormControllerTests extends AbstractEntityNoFormContro
 	
 	// Dependencies
 	@Mock private EnvironmentRepository environmentRepo;
+	@Mock private EnvironmentService environmentService;
 }
