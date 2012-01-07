@@ -20,10 +20,11 @@
 	<context:annotation-config />
 <!-- 	<context:spring-configured /> -->
 	
-	<context:component-scan base-package="org.skydingo.skybase.service" />
+	<neo4j:config storeDirectory="${graphDb.dir}" />
+	
+	<neo4j:repositories base-package="org.skydingo.skybase.repository" />
 		
 	<tx:annotation-driven mode="proxy" />
 	
-	<neo4j:config storeDirectory="${graphDb.dir}" />
-	<neo4j:repositories base-package="org.skydingo.skybase.repository" />
+	<context:component-scan base-package="org.skydingo.skybase.service.impl" />
 </beans>

@@ -20,17 +20,27 @@ package org.skydingo.skybase.web.controller.form;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.skydingo.skybase.model.DataCenter;
 import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.model.Farm;
 import org.skydingo.skybase.repository.DataCenterRepository;
 import org.skydingo.skybase.repository.EnvironmentRepository;
+import org.skydingo.skybase.service.FarmService;
 import org.skydingo.skybase.util.CollectionsUtil;
 import org.skydingo.skybase.web.controller.AbstractEntityFormController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -38,14 +48,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/farms")
 public class FarmFormController extends AbstractEntityFormController<Farm> {
+	private static final Logger log = LoggerFactory.getLogger(FarmFormController.class);
+	
 	@Inject private DataCenterRepository dataCenterRepo;
 	@Inject private EnvironmentRepository environmentRepo;
+	@Inject private FarmService farmService;
 	
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()
+	/**
+	 * @param binder
 	 */
-	@Override
-	protected String[] getAllowedFields() { return new String[] { "name", "environment", "dataCenter" }; }
+	@InitBinder
+	public void initBinderSpecial(WebDataBinder binder) {
+		log.debug("Initializing binder: {}", binder.getObjectName());
+		binder.setAllowedFields("name", "environment", "dataCenter");
+	}
 	
 	/**
 	 * @return
@@ -61,5 +77,24 @@ public class FarmFormController extends AbstractEntityFormController<Farm> {
 	@ModelAttribute("environmentList")
 	public List<Environment> populateEnvironments() {
 		return CollectionsUtil.asSortedList(environmentRepo.findAll());
+	}
+	
+	@Override
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public String putEditForm(
+			@PathVariable Long id,
+			@ModelAttribute(MK_FORM_DATA) @Valid Farm formData,
+			BindingResult result,
+			Model model) {
+		
+		farmService.create(formData, result);
+		
+		if (result.hasErrors()) {
+			model.addAttribute(MK_HAS_ERRORS, true);
+			return prepareEditForm(id, model);
+		}
+		
+		formData.setId(id);
+		return viewNames.putEditFormSuccessViewName(getEntityClass(), id);
 	}
 }

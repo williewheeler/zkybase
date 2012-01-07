@@ -12,6 +12,7 @@
 	<li><a id="deleteLink" href="#" class="btn"><span class="delete icon"><spring:message code="label.common.delete" /></span></a></li>
 </ul>
 
+<%-- FIXME Delegate to deleteDialog.jsp --%>
 <div id="deleteDialog" class="modal hide fade">
 	<div class="modal-header">
 		<a href="#" class="close">&times;</a>

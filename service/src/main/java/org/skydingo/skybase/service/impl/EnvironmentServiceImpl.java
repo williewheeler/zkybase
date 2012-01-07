@@ -1,5 +1,5 @@
 /* 
- * IdToEnvironmentConverter.java
+ * EnvironmentServiceImpl.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,28 +15,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.converter;
+package org.skydingo.skybase.service.impl;
+
+import static org.springframework.util.Assert.notNull;
 
 import javax.inject.Inject;
 
-import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.repository.EnvironmentRepository;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
+import org.skydingo.skybase.service.EnvironmentService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@Component
-public class IdToEnvironmentConverter implements Converter<String, Environment> {
+@Service
+@Transactional
+public class EnvironmentServiceImpl implements EnvironmentService {
 	@Inject private EnvironmentRepository environmentRepo;
 	
 	/* (non-Javadoc)
-	 * @see org.springframework.core.convert.converter.Converter#convert(java.lang.Object)
+	 * @see org.skydingo.skybase.service.EnvironmentService#delete(java.lang.Long)
 	 */
 	@Override
-	public Environment convert(String id) {
-		return environmentRepo.findOne(Long.parseLong(id));
+	public void delete(Long id) {
+		notNull(id);
+		environmentRepo.delete(id);
 	}
 
 }

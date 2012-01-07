@@ -1,5 +1,5 @@
 /* 
- * IdToDataCenterConverter.java
+ * DataCenterFormatter.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,28 +15,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.converter;
-
-import javax.inject.Inject;
+package org.skydingo.skybase.formatter;
 
 import org.skydingo.skybase.model.DataCenter;
-import org.skydingo.skybase.repository.DataCenterRepository;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Component
-public class IdToDataCenterConverter implements Converter<String, DataCenter> {
-	@Inject private DataCenterRepository dataCenterRepo;
-
-	/* (non-Javadoc)
-	 * @see org.springframework.core.convert.converter.Converter#convert(java.lang.Object)
-	 */
-	@Override
-	public DataCenter convert(String id) {
-		return dataCenterRepo.findOne(Long.parseLong(id));
-	}
+public class DataCenterFormatter extends EntityFormatter<DataCenter> {
+	
+	public DataCenterFormatter() { super(DataCenter.class); }
 
 }

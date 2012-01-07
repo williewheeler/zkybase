@@ -1,5 +1,5 @@
 /* 
- * ProjectConverter.java
+ * EnvironmentFormatter.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,31 +15,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.converter;
+package org.skydingo.skybase.formatter;
 
-import static org.springframework.util.Assert.notNull;
-
-import javax.inject.Inject;
-
-import org.skydingo.skybase.model.Project;
-import org.skydingo.skybase.repository.ProjectRepository;
-import org.springframework.core.convert.converter.Converter;
+import org.skydingo.skybase.model.Environment;
 import org.springframework.stereotype.Component;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-//@Component
-public class KeyToProjectConverter implements Converter<String, Project> {
-	@Inject private ProjectRepository projectRepo;
+@Component
+public class EnvironmentFormatter extends EntityFormatter<Environment> {
 
-	/* (non-Javadoc)
-	 * @see org.springframework.core.convert.converter.Converter#convert(java.lang.Object)
-	 */
-	@Override
-	public Project convert(String key) {
-		notNull(key);
-		return projectRepo.findProjectByKey(key);
-	}
+	public EnvironmentFormatter() { super(Environment.class); }
 
 }

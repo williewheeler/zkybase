@@ -1,5 +1,5 @@
 /* 
- * EnvironmentRepository.java
+ * EnvironmentService.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,16 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.repository;
-
-import org.skydingo.skybase.model.Environment;
-import org.springframework.data.neo4j.repository.GraphRepository;
-import org.springframework.transaction.annotation.Transactional;
+package org.skydingo.skybase.service;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@Transactional(readOnly = false)
-public interface EnvironmentRepository extends GraphRepository<Environment> {
-
+public interface EnvironmentService {
+	
+	void delete(Long id);
 }

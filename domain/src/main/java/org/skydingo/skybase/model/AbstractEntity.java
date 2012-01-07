@@ -50,7 +50,21 @@ public abstract class AbstractEntity<T extends Entity<T>> implements Entity<T> {
 	 */
 	@Override
 	public int compareTo(T that) {
-		return getDisplayName().compareTo(that.getDisplayName());
+		String thisDisplayName = getDisplayName();
+		String thatDisplayName = that.getDisplayName();
+		if (thisDisplayName == null) {
+			return (thatDisplayName == null ? 0 : 1);
+		} else if (thatDisplayName == null) {
+			return -1;
+		} else {
+			return thisDisplayName.compareTo(thatDisplayName);
+		}
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() { return getDisplayName(); }
 
 }

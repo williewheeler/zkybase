@@ -28,11 +28,11 @@ public interface FarmService {
 	/**
 	 * @param farm farm
 	 */
-	void createFarm(Farm farm);
+	void create(Farm farm);
 	
 	/**
 	 * @param farm farm
 	 * @param errors errors
 	 */
-	void createFarm(Farm farm, Errors errors);
+	void create(Farm farm, Errors errors);
 }

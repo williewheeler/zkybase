@@ -16,14 +16,14 @@
 	
 	<!-- List page -->
 	<definition name="listPageTemplate" extends="pageTemplate">
-		<put-attribute name="viewLinks" value="/WEB-INF/jsp/pageTemplate/jsonXmlViewLinks.jsp" />
-		<put-attribute name="actionLinks" value="/WEB-INF/jsp/pageTemplate/listPageActionLinks.jsp" />
+		<put-attribute name="viewLinks" value="/WEB-INF/jsp/pageTemplate/links/jsonXmlViewLinks.jsp" />
+		<put-attribute name="actionLinks" value="/WEB-INF/jsp/pageTemplate/links/listPageActionLinks.jsp" />
 	</definition>
 	
 	<!-- Details page -->
 	<definition name="detailsPageTemplate" extends="pageTemplate">
-		<put-attribute name="viewLinks" value="/WEB-INF/jsp/pageTemplate/jsonXmlViewLinks.jsp" />
-		<put-attribute name="actionLinks" value="/WEB-INF/jsp/pageTemplate/detailsPageActionLinks.jsp" />
+		<put-attribute name="viewLinks" value="/WEB-INF/jsp/pageTemplate/links/jsonXmlViewLinks.jsp" />
+		<put-attribute name="actionLinks" value="/WEB-INF/jsp/pageTemplate/links/detailsPageActionLinks.jsp" />
 	</definition>
 	
 	<!-- Edit form -->

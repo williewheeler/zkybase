@@ -117,6 +117,21 @@ a { color: #009694; }
 /* li { list-style-type: square; } */
 
 
+/* TABLES =========================================================================================================== */
+
+.editDeleteColumn {
+	width: 0;
+}
+
+td.editDeleteColumn {
+	white-space: nowrap;
+}
+
+.editDeleteColumn .deleteLink {
+	margin-left: 5px;
+}
+
+
 /* FORMS ============================================================================================================ */
 
 .modalForm {
@@ -139,7 +154,7 @@ a { color: #009694; }
 
 label { color: #4B5F6D; }
 
-.formItem.required label {
+label .required {
 	padding-left: 20px;
 	background: url('../images/icons/asterisk-small.png') left no-repeat;
 }

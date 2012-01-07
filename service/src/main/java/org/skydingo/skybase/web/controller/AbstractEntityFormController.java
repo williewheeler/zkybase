@@ -20,6 +20,8 @@ package org.skydingo.skybase.web.controller;
 import javax.validation.Valid;
 
 import org.skydingo.skybase.model.Entity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +38,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public abstract class AbstractEntityFormController<T extends Entity<T>> extends AbstractEntityController<T> {
+	private static final Logger log = LoggerFactory.getLogger(AbstractEntityFormController.class);
+	
 	public static final String MK_FORM_DATA = "formData";
 	public static final String MK_ENTITY = "entity";
 	public static final String MK_HAS_ERRORS = "hasErrors";
@@ -46,13 +50,17 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 	/**
 	 * @param binder binder
 	 */
-	@InitBinder
+	@InitBinder(MK_FORM_DATA)
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
-		binder.setAllowedFields(getAllowedFields());
+//		binder.setAllowedFields(getAllowedFields());
+		doInitBinder(binder);
 	}
 	
-	protected abstract String[] getAllowedFields();
+	@Deprecated
+	protected String[] getAllowedFields() { return null; }
+	
+	protected void doInitBinder(WebDataBinder binder) { }
 	
 	
 	// =================================================================================================================
@@ -91,7 +99,7 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 	 * @param model model
 	 * @return view name
 	 */
-	private String prepareCreateForm(Model model) {
+	protected String prepareCreateForm(Model model) {
 		model.addAttribute(MK_FORM_METHOD, "post");
 		model.addAttribute(MK_SUBMIT_PATH, paths.getSubmitCreateFormPath(getEntityClass()));
 		model.addAttribute(MK_CANCEL_PATH, paths.getBasePath(getEntityClass()) + "?a=cancelled");
@@ -110,8 +118,11 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 	 */
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
 	public String getEditForm(@PathVariable Long id, Model model) {
+		log.debug("Getting edit form");
 		model.addAttribute(MK_FORM_DATA, getRepository().findOne(id));
-		return prepareEditForm(id, model);
+		String viewName = prepareEditForm(id, model);
+		log.debug("Returning edit form");
+		return viewName;
 	}
 	
 	/**
@@ -145,7 +156,8 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 	 * @param model
 	 * @return
 	 */
-	private String prepareEditForm(Long id, Model model) {
+	protected String prepareEditForm(Long id, Model model) {
+		log.debug("Preparing edit form");
 		
 		// Need to load the entity itself since the entity drives title and breadcrumbs, and we don't want form data
 		// changes to impact them. Can optimize this by giving the entities clone constructors.

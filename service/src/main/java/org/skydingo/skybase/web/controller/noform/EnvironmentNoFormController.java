@@ -17,14 +17,31 @@
  */
 package org.skydingo.skybase.web.controller.noform;
 
+import javax.inject.Inject;
+
 import org.skydingo.skybase.model.Environment;
+import org.skydingo.skybase.service.EnvironmentService;
 import org.skydingo.skybase.web.controller.AbstractEntityNoFormController;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Controller
 @RequestMapping("/environments")
-public class EnvironmentNoFormController extends AbstractEntityNoFormController<Environment> { }
+public class EnvironmentNoFormController extends AbstractEntityNoFormController<Environment> {
+	@Inject private EnvironmentService environmentService;
+	
+	/**
+	 * @param id entity ID
+	 * @return view name
+	 */
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	public String delete(@PathVariable Long id) {
+		environmentService.delete(id);
+		return viewNames.deleteSuccessViewName(getEntityClass());
+	}
+}

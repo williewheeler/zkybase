@@ -19,10 +19,15 @@ package org.skydingo.skybase.model;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Environment entity.
@@ -32,11 +37,18 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @XmlType(propOrder = { "name" })
 public class Environment extends AbstractEntity<Environment> {
+	private static final Logger log = LoggerFactory.getLogger(Environment.class);
+	
 	private String name;
+	
+	@Deprecated
+	public String getIdAsString() { return getId().toString(); }
 	
 	/**
 	 * @return
 	 */
+	@NotNull
+	@Size(max = 80)
 	@XmlElement
 	public String getName() { return name; }
 	
@@ -51,6 +63,38 @@ public class Environment extends AbstractEntity<Environment> {
 	@Override
 	@XmlTransient
 	public String getDisplayName() { return name; }
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object o) {
+		log.debug("Comparing Environments for equality");
+		
+		if (!(o instanceof Environment)) { return false; }
+		
+		Environment that = (Environment) o;
+		Long thisId = this.getId();
+		Long thatId = that.getId();
+		
+		if (thisId == null || thatId == null) {
+			throw new IllegalStateException("Both Environments require an ID");
+		}
+		
+		return thisId.equals(thatId);
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		Long id = getId();
+		if (id == null) {
+			throw new IllegalStateException("ID required");
+		}
+		return id.hashCode();
+	}
 	
 	@XmlRootElement(name = "environments")
 	public static class EnvironmentListWrapper implements ListWrapper<Environment> {

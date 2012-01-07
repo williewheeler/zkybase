@@ -21,6 +21,8 @@ import static org.springframework.util.Assert.notNull;
 
 import javax.inject.Inject;
 
+import org.skydingo.skybase.model.DataCenter;
+import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.model.Farm;
 import org.skydingo.skybase.repository.FarmRepository;
 import org.skydingo.skybase.service.FarmService;
@@ -37,10 +39,10 @@ public class FarmServiceImpl implements FarmService {
 	@Inject private FarmRepository farmRepo;
 
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.FarmService#createFarm(org.skydingo.skybase.model.Farm)
+	 * @see org.skydingo.skybase.service.FarmService#create(org.skydingo.skybase.model.Farm)
 	 */
 	@Override
-	public void createFarm(Farm farm) {
+	public void create(Farm farm) {
 		notNull(farm);
 		
 		// TODO Check for duplicates?
@@ -49,16 +51,37 @@ public class FarmServiceImpl implements FarmService {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.FarmService#createFarm(org.skydingo.skybase.model.Farm,
+	 * @see org.skydingo.skybase.service.FarmService#create(org.skydingo.skybase.model.Farm,
 	 * org.springframework.validation.Errors)
 	 */
 	@Override
-	public void createFarm(Farm farm, Errors errors) {
+	public void create(Farm farm, Errors errors) {
 		notNull(farm);
 		notNull(errors);
 		
+		// Haven't figured out how to do this with the framework, so I'm doing it manually for now.
+		
+		// First check for null.
+		Environment environment = farm.getEnvironment();
+		if (environment == null || environment.getId() == -1L) {
+			// FIXME This code doesn't work.
+//			errors.rejectValue("environment", "javax.validation.constraints.NotNull");
+			throw new RuntimeException("Value rejected");
+		} else {
+			// TODO Check for existence
+		}
+		
+		DataCenter dataCenter = farm.getDataCenter();
+		if (dataCenter == null || dataCenter.getId() == -1L) {
+			// FIXME This code doesn't work.
+//			errors.rejectValue("dataCenter", "javax.validation.constraints.NotNull");
+			throw new RuntimeException("Value rejected");
+		} else {
+			// TODO Check for existence
+		}
+		
 		if (!errors.hasErrors()) {
-			createFarm(farm);
+			create(farm);
 		}
 	}
 
