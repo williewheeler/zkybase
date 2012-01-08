@@ -42,7 +42,7 @@ public class PackageNoFormControllerTests extends AbstractEntityNoFormController
 	
 	@Override
 	protected void doSetUp() throws Exception {
-		when(pkgService.findPackages()).thenReturn(new ArrayList<Package>());
-		when(pkgService.findPackage((Long) any())).thenReturn(pkg);
+		when(pkgService.findAll()).thenReturn(new ArrayList<Package>());
+		when(pkgService.findOne((Long) any())).thenReturn(pkg);
 	}
 }

@@ -23,9 +23,13 @@ import javax.inject.Inject;
 
 import org.skydingo.skybase.model.DataCenter;
 import org.skydingo.skybase.model.Region;
+import org.skydingo.skybase.repository.DataCenterRepository;
 import org.skydingo.skybase.repository.RegionRepository;
+import org.skydingo.skybase.service.DataCenterService;
+import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.util.CollectionsUtil;
 import org.skydingo.skybase.web.controller.AbstractEntityFormController;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +40,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/datacenters")
 public class DataCenterFormController extends AbstractEntityFormController<DataCenter> {
+	@Inject private DataCenterRepository repository;
+	@Inject private DataCenterService service;
+	
 	@Inject private RegionRepository regionRepo;
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getRepository()
+	 */
+	@Override
+	public GraphRepository<DataCenter> getRepository() { return repository; }
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getService()
+	 */
+	@Override
+	public EntityService<DataCenter> getService() { return service; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()

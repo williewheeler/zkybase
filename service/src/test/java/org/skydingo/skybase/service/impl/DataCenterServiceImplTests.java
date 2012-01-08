@@ -1,5 +1,5 @@
 /* 
- * FarmServiceImplTests.java
+ * DataCenterServiceImplTests.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -24,37 +24,38 @@ import org.junit.Before;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.skydingo.skybase.model.Farm;
-import org.skydingo.skybase.repository.FarmRepository;
+import org.skydingo.skybase.model.DataCenter;
+import org.skydingo.skybase.repository.DataCenterRepository;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class FarmServiceImplTests extends AbstractEntityServiceImplTests<Farm> {
-	@InjectMocks private FarmServiceImpl farmService;
-	@Mock private FarmRepository farmRepo;
-	@Mock private Farm farm;
+public class DataCenterServiceImplTests extends AbstractEntityServiceImplTests<DataCenter> {
+	@InjectMocks private DataCenterServiceImpl dataCenterService;
+	@Mock private DataCenterRepository dataCenterRepo;
+	@Mock private DataCenter dataCenter;
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getRepository()
 	 */
 	@Override
-	protected GraphRepository<Farm> getRepository() { return farmRepo; }
-	
+	protected GraphRepository<DataCenter> getRepository() { return dataCenterRepo; }
+
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getService()
 	 */
 	@Override
-	public AbstractEntityServiceImpl<Farm> getService() { return farmService; }
+	protected AbstractEntityServiceImpl<DataCenter> getService() { return dataCenterService; }
 	
 	/**
 	 * @throws Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		this.farmService = new FarmServiceImpl();
+		this.dataCenterService = new DataCenterServiceImpl();
 		MockitoAnnotations.initMocks(this);
-		when(farmRepo.findOne(anyLong())).thenReturn(farm);
+		when(dataCenterRepo.findOne(anyLong())).thenReturn(dataCenter);
 	}
+
 }

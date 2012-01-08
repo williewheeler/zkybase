@@ -38,14 +38,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public abstract class AbstractEntityFormController<T extends Entity<T>> extends AbstractEntityController<T> {
-	private static final Logger log = LoggerFactory.getLogger(AbstractEntityFormController.class);
-	
 	public static final String MK_FORM_DATA = "formData";
 	public static final String MK_ENTITY = "entity";
 	public static final String MK_HAS_ERRORS = "hasErrors";
 	public static final String MK_FORM_METHOD = "formMethod";
 	public static final String MK_SUBMIT_PATH = "submitPath";
 	public static final String MK_CANCEL_PATH = "cancelPath";
+	
+	private static final Logger log = LoggerFactory.getLogger(AbstractEntityFormController.class);
 	
 	/**
 	 * @param binder binder

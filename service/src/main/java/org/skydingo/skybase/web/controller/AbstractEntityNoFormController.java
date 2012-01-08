@@ -20,14 +20,12 @@ package org.skydingo.skybase.web.controller;
 import static org.springframework.util.Assert.notNull;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.skydingo.skybase.model.Entity;
 import org.skydingo.skybase.model.ListWrapper;
-import org.skydingo.skybase.util.CollectionsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
@@ -95,9 +93,7 @@ public abstract class AbstractEntityNoFormController<T extends Entity<T>> extend
 	}
 	
 	private List<T> getSortedList() {
-		List<T> entities = CollectionsUtil.asList(getRepository().findAll());
-		Collections.sort(entities);
-		return entities;
+		return getService().findAll();
 	}
 	
 	/**
@@ -151,7 +147,7 @@ public abstract class AbstractEntityNoFormController<T extends Entity<T>> extend
 	 * @return entity
 	 */
 	protected T doGetDetails(Long id, Model model) {
-		return getRepository().findOne(id);
+		return getService().findOne(id);
 	}
 	
 	

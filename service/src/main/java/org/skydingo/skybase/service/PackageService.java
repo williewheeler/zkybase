@@ -17,8 +17,6 @@
  */
 package org.skydingo.skybase.service;
 
-import java.util.List;
-
 import org.skydingo.skybase.exception.DuplicateEntityException;
 import org.skydingo.skybase.model.Package;
 import org.springframework.validation.Errors;
@@ -39,19 +37,6 @@ public interface PackageService extends EntityService<Package> {
 	 * @param errors errors
 	 */
 	void createPackage(Package pkg, Errors errors);
-	
-	/**
-	 * @return all packages, sorted
-	 */
-	List<Package> findPackages();
-	
-	/**
-	 * Finds a package by ID.
-	 * 
-	 * @param id package ID
-	 * @return requested package
-	 */
-	Package findPackage(Long id);
 	
 	/**
 	 * @param pkg

@@ -27,11 +27,14 @@ import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.model.Farm;
 import org.skydingo.skybase.repository.DataCenterRepository;
 import org.skydingo.skybase.repository.EnvironmentRepository;
+import org.skydingo.skybase.repository.FarmRepository;
+import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.service.FarmService;
 import org.skydingo.skybase.util.CollectionsUtil;
 import org.skydingo.skybase.web.controller.AbstractEntityFormController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,7 +55,20 @@ public class FarmFormController extends AbstractEntityFormController<Farm> {
 	
 	@Inject private DataCenterRepository dataCenterRepo;
 	@Inject private EnvironmentRepository environmentRepo;
+	@Inject private FarmRepository farmRepo;
 	@Inject private FarmService farmService;
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getRepository()
+	 */
+	@Override
+	public GraphRepository<Farm> getRepository() { return farmRepo; }
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getService()
+	 */
+	@Override
+	public EntityService<Farm> getService() { return farmService; }
 	
 	/**
 	 * @param binder

@@ -25,6 +25,7 @@ import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Entity;
 import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.util.CollectionsUtil;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,6 +78,22 @@ public abstract class AbstractEntityServiceImpl<T extends Entity<T>> implements 
 				}
 			}
 		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.EntityService#findAll()
+	 */
+	@Override
+	public List<T> findAll() {
+		return CollectionsUtil.asSortedList(getRepository().findAll());
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.EntityService#findOne(java.lang.Long)
+	 */
+	@Override
+	public T findOne(Long id) {
+		return getRepository().findOne(id);
 	}
 	
 	/* (non-Javadoc)

@@ -17,8 +17,14 @@
  */
 package org.skydingo.skybase.web.controller.form;
 
+import javax.inject.Inject;
+
 import org.skydingo.skybase.model.Person;
+import org.skydingo.skybase.repository.PersonRepository;
+import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.service.PersonService;
 import org.skydingo.skybase.web.controller.AbstractEntityFormController;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,6 +34,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/people")
 public class PersonFormController extends AbstractEntityFormController<Person> {
+	@Inject private PersonRepository personRepo;
+	@Inject private PersonService personService;
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getRepository()
+	 */
+	@Override
+	public GraphRepository<Person> getRepository() { return personRepo; }
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getService()
+	 */
+	@Override
+	public EntityService<Person> getService() { return personService; }
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()

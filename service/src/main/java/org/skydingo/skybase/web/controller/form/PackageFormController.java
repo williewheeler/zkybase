@@ -23,11 +23,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.skydingo.skybase.exception.DuplicateEntityException;
 import org.skydingo.skybase.model.Package;
+import org.skydingo.skybase.repository.PackageRepository;
+import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.service.PackageService;
 import org.skydingo.skybase.web.controller.AbstractEntityFormController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,10 +44,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class PackageFormController extends AbstractEntityFormController<Package> {
 	private static final Logger log = LoggerFactory.getLogger(PackageFormController.class);
 	
+	@Inject private PackageRepository packageRepo;
 	@Inject private PackageService packageService;
 	
 	@Value("#{config['app.baseUrl']}")
 	private String appBaseUrl;
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getRepository()
+	 */
+	@Override
+	public GraphRepository<Package> getRepository() { return packageRepo; }
+
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getService()
+	 */
+	@Override
+	public EntityService<Package> getService() { return packageService; }
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()

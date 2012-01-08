@@ -1,5 +1,5 @@
 /* 
- * RegionController.java
+ * RegionNoFormController.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -17,8 +17,14 @@
  */
 package org.skydingo.skybase.web.controller.noform;
 
+import javax.inject.Inject;
+
 import org.skydingo.skybase.model.Region;
+import org.skydingo.skybase.repository.RegionRepository;
+import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.service.RegionService;
 import org.skydingo.skybase.web.controller.AbstractEntityNoFormController;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,4 +33,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/regions")
-public class RegionNoFormController extends AbstractEntityNoFormController<Region> { }
+public class RegionNoFormController extends AbstractEntityNoFormController<Region> {
+	@Inject private RegionRepository repository;
+	@Inject private RegionService service;
+	
+	public GraphRepository<Region> getRepository() { return repository; }
+	
+	public EntityService<Region> getService() { return service; }
+}

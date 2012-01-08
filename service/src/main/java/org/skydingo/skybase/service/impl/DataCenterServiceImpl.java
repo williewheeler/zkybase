@@ -1,5 +1,5 @@
 /* 
- * EnvironmentService.java
+ * DataCenterServiceImpl.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,11 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.service;
+package org.skydingo.skybase.service.impl;
 
-import org.skydingo.skybase.model.Environment;
+import org.skydingo.skybase.model.DataCenter;
+import org.skydingo.skybase.service.DataCenterService;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface EnvironmentService extends EntityService<Environment> { }
+@Service
+public class DataCenterServiceImpl extends AbstractEntityServiceImpl<DataCenter> implements DataCenterService {
+
+}

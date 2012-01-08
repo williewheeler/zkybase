@@ -1,5 +1,5 @@
 /* 
- * EnvironmentController.java
+ * EnvironmentNoFormController.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -20,12 +20,13 @@ package org.skydingo.skybase.web.controller.noform;
 import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Environment;
+import org.skydingo.skybase.repository.EnvironmentRepository;
+import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.service.EnvironmentService;
 import org.skydingo.skybase.web.controller.AbstractEntityNoFormController;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -33,15 +34,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/environments")
 public class EnvironmentNoFormController extends AbstractEntityNoFormController<Environment> {
-	@Inject private EnvironmentService environmentService;
+	@Inject private EnvironmentRepository repository;
+	@Inject private EnvironmentService service;
 	
-	/**
-	 * @param id entity ID
-	 * @return view name
-	 */
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	public String delete(@PathVariable Long id) {
-		environmentService.delete(id);
-		return viewNames.deleteSuccessViewName(getEntityClass());
-	}
+	public GraphRepository<Environment> getRepository() { return repository; }
+	
+	public EntityService<Environment> getService() { return service; }
 }

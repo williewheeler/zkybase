@@ -17,8 +17,14 @@
  */
 package org.skydingo.skybase.web.controller.form;
 
+import javax.inject.Inject;
+
 import org.skydingo.skybase.model.Region;
+import org.skydingo.skybase.repository.RegionRepository;
+import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.service.RegionService;
 import org.skydingo.skybase.web.controller.AbstractEntityFormController;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,6 +34,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/regions")
 public class RegionFormController extends AbstractEntityFormController<Region> {
+	@Inject private RegionRepository regionRepo;
+	@Inject private RegionService regionService;
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getRepository()
+	 */
+	@Override
+	public GraphRepository<Region> getRepository() { return regionRepo; }
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getService()
+	 */
+	@Override
+	public EntityService<Region> getService() { return regionService; }
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()

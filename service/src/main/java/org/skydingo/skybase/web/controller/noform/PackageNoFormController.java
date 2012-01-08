@@ -1,5 +1,5 @@
 /* 
- * PackageController.java
+ * PackageNoFormController.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -17,8 +17,14 @@
  */
 package org.skydingo.skybase.web.controller.noform;
 
+import javax.inject.Inject;
+
 import org.skydingo.skybase.model.Package;
+import org.skydingo.skybase.repository.PackageRepository;
+import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.service.PackageService;
 import org.skydingo.skybase.web.controller.AbstractEntityNoFormController;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -29,4 +35,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/packages")
-public class PackageNoFormController extends AbstractEntityNoFormController<Package> { }
+public class PackageNoFormController extends AbstractEntityNoFormController<Package> {
+	@Inject private PackageRepository repository;
+	@Inject private PackageService service;
+	
+	public GraphRepository<Package> getRepository() { return repository; }
+	
+	public EntityService<Package> getService() { return service; }
+}

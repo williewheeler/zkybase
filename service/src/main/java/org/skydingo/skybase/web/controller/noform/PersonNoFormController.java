@@ -1,5 +1,5 @@
 /* 
- * PersonController.java
+ * PersonNoFormController.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -24,11 +24,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Person;
+import org.skydingo.skybase.repository.PersonRepository;
+import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.service.PersonService;
 import org.skydingo.skybase.util.CollectionsUtil;
 import org.skydingo.skybase.web.controller.AbstractEntityNoFormController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +49,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PersonNoFormController extends AbstractEntityNoFormController<Person> {
 	private static final Logger log = LoggerFactory.getLogger(PersonNoFormController.class);
 	
-	@Inject private PersonService personService;
+	@Inject private PersonRepository repository;
+	@Inject private PersonService service;
+	
+	public GraphRepository<Person> getRepository() { return repository; }
+	
+	public EntityService<Person> getService() { return service; }
 	
 	
 	// =================================================================================================================
@@ -60,7 +68,7 @@ public class PersonNoFormController extends AbstractEntityNoFormController<Perso
 	@Override
 	protected Person doGetDetails(Long id, Model model) {
 		log.debug("Getting extended person details");
-		Person person = personService.findPersonDetails(id);
+		Person person = service.findPersonDetails(id);
 		
 		List<Person> directReports = CollectionsUtil.asList(person.getDirectReports());
 //		List<ProjectMembership> memberships = CollectionsUtil.asList(person.getMemberships());

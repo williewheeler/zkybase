@@ -17,12 +17,21 @@
  */
 package org.skydingo.skybase.service;
 
+import java.util.List;
+
 import org.skydingo.skybase.model.Entity;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public interface EntityService<T extends Entity<T>> {
+	
+	/**
+	 * @return
+	 */
+	List<T> findAll();
+	
+	T findOne(Long id);
 	
 	/**
 	 * @param entity entity to delete

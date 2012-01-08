@@ -1,5 +1,5 @@
 /* 
- * FarmController.java
+ * FarmNoFormController.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -17,8 +17,14 @@
  */
 package org.skydingo.skybase.web.controller.noform;
 
+import javax.inject.Inject;
+
 import org.skydingo.skybase.model.Farm;
+import org.skydingo.skybase.repository.FarmRepository;
+import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.service.FarmService;
 import org.skydingo.skybase.web.controller.AbstractEntityNoFormController;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,4 +33,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/farms")
-public class FarmNoFormController extends AbstractEntityNoFormController<Farm> { }
+public class FarmNoFormController extends AbstractEntityNoFormController<Farm> {
+	@Inject private FarmRepository repository;
+	@Inject private FarmService service;
+	
+	public GraphRepository<Farm> getRepository() { return repository; }
+	
+	public EntityService<Farm> getService() { return service; }
+}

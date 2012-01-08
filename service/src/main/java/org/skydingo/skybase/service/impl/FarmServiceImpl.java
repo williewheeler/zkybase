@@ -24,14 +24,12 @@ import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.model.Farm;
 import org.skydingo.skybase.service.FarmService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-@Transactional
 public class FarmServiceImpl extends AbstractEntityServiceImpl<Farm> implements FarmService {
 
 	/* (non-Javadoc)

@@ -1,5 +1,5 @@
 /* 
- * FarmServiceImplTests.java
+ * PersonServiceImplTests.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -24,37 +24,38 @@ import org.junit.Before;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.skydingo.skybase.model.Farm;
-import org.skydingo.skybase.repository.FarmRepository;
+import org.skydingo.skybase.model.Person;
+import org.skydingo.skybase.repository.PersonRepository;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class FarmServiceImplTests extends AbstractEntityServiceImplTests<Farm> {
-	@InjectMocks private FarmServiceImpl farmService;
-	@Mock private FarmRepository farmRepo;
-	@Mock private Farm farm;
+public class PersonServiceImplTests extends AbstractEntityServiceImplTests<Person> {
+	@InjectMocks private PersonServiceImpl personService;
+	@Mock private PersonRepository personRepo;
+	@Mock private Person person;
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getRepository()
 	 */
 	@Override
-	protected GraphRepository<Farm> getRepository() { return farmRepo; }
-	
+	protected GraphRepository<Person> getRepository() { return personRepo; }
+
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getService()
 	 */
 	@Override
-	public AbstractEntityServiceImpl<Farm> getService() { return farmService; }
+	protected AbstractEntityServiceImpl<Person> getService() { return personService; }
 	
 	/**
 	 * @throws Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		this.farmService = new FarmServiceImpl();
+		this.personService = new PersonServiceImpl();
 		MockitoAnnotations.initMocks(this);
-		when(farmRepo.findOne(anyLong())).thenReturn(farm);
+		when(personRepo.findOne(anyLong())).thenReturn(person);
 	}
+
 }

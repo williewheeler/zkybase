@@ -27,16 +27,13 @@ import org.skydingo.skybase.exception.DuplicateEntityException;
 import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.repository.PackageRepository;
 import org.skydingo.skybase.service.PackageService;
-import org.skydingo.skybase.util.CollectionsUtil;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-@Transactional
 public class PackageServiceImpl extends AbstractEntityServiceImpl<Package> implements PackageService {
 	@Inject private PackageRepository packageRepo;
 	
@@ -69,23 +66,6 @@ public class PackageServiceImpl extends AbstractEntityServiceImpl<Package> imple
 				errors.reject("error.package.duplicatePackage");
 			}
 		}
-	}
-
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.PackageService#findPackages()
-	 */
-	@Override
-	public List<Package> findPackages() {
-		return CollectionsUtil.asSortedList(getRepository().findAll());
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.PackageService#findPackage(java.lang.Long)
-	 */
-	@Override
-	public Package findPackage(Long id) {
-		notNull(id);
-		return getRepository().findOne(id);
 	}
 
 	/* (non-Javadoc)

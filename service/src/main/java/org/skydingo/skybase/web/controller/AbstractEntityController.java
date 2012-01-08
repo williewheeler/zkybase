@@ -1,5 +1,5 @@
 /* 
- * AbstractController.java
+ * AbstractEntityController.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -18,8 +18,6 @@
 package org.skydingo.skybase.web.controller;
 
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -30,8 +28,6 @@ import org.skydingo.skybase.web.navigation.Navigation;
 import org.skydingo.skybase.web.navigation.Paths;
 import org.skydingo.skybase.web.navigation.Sitemap;
 import org.skydingo.skybase.web.view.ViewNames;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.ui.Model;
 
@@ -39,10 +35,6 @@ import org.springframework.ui.Model;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 abstract class AbstractEntityController<T extends Entity<T>> {
-	public static final String MK_FORM_DATA = "formData";
-	
-	private static final Logger log = LoggerFactory.getLogger(AbstractEntityController.class);
-	
 	@Inject protected Paths paths;
 	@Inject protected Sitemap sitemap;
 	@Inject protected ViewNames viewNames;
@@ -51,8 +43,9 @@ abstract class AbstractEntityController<T extends Entity<T>> {
 	// IMPORTANT: Only getEntityClass() should access this directly!
 	private Class<T> entityClass;
 	
-	private GraphRepository<T> repository;
-	private EntityService<T> service;
+	public abstract GraphRepository<T> getRepository();
+	
+	public abstract EntityService<T> getService();
 	
 	/**
 	 * @return
@@ -75,66 +68,6 @@ abstract class AbstractEntityController<T extends Entity<T>> {
 		} catch (IllegalAccessException e) {
 			// Shouldn't happen
 			throw new RuntimeException(e);
-		}
-	}
-	
-	/**
-	 * @return
-	 */
-	protected GraphRepository<T> getRepository() { return repository; }
-	
-	/**
-	 * @param repository
-	 */
-	@Inject
-	@SuppressWarnings({ "unchecked", "unused" })
-	private void setRepository(List<GraphRepository<?>> repositories) {
-		log.debug("Setting repository for controller: {}", getClass());
-		
-		// FIXME This doesn't feel like a great implementation.
-		String matchName = getEntityClass().getSimpleName() + "Repository";
-		log.debug("matchName={}", matchName);
-		
-		for (GraphRepository<?> repo : repositories) {
-			log.debug("Examining repo: {}", repo);
-			Type[] types = repo.getClass().getGenericInterfaces();
-			for (Type type : types) {
-				log.debug("Examining type: {}", type);
-				
-				// FIXME Nasty
-				if (type.toString().endsWith(matchName)) {
-					log.debug("Injecting repository: {}", repo);
-					this.repository = (GraphRepository<T>) repo;
-					return;
-				}
-			}
-		}
-	}
-	
-	protected EntityService<T> getService() { return service; }
-	
-	@Inject
-	@SuppressWarnings({ "unchecked", "unused" })
-	private void setService(List<EntityService<?>> services) {
-		log.debug("Setting service for controller: {}", getClass());
-		
-		// FIXME This doesn't feel like a great implementation.
-		String matchName = getEntityClass().getSimpleName() + "Service";
-		log.debug("matchName={}", matchName);
-		
-		for (EntityService<?> service : services) {
-			log.debug("Examining service: {}", service);
-			Type[] types = service.getClass().getGenericInterfaces();
-			for (Type type : types) {
-				log.debug("Examining type: {}", type);
-				
-				// FIXME Nasty
-				if (type.toString().endsWith(matchName)) {
-					log.debug("Injecting service: {}", service);
-					this.service = (EntityService<T>) service;
-					return;
-				}
-			}
 		}
 	}
 	

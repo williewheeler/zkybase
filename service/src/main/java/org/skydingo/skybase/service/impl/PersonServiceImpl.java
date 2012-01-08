@@ -28,14 +28,12 @@ import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.service.PersonService;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-@Transactional
 public class PersonServiceImpl extends AbstractEntityServiceImpl<Person> implements PersonService {
 	@Inject private Neo4jTemplate template;
 	@Inject private PersonRepository personRepo;
