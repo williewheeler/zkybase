@@ -28,16 +28,22 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.neo4j.annotation.Fetch;
+import org.springframework.data.neo4j.annotation.RelatedTo;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
-@XmlType(propOrder = { "name" })
+@XmlType(propOrder = { "name", "region" })
 public class DataCenter extends AbstractEntity<DataCenter> {
 	private static final Logger log = LoggerFactory.getLogger(DataCenter.class);
 	
 	private String name;
+	
+	@Fetch
+	@RelatedTo(type = "IN_REGION")
+	private Region region;
 	
 	/**
 	 * @return
@@ -52,44 +58,24 @@ public class DataCenter extends AbstractEntity<DataCenter> {
 	 */
 	public void setName(String name) { this.name = name; }
 	
+	/**
+	 * @return
+	 */
+	@NotNull
+	@XmlElement
+	public Region getRegion() { return region; }
+	
+	/**
+	 * @param region
+	 */
+	public void setRegion(Region region) { this.region = region; }
+	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.model.Entity#getDisplayName()
 	 */
 	@Override
 	@XmlTransient
 	public String getDisplayName() { return name; }
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object o) {
-		log.debug("Comparing DataCenters for equality");
-		
-		if (!(o instanceof DataCenter)) { return false; }
-		
-		DataCenter that = (DataCenter) o;
-		Long thisId = this.getId();
-		Long thatId = that.getId();
-		
-		if (thisId == null || thatId == null) {
-			throw new IllegalStateException("Both DataCenters require an ID");
-		}
-		
-		return thisId.equals(thatId);
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		Long id = getId();
-		if (id == null) {
-			throw new IllegalStateException("ID required");
-		}
-		return id.hashCode();
-	}
 	
 	@XmlRootElement(name = "dataCenters")
 	public static class DataCenterListWrapper implements ListWrapper<DataCenter> {

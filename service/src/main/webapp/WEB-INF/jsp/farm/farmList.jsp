@@ -24,8 +24,11 @@
 						<c:url var="editUrl" value="/farms/${farm.id}/edit" />
 						<tr>
 							<td><a href="${farmUrl}"><c:out value="${farm.name}" /></a></td>
+							
+							<%-- FIXME Make these links --%>
 							<td><c:out value="${farm.environment.displayName}" /></td>
 							<td><c:out value="${farm.dataCenter.displayName}" /></td>
+							
 							<td>TODO</td>
 							<td class="editDeleteColumn">
 								<a class="editLink" href="${editUrl}" title="Edit"><img src="${editIconUrl}" /></a>

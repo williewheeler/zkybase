@@ -148,26 +148,6 @@ public class Project extends AbstractEntity<Project> {
 	public String getDisplayName() { return name; }
 	
 	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) { return true; }
-		if (o == null || getClass() != o.getClass()) { return false; }
-		Project that = (Project) o;
-		if (getId() == null) { return super.equals(o); }
-		return getId().equals(that.getId());
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		return (getId() != null ? getId().hashCode() : super.hashCode());
-	}
-	
-	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

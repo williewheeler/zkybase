@@ -40,22 +40,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/datacenters")
 public class DataCenterFormController extends AbstractEntityFormController<DataCenter> {
-	@Inject private DataCenterRepository repository;
-	@Inject private DataCenterService service;
-	
+	@Inject private DataCenterRepository dataCenterRepo;
 	@Inject private RegionRepository regionRepo;
+	@Inject private DataCenterService dataCenterService;
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getRepository()
 	 */
 	@Override
-	public GraphRepository<DataCenter> getRepository() { return repository; }
+	public GraphRepository<DataCenter> getRepository() { return dataCenterRepo; }
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getService()
 	 */
 	@Override
-	public EntityService<DataCenter> getService() { return service; }
+	public EntityService<DataCenter> getService() { return dataCenterService; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()

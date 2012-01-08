@@ -44,6 +44,35 @@ public abstract class AbstractEntity<T extends Entity<T>> implements Entity<T> {
 	 */
 	@Override
 	public void setId(Long id) { this.id = id; }
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean equals(Object o) {
+		T that = (T) o;
+		Long thisId = this.getId();
+		Long thatId = that.getId();
+		
+		if (thisId == null || thatId == null) {
+			throw new IllegalStateException("Both entities require an ID");
+		}
+		
+		return (this.getClass().equals(that.getClass()) && thisId.equals(thatId));
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		Long id = getId();
+		if (id == null) {
+			throw new IllegalStateException("ID required");
+		}
+		return id.hashCode();
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)

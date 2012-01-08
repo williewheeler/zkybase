@@ -103,6 +103,7 @@ public class FarmFormController extends AbstractEntityFormController<Farm> {
 			BindingResult result,
 			Model model) {
 		
+		// FIXME This should be an update, not a create!
 		farmService.create(formData, result);
 		
 		if (result.hasErrors()) {
