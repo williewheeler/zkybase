@@ -51,6 +51,8 @@ public abstract class AbstractEntity<T extends Entity<T>> implements Entity<T> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object o) {
+		if (!getClass().equals(o.getClass())) { return false; }
+		
 		T that = (T) o;
 		Long thisId = this.getId();
 		Long thatId = that.getId();
@@ -59,7 +61,7 @@ public abstract class AbstractEntity<T extends Entity<T>> implements Entity<T> {
 			throw new IllegalStateException("Both entities require an ID");
 		}
 		
-		return (this.getClass().equals(that.getClass()) && thisId.equals(thatId));
+		return thisId.equals(thatId);
 	}
 	
 	/* (non-Javadoc)
