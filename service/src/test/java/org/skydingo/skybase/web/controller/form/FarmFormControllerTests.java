@@ -22,6 +22,7 @@ import org.skydingo.skybase.model.Farm;
 import org.skydingo.skybase.repository.FarmRepository;
 import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.service.FarmService;
+import org.skydingo.skybase.web.controller.AbstractEntityFormController;
 import org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
@@ -29,9 +30,27 @@ import org.springframework.data.neo4j.repository.GraphRepository;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public class FarmFormControllerTests extends AbstractEntityFormControllerTests<Farm> {
+	
+	// Dependencies
 	@Mock private FarmRepository farmRepo;
 	@Mock private FarmService farmService;
+	
+	// Test objects
 	@Mock private Farm farm;
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#initController()
+	 */
+	@Override
+	protected void initController() {
+		this.controller = new FarmFormController();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getController()
+	 */
+	@Override
+	protected AbstractEntityFormController<Farm> getController() { return controller; }
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getRepository()
@@ -50,5 +69,4 @@ public class FarmFormControllerTests extends AbstractEntityFormControllerTests<F
 	 */
 	@Override
 	protected Farm getEntity() { return farm; }
-
 }

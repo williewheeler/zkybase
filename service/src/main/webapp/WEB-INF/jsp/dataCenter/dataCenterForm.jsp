@@ -10,11 +10,23 @@
 	<fieldset>
 		<input type="hidden" name="_method" value="${formMethod}" />
 		<div class="clearfix">
-			<label for="name">Name:</label>
+			<label for="name"><span class="required"><spring:message code="label.common.name" />:</span></label>
 			<div class="input">
 				<form:input cssClass="span6" cssErrorClass="span6 error" path="name" />
 				<form:errors path="name">
 					<span class="help-inline"><span class="error icon"><form:errors path="name" /></span></span>
+				</form:errors>
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="region"><span class="required"><spring:message code="entity.region.sentenceCase.singular" />:</span></label>
+			<div class="input">
+				<form:select path="region">
+					<form:option value="" label="-- Choose one--" />
+					<form:options items="${regionList}" itemValue="id" itemLabel="displayName" />
+				</form:select>
+				<form:errors path="region">
+					<span class="help-inline"><span class="error icon"><form:errors path="region" /></span></span>
 				</form:errors>
 			</div>
 		</div>

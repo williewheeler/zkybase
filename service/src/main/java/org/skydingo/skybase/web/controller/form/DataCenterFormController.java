@@ -24,10 +24,9 @@ import javax.inject.Inject;
 import org.skydingo.skybase.model.DataCenter;
 import org.skydingo.skybase.model.Region;
 import org.skydingo.skybase.repository.DataCenterRepository;
-import org.skydingo.skybase.repository.RegionRepository;
 import org.skydingo.skybase.service.DataCenterService;
 import org.skydingo.skybase.service.EntityService;
-import org.skydingo.skybase.util.CollectionsUtil;
+import org.skydingo.skybase.service.RegionService;
 import org.skydingo.skybase.web.controller.AbstractEntityFormController;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
@@ -41,8 +40,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/datacenters")
 public class DataCenterFormController extends AbstractEntityFormController<DataCenter> {
 	@Inject private DataCenterRepository dataCenterRepo;
-	@Inject private RegionRepository regionRepo;
 	@Inject private DataCenterService dataCenterService;
+	@Inject private RegionService regionService;
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getRepository()
@@ -67,7 +66,7 @@ public class DataCenterFormController extends AbstractEntityFormController<DataC
 	 */
 	@ModelAttribute("regionList")
 	public List<Region> populateRegions() {
-		return CollectionsUtil.asSortedList(regionRepo.findAll());
+		return regionService.findAll();
 	}
 
 }

@@ -49,10 +49,6 @@ public abstract class AbstractEntityFormControllerTests<T extends Entity<T>> {
 	protected static final String VN_EDIT_ENTITY_FORM = "editEntityForm";
 	protected static final String VN_EDIT_ENTITY_SUCCESS = "editEntitySuccess";
 	
-//	private static final String REPOSITORY_PACKAGE = "org.skydingo.skybase.repository";
-//	private static final String SERVICE_PACKAGE = "org.skydingo.skybase.service";
-	private static final String CONTROLLER_PACKAGE = "org.skydingo.skybase.web.controller.form";
-	
 	private Class<T> entityClass;
 	
 	// Class under test
@@ -62,13 +58,15 @@ public abstract class AbstractEntityFormControllerTests<T extends Entity<T>> {
 	@Mock protected Paths paths;
 	@Mock protected Sitemap sitemap;
 	@Mock protected ViewNames viewNames;
-	protected GraphRepository<T> repository;
-	protected EntityService<T> service;
 	
 	// Test objects
 	@Mock protected Node node;
 	@Mock protected BindingResult result;
 	@Mock protected Model model;
+	
+	protected abstract void initController();
+	
+	protected abstract AbstractEntityFormController<T> getController();
 	
 	protected abstract GraphRepository<T> getRepository();
 	
@@ -86,8 +84,7 @@ public abstract class AbstractEntityFormControllerTests<T extends Entity<T>> {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		this.controller = newControllerInstance();
-		
+		initController();
 		MockitoAnnotations.initMocks(this);
 		
 		when(sitemap.getNode((String) any())).thenReturn(node);
@@ -121,16 +118,6 @@ public abstract class AbstractEntityFormControllerTests<T extends Entity<T>> {
 		return entityClass;
 	}
 	
-	@SuppressWarnings("unchecked")
-	private Class<AbstractEntityFormController<T>> getControllerClass() throws Exception {
-		String fullClassName = CONTROLLER_PACKAGE + "." + getEntityClass().getSimpleName() + "FormController";
-		return (Class<AbstractEntityFormController<T>>) Class.forName(fullClassName);
-	}
-	
-	private AbstractEntityFormController<T> newControllerInstance() throws Exception {
-		return (AbstractEntityFormController<T>) getControllerClass().newInstance();
-	}
-	
 	
 	// =================================================================================================================
 	// Tests
@@ -138,32 +125,32 @@ public abstract class AbstractEntityFormControllerTests<T extends Entity<T>> {
 	
 	@Test
 	public void testGetCreateForm() {
-		String viewName = controller.getCreateForm(model);
+		String viewName = getController().getCreateForm(model);
 		assertEquals(VN_CREATE_ENTITY_FORM, viewName);
 	}
 	
 	@Test
 	public void testPostCreateForm() {
-		String viewName = controller.getCreateForm(model);
+		String viewName = getController().getCreateForm(model);
 		assertEquals(VN_CREATE_ENTITY_FORM, viewName);
 	}
 	
 	@Test
 	public void testPostCreateFormWithErrors() {
 		when(result.hasErrors()).thenReturn(true);
-		String viewName = controller.getCreateForm(model);
+		String viewName = getController().getCreateForm(model);
 		assertEquals(VN_CREATE_ENTITY_FORM, viewName);
 	}
 	
 	@Test
 	public void testGetEditForm() {
-		String viewName = controller.getEditForm(1L, model);
+		String viewName = getController().getEditForm(1L, model);
 		assertEquals(VN_EDIT_ENTITY_FORM, viewName);
 	}
 	
 	@Test
 	public void testPutEditEntityForm() {
-		String viewName = controller.putEditForm(1L, getEntity(), result, model);
+		String viewName = getController().putEditForm(1L, getEntity(), result, model);
 		assertEquals(VN_EDIT_ENTITY_SUCCESS, viewName);
 	}
 	
@@ -173,7 +160,7 @@ public abstract class AbstractEntityFormControllerTests<T extends Entity<T>> {
 	@Test
 	public void testPutEditEntityFormWithErrors() {
 		when(result.hasErrors()).thenReturn(true);
-		String viewName = controller.putEditForm(1L, getEntity(), result, model);
+		String viewName = getController().putEditForm(1L, getEntity(), result, model);
 		assertEquals(VN_EDIT_ENTITY_FORM, viewName);
 	}
 }

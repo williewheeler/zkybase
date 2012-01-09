@@ -22,6 +22,7 @@ import org.skydingo.skybase.model.Region;
 import org.skydingo.skybase.repository.RegionRepository;
 import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.service.RegionService;
+import org.skydingo.skybase.web.controller.AbstractEntityFormController;
 import org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
@@ -29,9 +30,27 @@ import org.springframework.data.neo4j.repository.GraphRepository;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public class RegionFormControllerTests extends AbstractEntityFormControllerTests<Region> {
+	
+	// Dependencies
 	@Mock private RegionRepository regionRepo;
 	@Mock private RegionService regionService;
+	
+	// Test objects
 	@Mock private Region region;
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#initController()
+	 */
+	@Override
+	protected void initController() {
+		this.controller = new RegionFormController();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getController()
+	 */
+	@Override
+	protected AbstractEntityFormController<Region> getController() { return controller; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getRepository()

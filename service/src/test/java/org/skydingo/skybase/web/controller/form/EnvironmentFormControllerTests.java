@@ -22,6 +22,7 @@ import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.repository.EnvironmentRepository;
 import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.service.EnvironmentService;
+import org.skydingo.skybase.web.controller.AbstractEntityFormController;
 import org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
@@ -29,10 +30,28 @@ import org.springframework.data.neo4j.repository.GraphRepository;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public class EnvironmentFormControllerTests extends AbstractEntityFormControllerTests<Environment> {
+	
+	// Dependencies
 	@Mock private EnvironmentRepository environmentRepo;
 	@Mock private EnvironmentService environmentService;
+	
+	// Test objects
 	@Mock private Environment environment;
-
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#initController()
+	 */
+	@Override
+	protected void initController() {
+		this.controller = new EnvironmentFormController();
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getController()
+	 */
+	@Override
+	protected AbstractEntityFormController<Environment> getController() { return controller; }
+	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getRepository()
 	 */
@@ -44,7 +63,7 @@ public class EnvironmentFormControllerTests extends AbstractEntityFormController
 	 */
 	@Override
 	protected EntityService<Environment> getService() { return environmentService; }
-
+	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getEntity()
 	 */

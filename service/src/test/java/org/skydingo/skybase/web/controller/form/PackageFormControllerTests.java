@@ -22,6 +22,7 @@ import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.repository.PackageRepository;
 import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.service.PackageService;
+import org.skydingo.skybase.web.controller.AbstractEntityFormController;
 import org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
@@ -29,9 +30,27 @@ import org.springframework.data.neo4j.repository.GraphRepository;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public class PackageFormControllerTests extends AbstractEntityFormControllerTests<Package> {
+	
+	// Dependencies
 	@Mock private PackageRepository pkgRepo;
 	@Mock private PackageService pkgService;
+	
+	// Test objects
 	@Mock private Package pkg;
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#initController()
+	 */
+	@Override
+	protected void initController() {
+		this.controller = new PackageFormController();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getController()
+	 */
+	@Override
+	protected AbstractEntityFormController<Package> getController() { return controller; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getRepository()

@@ -57,11 +57,14 @@ public abstract class AbstractEntity<T extends Entity<T>> implements Entity<T> {
 		Long thisId = this.getId();
 		Long thatId = that.getId();
 		
-		if (thisId == null || thatId == null) {
-			throw new IllegalStateException("Both entities require an ID");
+		// FIXME
+		if (thisId == null && thatId == null) {
+			return true;
+		} else if (thisId == null || thatId == null) {
+			return false;
+		} else {
+			return thisId.equals(thatId);
 		}
-		
-		return thisId.equals(thatId);
 	}
 	
 	/* (non-Javadoc)
@@ -70,10 +73,9 @@ public abstract class AbstractEntity<T extends Entity<T>> implements Entity<T> {
 	@Override
 	public int hashCode() {
 		Long id = getId();
-		if (id == null) {
-			throw new IllegalStateException("ID required");
-		}
-		return id.hashCode();
+		
+		// FIXME
+		return (id == null ? 0 : id.hashCode());
 	}
 
 	/* (non-Javadoc)

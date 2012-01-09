@@ -88,11 +88,11 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 		if (result.hasErrors()) {
 			model.addAttribute(MK_HAS_ERRORS, true);
 			return prepareCreateForm(model);
-		} else {
-			// FIXME Need to handle cases where save attempts generate validation errors (e.g. duplicate entities).
-			getRepository().save(formData);
-			return viewNames.postCreateFormSuccessViewName(getEntityClass());
 		}
+		
+		// FIXME Need to handle cases where save attempts generate validation errors (e.g. duplicate entities).
+		getRepository().save(formData);
+		return viewNames.postCreateFormSuccessViewName(getEntityClass());
 	}
 	
 	/**

@@ -17,93 +17,57 @@
  */
 package org.skydingo.skybase.web.controller.form;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.when;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.repository.PersonRepository;
+import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.service.PersonService;
-import org.skydingo.skybase.web.navigation.Node;
-import org.skydingo.skybase.web.navigation.Paths;
-import org.skydingo.skybase.web.navigation.Sitemap;
-import org.skydingo.skybase.web.view.ViewNames;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.skydingo.skybase.web.controller.AbstractEntityFormController;
+import org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests;
+import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class PersonFormControllerTests {
-	@InjectMocks private PersonFormController controller;
+public class PersonFormControllerTests extends AbstractEntityFormControllerTests<Person> {
 	
 	// Dependencies
-	@Mock private Paths paths;
-	@Mock private Sitemap sitemap;
-	@Mock private ViewNames viewNames;
 	@Mock private PersonRepository personRepo;
 	@Mock private PersonService personService;
 	
 	// Test objects
-	@Mock private Node node;
-	@Mock private BindingResult result;
-	@Mock private Model model;
 	@Mock private Person person;
-	
-	/**
-	 * @throws Exception
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#initController()
 	 */
-	@Before
-	public void setUp() throws Exception {
+	@Override
+	protected void initController() {
 		this.controller = new PersonFormController();
-		MockitoAnnotations.initMocks(this);
-		when(sitemap.getNode((String) any())).thenReturn(node);
-		when(sitemap.getEntityListViewId(Person.class)).thenReturn("personList");
-		when(sitemap.getEntityDetailsViewId(Person.class)).thenReturn("personDetails");
-		when(sitemap.getEditFormId(Person.class)).thenReturn("editPersonForm");
-		when(viewNames.putEditFormSuccessViewName(Person.class, 1L)).thenReturn("redirect:/people/1?a=updated");
-		when(viewNames.deleteSuccessViewName(Person.class)).thenReturn("redirect:/people?a=deleted");
-		when(personService.findPersonDetails((Long) any())).thenReturn(person);
 	}
-	
-	/**
-	 * @throws Exception
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getController()
 	 */
-	@After
-	public void tearDown() throws Exception {
-	}
-	
-	/**
-	 * Happy path test to get the edit person form.
+	@Override
+	protected AbstractEntityFormController<Person> getController() { return controller; }
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getRepository()
 	 */
-	@Test
-	public void testGetEditPersonForm() {
-		String viewName = controller.getEditForm(1L, model);
-		assertEquals("editPersonForm", viewName);
-	}
-	
-	/**
-	 * Happy path test to submit the edit person form.
+	@Override
+	protected GraphRepository<Person> getRepository() { return personRepo; }
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getService()
 	 */
-	@Test
-	public void testPutEditPersonForm() {
-		String viewName = controller.putEditForm(1L, person, result, model);
-		assertEquals("redirect:/people/1?a=updated", viewName);
-	}
-	
-	/**
-	 * Confirms that we handle validation errors properly.
+	@Override
+	protected EntityService<Person> getService() { return personService; }
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getEntity()
 	 */
-	@Test
-	public void testPutEditPersonFormWithErrors() {
-		when(result.hasErrors()).thenReturn(true);
-		String viewName = controller.putEditForm(1L, person, result, model);
-		assertEquals("editPersonForm", viewName);
-	}
+	@Override
+	protected Person getEntity() { return person; }
+	
 }

@@ -17,11 +17,21 @@
  */
 package org.skydingo.skybase.web.controller.form;
 
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Test;
 import org.mockito.Mock;
 import org.skydingo.skybase.model.DataCenter;
+import org.skydingo.skybase.model.Region;
 import org.skydingo.skybase.repository.DataCenterRepository;
 import org.skydingo.skybase.service.DataCenterService;
 import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.service.RegionService;
+import org.skydingo.skybase.web.controller.AbstractEntityFormController;
 import org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
@@ -29,9 +39,33 @@ import org.springframework.data.neo4j.repository.GraphRepository;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public class DataCenterFormControllerTests extends AbstractEntityFormControllerTests<DataCenter> {
+	
+	// Dependencies
 	@Mock private DataCenterRepository dataCenterRepo;
 	@Mock private DataCenterService dataCenterService;
+	@Mock private RegionService regionService;
+	
+	// Test objects
 	@Mock private DataCenter dataCenter;
+	
+	@Override
+	protected void doSetUp() throws Exception {
+		when(regionService.findAll()).thenReturn(new ArrayList<Region>());
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#initController()
+	 */
+	@Override
+	protected void initController() {
+		this.controller = new DataCenterFormController();
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getController()
+	 */
+	@Override
+	protected AbstractEntityFormController<DataCenter> getController() { return controller; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getRepository()
@@ -50,4 +84,10 @@ public class DataCenterFormControllerTests extends AbstractEntityFormControllerT
 	 */
 	@Override
 	protected DataCenter getEntity() { return dataCenter; }
+	
+	@Test
+	public void testGetRegionList() {
+		List<Region> regions = ((DataCenterFormController) controller).populateRegions();
+		assertNotNull(regions);
+	}
 }
