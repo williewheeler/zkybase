@@ -44,7 +44,6 @@ import org.springframework.validation.BindingResult;
  */
 public abstract class AbstractEntityNoFormControllerTests<T extends Entity<T>> {
 	protected static final String VN_DELETE_ENTITY_SUCCESS = "deleteEntitySuccess";
-	protected static final String VN_EDIT_ENTITY_FORM = "editEntityForm";
 	protected static final String VN_ENTITY_DETAILS = "entityDetails";
 	protected static final String VN_ENTITY_LIST = "entityList";
 	protected static final String VN_PUT_EDIT_ENTITY_FORM_SUCCESS = "putEditEntityFormSuccess";
@@ -78,7 +77,6 @@ public abstract class AbstractEntityNoFormControllerTests<T extends Entity<T>> {
 		when(sitemap.getNode((String) any())).thenReturn(node);
 		when(sitemap.getEntityListViewId(getEntityClass())).thenReturn(VN_ENTITY_LIST);
 		when(sitemap.getEntityDetailsViewId(getEntityClass())).thenReturn(VN_ENTITY_DETAILS);
-		when(sitemap.getEditFormId(getEntityClass())).thenReturn(VN_EDIT_ENTITY_FORM);
 		when(viewNames.putEditFormSuccessViewName(getEntityClass(), 1L)).thenReturn(VN_PUT_EDIT_ENTITY_FORM_SUCCESS);
 		when(viewNames.deleteSuccessViewName(getEntityClass())).thenReturn(VN_DELETE_ENTITY_SUCCESS);
 		doSetUp();

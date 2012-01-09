@@ -1,5 +1,5 @@
 /* 
- * PackageControllerTests.java
+ * FarmFormControllerTests.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -18,36 +18,37 @@
 package org.skydingo.skybase.web.controller.form;
 
 import org.mockito.Mock;
-import org.skydingo.skybase.model.Package;
-import org.skydingo.skybase.repository.PackageRepository;
+import org.skydingo.skybase.model.Farm;
+import org.skydingo.skybase.repository.FarmRepository;
 import org.skydingo.skybase.service.EntityService;
-import org.skydingo.skybase.service.PackageService;
+import org.skydingo.skybase.service.FarmService;
 import org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class PackageFormControllerTests extends AbstractEntityFormControllerTests<Package> {
-	@Mock private PackageRepository pkgRepo;
-	@Mock private PackageService pkgService;
-	@Mock private Package pkg;
-	
+public class FarmFormControllerTests extends AbstractEntityFormControllerTests<Farm> {
+	@Mock private FarmRepository farmRepo;
+	@Mock private FarmService farmService;
+	@Mock private Farm farm;
+
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getRepository()
 	 */
 	@Override
-	protected GraphRepository<Package> getRepository() { return pkgRepo; }
-	
+	protected GraphRepository<Farm> getRepository() { return farmRepo; }
+
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getService()
 	 */
 	@Override
-	protected EntityService<Package> getService() { return pkgService; }
-	
+	protected EntityService<Farm> getService() { return farmService; }
+
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getEntity()
 	 */
 	@Override
-	protected Package getEntity() { return pkg; }
+	protected Farm getEntity() { return farm; }
+
 }

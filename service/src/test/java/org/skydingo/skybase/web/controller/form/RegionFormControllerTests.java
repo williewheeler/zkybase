@@ -1,5 +1,5 @@
 /* 
- * PackageControllerTests.java
+ * RegionFormControllerTests.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -18,36 +18,37 @@
 package org.skydingo.skybase.web.controller.form;
 
 import org.mockito.Mock;
-import org.skydingo.skybase.model.Package;
-import org.skydingo.skybase.repository.PackageRepository;
+import org.skydingo.skybase.model.Region;
+import org.skydingo.skybase.repository.RegionRepository;
 import org.skydingo.skybase.service.EntityService;
-import org.skydingo.skybase.service.PackageService;
+import org.skydingo.skybase.service.RegionService;
 import org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class PackageFormControllerTests extends AbstractEntityFormControllerTests<Package> {
-	@Mock private PackageRepository pkgRepo;
-	@Mock private PackageService pkgService;
-	@Mock private Package pkg;
+public class RegionFormControllerTests extends AbstractEntityFormControllerTests<Region> {
+	@Mock private RegionRepository regionRepo;
+	@Mock private RegionService regionService;
+	@Mock private Region region;
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getRepository()
 	 */
 	@Override
-	protected GraphRepository<Package> getRepository() { return pkgRepo; }
+	protected GraphRepository<Region> getRepository() { return regionRepo; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getService()
 	 */
 	@Override
-	protected EntityService<Package> getService() { return pkgService; }
+	protected EntityService<Region> getService() { return regionService; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getEntity()
 	 */
 	@Override
-	protected Package getEntity() { return pkg; }
+	protected Region getEntity() { return region; }
+
 }

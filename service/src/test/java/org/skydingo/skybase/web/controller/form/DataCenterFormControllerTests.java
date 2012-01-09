@@ -1,5 +1,5 @@
 /* 
- * PackageControllerTests.java
+ * DataCenterFormControllerTests.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -18,36 +18,36 @@
 package org.skydingo.skybase.web.controller.form;
 
 import org.mockito.Mock;
-import org.skydingo.skybase.model.Package;
-import org.skydingo.skybase.repository.PackageRepository;
+import org.skydingo.skybase.model.DataCenter;
+import org.skydingo.skybase.repository.DataCenterRepository;
+import org.skydingo.skybase.service.DataCenterService;
 import org.skydingo.skybase.service.EntityService;
-import org.skydingo.skybase.service.PackageService;
 import org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class PackageFormControllerTests extends AbstractEntityFormControllerTests<Package> {
-	@Mock private PackageRepository pkgRepo;
-	@Mock private PackageService pkgService;
-	@Mock private Package pkg;
+public class DataCenterFormControllerTests extends AbstractEntityFormControllerTests<DataCenter> {
+	@Mock private DataCenterRepository dataCenterRepo;
+	@Mock private DataCenterService dataCenterService;
+	@Mock private DataCenter dataCenter;
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getRepository()
 	 */
 	@Override
-	protected GraphRepository<Package> getRepository() { return pkgRepo; }
+	protected GraphRepository<DataCenter> getRepository() { return dataCenterRepo; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getService()
 	 */
 	@Override
-	protected EntityService<Package> getService() { return pkgService; }
+	protected EntityService<DataCenter> getService() { return dataCenterService; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests#getEntity()
 	 */
 	@Override
-	protected Package getEntity() { return pkg; }
+	protected DataCenter getEntity() { return dataCenter; }
 }
