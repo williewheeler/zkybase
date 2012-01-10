@@ -20,6 +20,7 @@ package org.skydingo.skybase.service;
 import java.util.List;
 
 import org.skydingo.skybase.model.Entity;
+import org.springframework.validation.Errors;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -32,6 +33,14 @@ public interface EntityService<T extends Entity<T>> {
 	List<T> findAll();
 	
 	T findOne(Long id);
+	
+	/**
+	 * Updates the entity if there aren't any errors. Can potentially generate new errors (e.g. constraint violations).
+	 * 
+	 * @param entity entity to update
+	 * @param errors errors object
+	 */
+	void update(T entity, Errors errors);
 	
 	/**
 	 * @param entity entity to delete

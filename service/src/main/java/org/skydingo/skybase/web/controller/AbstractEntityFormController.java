@@ -126,11 +126,11 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 	}
 	
 	/**
-	 * @param id
-	 * @param formData
-	 * @param result
-	 * @param model
-	 * @return
+	 * @param id entity ID
+	 * @param formData entity form data
+	 * @param result result object
+	 * @param model model
+	 * @return view name
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public String putEditForm(
@@ -139,16 +139,15 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 			BindingResult result,
 			Model model) {
 		
-		// FIXME Need to check for errors *after* the update attempt.
+		formData.setId(id);
+		getService().update(formData, result);
+		
 		if (result.hasErrors()) {
 			model.addAttribute(MK_HAS_ERRORS, true);
 			return prepareEditForm(id, model);
-		} else {
-			// FIXME
-			formData.setId(id);
-			getRepository().save(formData);
-			return viewNames.putEditFormSuccessViewName(getEntityClass(), id);
 		}
+		
+		return viewNames.putEditFormSuccessViewName(getEntityClass(), id);
 	}
 	
 	/**
@@ -169,5 +168,4 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 		
 		return addNavigation(model, sitemap.getEditFormId(getEntityClass()));
 	}
-
 }

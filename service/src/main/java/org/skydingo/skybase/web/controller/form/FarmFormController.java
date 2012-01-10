@@ -20,7 +20,6 @@ package org.skydingo.skybase.web.controller.form;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
 
 import org.skydingo.skybase.model.DataCenter;
 import org.skydingo.skybase.model.Environment;
@@ -36,14 +35,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -93,25 +88,5 @@ public class FarmFormController extends AbstractEntityFormController<Farm> {
 	@ModelAttribute("environmentList")
 	public List<Environment> populateEnvironments() {
 		return CollectionsUtil.asSortedList(environmentRepo.findAll());
-	}
-	
-	@Override
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public String putEditForm(
-			@PathVariable Long id,
-			@ModelAttribute(MK_FORM_DATA) @Valid Farm formData,
-			BindingResult result,
-			Model model) {
-		
-		// FIXME This should be an update, not a create!
-		farmService.create(formData, result);
-		
-		if (result.hasErrors()) {
-			model.addAttribute(MK_HAS_ERRORS, true);
-			return prepareEditForm(id, model);
-		}
-		
-		formData.setId(id);
-		return viewNames.putEditFormSuccessViewName(getEntityClass(), id);
 	}
 }

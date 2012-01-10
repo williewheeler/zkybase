@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 
@@ -39,11 +40,11 @@ public class Farm extends AbstractEntity<Farm> {
 	private String name;
 	
 	@Fetch
-	@RelatedTo(type = "IN_ENVIRONMENT")
+	@RelatedTo(type = "CONTAINS", direction = Direction.INCOMING)
 	private Environment environment;
 	
 	@Fetch
-	@RelatedTo(type = "IN_DATA_CENTER")
+	@RelatedTo(type = "CONTAINS", direction = Direction.INCOMING)
 	private DataCenter dataCenter;
 	
 	/**

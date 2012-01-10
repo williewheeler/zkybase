@@ -18,10 +18,14 @@
 package org.skydingo.skybase.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import org.springframework.data.neo4j.annotation.Fetch;
+import org.springframework.data.neo4j.annotation.RelatedTo;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -29,6 +33,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 public class Region extends AbstractEntity<Region> {
 	private String name;
+	
+	// FIXME For now we'll just fetch this. Eventually we'll want to stop doing that.
+	@Fetch
+	@RelatedTo(type = "CONTAINS")
+	private Set<DataCenter> dataCenters;
 	
 	/**
 	 * @return
@@ -40,6 +49,16 @@ public class Region extends AbstractEntity<Region> {
 	 * @param name
 	 */
 	public void setName(String name) { this.name = name; }
+	
+	/**
+	 * @return
+	 */
+	public Set<DataCenter> getDataCenters() { return dataCenters; }
+	
+	/**
+	 * @param dataCenters
+	 */
+	public void setDataCenter(Set<DataCenter> dataCenters) { this.dataCenters = dataCenters; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.model.Entity#getDisplayName()

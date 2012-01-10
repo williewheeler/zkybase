@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
+import org.neo4j.graphdb.Direction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.neo4j.annotation.Fetch;
@@ -42,7 +43,7 @@ public class DataCenter extends AbstractEntity<DataCenter> {
 	private String name;
 	
 	@Fetch
-	@RelatedTo(type = "IN_REGION")
+	@RelatedTo(type = "CONTAINS", direction = Direction.INCOMING)
 	private Region region;
 	
 	/**

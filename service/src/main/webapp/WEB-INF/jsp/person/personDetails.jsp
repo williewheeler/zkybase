@@ -64,7 +64,7 @@
 		</div>
 	</div>
 	<div class="span4">
-		<div class="section first">
+		<section class="first">
 			<h2>Manager</h2>
 			<c:set var="manager" value="${person.manager}" />
 			<c:choose>
@@ -74,10 +74,10 @@
 				</c:when>
 				<c:otherwise>None</c:otherwise>
 			</c:choose>
-		</div>
+		</section>
 		
 		<c:if test="${not empty directReports}">
-			<div class="section">
+			<section>
 				<h2>Direct reports</h2>
 				<ul style="margin:0;padding:0;list-style-type:none">
 					<c:forEach var="report" items="${directReports}">
@@ -85,10 +85,10 @@
 						<li><a href="${reportUrl}"><c:out value="${report.firstNameLastName}" /></a></li>
 					</c:forEach>
 				</ul>
-			</div>
+			</section>
 		</c:if>
 		
-		<div class="section">
+		<section>
 			<h2>Collaborators</h2>
 			<c:choose>
 				<c:when test="${not empty collaborators}">
@@ -101,6 +101,6 @@
 				</c:when>
 				<c:otherwise>None</c:otherwise>
 			</c:choose>
-		</div>
+		</section>
 	</div>
 </div>

@@ -17,6 +17,8 @@
  */
 package org.skydingo.skybase.service.impl;
 
+import static org.springframework.util.Assert.notNull;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -28,6 +30,7 @@ import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.util.CollectionsUtil;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Errors;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -93,7 +96,23 @@ public abstract class AbstractEntityServiceImpl<T extends Entity<T>> implements 
 	 */
 	@Override
 	public T findOne(Long id) {
+		notNull(id);
 		return getRepository().findOne(id);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.EntityService#update(org.skydingo.skybase.model.Entity, org.springframework.validation.Errors)
+	 */
+	@Override
+	public void update(T entity, Errors errors) {
+		notNull(entity);
+		
+		if (errors == null || !errors.hasErrors()) {
+			getRepository().save(entity);
+		}
+		
+		// TODO Need to have a way to generate new errors here. For example, if the user changes the name of the
+		// entity to conflict with an existing entity, that would generate an error.
 	}
 	
 	/* (non-Javadoc)
@@ -101,6 +120,7 @@ public abstract class AbstractEntityServiceImpl<T extends Entity<T>> implements 
 	 */
 	@Override
 	public void delete(T entity) {
+		notNull(entity);
 		getRepository().delete(entity);
 	}
 	
@@ -109,6 +129,7 @@ public abstract class AbstractEntityServiceImpl<T extends Entity<T>> implements 
 	 */
 	@Override
 	public void delete(Long id) {
+		notNull(id);
 		getRepository().delete(id);
 	}
 }
