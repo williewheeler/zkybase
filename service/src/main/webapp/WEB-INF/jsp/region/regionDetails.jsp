@@ -1,6 +1,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
+<c:url var="excanvasJsUrl" value="/scripts/jit/Extras/excanvas.js" />
+<c:url var="jitJsUrl" value="/scripts/jit/jit.js" />
+<c:url var="exampleJsUrl" value="/scripts/jit/Examples/Hypertree/example1.js" />
+
+<!--[if IE]><script language="javascript" type="text/javascript" src="../../Extras/excanvas.js"></script><![endif]-->
+
+<script type="text/javascript" src="${jitJsUrl}"></script>
+<script type="text/javascript" src="${exampleJsUrl}"></script>
+
+<script type="text/javascript">
+	$(function() { init(); });
+</script>
+
 <section class="first">
 	<h2>Data centers</h2>
 	<c:choose>
@@ -17,4 +30,17 @@
 			</ul>
 		</c:otherwise>
 	</c:choose>
+</section>
+
+<section>
+	<h2>Interactive</h2>
+	<div class="row">
+		<div class="span12">
+			<div id="infovis"></div>
+		</div>
+		<div class="span4">
+			<div id="inner-details"></div>
+			<div id="log"></div>
+		</div>
+	</div>
 </section>

@@ -28,7 +28,6 @@ var Log = {
 
 function init(){
     //init data
-	/*
     var json = {
         "id": "347_0",
         "name": "Nine Inch Nails",
@@ -347,28 +346,7 @@ function init(){
         }],
         "data": []
     };
-    */
     //end
-	
-//	var json = {"id":"project_1","name":"Skybase","data":null,"children":[{"id":"member_2","name":"Willie Wheeler","data":{"role":"Developer"},"children":[]},{"id":"member_4","name":"Ben Gordon","data":{"role":"Developer"},"children":[]},{"id":"member_3","name":"Paul Jenson","data":{"role":"Developer"},"children":[]}]};
-	
-	var json = (function() {
-		var json = null;
-		$.ajax({
-			async: false,
-			global: false,
-			url: "http://localhost:8080/projects/skybase/team.jit",
-			dataType: "json",
-			success: function(data) {
-				json = data;
-			},
-			error: function() {
-				alert("error");
-			}
-		});
-		return json;
-	})();
-	
     var infovis = document.getElementById('infovis');
     var w = infovis.offsetWidth - 50, h = infovis.offsetHeight - 50;
     

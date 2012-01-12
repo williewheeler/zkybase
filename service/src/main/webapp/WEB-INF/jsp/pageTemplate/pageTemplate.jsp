@@ -10,6 +10,8 @@
 <%-- CSS --%>
 <c:url var="jqueryUiCssUrl" value="/scripts/jquery/jquery-ui-1.8.16.custom/css/cupertino/jquery-ui-1.8.16.custom.css" />
 <c:url var="coreCssUrl" value="/styles/core.css" />
+<c:url var="jitCssUrl" value="/scripts/jit/Examples/css/base.css" />
+<c:url var="hypertreeCssUrl" value="/scripts/jit/Examples/css/Hypertree.css" />
 
 <%-- jQuery --%>
 <c:url var="jqueryJsUrl" value="/scripts/jquery/jquery-1.7.1.min.js" />
@@ -32,10 +34,14 @@
 <html lang="en">
 	<head>
 		<title><c:out value="${navigation.currentNode.name}" /> - Skybase</title>
+		
 		<link rel="shortcut icon" type="image/x-icon" href="${faviconUrl}" />
 		<link rel="stylesheet" type="text/css" href="${jqueryUiCssUrl}" />
-		<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="${coreCssUrl}" />
+		<link rel="stylesheet" type="text/css" href="${jitCssUrl}" />
+		<link rel="stylesheet" type="text/css" href="${hypertreeCssUrl}" />
+
 		<script type="text/javascript" src="${jqueryJsUrl}"></script>
 		<script type="text/javascript" src="${jqueryScrollToJsUrl}"></script>
 		<script type="text/javascript" src="${jqueryLocalScrollJsUrl}"></script>
