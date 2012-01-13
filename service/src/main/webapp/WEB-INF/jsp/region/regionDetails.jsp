@@ -7,13 +7,6 @@
 
 <!--[if IE]><script language="javascript" type="text/javascript" src="../../Extras/excanvas.js"></script><![endif]-->
 
-<script type="text/javascript" src="${jitJsUrl}"></script>
-<script type="text/javascript" src="${exampleJsUrl}"></script>
-
-<script type="text/javascript">
-	$(function() { init(); });
-</script>
-
 <section class="first">
 	<h2>Data centers</h2>
 	<c:choose>
@@ -44,3 +37,10 @@
 		</div>
 	</div>
 </section>
+
+<script type="text/javascript" src="${jitJsUrl}"></script>
+<script type="text/javascript" src="${exampleJsUrl}"></script>
+
+<script type="text/javascript">
+	$(function() { init(); });
+</script>

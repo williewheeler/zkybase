@@ -17,16 +17,26 @@
  */
 package org.skydingo.skybase.web.controller.noform;
 
-import javax.inject.Inject;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
+
+import org.skydingo.skybase.model.DataCenter;
 import org.skydingo.skybase.model.Region;
 import org.skydingo.skybase.repository.RegionRepository;
 import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.service.RegionService;
 import org.skydingo.skybase.web.controller.AbstractEntityNoFormController;
+import org.skydingo.skybase.web.jit.JitNode;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -40,4 +50,26 @@ public class RegionNoFormController extends AbstractEntityNoFormController<Regio
 	public GraphRepository<Region> getRepository() { return repository; }
 	
 	public EntityService<Region> getService() { return service; }
+	
+	// So do this instead.
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, params = "format=jit")
+	public void getDetailsAsJson(@PathVariable Long id, Model model, HttpServletResponse res) throws IOException {
+		Region region = doGetDetails(id, model);
+		
+		JitNode regionNode = new JitNode();
+		regionNode.setId(region.getId().toString());
+		regionNode.setName(region.getName());
+		
+		Set<DataCenter> dataCenters = region.getDataCenters();
+		Set<JitNode> dataCenterNodes = new HashSet<JitNode>();
+		for (DataCenter dataCenter : dataCenters) {
+			JitNode dataCenterNode = new JitNode();
+			dataCenterNode.setId(dataCenter.getId().toString());
+			dataCenterNode.setName(dataCenter.getName());
+			dataCenterNodes.add(dataCenterNode);
+		}
+		regionNode.setChildren(dataCenterNodes);
+		
+		objectMapper.writeValue(res.getWriter(), regionNode);
+	}
 }
