@@ -22,6 +22,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.model.DataCenter;
 import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.model.Farm;
@@ -57,6 +58,7 @@ public class Sitemap {
 	@PostConstruct
 	public void postConstruct() {
 		Node dashboard = buildNode(getDashboardId(), wrap("Dashboard"), wrap("/"), null);
+		buildCrudNodes(Application.class, dashboard);
 		buildCrudNodes(DataCenter.class, dashboard);
 		buildCrudNodes(Environment.class, dashboard);
 		buildCrudNodes(Farm.class, dashboard);

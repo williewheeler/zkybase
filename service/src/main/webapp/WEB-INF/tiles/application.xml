@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+		"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	
+	<!-- Application list -->
+	<definition name="applicationList" extends="listPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/applicationList.jsp" />
+	</definition>
+	
+	<!-- Application details -->
+	<definition name="applicationDetails" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/applicationDetails.jsp" />
+	</definition>
+	
+	<!-- Create application form -->
+	<definition name="createApplicationFormTile" template="/WEB-INF/jsp/application/applicationForm.jsp">
+		<put-attribute name="formMethod" value="POST" />
+	</definition>
+	<definition name="createApplicationForm" extends="createPageTemplate">
+		<put-attribute name="content" value="createApplicationFormTile" />
+	</definition>
+
+	<!-- Edit application form -->
+	<definition name="editApplicationFormTile" template="/WEB-INF/jsp/application/applicationForm.jsp">
+		<put-attribute name="formMethod" value="put" />
+	</definition>
+	<definition name="editApplicationForm" extends="editPageTemplate">
+		<put-attribute name="content" value="editApplicationFormTile" />
+	</definition>
+</tiles-definitions>

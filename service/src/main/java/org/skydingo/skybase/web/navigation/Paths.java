@@ -20,6 +20,7 @@ package org.skydingo.skybase.web.navigation;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.model.DataCenter;
 import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.model.Farm;
@@ -36,6 +37,7 @@ public class Paths {
 	private Map<Class<?>, String> basePaths = new HashMap<Class<?>, String>();
 	
 	public Paths() {
+		basePaths.put(Application.class, "/applications");
 		basePaths.put(DataCenter.class, "/datacenters");
 		basePaths.put(Environment.class, "/environments");
 		basePaths.put(Farm.class, "/farms");

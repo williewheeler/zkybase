@@ -67,6 +67,15 @@ public class RegionNoFormController extends AbstractEntityNoFormController<Regio
 			dataCenterNode.setId(dataCenter.getId().toString());
 			dataCenterNode.setName(dataCenter.getName());
 			dataCenterNodes.add(dataCenterNode);
+			
+			Set<JitNode> farmNodes = new HashSet<JitNode>();
+			for (int i = 0; i < 8; i++) {
+				JitNode farmNode = new JitNode();
+				farmNode.setId(dataCenter.getId() + "_" + i);
+				farmNode.setName("Farm " + (i + 1));
+				farmNodes.add(farmNode);
+			}
+			dataCenterNode.setChildren(farmNodes);
 		}
 		regionNode.setChildren(dataCenterNodes);
 		

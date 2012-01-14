@@ -1,5 +1,5 @@
 /* 
- * EnvironmentRepository.java
+ * ApplicationRepository.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -17,12 +17,12 @@
  */
 package org.skydingo.skybase.repository;
 
-import org.skydingo.skybase.model.Environment;
+import org.skydingo.skybase.model.Application;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface EnvironmentRepository extends GraphRepository<Environment> {
+public interface ApplicationRepository extends GraphRepository<Application> {
 
 }

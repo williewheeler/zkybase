@@ -7,36 +7,34 @@
 
 <!--[if IE]><script language="javascript" type="text/javascript" src="../../Extras/excanvas.js"></script><![endif]-->
 
-<section class="first">
-	<h2>Data centers</h2>
-	<c:choose>
-		<c:when test="${empty region.dataCenters}">
-			<p>None.</p>
-		</c:when>
-		<c:otherwise>
-			<%-- TODO Would be cool to show this on a Google map or something --%>
-			<ul>
-				<c:forEach var="dataCenter" items="${region.dataCenters}">
-					<c:url var="dataCenterUrl" value="/datacenters/${dataCenter.id}" />
-					<li><a href="${dataCenterUrl}"><c:out value="${dataCenter.displayName}" /></a>
-				</c:forEach>
-			</ul>
-		</c:otherwise>
-	</c:choose>
-</section>
-
-<section>
-	<h2>Interactive</h2>
-	<div class="row">
-		<div class="span12">
-			<div id="infovis"></div>
-		</div>
-		<div class="span4">
+<div class="row">
+	<div class="span12">
+		<div id="infovis"></div>
+	</div>
+	<div class="span4">
+		<section class="first">
+			<h2>Data centers</h2>
+			<c:choose>
+				<c:when test="${empty region.dataCenters}">
+					<p>None.</p>
+				</c:when>
+				<c:otherwise>
+					<%-- TODO Would be cool to show this on a Google map or something --%>
+					<ul>
+						<c:forEach var="dataCenter" items="${region.dataCenters}">
+							<c:url var="dataCenterUrl" value="/datacenters/${dataCenter.id}" />
+							<li><a href="${dataCenterUrl}"><c:out value="${dataCenter.displayName}" /></a>
+						</c:forEach>
+					</ul>
+				</c:otherwise>
+			</c:choose>
+		</section>
+		<section>
 			<div id="inner-details"></div>
 			<div id="log"></div>
-		</div>
+		</section>
 	</div>
-</section>
+</div>
 
 <script type="text/javascript" src="${jitJsUrl}"></script>
 <script type="text/javascript" src="${exampleJsUrl}"></script>

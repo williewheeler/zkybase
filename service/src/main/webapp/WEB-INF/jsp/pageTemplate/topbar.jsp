@@ -3,6 +3,7 @@
 <!-- Menu items -->
 <%-- FIXME Source from Paths --%>
 <c:url var="dashboardUrl" value="/" />
+<c:url var="applicationsUrl" value="/applications" />
 <c:url var="packagesUrl" value="/packages" />
 <c:url var="regionsUrl" value="/regions" />
 <c:url var="dataCentersUrl" value="/datacenters" />
@@ -29,6 +30,8 @@
 					<li id="currentArea" class="dropdown">
 						<a href="#" class="dropdown-toggle">Current</a>
 						<ul class="dropdown-menu">
+							<li><a href="${applicationsUrl}">Applications</a></li>
+							<li class="divider"></li>
 							<li><a href="${packagesUrl}">Packages</a></li>
 							<li class="divider"></li>
 							<li><a href="${regionsUrl}">Regions</a></li>

@@ -1,5 +1,5 @@
 /* 
- * EnvironmentRepository.java
+ * ApplicationServiceImpl.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,14 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.repository;
+package org.skydingo.skybase.service.impl;
 
-import org.skydingo.skybase.model.Environment;
-import org.springframework.data.neo4j.repository.GraphRepository;
+import org.skydingo.skybase.model.Application;
+import org.skydingo.skybase.service.ApplicationService;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface EnvironmentRepository extends GraphRepository<Environment> {
+@Service
+public class ApplicationServiceImpl extends AbstractEntityServiceImpl<Application> implements ApplicationService {
 
 }
