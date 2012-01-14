@@ -12,6 +12,7 @@
 				<thead>
 					<tr>
 						<th>Name</th>
+						<th>Description</th>
 						<th class="editDeleteColumn"></th>
 					</tr>
 				</thead>
@@ -21,6 +22,7 @@
 						<c:url var="editUrl" value="/applications/${application.id}/edit" />
 						<tr>
 							<td><a href="${applicationUrl}"><c:out value="${application.name}" /></a></td>
+							<td><c:out value="${application.shortDescription}" /></td>
 							<td class="editDeleteColumn">
 								<a class="editLink" href="${editUrl}" title="Edit"><img src="${editIconUrl}" /></a>
 								<a class="deleteLink" href="${applicationUrl}" title="Delete"><img src="${deleteIconUrl}" /></a>

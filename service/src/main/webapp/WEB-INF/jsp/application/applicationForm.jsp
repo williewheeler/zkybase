@@ -18,6 +18,15 @@
 				</form:errors>
 			</div>
 		</div>
+		<div class="clearfix">
+			<label for="shortDescription">Short description:</label>
+			<div class="input">
+				<form:input cssClass="span10" cssErrorClass="span6 error" path="shortDescription" />
+				<form:errors path="shortDescription">
+					<span class="help-inline"><span class="error icon"><form:errors path="shortDescription" /></span></span>
+				</form:errors>
+			</div>
+		</div>
 		<div class="actions">
 			<input class="btn primary" type="submit" value="Save" />
 			<a class="btn" href="${cancelUrl}">Cancel</a>

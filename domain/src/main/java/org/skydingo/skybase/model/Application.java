@@ -29,9 +29,10 @@ import javax.xml.bind.annotation.XmlType;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
-@XmlType(propOrder = { "name" })
+@XmlType(propOrder = { "name", "shortDescription" })
 public class Application extends AbstractEntity<Application> {
 	private String name;
+	private String shortDescription;
 	
 	/**
 	 * @return
@@ -45,6 +46,18 @@ public class Application extends AbstractEntity<Application> {
 	 * @param name
 	 */
 	public void setName(String name) { this.name = name; }
+	
+	/**
+	 * @return
+	 */
+	@Size(max = 200)
+	@XmlElement
+	public String getShortDescription() { return shortDescription; }
+	
+	/**
+	 * @param shortDescription
+	 */
+	public void setShortDescription(String shortDescription) { this.shortDescription = shortDescription; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.model.Entity#getDisplayName()

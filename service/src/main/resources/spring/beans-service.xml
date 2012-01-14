@@ -25,5 +25,8 @@
 		
 	<tx:annotation-driven mode="proxy" />
 	
+	<!-- For web service calls (e.g., to GitHub, BitBucket, EC2, etc.) -->
+	<bean class="org.springframework.web.client.RestTemplate" />
+	
 	<context:component-scan base-package="org.skydingo.skybase.service.impl" />
 </beans>

@@ -36,6 +36,11 @@
 			<artifactId>neo4j</artifactId>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+		</dependency>
+		
 		<!-- Hibernate -->		
 		<dependency>
 			<groupId>org.hibernate</groupId>

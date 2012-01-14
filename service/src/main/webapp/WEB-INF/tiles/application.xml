@@ -14,6 +14,9 @@
 	<definition name="applicationDetails" extends="detailsPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/application/applicationDetails.jsp" />
 	</definition>
+	<definition name="applicationScm" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/scm.jsp" />
+	</definition>
 	
 	<!-- Create application form -->
 	<definition name="createApplicationFormTile" template="/WEB-INF/jsp/application/applicationForm.jsp">

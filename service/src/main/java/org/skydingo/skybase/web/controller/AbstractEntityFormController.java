@@ -53,13 +53,13 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 	@InitBinder(MK_FORM_DATA)
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
-//		binder.setAllowedFields(getAllowedFields());
-		doInitBinder(binder);
+		binder.setAllowedFields(getAllowedFields());
+//		doInitBinder(binder);
 	}
 	
-	@Deprecated
 	protected String[] getAllowedFields() { return null; }
 	
+	@Deprecated
 	protected void doInitBinder(WebDataBinder binder) { }
 	
 	
