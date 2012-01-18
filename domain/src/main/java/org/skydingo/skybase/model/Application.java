@@ -34,6 +34,10 @@ public class Application extends AbstractEntity<Application> {
 	private String name;
 	private String shortDescription;
 	
+	public Application() { }
+	
+	public Application(Long id) { setId(id); }
+	
 	/**
 	 * @return
 	 */

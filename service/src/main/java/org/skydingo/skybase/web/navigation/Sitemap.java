@@ -65,6 +65,8 @@ public class Sitemap {
 		buildCrudNodes(Package.class, dashboard);
 		buildCrudNodes(Person.class, dashboard);
 		buildCrudNodes(Region.class, dashboard);
+		
+		buildApplicationNodes();
 	}
 	
 	private void buildCrudNodes(Class<?> entityClass, Node dashboard) {
@@ -91,6 +93,13 @@ public class Sitemap {
 		Node detailsNode = buildNode(getEntityDetailsViewId(entityClass), detailsTitle, detailsPath, listNode);
 		buildNode(getCreateFormId(entityClass), createTitle, createPath, listNode);
 		buildNode(getEditFormId(entityClass), editTitle, editPath, detailsNode);
+	}
+	
+	private void buildApplicationNodes() {
+		Node appDetailsNode = getNode("applicationDetails");
+		buildNode("applicationScmCollaborators", appDetailsNode.getName(), appDetailsNode.getPath(), appDetailsNode);
+		buildNode("applicationScmCommits", appDetailsNode.getName(), appDetailsNode.getPath(), appDetailsNode);
+		buildNode("applicationScmWatchers", appDetailsNode.getName(), appDetailsNode.getPath(), appDetailsNode);
 	}
 	
 	/**

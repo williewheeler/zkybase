@@ -27,6 +27,47 @@ body {
 #footer p { font-size: 93%; }
 
 
+/* NAVIGATION ======================================================================================================= */
+
+.sideMenu {
+	margin-top: 10px;
+	border-top: 2px solid #DDD;
+}
+
+.sideMenu ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.sideMenu li {
+	background-color: #F8F8F8;
+}
+
+.sideMenu .group {
+	display: block;
+	border-top: 1px solid #FFF;
+	border-bottom: 1px solid #DDD;
+	padding: 10px 20px;
+}
+
+.sideMenu a {
+	display: block;
+	border-top: 1px solid #FFF;
+	border-bottom: 1px solid #DDD;
+	padding: 10px 20px;
+}
+
+.sideMenu > ul > li > .group, .sideMenu > ul > li > a {
+/* 	font-weight: bold; */
+}
+
+.sideMenu > ul > li > ul > li > a {
+	padding-left: 40px;
+/* 	font-style: italic; */
+}
+
+
 /* SECTIONS ========================================================================================================= */
 
 section {
@@ -75,37 +116,51 @@ div.tr { display: table-row; }
 
 div.td { display: table-cell; }
 
-.grid { margin: 0; }
-
-.gridBody {
-	margin: 0;
-	border-top: 2px solid #E8E8E0;
+.grid {
+	margin-top: 10px;
+	margin-bottom: 20px;
+	/* Don't mess with margin-left or margin-right because it wrecks Bootstrap rows */
+	
+	border: 1px solid #DDD;
+	padding: 10px;
+	
+/* 	background-color: #F5F5F5; */
+	background-color: #F8F8F8;
+	
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	
+	/*
+	-moz-box-shadow: 0 2px 5px #CCC;
+	-webkit-box-shadow: 0 2px 5px #CCC;
+	box-shadow: 0 2px 5px #CCC;
+	*/
 }
 
-.gridBody .row {
-	
-	/* This improves the visuals but wrecks the grid a bit since Bootstrap wants margin-left: -20px; */
-	margin: 0;
-	
-	padding: 10px 0;
-	border-top: 1px solid #FFF;
-	
-	border-bottom: 1px solid #E8E8E0;
-	background-color: #F8F8F0;
+.grid .row {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
-.gridBody .row.actions {
-	background-color: #E8E8E0;
+.gridLabel, .gridValue {
+/* 	padding: 10px; */
 }
 
 .gridLabel {
-/* 	text-align: right; */
+	text-align: right;
+	font-weight: bold;
+	color: #333;
+}
+
+.gridValue {
+	color: #000;
 }
 
 
 /* ELEMENTS ========================================================================================================= */
 
-h1, h2, h3 { font-weight: normal; color: #4B5F6D; }
+h1, h2, h3, h4 { font-weight: normal; color: #4B5F6D; }
 
 h1 { margin-top: 0; font-size: 182%; }
 
@@ -236,8 +291,10 @@ a.btn { outline: 0; }
 .json.icon { background-image: url(../images/icons/json.png); }
 .mobilePhone.icon { background-image: url(../images/icons/mobile-phone.png); }
 .package.icon { background-image: url(../images/icons/box.png); }
+.relate.icon { background-image: url(../images/icons/chain--plus.png); }
 .servers.icon { background-image: url(../images/icons/servers.png); }
 .telephone.icon { background-image: url(../images/icons/telephone.png); }
+.unrelate.icon { background-image: url(../images/icons/chain--minus.png); }
 .users.icon { background-image: url(../images/icons/users.png); }
 .warning.icon { background-image: url(../images/icons/exclamation.png); }
 .xml.icon { background-image: url(../images/icons/document-code.png); }

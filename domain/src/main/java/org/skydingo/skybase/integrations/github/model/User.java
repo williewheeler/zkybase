@@ -17,19 +17,17 @@
  */
 package org.skydingo.skybase.integrations.github.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.codehaus.jackson.annotate.JsonProperty;
 
 // FIXME Figure out why I'm having to use @JsonProperty here. I would have expected to be able to get away with using
 // @XmlElement since we're using the JAXB annotation inspector. (Verify that it's being used.)
+// Oh, I know why. It's because the annotation inspector is in the web app context, not the service app context. That's
+// fine--we don't need XML for this class anyway.
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@XmlRootElement
-public class Watcher {
+public class User {
 	private Long id;
 	private String url;
 	private String login;
@@ -39,7 +37,6 @@ public class Watcher {
 	/**
 	 * @return
 	 */
-	@XmlElement
 	public Long getId() { return id; }
 	
 	/**
@@ -50,7 +47,6 @@ public class Watcher {
 	/**
 	 * @return
 	 */
-	@XmlElement
 	public String getUrl() { return url; }
 	
 	/**
@@ -61,7 +57,6 @@ public class Watcher {
 	/**
 	 * @return
 	 */
-	@XmlElement
 	public String getLogin() { return login; }
 	
 	/**
@@ -72,7 +67,6 @@ public class Watcher {
 	/**
 	 * @return
 	 */
-	@XmlElement(name = "avatar_url")
 	@JsonProperty("avatar_url")
 	public String getAvatarUrl() { return avatarUrl; }
 	
@@ -84,7 +78,6 @@ public class Watcher {
 	/**
 	 * @return
 	 */
-	@XmlElement(name = "gravatar_id")
 	@JsonProperty("gravatar_id")
 	public String getGravatarId() { return gravatarId; }
 	
@@ -92,14 +85,4 @@ public class Watcher {
 	 * @param gravatarId
 	 */
 	public void setGravatarId(String gravatarId) { this.gravatarId = gravatarId; }
-	
-//	@XmlRootElement(name = "watchers")
-//	public static class WatcherListWrapper {
-//		private List<Watcher> list;
-//		
-//		@XmlElement(name = "watcher")
-//		public List<Watcher> getList() { return list; }
-//
-//		public void setList(List<Watcher> list) { this.list = list; }
-//	}
 }

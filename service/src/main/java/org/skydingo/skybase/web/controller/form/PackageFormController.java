@@ -42,6 +42,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/packages")
 public class PackageFormController extends AbstractEntityFormController<Package> {
+	
+	// FIXME Get rid of groupId, packageId...
+	private static final String[] ALLOWED_FIELDS = new String[] { "groupId", "packageId", "version" };
+	
 	private static final Logger log = LoggerFactory.getLogger(PackageFormController.class);
 	
 	@Inject private PackageRepository packageRepo;
@@ -67,7 +71,7 @@ public class PackageFormController extends AbstractEntityFormController<Package>
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()
 	 */
 	@Override
-	protected String[] getAllowedFields() { return new String[] { "groupId", "packageId", "version" }; }
+	protected String[] getAllowedFields() { return ALLOWED_FIELDS; }
 	
 	
 	// =================================================================================================================

@@ -26,5 +26,4 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ApplicationServiceImpl extends AbstractEntityServiceImpl<Application> implements ApplicationService {
-
 }

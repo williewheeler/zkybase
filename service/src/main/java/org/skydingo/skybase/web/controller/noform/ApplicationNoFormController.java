@@ -17,24 +17,29 @@
  */
 package org.skydingo.skybase.web.controller.noform;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
-import org.skydingo.skybase.integrations.github.model.Watcher;
 import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.repository.ApplicationRepository;
+import org.skydingo.skybase.repository.FarmRepository;
 import org.skydingo.skybase.service.ApplicationService;
 import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.util.CollectionsUtil;
+import org.skydingo.skybase.util.WebUtil;
 import org.skydingo.skybase.web.controller.AbstractEntityNoFormController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.neo4j.repository.GraphRepository;
-import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.social.github.api.GitHub;
+import org.springframework.social.github.api.GitHubCommit;
+import org.springframework.social.github.api.GitHubUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -44,34 +49,88 @@ import org.springframework.web.client.RestTemplate;
 public class ApplicationNoFormController extends AbstractEntityNoFormController<Application> {
 	private static final Logger log = LoggerFactory.getLogger(ApplicationNoFormController.class);
 	
-	@Inject private ApplicationRepository repository;
-	@Inject private ApplicationService service;
-	@Inject private RestTemplate restTemplate;
+	private static final String USER = "williewheeler";
+	private static final String REPO = "skybase";
 	
-	public GraphRepository<Application> getRepository() { return repository; }
+	@Inject private ApplicationRepository applicationRepository;
+	@Inject private ApplicationService applicationService;
+	@Inject private FarmRepository farmRepository;
+	@Inject private GitHub gitHub;
 	
-	public EntityService<Application> getService() { return service; }
+	public GraphRepository<Application> getRepository() { return applicationRepository; }
 	
-	@RequestMapping(value = "/{id}/scm", method = RequestMethod.GET)
-	public String getScmPage(@PathVariable Long id, Model model) {
-		Application app = repository.findOne(id);
+	public EntityService<Application> getService() { return applicationService; }
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityNoFormController#doGetDetails(java.lang.Long, org.springframework.ui.Model)
+	 */
+	@Override
+	protected Application doGetDetails(Long id, Model model) {
+		log.debug("Finding application");
+		Application app = getService().findOne(id);
+		log.debug("Finding farms");
+		model.addAttribute(CollectionsUtil.asSortedList(farmRepository.findByApplication(app)));
+		return app;
+	}
+	
+	/**
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/{id}/collaborators", method = RequestMethod.GET)
+	public String getScmCollaboratorsPage(@PathVariable Long id, Model model) {
+		Application app = applicationRepository.findOne(id);
 		
 		// FIXME Currently assuming that the project is a GitHub project, which of course we don't want to do.
-		log.debug("Loading GitHub repo watchers");
-		try {
-			Watcher[] watchers = restTemplate.getForObject(
-					"https://api.github.com/repos/{user}/{repo}/watchers",
-					Watcher[].class,
-					"williewheeler",
-					"skybase");
-			log.debug("Loaded GitHub repo watchers: {}", watchers.length);
-			model.addAttribute(app);
-			model.addAttribute("watcherList", watchers);
-			return "applicationScm";
-			
-		} catch (HttpMessageNotReadableException e) {
-			e.printStackTrace();
-			throw e;
-		}
+		List<GitHubUser> collaborators = gitHub.repoOperations().getCollaborators(USER, REPO);
+		List<List<GitHubUser>> collaboratorRows = WebUtil.toRows(collaborators, 3);
+		
+		model.addAttribute(app);
+		model.addAttribute("entity", app);
+		model.addAttribute("collaboratorList", collaborators);
+		model.addAttribute("collaboratorRows", collaboratorRows);
+		
+		return addNavigation(model, "applicationScmCollaborators");
+	}
+	
+	/**
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/{id}/commits", method = RequestMethod.GET)
+	public String getScmCommitsPage(@PathVariable Long id, Model model) {
+		Application app = applicationRepository.findOne(id);
+		
+		// FIXME Currently assuming that the project is a GitHub project, which of course we don't want to do.
+		List<GitHubCommit> commits = gitHub.repoOperations().getCommits(USER, REPO);
+		
+		model.addAttribute(app);
+		model.addAttribute("entity", app);
+		model.addAttribute("commitList", commits);
+		
+		return addNavigation(model, "applicationScmCommits");
+	}
+	
+	/**
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/{id}/watchers", method = RequestMethod.GET)
+	public String getScmWatchersPage(@PathVariable Long id, Model model) {
+		Application app = applicationRepository.findOne(id);
+		
+		// FIXME Currently assuming that the project is a GitHub project, which of course we don't want to do.
+		List<GitHubUser> watchers = gitHub.repoOperations().getWatchers(USER, REPO);
+		List<List<GitHubUser>> watcherRows = WebUtil.toRows(watchers, 3);
+		
+		model.addAttribute(app);
+		model.addAttribute("entity", app);
+		model.addAttribute("watcherList", watchers);
+		model.addAttribute("watcherRows", watcherRows);
+		
+		return addNavigation(model, "applicationScmWatchers");
 	}
 }

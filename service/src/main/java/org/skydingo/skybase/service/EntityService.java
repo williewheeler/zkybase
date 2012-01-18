@@ -28,6 +28,12 @@ import org.springframework.validation.Errors;
 public interface EntityService<T extends Entity<T>> {
 	
 	/**
+	 * @param entity
+	 * @param errors
+	 */
+	void create(T entity, Errors errors);
+	
+	/**
 	 * @return
 	 */
 	List<T> findAll();

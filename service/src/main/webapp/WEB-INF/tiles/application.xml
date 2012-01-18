@@ -5,28 +5,74 @@
 
 <tiles-definitions>
 	
-	<!-- Application list -->
+	
+	<!-- =========================================================================================================== -->
+	<!-- Application list                                                                                            -->
+	<!-- =========================================================================================================== -->
+	
 	<definition name="applicationList" extends="listPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/application/applicationList.jsp" />
 	</definition>
 	
-	<!-- Application details -->
-	<definition name="applicationDetails" extends="detailsPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/applicationDetails.jsp" />
-	</definition>
-	<definition name="applicationScm" extends="detailsPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/scm.jsp" />
+	
+	<!-- =========================================================================================================== -->
+	<!-- Application details                                                                                         -->
+	<!-- =========================================================================================================== -->
+	
+	<!-- Body template -->
+	<definition name="applicationDetailsBodyTemplate" extends="rightSidebarBodyTemplate">
+		<put-attribute name="sidebar" value="/WEB-INF/jsp/application/details/applicationMenu.jsp" />
 	</definition>
 	
-	<!-- Create application form -->
+	<!-- Overview page -->
+	<definition name="applicationDetailsBody" extends="applicationDetailsBodyTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/details/applicationDetails.jsp" />
+	</definition>
+	<definition name="applicationDetails" extends="detailsPageTemplate">
+		<put-attribute name="content" value="applicationDetailsBody" />
+	</definition>
+	
+	<!-- Collaborators page -->
+	<definition name="applicationScmCollaboratorsBody" extends="applicationDetailsBodyTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/details/applicationScmCollaborators.jsp" />
+	</definition>
+	<definition name="applicationScmCollaborators" extends="detailsPageTemplate">
+		<put-attribute name="content" value="applicationScmCollaboratorsBody" />
+	</definition>
+	
+	<!-- Commits page -->
+	<definition name="applicationScmCommitsBody" extends="applicationDetailsBodyTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/details/applicationScmCommits.jsp" />
+	</definition>
+	<definition name="applicationScmCommits" extends="detailsPageTemplate">
+		<put-attribute name="content" value="applicationScmCommitsBody" />
+	</definition>
+	
+	<!-- Watchers page -->
+	<definition name="applicationScmWatchersBody" extends="applicationDetailsBodyTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/details/applicationScmWatchers.jsp" />
+	</definition>
+	<definition name="applicationScmWatchers" extends="detailsPageTemplate">
+		<put-attribute name="content" value="applicationScmWatchersBody" />
+	</definition>
+	
+	
+	<!-- =========================================================================================================== -->
+	<!-- Create application form                                                                                     -->
+	<!-- =========================================================================================================== -->
+	
 	<definition name="createApplicationFormTile" template="/WEB-INF/jsp/application/applicationForm.jsp">
 		<put-attribute name="formMethod" value="POST" />
 	</definition>
 	<definition name="createApplicationForm" extends="createPageTemplate">
 		<put-attribute name="content" value="createApplicationFormTile" />
 	</definition>
-
-	<!-- Edit application form -->
+	
+	
+	<!-- =========================================================================================================== -->
+	<!-- Edit application form                                                                                       -->
+	<!-- =========================================================================================================== -->
+	
 	<definition name="editApplicationFormTile" template="/WEB-INF/jsp/application/applicationForm.jsp">
 		<put-attribute name="formMethod" value="put" />
 	</definition>

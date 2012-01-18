@@ -39,6 +39,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/datacenters")
 public class DataCenterFormController extends AbstractEntityFormController<DataCenter> {
+	private static final String[] ALLOWED_FIELDS = new String[] { "name", "region" };
+	
 	@Inject private DataCenterRepository dataCenterRepo;
 	@Inject private DataCenterService dataCenterService;
 	@Inject private RegionService regionService;
@@ -59,7 +61,7 @@ public class DataCenterFormController extends AbstractEntityFormController<DataC
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()
 	 */
 	@Override
-	protected String[] getAllowedFields() { return new String[] { "name", "region" }; }
+	protected String[] getAllowedFields() { return ALLOWED_FIELDS; }
 	
 	/**
 	 * @return

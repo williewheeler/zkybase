@@ -56,18 +56,16 @@ public class EntityFormatter<T extends Entity<T>> implements Formatter<T> {
 	public T parse(String id, Locale locale) throws ParseException {
 		
 		// Spring calls this method on the way into the controller.
-		
-		T entity = null;
 		try {
-			entity = entityClass.newInstance();
+			log.debug("Creating new entity instance for class={}, id={}", entityClass, id);
+			T entity = entityClass.newInstance();
+			entity.setId(Long.parseLong(id));
+			log.debug("Created new entity instance: {}", entity);
+			return entity;
 		} catch (InstantiationException e) {
 			throw new RuntimeException(e);
 		} catch (IllegalAccessException e) {
 			throw new RuntimeException(e);
 		}
-		
-		log.debug("Parsing id={} into entity", id);
-		entity.setId(Long.parseLong(id));
-		return entity;
 	}
 }

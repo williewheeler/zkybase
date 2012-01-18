@@ -34,6 +34,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/regions")
 public class RegionFormController extends AbstractEntityFormController<Region> {
+	private static final String[] ALLOWED_FIELDS = new String[] { "name" };
+	
 	@Inject private RegionRepository regionRepo;
 	@Inject private RegionService regionService;
 
@@ -53,6 +55,6 @@ public class RegionFormController extends AbstractEntityFormController<Region> {
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()
 	 */
 	@Override
-	protected String[] getAllowedFields() { return new String[] { "name" }; }
+	protected String[] getAllowedFields() { return ALLOWED_FIELDS; }
 
 }

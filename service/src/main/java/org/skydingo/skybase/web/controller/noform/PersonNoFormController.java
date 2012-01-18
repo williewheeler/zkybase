@@ -28,10 +28,13 @@ import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.service.PersonService;
 import org.skydingo.skybase.util.CollectionsUtil;
+import org.skydingo.skybase.util.WebUtil;
 import org.skydingo.skybase.web.controller.AbstractEntityNoFormController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.neo4j.repository.GraphRepository;
+import org.springframework.social.github.api.GitHub;
+import org.springframework.social.github.api.GitHubUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +54,7 @@ public class PersonNoFormController extends AbstractEntityNoFormController<Perso
 	
 	@Inject private PersonRepository repository;
 	@Inject private PersonService service;
+	@Inject private GitHub gitHub;
 	
 	public GraphRepository<Person> getRepository() { return repository; }
 	
@@ -69,17 +73,21 @@ public class PersonNoFormController extends AbstractEntityNoFormController<Perso
 	protected Person doGetDetails(Long id, Model model) {
 		log.debug("Getting extended person details");
 		Person person = service.findPersonDetails(id);
-		
 		List<Person> directReports = CollectionsUtil.asList(person.getDirectReports());
-//		List<ProjectMembership> memberships = CollectionsUtil.asList(person.getMemberships());
-//		List<Person> collaborators = CollectionsUtil.asList(personRepo.findCollaborators(person));
-		
 		Collections.sort(directReports);
-//		Collections.sort(collaborators);
-		
 		model.addAttribute("directReports", directReports);
-//		model.addAttribute("memberships", memberships);
-//		model.addAttribute("collaborators", collaborators);
+		
+		// FIXME Hardcode, plus this is generating test errors
+//		List<GitHubUser> followers = gitHub.userOperations().getFollowers("williewheeler");
+//		List<List<GitHubUser>> followerRows = WebUtil.toRows(followers, 3);
+//		model.addAttribute("followerList", followers);
+//		model.addAttribute("followerRows", followerRows);
+		
+		// FIXME Hardcode, plus this is generating test errors
+//		List<GitHubUser> following = gitHub.userOperations().getFollowing("williewheeler");
+//		List<List<GitHubUser>> followingRows = WebUtil.toRows(following, 3);
+//		model.addAttribute("followingList", following);
+//		model.addAttribute("followingRows", followingRows);
 		
 		return person;
 	}

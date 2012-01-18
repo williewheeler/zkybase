@@ -21,6 +21,7 @@ import org.mockito.Mock;
 import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.repository.EnvironmentRepository;
 import org.skydingo.skybase.service.EnvironmentService;
+import org.skydingo.skybase.service.FarmService;
 import org.skydingo.skybase.web.controller.AbstractEntityNoFormControllerTests;
 
 /**
@@ -29,6 +30,7 @@ import org.skydingo.skybase.web.controller.AbstractEntityNoFormControllerTests;
 public class EnvironmentNoFormControllerTests extends AbstractEntityNoFormControllerTests<Environment> {
 	
 	// Dependencies
-	@Mock private EnvironmentRepository environmentRepo;
+	@Mock private EnvironmentRepository environmentRepository;
 	@Mock private EnvironmentService environmentService;
+	@Mock private FarmService farmService;
 }

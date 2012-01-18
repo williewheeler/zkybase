@@ -17,8 +17,10 @@
  */
 package org.skydingo.skybase.service;
 
+import java.util.List;
+
+import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.model.Farm;
-import org.springframework.validation.Errors;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -26,13 +28,8 @@ import org.springframework.validation.Errors;
 public interface FarmService extends EntityService<Farm> {
 	
 	/**
-	 * @param farm farm
+	 * @param environment
+	 * @return
 	 */
-	void create(Farm farm);
-	
-	/**
-	 * @param farm farm
-	 * @param errors errors
-	 */
-	void create(Farm farm, Errors errors);
+	List<Farm> findByEnvironment(Environment environment);
 }

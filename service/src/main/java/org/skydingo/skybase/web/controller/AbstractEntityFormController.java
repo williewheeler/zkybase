@@ -54,13 +54,9 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
 		binder.setAllowedFields(getAllowedFields());
-//		doInitBinder(binder);
 	}
 	
 	protected String[] getAllowedFields() { return null; }
-	
-	@Deprecated
-	protected void doInitBinder(WebDataBinder binder) { }
 	
 	
 	// =================================================================================================================
@@ -85,13 +81,14 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 	 */
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String postCreateForm(Model model, @ModelAttribute(MK_FORM_DATA) @Valid T formData, BindingResult result) {
+		log.debug("Posting form data");
+		getService().create(formData, result);
+		
 		if (result.hasErrors()) {
 			model.addAttribute(MK_HAS_ERRORS, true);
 			return prepareCreateForm(model);
 		}
 		
-		// FIXME Need to handle cases where save attempts generate validation errors (e.g. duplicate entities).
-		getRepository().save(formData);
 		return viewNames.postCreateFormSuccessViewName(getEntityClass());
 	}
 	

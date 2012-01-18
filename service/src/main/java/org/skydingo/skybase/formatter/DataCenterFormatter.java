@@ -27,5 +27,4 @@ import org.springframework.stereotype.Component;
 public class DataCenterFormatter extends EntityFormatter<DataCenter> {
 	
 	public DataCenterFormatter() { super(DataCenter.class); }
-
 }

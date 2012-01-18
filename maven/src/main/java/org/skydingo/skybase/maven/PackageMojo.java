@@ -1,5 +1,5 @@
 /* 
- * GreetingMojo.java
+ * PackageMojo.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 

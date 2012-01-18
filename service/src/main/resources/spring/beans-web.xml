@@ -14,8 +14,10 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 	
 	<mvc:default-servlet-handler />
-	
 	<mvc:annotation-driven conversion-service="conversionService" />
+	
+<!-- 	<mvc:resources mapping="/images/**" location="/images/" /> -->
+<!-- 	<mvc:resources mapping="/resources/**" location="/resources/" /> -->
 	
 	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
 		<property name="formatters">
@@ -26,9 +28,6 @@
 			</list>
 		</property>
 	</bean>
-	
-<!-- 	<mvc:resources mapping="/images/**" location="/images/" /> -->
-<!-- 	<mvc:resources mapping="/resources/**" location="/resources/" /> -->
 	
 	<context:component-scan base-package="org.skydingo.skybase.formatter" />
 	<context:component-scan base-package="org.skydingo.skybase.web.controller" />

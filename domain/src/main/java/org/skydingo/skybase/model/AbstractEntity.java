@@ -94,10 +94,8 @@ public abstract class AbstractEntity<T extends Entity<T>> implements Entity<T> {
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() { return getDisplayName(); }
+	// NO! Don't do this. When the display name is null, it makes it look like the whole dang entity is null. UGH.
+//	@Override
+//	public String toString() { return getDisplayName(); }
 
 }

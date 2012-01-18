@@ -18,15 +18,34 @@
 	
 	<context:annotation-config />
 <!-- 	<context:spring-configured /> -->
-	
+
 	<neo4j:config storeDirectory="${graphDb.dir}" />
 	
 	<neo4j:repositories base-package="org.skydingo.skybase.repository" />
 		
 	<tx:annotation-driven mode="proxy" />
 	
-	<!-- For web service calls (e.g., to GitHub, BitBucket, EC2, etc.) -->
-	<bean class="org.springframework.web.client.RestTemplate" />
-	
 	<context:component-scan base-package="org.skydingo.skybase.service.impl" />
+	
+	
+	<!-- =========================================================================================================== -->
+	<!-- Integrations                                                                                                -->
+	<!-- =========================================================================================================== -->
+	
+	<!-- For web service calls (e.g., to GitHub, BitBucket, EC2, etc.) -->
+	<!-- Use Spring Social for some of these -->
+<!-- 	<bean class="org.springframework.web.client.RestTemplate" /> -->
+	
+	<!-- This doesn't actually exist in Spring Social GitHub yet, but Craig asked me to help him implement the GitHub
+	     provider instead of implementing it all against the RestTemplate directly. This will exist if he accepts my
+	     pull request. -->
+	<bean class="org.springframework.social.github.api.impl.GitHubTemplate" />
+
+	<!-- I don't need user connections... -->
+	<!--
+	<bean class="org.springframework.social.github.connect.GitHubConnectionFactory">
+		<constructor-arg value="${github.clientId}" />
+		<constructor-arg value="${github.clientSecret}" />
+	</bean>
+	-->
 </beans>

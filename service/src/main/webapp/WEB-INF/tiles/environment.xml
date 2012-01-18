@@ -5,25 +5,50 @@
 
 <tiles-definitions>
 	
-	<!-- Environment list -->
+	
+	<!-- =========================================================================================================== -->
+	<!-- Environment list                                                                                            -->
+	<!-- =========================================================================================================== -->
+	
 	<definition name="environmentList" extends="listPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/environment/environmentList.jsp" />
 	</definition>
 	
-	<!-- Environment details -->
-	<definition name="environmentDetails" extends="detailsPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/environment/environmentDetails.jsp" />
+	
+	<!-- =========================================================================================================== -->
+	<!-- Environment details                                                                                         -->
+	<!-- =========================================================================================================== -->
+	
+	<!-- Body template -->
+	<definition name="environmentDetailsBodyTemplate" extends="rightSidebarBodyTemplate">
+		<put-attribute name="sidebar" value="/WEB-INF/jsp/environment/details/environmentMenu.jsp" />
 	</definition>
 	
-	<!-- Create environment form -->
+	<!-- Overview page -->
+	<definition name="environmentDetailsBody" extends="environmentDetailsBodyTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/environment/details/environmentDetails.jsp" />
+	</definition>
+	<definition name="environmentDetails" extends="detailsPageTemplate">
+		<put-attribute name="content" value="environmentDetailsBody" />
+	</definition>
+	
+	
+	<!-- =========================================================================================================== -->
+	<!-- Create environment form                                                                                     -->
+	<!-- =========================================================================================================== -->
+	
 	<definition name="createEnvironmentFormTile" template="/WEB-INF/jsp/environment/environmentForm.jsp">
 		<put-attribute name="formMethod" value="POST" />
 	</definition>
 	<definition name="createEnvironmentForm" extends="createPageTemplate">
 		<put-attribute name="content" value="createEnvironmentFormTile" />
 	</definition>
-
-	<!-- Edit environment form -->
+	
+	
+	<!-- =========================================================================================================== -->
+	<!-- Edit environment form                                                                                       -->
+	<!-- =========================================================================================================== -->
+	
 	<definition name="editEnvironmentFormTile" template="/WEB-INF/jsp/environment/environmentForm.jsp">
 		<put-attribute name="formMethod" value="put" />
 	</definition>

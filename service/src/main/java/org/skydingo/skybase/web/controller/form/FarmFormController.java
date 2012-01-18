@@ -35,8 +35,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -46,6 +44,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/farms")
 public class FarmFormController extends AbstractEntityFormController<Farm> {
+	private static final String[] ALLOWED_FIELDS = new String[] { "name", "environment", "dataCenter" };
+	
 	private static final Logger log = LoggerFactory.getLogger(FarmFormController.class);
 	
 	@Inject private DataCenterRepository dataCenterRepo;
@@ -65,14 +65,11 @@ public class FarmFormController extends AbstractEntityFormController<Farm> {
 	@Override
 	public EntityService<Farm> getService() { return farmService; }
 	
-	/**
-	 * @param binder
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()
 	 */
-	@InitBinder
-	public void initBinderSpecial(WebDataBinder binder) {
-		log.debug("Initializing binder: {}", binder.getObjectName());
-		binder.setAllowedFields("name", "environment", "dataCenter");
-	}
+	@Override
+	protected String[] getAllowedFields() { return ALLOWED_FIELDS; }
 	
 	/**
 	 * @return

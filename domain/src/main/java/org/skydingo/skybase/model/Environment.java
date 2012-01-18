@@ -41,6 +41,10 @@ public class Environment extends AbstractEntity<Environment> {
 	
 	private String name;
 	
+	public Environment() { }
+	
+	public Environment(Long id) { setId(id); }
+	
 	/**
 	 * @return
 	 */

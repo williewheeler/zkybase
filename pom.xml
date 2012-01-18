@@ -19,8 +19,9 @@
 	<properties>
 		<aspectj.version>1.6.12</aspectj.version>
 		<jackson.version>1.9.3</jackson.version>
-		<spring.data.neo4j.version>2.0.0.RELEASE</spring.data.neo4j.version>
 		<spring.version>3.1.0.RELEASE</spring.version>
+		<spring.data.neo4j.version>2.0.0.RELEASE</spring.data.neo4j.version>
+		<spring.social.version>1.0.1.RELEASE</spring.social.version>
 		<tiles.version>2.2.2</tiles.version>
 		
 		<!-- See http://docs.codehaus.org/display/MAVENUSER/POM+Element+for+Source+File+Encoding -->
@@ -38,6 +39,11 @@
 			<id>spring-milestone</id>
 			<name>Spring Maven Milestone Repository</name>
 			<url>http://maven.springframework.org/milestone</url>
+		</repository>
+		<repository>
+			<id>spring-snapshot</id>
+			<name>Spring Maven Snapshot Repository</name>
+			<url>http://maven.springframework.org/snapshot</url>
 		</repository>
 		
 		<!-- JBoss/Hibernate dependencies -->
@@ -138,13 +144,28 @@
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-neo4j</artifactId>
 				<version>${spring.data.neo4j.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-jdbc</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-orm</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			
-			<!-- For advanced mapping -->
+			<!-- Spring Social -->
 			<dependency>
-				<groupId>org.springframework.data</groupId>
-				<artifactId>spring-data-neo4j-aspects</artifactId>
-				<version>${spring.data.neo4j.version}</version>
+				<groupId>org.springframework.social</groupId>
+				<artifactId>spring-social-core</artifactId>
+				<version>${spring.social.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.social</groupId>
+				<artifactId>spring-social-github</artifactId>
+				<version>1.0.0.BUILD-SNAPSHOT</version>
 			</dependency>
 			
 			<!-- Neo4j -->
@@ -178,6 +199,7 @@
 				<artifactId>tiles-servlet</artifactId>
 				<version>${tiles.version}</version>
 			</dependency>
+			<!--
 			<dependency>
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjrt</artifactId>
@@ -188,6 +210,7 @@
 				<artifactId>aspectjtools</artifactId>
 				<version>${aspectj.version}</version>
 			</dependency>
+			-->
 			<dependency>
 				<groupId>org.codehaus.jackson</groupId>
 				<artifactId>jackson-mapper-asl</artifactId>
@@ -199,6 +222,13 @@
 				<groupId>org.codehaus.jackson</groupId>
 				<artifactId>jackson-xc</artifactId>
 				<version>${jackson.version}</version>
+			</dependency>
+			
+			<!-- For Spring Social -->
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>4.1.2</version>
 			</dependency>
 			
 			<dependency>

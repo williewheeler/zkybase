@@ -19,64 +19,30 @@ package org.skydingo.skybase.service.impl;
 
 import static org.springframework.util.Assert.notNull;
 
-import org.skydingo.skybase.model.DataCenter;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.model.Farm;
+import org.skydingo.skybase.repository.FarmRepository;
 import org.skydingo.skybase.service.FarmService;
+import org.skydingo.skybase.util.CollectionsUtil;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.Errors;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
 public class FarmServiceImpl extends AbstractEntityServiceImpl<Farm> implements FarmService {
-
+	@Inject private FarmRepository farmRepo;
+	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.FarmService#create(org.skydingo.skybase.model.Farm)
+	 * @see org.skydingo.skybase.service.FarmService#findByEnvironment(org.skydingo.skybase.model.Environment)
 	 */
 	@Override
-	public void create(Farm farm) {
-		notNull(farm);
-		
-		// TODO Check for duplicates?
-		
-		getRepository().save(farm);
+	public List<Farm> findByEnvironment(Environment environment) {
+		notNull(environment);
+		return CollectionsUtil.asSortedList(farmRepo.findByEnvironment(environment));
 	}
-
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.FarmService#create(org.skydingo.skybase.model.Farm,
-	 * org.springframework.validation.Errors)
-	 */
-	@Override
-	public void create(Farm farm, Errors errors) {
-		notNull(farm);
-		notNull(errors);
-		
-		// Haven't figured out how to do this with the framework, so I'm doing it manually for now.
-		
-		// First check for null.
-		Environment environment = farm.getEnvironment();
-		if (environment == null || environment.getId() == -1L) {
-			// FIXME This code doesn't work.
-//			errors.rejectValue("environment", "javax.validation.constraints.NotNull");
-			throw new RuntimeException("Value rejected");
-		} else {
-			// TODO Check for existence
-		}
-		
-		DataCenter dataCenter = farm.getDataCenter();
-		if (dataCenter == null || dataCenter.getId() == -1L) {
-			// FIXME This code doesn't work.
-//			errors.rejectValue("dataCenter", "javax.validation.constraints.NotNull");
-			throw new RuntimeException("Value rejected");
-		} else {
-			// TODO Check for existence
-		}
-		
-		if (!errors.hasErrors()) {
-			create(farm);
-		}
-	}
-
 }

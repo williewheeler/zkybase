@@ -39,12 +39,16 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
 public class Farm extends AbstractEntity<Farm> {
 	private String name;
 	
+	// IMPORTANT: The relationship names IN_ENVIRONMENT and IN_DATA_CENTER need to be distinct; we can't, e.g., use the
+	// single name IN for both. Otherwise Spring Data Neo4j will try to convert DataCenters to Environments (or vice
+	// versa). Ugh. [WLW]
+	
 	@Fetch
-	@RelatedTo(type = "CONTAINS", direction = Direction.INCOMING)
+	@RelatedTo(type = "IN_ENVIRONMENT", direction = Direction.OUTGOING)
 	private Environment environment;
 	
 	@Fetch
-	@RelatedTo(type = "CONTAINS", direction = Direction.INCOMING)
+	@RelatedTo(type = "IN_DATA_CENTER", direction = Direction.OUTGOING)
 	private DataCenter dataCenter;
 	
 	/**

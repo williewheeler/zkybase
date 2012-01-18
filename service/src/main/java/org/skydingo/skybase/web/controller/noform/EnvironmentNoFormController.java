@@ -23,9 +23,11 @@ import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.repository.EnvironmentRepository;
 import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.service.EnvironmentService;
+import org.skydingo.skybase.service.FarmService;
 import org.skydingo.skybase.web.controller.AbstractEntityNoFormController;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -34,10 +36,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/environments")
 public class EnvironmentNoFormController extends AbstractEntityNoFormController<Environment> {
-	@Inject private EnvironmentRepository repository;
-	@Inject private EnvironmentService service;
+	@Inject private EnvironmentRepository environmentRepository;
+	@Inject private EnvironmentService environmentService;
+	@Inject private FarmService farmService;
 	
-	public GraphRepository<Environment> getRepository() { return repository; }
+	public GraphRepository<Environment> getRepository() { return environmentRepository; }
 	
-	public EntityService<Environment> getService() { return service; }
+	public EntityService<Environment> getService() { return environmentService; }
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractEntityNoFormController#doGetDetails(java.lang.Long, org.springframework.ui.Model)
+	 */
+	@Override
+	protected Environment doGetDetails(Long id, Model model) {
+		
+		// FIXME We don't want this for the JSON and XML views.
+		model.addAttribute(farmService.findByEnvironment(new Environment(id)));
+		
+		return getService().findOne(id);
+	}
 }

@@ -87,15 +87,26 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
+		
+		<!-- Spring Social -->
 		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-neo4j</artifactId>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-github</artifactId>
 		</dependency>
 		
-		<!-- For advanced mapping -->
+		<!-- Jackson -->
 		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-neo4j-aspects</artifactId>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+		</dependency>
+		<dependency>
+			<!-- Supports use of JAXB2 annotations -->
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-xc</artifactId>
 		</dependency>
 		
 		<!-- Neo4j -->
@@ -111,7 +122,7 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!-- Other -->
+		<!-- Tiles -->
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
 			<artifactId>tiles-el</artifactId>
@@ -125,27 +136,11 @@
 			<artifactId>tiles-servlet</artifactId>
 		</dependency>
 		
-		<!-- Required for Neo4j advanced OGM, but we're using simple OGM -->
-		<!--
+		<!-- For Spring Social -->
 		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjtools</artifactId>
-		</dependency>
-		-->
-		
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-		</dependency>
-		
-		<!-- Supports use of JAXB2 annotations -->
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-xc</artifactId>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.1.2</version>
 		</dependency>
 		
 		<dependency>

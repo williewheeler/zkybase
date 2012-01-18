@@ -28,6 +28,8 @@ import javax.inject.Inject;
 import org.skydingo.skybase.model.Entity;
 import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.util.CollectionsUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
@@ -37,6 +39,7 @@ import org.springframework.validation.Errors;
  */
 @Transactional
 public abstract class AbstractEntityServiceImpl<T extends Entity<T>> implements EntityService<T> {
+	private static final Logger log = LoggerFactory.getLogger(AbstractEntityServiceImpl.class);
 	
 	// IMPORTANT: Only getEntityClass() should access this directly!
 	private Class<T> entityClass;
@@ -80,6 +83,22 @@ public abstract class AbstractEntityServiceImpl<T extends Entity<T>> implements 
 					return;
 				}
 			}
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.EntityService#create(org.skydingo.skybase.model.Entity, org.springframework.validation.Errors)
+	 */
+	@Override
+	public void create(T entity, Errors errors) {
+		notNull(entity);
+		
+		// FIXME Need to check for errors here, like duplicates
+		
+		if (errors == null || !errors.hasErrors()) {
+			getRepository().save(entity);
+		} else {
+			log.debug("Invalid entity; not saving");
 		}
 	}
 	

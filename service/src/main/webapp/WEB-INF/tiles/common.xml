@@ -11,6 +11,8 @@
 		<put-attribute name="actionLinks" value="" />
 	</definition>
 	
+	<definition name="rightSidebarBodyTemplate" template="/WEB-INF/jsp/pageTemplate/bodyTemplates/rightSidebarTemplate.jsp" />
+	
 	<!-- Create form -->
 	<definition name="createPageTemplate" extends="pageTemplate" />
 	

@@ -34,6 +34,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/environments")
 public class EnvironmentFormController extends AbstractEntityFormController<Environment> {
+	private static final String[] ALLOWED_FIELDS = new String[] { "name" };
+	
 	@Inject private EnvironmentRepository repository;
 	@Inject private EnvironmentService service;
 
@@ -53,5 +55,5 @@ public class EnvironmentFormController extends AbstractEntityFormController<Envi
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()
 	 */
 	@Override
-	protected String[] getAllowedFields() { return new String[] { "name" }; }
+	protected String[] getAllowedFields() { return ALLOWED_FIELDS; }
 }

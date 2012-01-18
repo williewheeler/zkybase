@@ -34,6 +34,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/people")
 public class PersonFormController extends AbstractEntityFormController<Person> {
+	private static final String[] ALLOWED_FIELDS =
+		new String[] { "username", "firstName", "lastName", "title", "workPhone", "mobilePhone", "email" };
+	
 	@Inject private PersonRepository personRepo;
 	@Inject private PersonService personService;
 
@@ -53,8 +56,6 @@ public class PersonFormController extends AbstractEntityFormController<Person> {
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()
 	 */
 	@Override
-	protected String[] getAllowedFields() {
-		return new String[] { "username", "firstName", "lastName", "title", "workPhone", "mobilePhone", "email" };
-	}
+	protected String[] getAllowedFields() { return ALLOWED_FIELDS; }
 
 }

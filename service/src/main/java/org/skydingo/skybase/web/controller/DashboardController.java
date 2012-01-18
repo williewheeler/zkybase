@@ -19,8 +19,7 @@ package org.skydingo.skybase.web.controller;
 
 import javax.inject.Inject;
 
-import org.skydingo.skybase.repository.ProjectRepository;
-import org.skydingo.skybase.util.CollectionsUtil;
+import org.skydingo.skybase.service.ApplicationService;
 import org.skydingo.skybase.web.navigation.Sitemap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,15 +33,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class DashboardController {
+	@Inject private ApplicationService applicationService;
 	@Inject private Sitemap sitemap;
-	@Inject private ProjectRepository projectRepo;
 	
 	/**
 	 * @return logical view name
 	 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String getDashboard(Model model) {
-		model.addAttribute(CollectionsUtil.asList(projectRepo.findAll()));
+		model.addAttribute(applicationService.findAll());
 		
 		// FIXME Need to add navigation so we can have a page title. Probably want to move addNavigation to Sitemap.
 //		return addNavigation(model, getDashboardId());
