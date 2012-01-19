@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.util;
+package org.skydingo.skybase.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;

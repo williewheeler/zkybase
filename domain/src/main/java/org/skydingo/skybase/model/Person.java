@@ -29,11 +29,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.Email;
 import org.neo4j.graphdb.Direction;
-import org.skydingo.skybase.model.relationship.ProjectMembership;
 import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.RelatedTo;
-import org.springframework.data.neo4j.annotation.RelatedToVia;
 import org.springframework.data.neo4j.support.index.IndexType;
 
 /**
@@ -66,9 +64,6 @@ public class Person extends AbstractEntity<Person> {
 	
 	@RelatedTo(type = "REPORTS_TO", direction = Direction.INCOMING)
 	private Set<Person> directReports;
-	
-	@RelatedToVia(type = "MEMBER_OF")
-	private Set<ProjectMembership> memberships;
 	
 	/**
 	 * Creates a new person.
@@ -207,26 +202,7 @@ public class Person extends AbstractEntity<Person> {
 	 * @param directReports
 	 */
 	public void setDirectReports(Set<Person> directReports) { this.directReports = directReports; }
-	
-	/**
-	 * @return
-	 */
-	@XmlTransient
-	public Iterable<ProjectMembership> getMemberships() { return memberships; }
-	
-	/**
-	 * Adds this person on as a member of the given project, with the given role.
-	 * 
-	 * @param project project
-	 * @param role role
-	 * @return membership
-	 */
-	public ProjectMembership memberOf(Project project, String role) {
-		ProjectMembership membership = new ProjectMembership(this, project, role);
-		memberships.add(membership);
-		return membership;
-	}
-	
+		
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.model.Entity#getDisplayName()
 	 */

@@ -51,7 +51,7 @@ public class RegionNoFormController extends AbstractEntityNoFormController<Regio
 	
 	public EntityService<Region> getService() { return service; }
 	
-	// So do this instead.
+	// Not using @ResponseBody. See AbstractEntityNoFormController.
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, params = "format=jit")
 	public void getDetailsAsJson(@PathVariable Long id, Model model, HttpServletResponse res) throws IOException {
 		Region region = doGetDetails(id, model);

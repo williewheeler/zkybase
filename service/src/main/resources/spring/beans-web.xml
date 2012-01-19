@@ -52,7 +52,7 @@
 	
 	<!-- JAXB -->
 	<!-- http://springinpractice.com/2011/12/29/its-back-the-classpathscanningjaxb2marshaller/ -->
-	<bean id="marshaller" class="org.skydingo.skybase.util.ClasspathScanningJaxb2Marshaller">
+	<bean id="marshaller" class="org.skydingo.skybase.oxm.ClasspathScanningJaxb2Marshaller">
 		<property name="basePackages">
 			<list>
 				<value>org.skydingo.skybase.integrations.github.model</value>
@@ -62,8 +62,6 @@
 	</bean>
 		
 	<!-- Jackson -->
-	<!-- FIXME This doesn't seem to be working for the Watcher avatar_url and gravatar_id properties. Why aren't they
-	     seeing the property name as defined by @XmlElement? -->
 	<bean id="jaxbAnnIntrospector" class="org.codehaus.jackson.xc.JaxbAnnotationIntrospector" />
 	<bean id="jacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper">
 		<property name="serializationConfig.annotationIntrospector" ref="jaxbAnnIntrospector" />
