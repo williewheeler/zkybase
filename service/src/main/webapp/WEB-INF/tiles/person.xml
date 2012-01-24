@@ -5,25 +5,66 @@
 
 <tiles-definitions>
 	
-	<!-- Person list -->
+	
+	<!-- =========================================================================================================== -->
+	<!-- Person list                                                                                                 -->
+	<!-- =========================================================================================================== -->
+	
 	<definition name="personList" extends="listPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/person/personList.jsp" />
 	</definition>
 	
-	<!-- Person details -->
-	<definition name="personDetails" extends="detailsPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/person/personDetails.jsp" />
+	
+	<!-- =========================================================================================================== -->
+	<!-- Person details                                                                                              -->
+	<!-- =========================================================================================================== -->
+	
+	<!-- Body template -->
+	<definition name="personDetailsBodyTemplate" extends="rightSidebarBodyTemplate">
+		<put-attribute name="sidebar" value="/WEB-INF/jsp/person/details/personMenu.jsp" />
 	</definition>
 	
-	<!-- Create person form -->
+	<!-- Overview -->
+	<definition name="personDetailsBody" extends="personDetailsBodyTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/person/details/personDetails.jsp" />
+	</definition>
+	<definition name="personDetails" extends="detailsPageTemplate">
+		<put-attribute name="content" value="personDetailsBody" />
+	</definition>
+	
+	<!-- Followers -->
+	<definition name="personScmFollowersBody" extends="personDetailsBodyTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/person/details/scm/personScmFollowers.jsp" />
+	</definition>
+	<definition name="personScmFollowers" extends="detailsPageTemplate">
+		<put-attribute name="content" value="personScmFollowersBody" />
+	</definition>
+	
+	<!-- Following -->
+	<definition name="personScmFollowingBody" extends="personDetailsBodyTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/person/details/scm/personScmFollowing.jsp" />
+	</definition>
+	<definition name="personScmFollowing" extends="detailsPageTemplate">
+		<put-attribute name="content" value="personScmFollowingBody" />
+	</definition>
+	
+	
+	<!-- =========================================================================================================== -->
+	<!-- Create person form                                                                                          -->
+	<!-- =========================================================================================================== -->
+	
 	<definition name="createPersonFormTile" template="/WEB-INF/jsp/person/personForm.jsp">
 		<put-attribute name="formMethod" value="post" />
 	</definition>
 	<definition name="createPersonForm" extends="createPageTemplate">
 		<put-attribute name="content" value="createPersonFormTile" />
 	</definition>
+	
+	
+	<!-- =========================================================================================================== -->
+	<!-- Edit person form                                                                                            -->
+	<!-- =========================================================================================================== -->
 
-	<!-- Edit person form -->
 	<definition name="editPersonFormTile" template="/WEB-INF/jsp/person/personForm.jsp">
 		<put-attribute name="formMethod" value="put" />
 	</definition>

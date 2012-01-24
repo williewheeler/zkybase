@@ -36,9 +36,6 @@
 	<!-- Use Spring Social for some of these -->
 <!-- 	<bean class="org.springframework.web.client.RestTemplate" /> -->
 	
-	<!-- This doesn't actually exist in Spring Social GitHub yet, but Craig asked me to help him implement the GitHub
-	     provider instead of implementing it all against the RestTemplate directly. This will exist if he accepts my
-	     pull request. -->
 	<bean class="org.springframework.social.github.api.impl.GitHubTemplate" />
 
 	<!-- I don't need user connections... -->

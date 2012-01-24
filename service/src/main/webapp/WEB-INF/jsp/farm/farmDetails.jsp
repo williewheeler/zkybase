@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div class="row">
 	<div class="span10">
@@ -22,7 +23,12 @@
 			</div>
 		</section>
 		<section>
-			<h2>Instances</h2>
+			<div>
+				<h2 style="display:inline">Instances (<c:out value="${fn:length(farm.instances)}" />)</h2>
+				<ul class="inlineLinks">
+					<li><a href="#"><span class="relate icon">Add instance</span></a></li>
+				</ul>
+			</div>
 			<p>TODO</p>
 		</section>
 	</div>

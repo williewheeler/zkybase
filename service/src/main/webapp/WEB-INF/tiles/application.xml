@@ -24,7 +24,7 @@
 		<put-attribute name="sidebar" value="/WEB-INF/jsp/application/details/applicationMenu.jsp" />
 	</definition>
 	
-	<!-- Overview page -->
+	<!-- Overview -->
 	<definition name="applicationDetailsBody" extends="applicationDetailsBodyTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/application/details/applicationDetails.jsp" />
 	</definition>
@@ -32,25 +32,33 @@
 		<put-attribute name="content" value="applicationDetailsBody" />
 	</definition>
 	
-	<!-- Collaborators page -->
+	<!-- SCM -->
+	<definition name="applicationScmBody" extends="applicationDetailsBodyTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScm.jsp" />
+	</definition>
+	<definition name="applicationScm" extends="detailsPageTemplate">
+		<put-attribute name="content" value="applicationScmBody" />
+	</definition>
+	
+	<!-- SCM collaborators -->
 	<definition name="applicationScmCollaboratorsBody" extends="applicationDetailsBodyTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/details/applicationScmCollaborators.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScmCollaborators.jsp" />
 	</definition>
 	<definition name="applicationScmCollaborators" extends="detailsPageTemplate">
 		<put-attribute name="content" value="applicationScmCollaboratorsBody" />
 	</definition>
 	
-	<!-- Commits page -->
+	<!-- SCM commits -->
 	<definition name="applicationScmCommitsBody" extends="applicationDetailsBodyTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/details/applicationScmCommits.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScmCommits.jsp" />
 	</definition>
 	<definition name="applicationScmCommits" extends="detailsPageTemplate">
 		<put-attribute name="content" value="applicationScmCommitsBody" />
 	</definition>
 	
-	<!-- Watchers page -->
+	<!-- SCM watchers -->
 	<definition name="applicationScmWatchersBody" extends="applicationDetailsBodyTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/details/applicationScmWatchers.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScmWatchers.jsp" />
 	</definition>
 	<definition name="applicationScmWatchers" extends="detailsPageTemplate">
 		<put-attribute name="content" value="applicationScmWatchersBody" />

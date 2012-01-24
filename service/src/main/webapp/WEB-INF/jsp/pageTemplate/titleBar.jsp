@@ -5,7 +5,7 @@
 <div id="titleBar">
 	<div class="row">
 		<div class="span12">
-			<h1 style="display:inline"><c:out value="${navigation.currentNode.name}" /></h1>
+			<h1 style="display:inline"><c:out value="${navigation.pageTitle}" /></h1>
 			<tiles:insertAttribute name="viewLinks" />
 		</div>
 		<div class="span4" style="text-align:right">

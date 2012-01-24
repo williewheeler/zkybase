@@ -74,6 +74,15 @@
 				</form:errors>
 			</div>
 		</div>
+		<div class="clearfix">
+			<label for="gitHubUser">GitHub user:</label>
+			<div class="input">
+				<form:input type="text" path="gitHubUser" cssClass="span4" />
+				<form:errors path="gitHubUser">
+					<span class="help-inline"><span class="error icon"><form:errors path="email" /></span></span>
+				</form:errors>
+			</div>
+		</div>
 		<div class="row actions">
 			<input class="btn primary" type="submit" value="Save" />
 			<a class="btn" href="${cancelUrl}">Cancel</a>

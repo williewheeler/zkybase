@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.controller.form;
+package org.skydingo.skybase.web.controller.application;
 
 import javax.inject.Inject;
 
@@ -34,7 +34,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/applications")
 public class ApplicationFormController extends AbstractEntityFormController<Application> {
-	private static final String[] ALLOWED_FIELDS = new String[] { "name", "shortDescription" };
+	private static final String[] ALLOWED_FIELDS = new String[] {
+		"name", "shortDescription", "scm.user", "scm.repo"
+	};
 	
 	@Inject private ApplicationRepository repository;
 	@Inject private ApplicationService service;

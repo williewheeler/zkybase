@@ -78,16 +78,16 @@ public class PersonNoFormController extends AbstractEntityNoFormController<Perso
 		model.addAttribute("directReports", directReports);
 		
 		// FIXME Hardcode, plus this is generating test errors
-//		List<GitHubUser> followers = gitHub.userOperations().getFollowers("williewheeler");
-//		List<List<GitHubUser>> followerRows = WebUtil.toRows(followers, 3);
-//		model.addAttribute("followerList", followers);
-//		model.addAttribute("followerRows", followerRows);
+		List<GitHubUser> followers = gitHub.userOperations().getFollowers("williewheeler");
+		List<List<GitHubUser>> followerRows = WebUtil.toRows(followers, 3);
+		model.addAttribute("followerList", followers);
+		model.addAttribute("followerRows", followerRows);
 		
 		// FIXME Hardcode, plus this is generating test errors
-//		List<GitHubUser> following = gitHub.userOperations().getFollowing("williewheeler");
-//		List<List<GitHubUser>> followingRows = WebUtil.toRows(following, 3);
-//		model.addAttribute("followingList", following);
-//		model.addAttribute("followingRows", followingRows);
+		List<GitHubUser> following = gitHub.userOperations().getFollowing("williewheeler");
+		List<List<GitHubUser>> followingRows = WebUtil.toRows(following, 3);
+		model.addAttribute("followingList", following);
+		model.addAttribute("followingRows", followingRows);
 		
 		return person;
 	}

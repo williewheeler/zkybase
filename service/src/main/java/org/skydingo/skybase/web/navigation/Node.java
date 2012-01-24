@@ -1,5 +1,5 @@
 /* 
- * NavigationNode.java
+ * Node.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -20,25 +20,51 @@ package org.skydingo.skybase.web.navigation;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public class Node {
+	private static final Logger log = LoggerFactory.getLogger(Node.class);
+	
 	private String id;
 	private String name;
+	private boolean useNameAsPageTitle;
 	private String path;
 	private Node parent;
 	private final List<Node> children = new ArrayList<Node>();
 	
 	public Node(String id, String name, String path) {
+		this(id, name, true, path);
+	}
+	
+	public Node(String id, String name, boolean useNameAsPageTitle, String path) {
 		this.id = id;
 		this.name = name;
+		this.useNameAsPageTitle = useNameAsPageTitle;
 		this.path = path;
 	}
 	
 	public String getId() { return id; }
 	
 	public String getName() { return name; }
+	
+	public boolean getUseNameAsPageTitle() { return useNameAsPageTitle; }
+	
+	public void setUseNameAsPageTitle(boolean flag) { this.useNameAsPageTitle = flag; }
+	
+	public String getPageTitle() {
+		Node node = this;
+		while (!(node == null || node.getUseNameAsPageTitle())) {
+			log.debug("Not using as page title: {}", node);
+			node = node.getParent();
+		}
+		String pageTitle = (node.getUseNameAsPageTitle() ? node.getName() : null);
+		log.debug("pageTitle={}", pageTitle);
+		return pageTitle;
+	}
 	
 	public String getPath() { return path; }
 	
@@ -75,5 +101,14 @@ public class Node {
 			parent.doGetBreadcrumbs(breadcrumbs);
 		}
 		breadcrumbs.add(this);
+	}
+	
+	@Override
+	public String toString() {
+		return "[Node: id=" + id
+				+ ", name=" + name
+				+ ", useNameAsPageTitle=" + useNameAsPageTitle
+				+ ", path=" + path
+				+ "]";
 	}
 }

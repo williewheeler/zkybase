@@ -15,16 +15,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.controller.noform;
+package org.skydingo.skybase.web.controller.person;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
 
 import org.mockito.Mock;
 import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.service.PersonService;
 import org.skydingo.skybase.web.controller.AbstractEntityNoFormControllerTests;
+import org.springframework.social.github.api.GitHub;
+import org.springframework.social.github.api.GitHubUser;
+import org.springframework.social.github.api.UserOperations;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -34,6 +40,8 @@ public class PersonNoFormControllerTests extends AbstractEntityNoFormControllerT
 	// Dependencies
 	@Mock private PersonRepository personRepo;
 	@Mock private PersonService personService;
+	@Mock private GitHub gitHub;
+	@Mock private UserOperations userOperations;
 	
 	// Test objects
 	@Mock private Person person;
@@ -44,5 +52,8 @@ public class PersonNoFormControllerTests extends AbstractEntityNoFormControllerT
 	@Override
 	protected void doSetUp() throws Exception {
 		when(personService.findPersonDetails((Long) any())).thenReturn(person);
+		when(gitHub.userOperations()).thenReturn(userOperations);
+		when(userOperations.getFollowers(anyString())).thenReturn(new ArrayList<GitHubUser>());
+		when(userOperations.getFollowing(anyString())).thenReturn(new ArrayList<GitHubUser>());
 	}
 }

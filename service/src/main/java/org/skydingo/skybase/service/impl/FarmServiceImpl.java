@@ -25,6 +25,7 @@ import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.model.Farm;
+import org.skydingo.skybase.model.Instance;
 import org.skydingo.skybase.repository.FarmRepository;
 import org.skydingo.skybase.service.FarmService;
 import org.skydingo.skybase.util.CollectionsUtil;
@@ -44,5 +45,21 @@ public class FarmServiceImpl extends AbstractEntityServiceImpl<Farm> implements 
 	public List<Farm> findByEnvironment(Environment environment) {
 		notNull(environment);
 		return CollectionsUtil.asSortedList(farmRepo.findByEnvironment(environment));
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImpl#findOne(java.lang.Long)
+	 */
+	@Override
+	public Farm findOne(Long id) {
+		notNull(id);
+		
+		// See http://springinpractice.com/2011/12/28/initializing-lazy-loaded-collections-with-spring-data-neo4j/
+		Farm farm = super.findOne(id);
+		Iterable<Instance> instances = farm.getInstances();
+		for (Instance instance : instances) {
+			neo4jTemplate.fetch(instance);
+		}
+		return farm;
 	}
 }

@@ -65,6 +65,9 @@ public class Person extends AbstractEntity<Person> {
 	@RelatedTo(type = "REPORTS_TO", direction = Direction.INCOMING)
 	private Set<Person> directReports;
 	
+	// FIXME Temporarily hardcoding GitHub in here.
+	private String gitHubUser;
+	
 	/**
 	 * Creates a new person.
 	 */
@@ -202,7 +205,19 @@ public class Person extends AbstractEntity<Person> {
 	 * @param directReports
 	 */
 	public void setDirectReports(Set<Person> directReports) { this.directReports = directReports; }
-		
+	
+	/**
+	 * @return
+	 */
+	@Size(max = 40)
+	@XmlElement
+	public String getGitHubUser() { return gitHubUser; }
+	
+	/**
+	 * @param gitHubUser
+	 */
+	public void setGitHubUser(String gitHubUser) { this.gitHubUser = gitHubUser; }
+	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.model.Entity#getDisplayName()
 	 */
@@ -215,11 +230,16 @@ public class Person extends AbstractEntity<Person> {
 	 */
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) { return true; }
-		if (o == null || getClass() != o.getClass()) { return false; }
-		Person that = (Person) o;
-		if (getId() == null) { return super.equals(o); }
-		return getId().equals(that.getId());
+		if (this == o) {
+			return true;
+		} else if (o == null || getClass() != o.getClass()) {
+			return false;
+		} else if (getId() == null) {
+			return super.equals(o);
+		} else {
+			Person that = (Person) o;
+			return getId().equals(that.getId());
+		}
 	}
 
 	/* (non-Javadoc)

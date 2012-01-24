@@ -20,11 +20,14 @@ package org.skydingo.skybase.service.impl;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.skydingo.skybase.model.Farm;
+import org.skydingo.skybase.model.Instance;
 import org.skydingo.skybase.repository.FarmRepository;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
@@ -56,5 +59,6 @@ public class FarmServiceImplTests extends AbstractEntityServiceImplTests<Farm> {
 		this.farmService = new FarmServiceImpl();
 		MockitoAnnotations.initMocks(this);
 		when(farmRepo.findOne(anyLong())).thenReturn(farm);
+		when(farm.getInstances()).thenReturn(new ArrayList<Instance>());
 	}
 }

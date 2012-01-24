@@ -2,16 +2,18 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:set var="applicationPath" value="/applications/${application.id}" />
+<c:set var="scmPath" value="${applicationPath}/scm" />
 
 <c:url var="overviewUrl" value="${applicationPath}" />
-<c:url var="collaboratorsUrl" value="${applicationPath}/collaborators" />
-<c:url var="commitsUrl" value="${applicationPath}/commits" />
-<c:url var="watchersUrl" value="${applicationPath}/watchers" />
+<c:url var="scmUrl" value="${scmPath}" />
+<c:url var="collaboratorsUrl" value="${scmPath}/collaborators" />
+<c:url var="commitsUrl" value="${scmPath}/commits" />
+<c:url var="watchersUrl" value="${scmPath}/watchers" />
 
 <div class="sideMenu">
 	<ul>
 		<li><a href="${overviewUrl}">Overview</a></li>
-		<li><span class="group">SCM</span>
+		<li><a href="${scmUrl}">SCM</a>
 			<ul>
 				<li><a href="${collaboratorsUrl}">Collaborators</a></li>
 				<li><a href="${commitsUrl}">Commits</a></li>

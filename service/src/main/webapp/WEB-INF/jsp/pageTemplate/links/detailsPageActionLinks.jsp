@@ -2,6 +2,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <c:set var="entityName" value="${navigation.currentNode.name}" />
+
+<%-- FIXME The path to the entity is not necessarily the current node's path. See, e.g., person SCM. --%>
 <c:set var="entityPath" value="${navigation.currentNode.path}" />
 
 <c:url var="entityUrl" value="${entityPath}" />

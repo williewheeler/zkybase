@@ -19,6 +19,7 @@ package org.skydingo.skybase.model;
 
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
@@ -26,13 +27,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
+ * Application entity.
+ * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
-@XmlType(propOrder = { "name", "shortDescription" })
+@XmlType(propOrder = { "name", "shortDescription", "scm" })
 public class Application extends AbstractEntity<Application> {
+	
+	// FIXME Temporary
+	private static final GitHubScm SKYBASE_SCM = new GitHubScm("williewheeler", "skybase");
+	
 	private String name;
 	private String shortDescription;
+	private GitHubScm scm;
 	
 	public Application() { }
 	
@@ -62,6 +70,21 @@ public class Application extends AbstractEntity<Application> {
 	 * @param shortDescription
 	 */
 	public void setShortDescription(String shortDescription) { this.shortDescription = shortDescription; }
+	
+	/**
+	 * @return
+	 */
+	@Valid
+	@XmlElement
+	public GitHubScm getScm() {
+		// FIXME Temporary
+		return SKYBASE_SCM;
+	}
+	
+	/**
+	 * @param scm
+	 */
+	public void setScm(GitHubScm scm) { this.scm = scm; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.model.Entity#getDisplayName()

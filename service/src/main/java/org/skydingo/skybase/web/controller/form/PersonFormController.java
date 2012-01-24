@@ -34,8 +34,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/people")
 public class PersonFormController extends AbstractEntityFormController<Person> {
-	private static final String[] ALLOWED_FIELDS =
-		new String[] { "username", "firstName", "lastName", "title", "workPhone", "mobilePhone", "email" };
+	private static final String[] ALLOWED_FIELDS = new String[] {
+		"username", "firstName", "lastName", "title", "workPhone", "mobilePhone", "email", "gitHubUser"
+	};
 	
 	@Inject private PersonRepository personRepo;
 	@Inject private PersonService personService;

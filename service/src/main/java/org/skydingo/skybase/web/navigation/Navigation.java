@@ -26,6 +26,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Page navigation.
+ * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public class Navigation {
@@ -46,9 +48,10 @@ public class Navigation {
 		notNull(sitemapNode, "sitemapNode can't be null. Add relevant nodes to Sitemap.");
 		log.debug("Building navigation node: {}", sitemapNode.getId());
 		Node node = new Node(
-			sitemapNode.getId(),
-			sitemap.resolve(sitemapNode.getName(), context),
-			sitemap.resolve(sitemapNode.getPath(), context));
+				sitemapNode.getId(),
+				sitemap.resolve(sitemapNode.getName(), context),
+				sitemapNode.getUseNameAsPageTitle(),
+				sitemap.resolve(sitemapNode.getPath(), context));
 		if (sitemapNode.hasParent()) {
 			buildNavigationNode(sitemapNode.getParent()).addChild(node);
 		}
@@ -56,6 +59,8 @@ public class Navigation {
 	}
 	
 	public Node getCurrentNode() { return currentNode; }
+	
+	public String getPageTitle() { return currentNode.getPageTitle(); }
 	
 	public String getCurrentArea() { return currentNode.getCurrentArea(); }
 	

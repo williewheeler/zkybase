@@ -1,5 +1,5 @@
 /* 
- * ApplicationNoFormController.java
+ * ApplicationScmController.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,23 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.controller.noform;
+package org.skydingo.skybase.web.controller.application;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Application;
+import org.skydingo.skybase.model.GitHubScm;
 import org.skydingo.skybase.repository.ApplicationRepository;
-import org.skydingo.skybase.repository.FarmRepository;
 import org.skydingo.skybase.service.ApplicationService;
-import org.skydingo.skybase.service.EntityService;
-import org.skydingo.skybase.util.CollectionsUtil;
-import org.skydingo.skybase.web.controller.AbstractEntityNoFormController;
+import org.skydingo.skybase.web.controller.AbstractEntityController;
 import org.skydingo.skybase.web.controller.WebUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.social.github.api.GitHub;
 import org.springframework.social.github.api.GitHubCommit;
 import org.springframework.social.github.api.GitHubUser;
@@ -46,31 +41,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping("/applications")
-public class ApplicationNoFormController extends AbstractEntityNoFormController<Application> {
-	private static final Logger log = LoggerFactory.getLogger(ApplicationNoFormController.class);
-	
-	private static final String USER = "williewheeler";
-	private static final String REPO = "skybase";
-	
+public class ApplicationScmController extends AbstractEntityController<Application> {
 	@Inject private ApplicationRepository applicationRepository;
 	@Inject private ApplicationService applicationService;
-	@Inject private FarmRepository farmRepository;
 	@Inject private GitHub gitHub;
 	
-	public GraphRepository<Application> getRepository() { return applicationRepository; }
-	
-	public EntityService<Application> getService() { return applicationService; }
-	
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.web.controller.AbstractEntityNoFormController#doGetDetails(java.lang.Long, org.springframework.ui.Model)
+	/**
+	 * @param id application ID
+	 * @param model model
+	 * @return logical view name
 	 */
-	@Override
-	protected Application doGetDetails(Long id, Model model) {
-		log.debug("Finding application");
-		Application app = getService().findOne(id);
-		log.debug("Finding farms");
-		model.addAttribute(CollectionsUtil.asSortedList(farmRepository.findByApplication(app)));
-		return app;
+	@RequestMapping(value = "/{id}/scm", method = RequestMethod.GET)
+	public String getScm(@PathVariable Long id, Model model) {
+		Application app = applicationService.findOneWithScm(id);
+		model.addAttribute(app);
+		model.addAttribute("entity", app);
+		return addNavigation(model, "applicationScm");
 	}
 	
 	/**
@@ -78,12 +64,18 @@ public class ApplicationNoFormController extends AbstractEntityNoFormController<
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/{id}/collaborators", method = RequestMethod.GET)
-	public String getScmCollaboratorsPage(@PathVariable Long id, Model model) {
+	@RequestMapping(value = "/{id}/scm/collaborators", method = RequestMethod.GET)
+	public String getCollaborators(@PathVariable Long id, Model model) {
 		Application app = applicationRepository.findOne(id);
 		
-		// FIXME Currently assuming that the project is a GitHub project, which of course we don't want to do.
-		List<GitHubUser> collaborators = gitHub.repoOperations().getCollaborators(USER, REPO);
+		// FIXME Currently assuming GitHub.
+		GitHubScm scm = (GitHubScm) app.getScm();
+		
+		// TODO Would like to put this inside GitHubScm, but don't want to use Spring Social GitHub as the data model
+		// here since that is intended more for data transfer. We need to control the OJM/OXM here, and don't want
+		// changes to the Spring Social GitHub API to produce changes to our web service API. But I'm not necessarily
+		// excited about implementing that entire data model here. Considering options.
+		List<GitHubUser> collaborators = gitHub.repoOperations().getCollaborators(scm.getUser(), scm.getRepo());
 		List<List<GitHubUser>> collaboratorRows = WebUtil.toRows(collaborators, 3);
 		
 		model.addAttribute(app);
@@ -99,12 +91,13 @@ public class ApplicationNoFormController extends AbstractEntityNoFormController<
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/{id}/commits", method = RequestMethod.GET)
-	public String getScmCommitsPage(@PathVariable Long id, Model model) {
+	@RequestMapping(value = "/{id}/scm/commits", method = RequestMethod.GET)
+	public String getCommits(@PathVariable Long id, Model model) {
 		Application app = applicationRepository.findOne(id);
 		
-		// FIXME Currently assuming that the project is a GitHub project, which of course we don't want to do.
-		List<GitHubCommit> commits = gitHub.repoOperations().getCommits(USER, REPO);
+		// FIXME Currently assuming GitHub.
+		GitHubScm scm = (GitHubScm) app.getScm();
+		List<GitHubCommit> commits = gitHub.repoOperations().getCommits(scm.getUser(), scm.getRepo());
 		
 		model.addAttribute(app);
 		model.addAttribute("entity", app);
@@ -118,12 +111,15 @@ public class ApplicationNoFormController extends AbstractEntityNoFormController<
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/{id}/watchers", method = RequestMethod.GET)
-	public String getScmWatchersPage(@PathVariable Long id, Model model) {
+	@RequestMapping(value = "/{id}/scm/watchers", method = RequestMethod.GET)
+	public String getWatchers(@PathVariable Long id, Model model) {
 		Application app = applicationRepository.findOne(id);
 		
-		// FIXME Currently assuming that the project is a GitHub project, which of course we don't want to do.
-		List<GitHubUser> watchers = gitHub.repoOperations().getWatchers(USER, REPO);
+		// FIXME Currently assuming GitHub.
+		GitHubScm scm = (GitHubScm) app.getScm();
+		String user = scm.getUser();
+		String repo = scm.getRepo();
+		List<GitHubUser> watchers = gitHub.repoOperations().getWatchers(user, repo);
 		List<List<GitHubUser>> watcherRows = WebUtil.toRows(watchers, 3);
 		
 		model.addAttribute(app);

@@ -26,8 +26,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.skydingo.skybase.model.Entity;
 import org.skydingo.skybase.model.ListWrapper;
+import org.skydingo.skybase.service.EntityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +41,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 public abstract class AbstractEntityNoFormController<T extends Entity<T>> extends AbstractEntityController<T> {
 	private static final Logger log = LoggerFactory.getLogger(AbstractEntityNoFormController.class);
+	
+	public abstract GraphRepository<T> getRepository();
+	
+	public abstract EntityService<T> getService();
 	
 	
 	// =================================================================================================================

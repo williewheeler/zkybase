@@ -1,5 +1,5 @@
 /* 
- * ApplicationService.java
+ * ApplicationFormatter.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,20 +15,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.service;
+package org.skydingo.skybase.formatter;
 
 import org.skydingo.skybase.model.Application;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface ApplicationService extends EntityService<Application> {
-	
-	Application findOneWithScm(Long id);
-	
-	Application findOneWithCollaborators(Long id);
-	
-	Application findOneWithCommits(Long id);
-	
-	Application findOneWithWatchers(Long id);
+@Component
+public class ApplicationFormatter extends EntityFormatter<Application> {
+
+	public ApplicationFormatter() { super(Application.class); }
+
 }

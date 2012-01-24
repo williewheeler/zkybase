@@ -20,9 +20,11 @@ package org.skydingo.skybase.web.controller;
 import javax.validation.Valid;
 
 import org.skydingo.skybase.model.Entity;
+import org.skydingo.skybase.service.EntityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -46,6 +48,10 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 	public static final String MK_CANCEL_PATH = "cancelPath";
 	
 	private static final Logger log = LoggerFactory.getLogger(AbstractEntityFormController.class);
+	
+	public abstract GraphRepository<T> getRepository();
+	
+	public abstract EntityService<T> getService();
 	
 	/**
 	 * @param binder binder

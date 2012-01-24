@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.controller.form;
+package org.skydingo.skybase.web.controller.person;
 
 import org.mockito.Mock;
 import org.skydingo.skybase.model.Person;
@@ -24,6 +24,7 @@ import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.service.PersonService;
 import org.skydingo.skybase.web.controller.AbstractEntityFormController;
 import org.skydingo.skybase.web.controller.AbstractEntityFormControllerTests;
+import org.skydingo.skybase.web.controller.form.PersonFormController;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**

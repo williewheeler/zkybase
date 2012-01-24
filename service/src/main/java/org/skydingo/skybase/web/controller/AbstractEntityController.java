@@ -23,18 +23,16 @@ import javax.inject.Inject;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.skydingo.skybase.model.Entity;
-import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.web.navigation.Navigation;
 import org.skydingo.skybase.web.navigation.Paths;
 import org.skydingo.skybase.web.navigation.Sitemap;
 import org.skydingo.skybase.web.view.ViewNames;
-import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.ui.Model;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-abstract class AbstractEntityController<T extends Entity<T>> {
+public abstract class AbstractEntityController<T extends Entity<T>> {
 	@Inject protected Paths paths;
 	@Inject protected Sitemap sitemap;
 	@Inject protected ViewNames viewNames;
@@ -42,10 +40,6 @@ abstract class AbstractEntityController<T extends Entity<T>> {
 	
 	// IMPORTANT: Only getEntityClass() should access this directly!
 	private Class<T> entityClass;
-	
-	public abstract GraphRepository<T> getRepository();
-	
-	public abstract EntityService<T> getService();
 	
 	/**
 	 * @return

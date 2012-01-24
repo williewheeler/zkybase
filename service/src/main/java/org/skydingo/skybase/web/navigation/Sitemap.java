@@ -67,39 +67,53 @@ public class Sitemap {
 		buildCrudNodes(Region.class, dashboard);
 		
 		buildApplicationNodes();
+		buildPersonNodes();
 	}
 	
 	private void buildCrudNodes(Class<?> entityClass, Node dashboard) {
 		String simpleName = entityClass.getSimpleName();
 		String uncapSimpleName = StringUtils.uncapitalize(simpleName);
 		
+		// List node
 		String listTitleCode = "entity." + uncapSimpleName + ".sentenceCase.plural";
 		log.debug("Looking up message code: {}", listTitleCode);
 		String listTitle = wrap(messageSource.getMessage(listTitleCode, null, null));
 		String listPath = wrap(paths.getListPath(entityClass));
+		Node listNode = buildNode(getEntityListViewId(entityClass), listTitle, listPath, dashboard);
 		
+		// Create node
 		String createTitleCode = "entity." + uncapSimpleName + ".lowercase.singular";
 		log.debug("Looking up message code: {}", createTitleCode);
 		String createTitle = wrap("Create " + messageSource.getMessage(createTitleCode, null, null));
 		String createPath = wrap(paths.getCreateFormPath(entityClass));
+		buildNode(getCreateFormId(entityClass), createTitle, createPath, listNode);
 		
+		// Details node
 		String detailsTitle = "#this[entity].displayName";
 		String detailsPath = listPath + " + '/' + #this[entity].id";
+		Node detailsNode = buildNode(getEntityDetailsViewId(entityClass), detailsTitle, detailsPath, listNode);
 		
+		// Edit node
 		String editTitle = "'Edit ' + #this[entity].displayName";
 		String editPath = detailsPath + " + '/edit'";
-		
-		Node listNode = buildNode(getEntityListViewId(entityClass), listTitle, listPath, dashboard);
-		Node detailsNode = buildNode(getEntityDetailsViewId(entityClass), detailsTitle, detailsPath, listNode);
-		buildNode(getCreateFormId(entityClass), createTitle, createPath, listNode);
 		buildNode(getEditFormId(entityClass), editTitle, editPath, detailsNode);
 	}
 	
 	private void buildApplicationNodes() {
-		Node appDetailsNode = getNode("applicationDetails");
-		buildNode("applicationScmCollaborators", appDetailsNode.getName(), appDetailsNode.getPath(), appDetailsNode);
-		buildNode("applicationScmCommits", appDetailsNode.getName(), appDetailsNode.getPath(), appDetailsNode);
-		buildNode("applicationScmWatchers", appDetailsNode.getName(), appDetailsNode.getPath(), appDetailsNode);
+		Node appNode = getNode("applicationDetails");
+		String scmPath = appNode.getPath() + " + '/scm'";
+		Node scmNode = buildNode("applicationScm", "'SCM'", false, scmPath, appNode);
+		buildNode("applicationScmCollaborators", "'Collaborators'", false, scmPath + " + '/collaborators'", scmNode);
+		buildNode("applicationScmCommits", "'Commits'", false, scmPath + " + '/commits'", scmNode);
+		buildNode("applicationScmWatchers", "'Watchers'", false, scmPath + " + '/watchers'", scmNode);
+	}
+	
+	private void buildPersonNodes() {
+		Node personNode = getNode("personDetails");
+		String scmPath = personNode.getPath() + " + '/scm'";
+		Node scmNode = buildNode("personScm", "'SCM'", false, scmPath, personNode);
+		buildNode("personScmFollowers", "'Followers'", false, scmPath + " + '/followers'", scmNode);
+		buildNode("personScmFollowing", "'Following'", false, scmPath + " + '/following'", scmNode);
 	}
 	
 	/**
@@ -110,7 +124,12 @@ public class Sitemap {
 	private String wrap(String path) { return "'" + StringUtils.replace(path, "'", "''") + "'"; }
 	
 	private Node buildNode(String id, String name, String path, Node parent) {
-		Node node = new Node(id, name, path);
+		return buildNode(id, name, true, path, parent);
+	}
+	
+	private Node buildNode(String id, String name, boolean useNameAsPageTitle, String path, Node parent) {
+		Node node = new Node(id, name, useNameAsPageTitle, path);
+		log.debug("Built node: {}", node);
 		if (parent != null) { parent.addChild(node); }
 		nodes.put(id, node);
 		return node;

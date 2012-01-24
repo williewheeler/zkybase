@@ -31,6 +31,7 @@ import org.skydingo.skybase.util.CollectionsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.neo4j.repository.GraphRepository;
+import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 
@@ -40,6 +41,8 @@ import org.springframework.validation.Errors;
 @Transactional
 public abstract class AbstractEntityServiceImpl<T extends Entity<T>> implements EntityService<T> {
 	private static final Logger log = LoggerFactory.getLogger(AbstractEntityServiceImpl.class);
+	
+	@Inject protected Neo4jTemplate neo4jTemplate;
 	
 	// IMPORTANT: Only getEntityClass() should access this directly!
 	private Class<T> entityClass;
