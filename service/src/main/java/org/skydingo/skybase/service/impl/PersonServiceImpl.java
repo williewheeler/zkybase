@@ -1,14 +1,14 @@
-/* 
+/*
  * PersonServiceImpl.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,7 +47,7 @@ public class PersonServiceImpl extends AbstractEntityServiceImpl<Person> impleme
 			personRepo.save(person);
 		}
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.PersonService#findPersonDetails(java.lang.Long)
 	 */
@@ -55,7 +55,7 @@ public class PersonServiceImpl extends AbstractEntityServiceImpl<Person> impleme
 	public Person findPersonDetails(Long id) {
 		notNull(id);
 		Person person = personRepo.findOne(id);
-		
+
 		// For now this is how you do it.
 		// http://stackoverflow.com/questions/8218864/fetch-annotation-in-sdg-2-0-fetching-strategy-questions
 		// http://springinpractice.com/2011/12/28/initializing-lazy-loaded-collections-with-spring-data-neo4j/
@@ -63,7 +63,7 @@ public class PersonServiceImpl extends AbstractEntityServiceImpl<Person> impleme
 		for (Person report : reports) {
 			template.fetch(report);
 		}
-		
+
 		return person;
 	}
 

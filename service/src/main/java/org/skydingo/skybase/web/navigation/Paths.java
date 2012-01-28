@@ -1,14 +1,14 @@
-/* 
+/*
  * Paths.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +35,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Paths {
 	private Map<Class<?>, String> basePaths = new HashMap<Class<?>, String>();
-	
+
 	public Paths() {
 		basePaths.put(Application.class, "/applications");
 		basePaths.put(DataCenter.class, "/datacenters");
@@ -45,31 +45,31 @@ public class Paths {
 		basePaths.put(Person.class, "/people");
 		basePaths.put(Region.class, "/regions");
 	}
-	
+
 	public String getBasePath(Class<?> entityClass) {
 		return basePaths.get(entityClass);
 	}
-	
+
 	public String getListPath(Class<?> entityClass) {
 		return getBasePath(entityClass);
 	}
-	
+
 	public String getDetailsPath(Class<?> entityClass, Long id) {
 		return getBasePath(entityClass) + "/" + id;
 	}
-	
+
 	public String getCreateFormPath(Class<?> entityClass) {
 		return getBasePath(entityClass) + "/new";
 	}
-	
+
 	public String getSubmitCreateFormPath(Class<?> entityClass) {
 		return getBasePath(entityClass);
 	}
-	
+
 	public String getEditFormPath(Class<?> entityClass, Long id) {
 		return getDetailsPath(entityClass, id) + "/edit";
 	}
-	
+
 	public String getSubmitEditFormPath(Class<?> entityClass, Long id) {
 		return getDetailsPath(entityClass, id);
 	}

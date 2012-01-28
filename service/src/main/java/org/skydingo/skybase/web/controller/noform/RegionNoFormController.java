@@ -1,14 +1,14 @@
-/* 
+/*
  * RegionNoFormController.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -46,20 +46,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class RegionNoFormController extends AbstractEntityNoFormController<Region> {
 	@Inject private RegionRepository repository;
 	@Inject private RegionService service;
-	
+
 	public GraphRepository<Region> getRepository() { return repository; }
-	
+
 	public EntityService<Region> getService() { return service; }
-	
+
 	// Not using @ResponseBody. See AbstractEntityNoFormController.
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, params = "format=jit")
 	public void getDetailsAsJson(@PathVariable Long id, Model model, HttpServletResponse res) throws IOException {
 		Region region = doGetDetails(id, model);
-		
+
 		JitNode regionNode = new JitNode();
 		regionNode.setId(region.getId().toString());
 		regionNode.setName(region.getName());
-		
+
 		Set<DataCenter> dataCenters = region.getDataCenters();
 		Set<JitNode> dataCenterNodes = new HashSet<JitNode>();
 		for (DataCenter dataCenter : dataCenters) {
@@ -67,7 +67,7 @@ public class RegionNoFormController extends AbstractEntityNoFormController<Regio
 			dataCenterNode.setId(dataCenter.getId().toString());
 			dataCenterNode.setName(dataCenter.getName());
 			dataCenterNodes.add(dataCenterNode);
-			
+
 			Set<JitNode> farmNodes = new HashSet<JitNode>();
 			for (int i = 0; i < 8; i++) {
 				JitNode farmNode = new JitNode();
@@ -78,7 +78,7 @@ public class RegionNoFormController extends AbstractEntityNoFormController<Regio
 			dataCenterNode.setChildren(farmNodes);
 		}
 		regionNode.setChildren(dataCenterNodes);
-		
+
 		objectMapper.writeValue(res.getWriter(), regionNode);
 	}
 }

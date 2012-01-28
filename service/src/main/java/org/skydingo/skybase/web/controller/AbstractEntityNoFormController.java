@@ -1,14 +1,14 @@
-/* 
+/*
  * AbstractEntityNoFormController.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,16 +41,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 public abstract class AbstractEntityNoFormController<T extends Entity<T>> extends AbstractEntityController<T> {
 	private static final Logger log = LoggerFactory.getLogger(AbstractEntityNoFormController.class);
-	
+
 	public abstract GraphRepository<T> getRepository();
-	
+
 	public abstract EntityService<T> getService();
-	
-	
+
+
 	// =================================================================================================================
 	// Read
 	// =================================================================================================================
-	
+
 	/**
 	 * @param model
 	 * @return
@@ -58,9 +58,9 @@ public abstract class AbstractEntityNoFormController<T extends Entity<T>> extend
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String getList(Model model) {
 		model.addAttribute(getSortedList());
-		return addNavigation(model, sitemap.getEntityListViewId(getEntityClass())); 
+		return addNavigation(model, sitemap.getEntityListViewId(getEntityClass()));
 	}
-	
+
 	// This one doesn't work correctly. Not sure exactly what the problem is, but basically the object mapper doesn't
 	// seem to be using the JAXB annotations to serialize the output here.
 //	@RequestMapping(value = "", method = RequestMethod.GET, params = "format=json")
@@ -69,14 +69,14 @@ public abstract class AbstractEntityNoFormController<T extends Entity<T>> extend
 //		log.debug("Getting list as JSON");
 //		return getSortedList();
 //	}
-	
+
 	// But in this case the object mapper *does* respect the JAXB annotations. Weird.
 	@RequestMapping(value = "", method = RequestMethod.GET, params = "format=json")
 	public void getListAsJson(HttpServletResponse res) throws IOException {
 		log.debug("Getting list as JSON");
 		objectMapper.writeValue(res.getWriter(), getSortedList());
 	}
-	
+
 	/**
 	 * @param model
 	 */
@@ -85,23 +85,23 @@ public abstract class AbstractEntityNoFormController<T extends Entity<T>> extend
 	@ResponseBody
 	public ListWrapper<T> getListAsXml(Model model) throws Exception {
 		log.debug("Getting list as XML");
-		
+
 		// IMPORTANT: We can't access entityClass directly (need to call getEntityClass() to guarantee initialization)
 		Class<T> eClass = getEntityClass();
 		String wrapperClassName = eClass.getName() + "$" + eClass.getSimpleName() + "ListWrapper";
 		Class<ListWrapper<T>> wrapperClass = (Class<ListWrapper<T>>) Class.forName(wrapperClassName);
 		ListWrapper<T> wrapper = wrapperClass.newInstance();
 		wrapper.setList(getSortedList());
-		
+
 		// Let's use an HTTP message converter here instead of a view. Cleaner.
 //		model.addAttribute(wrapper);
 		return wrapper;
 	}
-	
+
 	private List<T> getSortedList() {
 		return getService().findAll();
 	}
-	
+
 	/**
 	 * @param id
 	 * @param model
@@ -110,16 +110,16 @@ public abstract class AbstractEntityNoFormController<T extends Entity<T>> extend
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String getDetails(@PathVariable Long id, Model model) {
 		T entity = doGetDetails(id, model);
-		
+
 		// For generic capabilities (e.g. navigation)
 		model.addAttribute("entity", entity);
-		
+
 		// For custom JSP clarity
 		model.addAttribute(entity);
-		
+
 		return addNavigation(model, sitemap.getEntityDetailsViewId(getEntityClass()));
 	}
-	
+
 	// This won't work, because we've annotated the entity classes with @XmlRootElement. The JAXB HTTP message converter
 	// wins out over the Jackson HTTP message converter.
 //	@RequestMapping(value = "/{id}", method = RequestMethod.GET, params = "format=json")
@@ -128,39 +128,39 @@ public abstract class AbstractEntityNoFormController<T extends Entity<T>> extend
 //		log.debug("Getting details as JSON");
 //		return doGetDetails(id, model);
 //	}
-	
+
 	// So do this instead.
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, params = "format=json")
 	public void getDetailsAsJson(@PathVariable Long id, Model model, HttpServletResponse res) throws IOException {
 		log.debug("Getting details as JSON");
 		objectMapper.writeValue(res.getWriter(), doGetDetails(id, model));
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, params = "format=xml")
 	@ResponseBody
 	public T getDetailsAsXml(@PathVariable Long id, Model model) {
 		log.debug("Getting details as XML");
-		
+
 		// Let's use an HTTP message converter here instead of a view. Cleaner.
 //		model.addAttribute(doGetDetails(id, model));
 		return doGetDetails(id, model);
 	}
-	
+
 	/**
 	 * Subclasses can override this method as necessary.
-	 * 
+	 *
 	 * @param id ID
 	 * @return entity
 	 */
 	protected T doGetDetails(Long id, Model model) {
 		return getService().findOne(id);
 	}
-	
-	
+
+
 	// =================================================================================================================
 	// Delete
 	// =================================================================================================================
-	
+
 	/**
 	 * @param id entity ID
 	 * @return view name

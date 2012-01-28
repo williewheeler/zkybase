@@ -1,14 +1,14 @@
-/* 
+/*
  * EntityFormatter.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,14 +27,14 @@ import org.springframework.format.Formatter;
 
 /**
  * See http://forum.springsource.org/showthread.php?95196-JSR-303-Validation-on-child-objects
- * 
+ *
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public class EntityFormatter<T extends Entity<T>> implements Formatter<T> {
 	private static final Logger log = LoggerFactory.getLogger(EntityFormatter.class);
-	
+
 	private Class<T> entityClass;
-	
+
 	public EntityFormatter(Class<T> entityClass) {
 		this.entityClass = entityClass;
 	}
@@ -54,7 +54,7 @@ public class EntityFormatter<T extends Entity<T>> implements Formatter<T> {
 	 */
 	@Override
 	public T parse(String id, Locale locale) throws ParseException {
-		
+
 		// Spring calls this method on the way into the controller.
 		try {
 			log.debug("Creating new entity instance for class={}, id={}", entityClass, id);

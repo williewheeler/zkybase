@@ -1,14 +1,14 @@
-/* 
+/*
  * AbstractEntityFormControllerTests.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -48,37 +48,37 @@ public abstract class AbstractEntityFormControllerTests<T extends Entity<T>> {
 	protected static final String VN_CREATE_ENTITY_FORM = "createEntityForm";
 	protected static final String VN_EDIT_ENTITY_FORM = "editEntityForm";
 	protected static final String VN_EDIT_ENTITY_SUCCESS = "editEntitySuccess";
-	
+
 	private Class<T> entityClass;
-	
+
 	// Class under test
 	@InjectMocks protected AbstractEntityFormController<T> controller;
-	
+
 	// Dependencies
 	@Mock protected Paths paths;
 	@Mock protected Sitemap sitemap;
 	@Mock protected ViewNames viewNames;
-	
+
 	// Test objects
 	@Mock protected Node node;
 	@Mock protected BindingResult result;
 	@Mock protected Model model;
-	
+
 	protected abstract void initController();
-	
+
 	protected abstract AbstractEntityFormController<T> getController();
-	
+
 	protected abstract GraphRepository<T> getRepository();
-	
+
 	protected abstract EntityService<T> getService();
-	
+
 	protected abstract T getEntity();
-	
-	
+
+
 	// =================================================================================================================
 	// Lifecycle
 	// =================================================================================================================
-	
+
 	/**
 	 * @throws Exception
 	 */
@@ -86,29 +86,29 @@ public abstract class AbstractEntityFormControllerTests<T extends Entity<T>> {
 	public void setUp() throws Exception {
 		initController();
 		MockitoAnnotations.initMocks(this);
-		
+
 		when(sitemap.getNode((String) any())).thenReturn(node);
 		when(sitemap.getCreateFormId(getEntityClass())).thenReturn(VN_CREATE_ENTITY_FORM);
 		when(sitemap.getEditFormId(getEntityClass())).thenReturn(VN_EDIT_ENTITY_FORM);
 		when(viewNames.putEditFormSuccessViewName(getEntityClass(), 1L)).thenReturn(VN_EDIT_ENTITY_SUCCESS);
-		
+
 		when(getService().findAll()).thenReturn(new ArrayList<T>());
 		when(getService().findOne(anyLong())).thenReturn(getEntity());
 
 		doSetUp();
 	}
-	
+
 	protected void doSetUp() throws Exception {
 		// Override as needed
 	}
-	
+
 	/**
 	 * @throws Exception
 	 */
 	@After
 	public void tearDown() throws Exception {
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private Class<T> getEntityClass() {
 		if (entityClass == null) {
@@ -117,43 +117,43 @@ public abstract class AbstractEntityFormControllerTests<T extends Entity<T>> {
 		}
 		return entityClass;
 	}
-	
-	
+
+
 	// =================================================================================================================
 	// Tests
 	// =================================================================================================================
-	
+
 	@Test
 	public void testGetCreateForm() {
 		String viewName = getController().getCreateForm(model);
 		assertEquals(VN_CREATE_ENTITY_FORM, viewName);
 	}
-	
+
 	@Test
 	public void testPostCreateForm() {
 		String viewName = getController().getCreateForm(model);
 		assertEquals(VN_CREATE_ENTITY_FORM, viewName);
 	}
-	
+
 	@Test
 	public void testPostCreateFormWithErrors() {
 		when(result.hasErrors()).thenReturn(true);
 		String viewName = getController().getCreateForm(model);
 		assertEquals(VN_CREATE_ENTITY_FORM, viewName);
 	}
-	
+
 	@Test
 	public void testGetEditForm() {
 		String viewName = getController().getEditForm(1L, model);
 		assertEquals(VN_EDIT_ENTITY_FORM, viewName);
 	}
-	
+
 	@Test
 	public void testPutEditEntityForm() {
 		String viewName = getController().putEditForm(1L, getEntity(), result, model);
 		assertEquals(VN_EDIT_ENTITY_SUCCESS, viewName);
 	}
-	
+
 	/**
 	 * Confirms that we handle validation errors properly.
 	 */

@@ -8,7 +8,7 @@
 		<c:set var="authorUrl" value="https://github.com/${author.login}" />
 		<c:set var="committer" value="${commit.committer}" />
 		<c:set var="committerUrl" value="https://github.com/${committer.login}" />
-		
+
 		<div class="row" style="border-bottom:1px solid #EEE;padding:15px 0">
 			<div class="span1">
 				<img src="${author.avatarUrl}" style="width:48px;height:48px" />

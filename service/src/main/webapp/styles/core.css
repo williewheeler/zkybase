@@ -1,7 +1,7 @@
 /*
 Main:
 http://kuler.adobe.com/#themeID/1641683
-24221F (charcoal), 363F45 (very dk blue/gray), 4B5F6D (dk blue/gray), 5E7C88 (med blue/gray), FEB41C (bright orange) 
+24221F (charcoal), 363F45 (very dk blue/gray), 4B5F6D (dk blue/gray), 5E7C88 (med blue/gray), FEB41C (bright orange)
 */
 
 html { margin: 0; padding: 0; background-color: #FFF; }
@@ -118,17 +118,17 @@ div.td { display: table-cell; }
 	margin-top: 0;
 	margin-bottom: 20px;
 	/* Don't mess with margin-left or margin-right because it wrecks Bootstrap rows */
-	
+
 	border: 1px solid #DDD;
 	padding: 10px;
-	
+
 /* 	background-color: #F5F5F5; */
 	background-color: #F8F8F8;
-	
+
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
-	
+
 	/*
 	-moz-box-shadow: 0 2px 5px #CCC;
 	-webkit-box-shadow: 0 2px 5px #CCC;
@@ -229,7 +229,7 @@ input[type=text], textarea {
 /* 	background-color: #FFF; */
 	font-family: lucida grande, verdana, arial, sans-serif;
 /* 	font-size: 116%; */
-	
+
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;

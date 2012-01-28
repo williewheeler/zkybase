@@ -1,14 +1,14 @@
-/* 
+/*
  * AbstractEntity.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,7 +44,7 @@ public abstract class AbstractEntity<T extends Entity<T>> implements Entity<T> {
 	 */
 	@Override
 	public void setId(Long id) { this.id = id; }
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -52,11 +52,11 @@ public abstract class AbstractEntity<T extends Entity<T>> implements Entity<T> {
 	@Override
 	public boolean equals(Object o) {
 		if (!getClass().equals(o.getClass())) { return false; }
-		
+
 		T that = (T) o;
 		Long thisId = this.getId();
 		Long thatId = that.getId();
-		
+
 		// FIXME
 		if (thisId == null && thatId == null) {
 			return true;
@@ -66,14 +66,14 @@ public abstract class AbstractEntity<T extends Entity<T>> implements Entity<T> {
 			return thisId.equals(thatId);
 		}
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		Long id = getId();
-		
+
 		// FIXME
 		return (id == null ? 0 : id.hashCode());
 	}
@@ -93,7 +93,7 @@ public abstract class AbstractEntity<T extends Entity<T>> implements Entity<T> {
 			return thisDisplayName.compareTo(thatDisplayName);
 		}
 	}
-	
+
 	// NO! Don't do this. When the display name is null, it makes it look like the whole dang entity is null. UGH.
 //	@Override
 //	public String toString() { return getDisplayName(); }

@@ -1,14 +1,14 @@
-/* 
+/*
  * Application.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,24 +28,24 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * Application entity.
- * 
+ *
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
 @XmlType(propOrder = { "name", "shortDescription", "scm" })
 public class Application extends AbstractEntity<Application> {
-	
+
 	// FIXME Temporary
 	private static final GitHubScm SKYBASE_SCM = new GitHubScm("williewheeler", "skybase");
-	
+
 	private String name;
 	private String shortDescription;
 	private GitHubScm scm;
-	
+
 	public Application() { }
-	
+
 	public Application(Long id) { setId(id); }
-	
+
 	/**
 	 * @return
 	 */
@@ -53,24 +53,24 @@ public class Application extends AbstractEntity<Application> {
 	@Size(max = 80)
 	@XmlElement
 	public String getName() { return name; }
-	
+
 	/**
 	 * @param name
 	 */
 	public void setName(String name) { this.name = name; }
-	
+
 	/**
 	 * @return
 	 */
 	@Size(max = 200)
 	@XmlElement
 	public String getShortDescription() { return shortDescription; }
-	
+
 	/**
 	 * @param shortDescription
 	 */
 	public void setShortDescription(String shortDescription) { this.shortDescription = shortDescription; }
-	
+
 	/**
 	 * @return
 	 */
@@ -80,12 +80,12 @@ public class Application extends AbstractEntity<Application> {
 		// FIXME Temporary
 		return SKYBASE_SCM;
 	}
-	
+
 	/**
 	 * @param scm
 	 */
 	public void setScm(GitHubScm scm) { this.scm = scm; }
-	
+
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.model.Entity#getDisplayName()
 	 */
@@ -95,14 +95,14 @@ public class Application extends AbstractEntity<Application> {
 	@XmlRootElement(name = "applications")
 	public static class ApplicationListWrapper implements ListWrapper<Application> {
 		private List<Application> list;
-		
+
 		/* (non-Javadoc)
 		 * @see org.skydingo.skybase.model.ListWrapper#getList()
 		 */
 		@Override
 		@XmlElement(name = "application")
 		public List<Application> getList() { return list; }
-		
+
 		/* (non-Javadoc)
 		 * @see org.skydingo.skybase.model.ListWrapper#setList(java.util.List)
 		 */

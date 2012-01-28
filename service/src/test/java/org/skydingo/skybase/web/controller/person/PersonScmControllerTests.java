@@ -1,14 +1,14 @@
-/* 
+/*
  * PersonScmControllerTests.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,16 +47,16 @@ import org.springframework.ui.Model;
  */
 public class PersonScmControllerTests {
 	@InjectMocks private PersonScmController controller;
-	
+
 	@Mock private PersonRepository personRepository;
 	@Mock private GitHub gitHub;
 	@Mock private UserOperations userOperations;
 	@Mock private Sitemap sitemap;
-	
+
 	@Mock private Node node;
 	@Mock private Model model;
 	@Mock private Person person;
-	
+
 	/**
 	 * @throws Exception
 	 */
@@ -70,7 +70,7 @@ public class PersonScmControllerTests {
 		when(userOperations.getFollowing(anyString())).thenReturn(new ArrayList<GitHubUser>());
 		when(sitemap.getNode(anyString())).thenReturn(node);
 	}
-	
+
 	/**
 	 * Happy path test. Person has no GitHub user.
 	 */
@@ -83,7 +83,7 @@ public class PersonScmControllerTests {
 		verify(model, times(0)).addAttribute(eq("followerList"), anyObject());
 		verify(model, times(0)).addAttribute(eq("followerRows"), anyObject());
 	}
-	
+
 	/**
 	 * Happy path test. Person has a GitHub user.
 	 */
@@ -97,7 +97,7 @@ public class PersonScmControllerTests {
 		verify(model, times(1)).addAttribute(eq("followerList"), anyObject());
 		verify(model, times(1)).addAttribute(eq("followerRows"), anyObject());
 	}
-	
+
 	/**
 	 * Happy path test. Person has no GitHub user.
 	 */
@@ -108,7 +108,7 @@ public class PersonScmControllerTests {
 		verify(model, times(1)).addAttribute(person);
 		verify(model, times(1)).addAttribute("entity", person);
 	}
-	
+
 	/**
 	 * Happy path test. Person has a GitHub user.
 	 */

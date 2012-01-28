@@ -1,14 +1,14 @@
-/* 
+/*
  * ApplicationScmControllerTests.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -50,18 +50,18 @@ import org.springframework.ui.Model;
  */
 public class ApplicationScmControllerTests {
 	@InjectMocks private ApplicationScmController controller;
-	
+
 	@Mock private ApplicationRepository applicationRepository;
 	@Mock private ApplicationService applicationService;
 	@Mock private GitHub gitHub;
 	@Mock private RepoOperations repoOperations;
 	@Mock private Sitemap sitemap;
-	
+
 	@Mock private Node node;
 	@Mock private Model model;
 	@Mock private Application application;
 	@Mock private GitHubScm scm;
-	
+
 	/**
 	 * @throws Exception
 	 */
@@ -80,9 +80,9 @@ public class ApplicationScmControllerTests {
 		when(scm.getUser()).thenReturn("williewheeler");
 		when(scm.getRepo()).thenReturn("skybase");
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	@Test
 	public void testGetScm() {
@@ -91,9 +91,9 @@ public class ApplicationScmControllerTests {
 		verify(model, times(1)).addAttribute(application);
 		verify(model, times(1)).addAttribute("entity", application);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	@Test
 	public void testGetCollaborators() {
@@ -104,9 +104,9 @@ public class ApplicationScmControllerTests {
 		verify(model, times(1)).addAttribute(eq("collaboratorList"), anyObject());
 		verify(model, times(1)).addAttribute(eq("collaboratorRows"), anyObject());
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	@Test
 	public void testGetCommits() {
@@ -116,9 +116,9 @@ public class ApplicationScmControllerTests {
 		verify(model, times(1)).addAttribute("entity", application);
 		verify(model, times(1)).addAttribute(eq("commitList"), anyObject());
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	@Test
 	public void testGetWatchers() {

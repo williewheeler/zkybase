@@ -1,14 +1,14 @@
-/* 
+/*
  * AbstractEntityFormController.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Abstract base class for implementing controllers that handle form data (i.e., create and edit handler methods).
- * 
+ *
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public abstract class AbstractEntityFormController<T extends Entity<T>> extends AbstractEntityController<T> {
@@ -46,13 +46,13 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 	public static final String MK_FORM_METHOD = "formMethod";
 	public static final String MK_SUBMIT_PATH = "submitPath";
 	public static final String MK_CANCEL_PATH = "cancelPath";
-	
+
 	private static final Logger log = LoggerFactory.getLogger(AbstractEntityFormController.class);
-	
+
 	public abstract GraphRepository<T> getRepository();
-	
+
 	public abstract EntityService<T> getService();
-	
+
 	/**
 	 * @param binder binder
 	 */
@@ -61,14 +61,14 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
 		binder.setAllowedFields(getAllowedFields());
 	}
-	
+
 	protected String[] getAllowedFields() { return null; }
-	
-	
+
+
 	// =================================================================================================================
 	// Create
 	// =================================================================================================================
-	
+
 	/**
 	 * @param model
 	 * @return
@@ -78,7 +78,7 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 		model.addAttribute(MK_FORM_DATA, newEntityInstance());
 		return prepareCreateForm(model);
 	}
-	
+
 	/**
 	 * @param model
 	 * @param formData
@@ -89,15 +89,15 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 	public String postCreateForm(Model model, @ModelAttribute(MK_FORM_DATA) @Valid T formData, BindingResult result) {
 		log.debug("Posting form data");
 		getService().create(formData, result);
-		
+
 		if (result.hasErrors()) {
 			model.addAttribute(MK_HAS_ERRORS, true);
 			return prepareCreateForm(model);
 		}
-		
+
 		return viewNames.postCreateFormSuccessViewName(getEntityClass());
 	}
-	
+
 	/**
 	 * @param model model
 	 * @return view name
@@ -108,12 +108,12 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 		model.addAttribute(MK_CANCEL_PATH, paths.getBasePath(getEntityClass()) + "?a=cancelled");
 		return addNavigation(model, sitemap.getCreateFormId(getEntityClass()));
 	}
-	
-	
+
+
 	// =================================================================================================================
 	// Update
 	// =================================================================================================================
-	
+
 	/**
 	 * @param id
 	 * @param model
@@ -127,7 +127,7 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 		log.debug("Returning edit form");
 		return viewName;
 	}
-	
+
 	/**
 	 * @param id entity ID
 	 * @param formData entity form data
@@ -141,18 +141,18 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 			@ModelAttribute(MK_FORM_DATA) @Valid T formData,
 			BindingResult result,
 			Model model) {
-		
+
 		formData.setId(id);
 		getService().update(formData, result);
-		
+
 		if (result.hasErrors()) {
 			model.addAttribute(MK_HAS_ERRORS, true);
 			return prepareEditForm(id, model);
 		}
-		
+
 		return viewNames.putEditFormSuccessViewName(getEntityClass(), id);
 	}
-	
+
 	/**
 	 * @param id
 	 * @param model
@@ -160,15 +160,15 @@ public abstract class AbstractEntityFormController<T extends Entity<T>> extends 
 	 */
 	protected String prepareEditForm(Long id, Model model) {
 		log.debug("Preparing edit form");
-		
+
 		// Need to load the entity itself since the entity drives title and breadcrumbs, and we don't want form data
 		// changes to impact them. Can optimize this by giving the entities clone constructors.
 		model.addAttribute(MK_ENTITY, getRepository().findOne(id));
-		
+
 		model.addAttribute(MK_FORM_METHOD, "put");
 		model.addAttribute(MK_SUBMIT_PATH, paths.getSubmitEditFormPath(getEntityClass(), id));
 		model.addAttribute(MK_CANCEL_PATH, paths.getDetailsPath(getEntityClass(), id) + "?a=cancelled");
-		
+
 		return addNavigation(model, sitemap.getEditFormId(getEntityClass()));
 	}
 }
