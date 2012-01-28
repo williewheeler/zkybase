@@ -1,14 +1,14 @@
-/* 
+/*
  * FarmSupportsApplication.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,22 +33,22 @@ public class FarmSupportsApplication {
 	@GraphId private Long id;
 	@Fetch @StartNode private Farm farm;
 	@Fetch @EndNode private Application application;
-	
+
 	public FarmSupportsApplication() { }
-	
+
 	public FarmSupportsApplication(Farm farm, Application application) {
 		this.farm = farm;
 		this.application = application;
 	}
-	
+
 	public Farm getFarm() { return farm; }
-	
+
 	public void setFarm(Farm farm) { this.farm = farm; }
-	
+
 	public Application getApplication() { return application; }
-	
+
 	public void setApplication(Application application) { this.application = application; }
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -65,7 +65,7 @@ public class FarmSupportsApplication {
 			return id.equals(that.id);
 		}
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */

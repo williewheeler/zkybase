@@ -86,16 +86,16 @@
 			$("#addMemberDialog").modal("show");
 			return false;
 		});
-		
+
 		$("#addMemberDialog")
 			.bind("hidden", function() { $("#newMemberInput").val(""); })
 			.bind("shown", function() { $("#newMemberInput").focus(); });
-		
+
 		$("#newMemberInput").autocomplete({
 			source: "${personSearchUrl}?q=dummy",
 			minLength: 2
 		});
-		
+
 		$("#addMemberDialog .btn.submit").click(function() {
 			var url = "<c:out value="${membersUrl}" />";
 			var data = { member: $("#newMemberInput").val() };

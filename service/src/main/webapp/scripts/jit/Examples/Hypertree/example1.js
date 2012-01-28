@@ -5,7 +5,7 @@ var labelType, useGradients, nativeTextSupport, animate;
       iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
       typeOfCanvas = typeof HTMLCanvasElement,
       nativeCanvasSupport = (typeOfCanvas == 'object' || typeOfCanvas == 'function'),
-      textSupport = nativeCanvasSupport 
+      textSupport = nativeCanvasSupport
         && (typeof document.createElement('canvas').getContext('2d').fillText == 'function');
   //I'm setting this based on the fact that ExCanvas provides text support for IE
   //and that as of today iPhone/iPad current text support is lame
@@ -18,7 +18,7 @@ var labelType, useGradients, nativeTextSupport, animate;
 var Log = {
   elem: false,
   write: function(text){
-    if (!this.elem) 
+    if (!this.elem)
       this.elem = document.getElementById('log');
     this.elem.innerHTML = text;
     this.elem.style.left = (500 - this.elem.offsetWidth / 2) + 'px';
@@ -27,7 +27,7 @@ var Log = {
 
 
 function init() {
-	
+
 	// http://stackoverflow.com/questions/2177548/load-json-into-variable
 	var json = (function() {
     	var json = null;
@@ -41,10 +41,10 @@ function init() {
     	});
     	return json;
     })();
-	
+
     var infovis = document.getElementById('infovis');
     var w = infovis.offsetWidth - 50, h = infovis.offsetHeight - 50;
-    
+
     //init Hypertree
     var ht = new $jit.Hypertree({
       //id of the visualization container
@@ -96,12 +96,12 @@ function init() {
           var w = domElement.offsetWidth;
           style.left = (left - w / 2) + 'px';
       },
-      
+
       onAfterCompute: function(){
           Log.write("done");
-          
+
           //Build the right column relations list.
-          //This is done by collecting the information (stored in the data property) 
+          //This is done by collecting the information (stored in the data property)
           //for all the nodes adjacent to the centered node.
           var node = ht.graph.getClosestNodeToOrigin("current");
           var html = "<h4>" + node.name + "</h4><b>Connections:</b>";

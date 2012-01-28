@@ -1,14 +1,14 @@
-/* 
+/*
  * Person.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,47 +36,47 @@ import org.springframework.data.neo4j.support.index.IndexType;
 
 /**
  * Person entity.
- * 
+ *
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
 public class Person extends AbstractEntity<Person> {
-	
+
 	// TODO Figure out why it's not good enough to put @Indexed here without the index name or type.
 	@Indexed(indexType = IndexType.FULLTEXT, indexName = "searchByUsername")
 	private String username;
-	
+
 //	@Indexed(indexType = IndexType.FULLTEXT, indexName = "searchByFirstName")
 	private String firstName;
-	
+
 //	@Indexed(indexType = IndexType.FULLTEXT, indexName = "searchByLastName")
 	private String lastName;
-	
+
 	private String title;
 	private String workPhone;
 	private String mobilePhone;
 	private String email;
-	
+
 	// FIXME Don't allow graph cycles here
 	@Fetch
 	@RelatedTo(type = "REPORTS_TO")
 	private Person manager;
-	
+
 	@RelatedTo(type = "REPORTS_TO", direction = Direction.INCOMING)
 	private Set<Person> directReports;
-	
+
 	// FIXME Temporarily hardcoding GitHub in here.
 	private String gitHubUser;
-	
+
 	/**
 	 * Creates a new person.
 	 */
 	public Person() {
 	}
-	
+
 	/**
 	 * Creates a person with the given first name and last name.
-	 * 
+	 *
 	 * @param username username
 	 * @param firstName first name
 	 * @param lastName last name
@@ -86,7 +86,7 @@ public class Person extends AbstractEntity<Person> {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-	
+
 	/**
 	 * @return username
 	 */
@@ -95,12 +95,12 @@ public class Person extends AbstractEntity<Person> {
 	@Pattern(regexp = "^[\\w\\-]*$")
 	@XmlElement
 	public String getUsername() { return username; }
-	
+
 	/**
 	 * @param username username
 	 */
 	public void setUsername(String username) { this.username = username; }
-	
+
 	/**
 	 * @return the firstName
 	 */
@@ -126,7 +126,7 @@ public class Person extends AbstractEntity<Person> {
 	 * @param lastName the lastName to set
 	 */
 	public void setLastName(String lastName) { this.lastName = lastName; }
-	
+
 	/**
 	 * @return first and last names
 	 */
@@ -134,19 +134,19 @@ public class Person extends AbstractEntity<Person> {
 	public String getFirstNameLastName() {
 		return firstName + " " + lastName;
 	}
-	
+
 	/**
 	 * @return title
 	 */
 	@Size(max = 80)
 	@XmlElement
 	public String getTitle() { return title; }
-	
+
 	/**
 	 * @param title title
 	 */
 	public void setTitle(String title) { this.title = title; }
-	
+
 	/**
 	 * @return work phone
 	 */
@@ -154,12 +154,12 @@ public class Person extends AbstractEntity<Person> {
 	@Pattern(regexp = "^\\d{3}-\\d{3}-\\d{4}$")
 	@XmlElement
 	public String getWorkPhone() { return workPhone; }
-	
+
 	/**
 	 * @param workPhone work phone
 	 */
 	public void setWorkPhone(String workPhone) { this.workPhone = workPhone; }
-	
+
 	/**
 	 * @return mobile phone
 	 */
@@ -167,12 +167,12 @@ public class Person extends AbstractEntity<Person> {
 	@Pattern(regexp = "^\\d{3}-\\d{3}-\\d{4}$")
 	@XmlElement
 	public String getMobilePhone() { return mobilePhone; }
-	
+
 	/**
 	 * @param mobilePhone mobile phone
 	 */
 	public void setMobilePhone(String mobilePhone) { this.mobilePhone = mobilePhone; }
-	
+
 	/**
 	 * @return e-mail
 	 */
@@ -180,51 +180,51 @@ public class Person extends AbstractEntity<Person> {
 	@Size(max = 80)
 	@XmlElement
 	public String getEmail() { return email; }
-	
+
 	/**
 	 * @param email e-mail
 	 */
 	public void setEmail(String email) { this.email = email; }
-	
+
 	/**
 	 * @return
 	 */
 	public Person getManager() { return manager; }
-	
+
 	/**
 	 * @param manager
 	 */
 	public void setManager(Person manager) { this.manager = manager; }
-	
+
 	/**
 	 * @return
 	 */
 	public Set<Person> getDirectReports() { return directReports; }
-	
+
 	/**
 	 * @param directReports
 	 */
 	public void setDirectReports(Set<Person> directReports) { this.directReports = directReports; }
-	
+
 	/**
 	 * @return
 	 */
 	@Size(max = 40)
 	@XmlElement
 	public String getGitHubUser() { return gitHubUser; }
-	
+
 	/**
 	 * @param gitHubUser
 	 */
 	public void setGitHubUser(String gitHubUser) { this.gitHubUser = gitHubUser; }
-	
+
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.model.Entity#getDisplayName()
 	 */
 	@Override
 	@XmlTransient
 	public String getDisplayName() { return getFirstNameLastName(); }
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -258,7 +258,7 @@ public class Person extends AbstractEntity<Person> {
 		int comp = getFirstNameLastName().compareTo(that.getFirstNameLastName());
 		return (comp == 0 ? getUsername().compareTo(that.getUsername()) : comp);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -272,18 +272,18 @@ public class Person extends AbstractEntity<Person> {
 				+ ", email=" + email
 				+ "]";
 	}
-	
+
 	@XmlRootElement(name = "people")
 	public static class PersonListWrapper implements ListWrapper<Person> {
 		private List<Person> list;
-		
+
 		/* (non-Javadoc)
 		 * @see org.skydingo.skybase.model.ListWrapper#getList()
 		 */
 		@Override
 		@XmlElement(name = "person")
 		public List<Person> getList() { return list; }
-		
+
 		/* (non-Javadoc)
 		 * @see org.skydingo.skybase.model.ListWrapper#setList(java.util.List)
 		 */

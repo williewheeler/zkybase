@@ -27,7 +27,7 @@
 			<p>Cancelled.</p>
 		</div>
 	</c:if>
-	
+
 	<%-- This one's for form validation errors. Can't use HTTP params here. --%>
 	<c:if test="${hasErrors}">
 		<div class="alert-message error fade in">

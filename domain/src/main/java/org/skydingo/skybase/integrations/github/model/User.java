@@ -1,14 +1,14 @@
-/* 
+/*
  * Watcher.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,54 +33,54 @@ public class User {
 	private String login;
 	private String avatarUrl;
 	private String gravatarId;
-	
+
 	/**
 	 * @return
 	 */
 	public Long getId() { return id; }
-	
+
 	/**
 	 * @param id
 	 */
 	public void setId(Long id) { this.id = id; }
-	
+
 	/**
 	 * @return
 	 */
 	public String getUrl() { return url; }
-	
+
 	/**
 	 * @param url
 	 */
 	public void setUrl(String url) { this.url = url; }
-	
+
 	/**
 	 * @return
 	 */
 	public String getLogin() { return login; }
-	
+
 	/**
 	 * @param login
 	 */
 	public void setLogin(String login) { this.login = login; }
-	
+
 	/**
 	 * @return
 	 */
 	@JsonProperty("avatar_url")
 	public String getAvatarUrl() { return avatarUrl; }
-	
+
 	/**
 	 * @param avatarUrl
 	 */
 	public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
-	
+
 	/**
 	 * @return
 	 */
 	@JsonProperty("gravatar_id")
 	public String getGravatarId() { return gravatarId; }
-	
+
 	/**
 	 * @param gravatarId
 	 */

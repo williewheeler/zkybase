@@ -1,14 +1,14 @@
-/* 
+/*
  * GitHubScm.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * GitHub SCM entity.
- * 
+ *
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GitHubScm extends AbstractEntity<GitHubScm>  {
 	private String user;
 	private String repo;
-	
+
 	// GitHub fields
 	private Long id;
 	private String name;
@@ -44,14 +44,14 @@ public class GitHubScm extends AbstractEntity<GitHubScm>  {
 	private String gitUrl;
 	private String sshUrl;
 	private String svnUrl;
-	
+
 	public GitHubScm() { }
-	
+
 	public GitHubScm(String user, String repo) {
 		this.user = user;
 		this.repo = repo;
 	}
-	
+
 	/**
 	 * @return
 	 */
@@ -59,12 +59,12 @@ public class GitHubScm extends AbstractEntity<GitHubScm>  {
 	@Size(max = 80) // FIXME Find out the real limit
 	@XmlElement
 	public String getUser() { return user; }
-	
+
 	/**
 	 * @param user
 	 */
 	public void setUser(String user) { this.user = user; }
-	
+
 	/**
 	 * @return
 	 */
@@ -72,12 +72,12 @@ public class GitHubScm extends AbstractEntity<GitHubScm>  {
 	@Size(max = 80) // FIXME Find out the real limit
 	@XmlElement
 	public String getRepo() { return repo; }
-	
+
 	/**
 	 * @param repo
 	 */
 	public void setRepo(String repo) { this.repo = repo; }
-	
+
 	/**
 	 * @return the id
 	 */

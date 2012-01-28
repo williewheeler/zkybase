@@ -1,14 +1,14 @@
-/* 
+/*
  * PackageFormController.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,18 +42,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/packages")
 public class PackageFormController extends AbstractEntityFormController<Package> {
-	
+
 	// FIXME Get rid of groupId, packageId...
 	private static final String[] ALLOWED_FIELDS = new String[] { "groupId", "packageId", "version" };
-	
+
 	private static final Logger log = LoggerFactory.getLogger(PackageFormController.class);
-	
+
 	@Inject private PackageRepository packageRepo;
 	@Inject private PackageService packageService;
-	
+
 	@Value("#{config['app.baseUrl']}")
 	private String appBaseUrl;
-	
+
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityController#getRepository()
 	 */
@@ -72,23 +72,23 @@ public class PackageFormController extends AbstractEntityFormController<Package>
 	 */
 	@Override
 	protected String[] getAllowedFields() { return ALLOWED_FIELDS; }
-	
-	
+
+
 	// =================================================================================================================
 	// Create
 	// =================================================================================================================
-	
+
 	// consumes : Spring 3.1
 	@RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/xml")
 	public void postPackage(@RequestBody Package pkg, HttpServletRequest req, HttpServletResponse res) {
 		log.debug("Posting package: {}", pkg);
-		
+
 		try {
 			packageService.createPackage(pkg);
 			res.setHeader("Location", appBaseUrl + "/packages/" + pkg.getId());
 		} catch (DuplicateEntityException e) {
 			log.info("Package already exists; ignoring: {}", pkg);
-			
+
 			// Using SC_OK:
 			// http://stackoverflow.com/questions/283957/rest-correct-http-response-code-for-a-post-which-is-ignored
 			// But see also:

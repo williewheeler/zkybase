@@ -1,14 +1,14 @@
-/* 
+/*
  * ApplicationServiceImpl.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -43,11 +43,11 @@ public class ApplicationServiceImpl extends AbstractEntityServiceImpl<Applicatio
 	@Override
 	public Application findOneWithScm(Long id) {
 		notNull(id);
-		
+
 		// Main data comes from app repo
 		Application app = applicationRepository.findOne(id);
 		GitHubScm scm = app.getScm();
-		
+
 		// Supporting data comes from GitHub
 		// FIXME This web service call shouldn't be part of the transaction
 		GitHubRepo repo = gitHub.repoOperations().getRepo(scm.getUser(), scm.getRepo());
@@ -59,7 +59,7 @@ public class ApplicationServiceImpl extends AbstractEntityServiceImpl<Applicatio
 		scm.setGitUrl(repo.getGitUrl());
 		scm.setSshUrl(repo.getSshUrl());
 		scm.setSvnUrl(repo.getSvnUrl());
-		
+
 		return app;
 	}
 
@@ -89,6 +89,6 @@ public class ApplicationServiceImpl extends AbstractEntityServiceImpl<Applicatio
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
+
+
 }

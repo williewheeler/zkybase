@@ -1,14 +1,14 @@
-/* 
+/*
  * PackageServiceImpl.java
- * 
+ *
  * Copyright 2011-2012 the original author or authors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,7 +36,7 @@ import org.springframework.validation.Errors;
 @Service
 public class PackageServiceImpl extends AbstractEntityServiceImpl<Package> implements PackageService {
 	@Inject private PackageRepository packageRepo;
-	
+
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.PackageService#createPackage(org.skydingo.skybase.model.Package)
 	 */
@@ -50,7 +50,7 @@ public class PackageServiceImpl extends AbstractEntityServiceImpl<Package> imple
 		}
 		getRepository().save(pkg);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.PackageService#createPackage(java.lang.Package, org.springframework.validation.Errors)
 	 */
@@ -58,7 +58,7 @@ public class PackageServiceImpl extends AbstractEntityServiceImpl<Package> imple
 	public void createPackage(Package pkg, Errors errors) {
 		notNull(pkg);
 		notNull(errors);
-		
+
 		if (!errors.hasErrors()) {
 			try {
 				createPackage(pkg);
@@ -85,13 +85,13 @@ public class PackageServiceImpl extends AbstractEntityServiceImpl<Package> imple
 	public void updatePackage(Package pkg, Errors errors) {
 		notNull(pkg);
 		notNull(errors);
-		
+
 		if (!errors.hasErrors()) {
-			
+
 			// TODO Do we need to check for existence here? Or will the save fail if the package doesn't already
 			// exist? Need to check as this is potentially a security issue (allows people to create new packages
 			// through the edit form).
-			
+
 			updatePackage(pkg);
 		}
 	}
