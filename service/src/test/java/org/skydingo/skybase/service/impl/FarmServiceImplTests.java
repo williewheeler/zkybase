@@ -49,7 +49,7 @@ public class FarmServiceImplTests extends AbstractEntityServiceImplTests<Farm> {
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getService()
 	 */
 	@Override
-	public AbstractEntityServiceImpl<Farm> getService() { return farmService; }
+	public AbstractCIServiceImpl<Farm> getService() { return farmService; }
 	
 	/**
 	 * @throws Exception

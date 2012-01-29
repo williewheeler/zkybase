@@ -22,4 +22,4 @@ import org.skydingo.skybase.model.DataCenter;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface DataCenterService extends EntityService<DataCenter> { }
+public interface DataCenterService extends CIService<DataCenter> { }

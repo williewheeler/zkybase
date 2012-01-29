@@ -25,6 +25,6 @@ import org.springframework.stereotype.Service;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-public class DataCenterServiceImpl extends AbstractEntityServiceImpl<DataCenter> implements DataCenterService {
+public class DataCenterServiceImpl extends AbstractCIServiceImpl<DataCenter> implements DataCenterService {
 
 }

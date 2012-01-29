@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Component
-public class ApplicationFormatter extends EntityFormatter<Application> {
+public class ApplicationFormatter extends CIFormatter<Application> {
 
 	public ApplicationFormatter() { super(Application.class); }
 

@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Component
-public class EnvironmentFormatter extends EntityFormatter<Environment> {
+public class EnvironmentFormatter extends CIFormatter<Environment> {
 
 	public EnvironmentFormatter() { super(Environment.class); }
 

@@ -25,5 +25,5 @@ import org.springframework.stereotype.Service;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-public class EnvironmentServiceImpl extends AbstractEntityServiceImpl<Environment> implements EnvironmentService {
+public class EnvironmentServiceImpl extends AbstractCIServiceImpl<Environment> implements EnvironmentService {
 }

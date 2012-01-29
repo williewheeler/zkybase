@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Component
-public class DataCenterFormatter extends EntityFormatter<DataCenter> {
+public class DataCenterFormatter extends CIFormatter<DataCenter> {
 	
 	public DataCenterFormatter() { super(DataCenter.class); }
 }

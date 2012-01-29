@@ -24,7 +24,7 @@ import org.springframework.validation.Errors;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface PackageService extends EntityService<Package> {
+public interface PackageService extends CIService<Package> {
 	
 	/**
 	 * @param pkg

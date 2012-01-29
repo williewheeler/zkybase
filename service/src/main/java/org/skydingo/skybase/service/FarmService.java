@@ -26,7 +26,7 @@ import org.skydingo.skybase.model.Farm;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface FarmService extends EntityService<Farm> {
+public interface FarmService extends CIService<Farm> {
 	
 	/**
 	 * @param application

@@ -34,7 +34,7 @@ public abstract class AbstractEntityServiceImplTests<T extends CI<T>> {
 	
 	protected abstract GraphRepository<T> getRepository();
 	
-	protected abstract AbstractEntityServiceImpl<T> getService();
+	protected abstract AbstractCIServiceImpl<T> getService();
 	
 	@Test
 	public void testFindAll() {

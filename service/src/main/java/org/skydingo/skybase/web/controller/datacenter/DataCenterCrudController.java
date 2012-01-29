@@ -21,7 +21,7 @@ import javax.inject.Inject;
 
 import org.skydingo.skybase.model.DataCenter;
 import org.skydingo.skybase.service.DataCenterService;
-import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.service.CIService;
 import org.skydingo.skybase.service.RegionService;
 import org.skydingo.skybase.web.controller.AbstractCrudController;
 import org.springframework.stereotype.Controller;
@@ -43,7 +43,7 @@ public class DataCenterCrudController extends AbstractCrudController<DataCenter>
 	 * @see org.skydingo.skybase.web.controller.AbstractCrudController#getService()
 	 */
 	@Override
-	public EntityService<DataCenter> getService() { return dataCenterService; }
+	public CIService<DataCenter> getService() { return dataCenterService; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractCrudController#getAllowedFields()

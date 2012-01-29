@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Component
-public class RegionFormatter extends EntityFormatter<Region> {
+public class RegionFormatter extends CIFormatter<Region> {
 
 	public RegionFormatter() { super(Region.class); }
 

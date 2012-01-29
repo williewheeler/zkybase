@@ -32,7 +32,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.skydingo.skybase.model.CI;
-import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.service.CIService;
 import org.skydingo.skybase.web.navigation.Node;
 import org.skydingo.skybase.web.navigation.Paths;
 import org.skydingo.skybase.web.navigation.Sitemap;
@@ -67,7 +67,7 @@ public abstract class AbstractEntityFormControllerTests<T extends CI<T>> {
 	
 	protected abstract GraphRepository<T> getRepository();
 	
-	protected abstract EntityService<T> getService();
+	protected abstract CIService<T> getService();
 	
 	protected abstract T getEntity();
 	

@@ -30,7 +30,7 @@ import javax.validation.Valid;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.skydingo.skybase.model.CI;
 import org.skydingo.skybase.model.ListWrapper;
-import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.service.CIService;
 import org.skydingo.skybase.web.navigation.Paths;
 import org.skydingo.skybase.web.view.ViewNames;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -63,7 +63,7 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	private Class<T> entityClass;
 	
 	// FIXME Make this abstract once the refactoring is done
-	protected EntityService<T> getService() {
+	protected CIService<T> getService() {
 		throw new UnsupportedOperationException();
 	}
 	

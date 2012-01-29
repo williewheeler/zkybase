@@ -25,7 +25,7 @@ import javax.inject.Inject;
 
 import org.skydingo.skybase.model.DataCenter;
 import org.skydingo.skybase.model.Region;
-import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.service.CIService;
 import org.skydingo.skybase.service.RegionService;
 import org.skydingo.skybase.web.controller.AbstractCrudController;
 import org.skydingo.skybase.web.view.JitNode;
@@ -45,7 +45,7 @@ public class RegionCrudController extends AbstractCrudController<Region> {
 	
 	@Inject private RegionService regionService;
 	
-	public EntityService<Region> getService() { return regionService; }
+	public CIService<Region> getService() { return regionService; }
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()

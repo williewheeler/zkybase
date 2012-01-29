@@ -23,7 +23,7 @@ import org.springframework.validation.Errors;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface PersonService extends EntityService<Person> {
+public interface PersonService extends CIService<Person> {
 	
 	/**
 	 * @param person

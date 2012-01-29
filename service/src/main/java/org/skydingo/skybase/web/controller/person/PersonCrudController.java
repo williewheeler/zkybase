@@ -24,7 +24,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Person;
-import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.service.CIService;
 import org.skydingo.skybase.service.PersonService;
 import org.skydingo.skybase.util.CollectionsUtil;
 import org.skydingo.skybase.web.controller.AbstractCrudController;
@@ -61,7 +61,7 @@ public class PersonCrudController extends AbstractCrudController<Person> {
 	 * @see org.skydingo.skybase.web.controller.AbstractCrudController#getService()
 	 */
 	@Override
-	public EntityService<Person> getService() { return personService; }
+	public CIService<Person> getService() { return personService; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractCrudController#getAllowedFields()

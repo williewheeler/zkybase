@@ -36,7 +36,7 @@ import org.springframework.stereotype.Service;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-public class FarmServiceImpl extends AbstractEntityServiceImpl<Farm> implements FarmService {
+public class FarmServiceImpl extends AbstractCIServiceImpl<Farm> implements FarmService {
 	@Inject private FarmRepository farmRepo;
 	
 	/* (non-Javadoc)

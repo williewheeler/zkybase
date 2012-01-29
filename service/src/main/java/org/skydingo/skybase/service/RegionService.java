@@ -22,4 +22,4 @@ import org.skydingo.skybase.model.Region;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface RegionService extends EntityService<Region> { }
+public interface RegionService extends CIService<Region> { }

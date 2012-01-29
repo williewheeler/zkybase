@@ -46,7 +46,7 @@ public class PackageServiceImplTests extends AbstractEntityServiceImplTests<Pack
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getService()
 	 */
 	@Override
-	protected AbstractEntityServiceImpl<Package> getService() { return packageService; }
+	protected AbstractCIServiceImpl<Package> getService() { return packageService; }
 	
 	/**
 	 * @throws Exception

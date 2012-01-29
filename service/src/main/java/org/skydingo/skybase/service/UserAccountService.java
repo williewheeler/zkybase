@@ -22,4 +22,4 @@ import org.skydingo.skybase.model.UserAccount;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface UserAccountService extends EntityService<UserAccount> { }
+public interface UserAccountService extends CIService<UserAccount> { }

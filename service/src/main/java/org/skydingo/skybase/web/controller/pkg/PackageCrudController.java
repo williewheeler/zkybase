@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.skydingo.skybase.exception.DuplicateCIException;
 import org.skydingo.skybase.model.Package;
-import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.service.CIService;
 import org.skydingo.skybase.service.PackageService;
 import org.skydingo.skybase.web.controller.AbstractCrudController;
 import org.slf4j.Logger;
@@ -50,7 +50,7 @@ public class PackageCrudController extends AbstractCrudController<Package> {
 	@Value("#{config['app.baseUrl']}")
 	private String appBaseUrl;
 	
-	public EntityService<Package> getService() { return packageService; }
+	public CIService<Package> getService() { return packageService; }
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityFormController#getAllowedFields()

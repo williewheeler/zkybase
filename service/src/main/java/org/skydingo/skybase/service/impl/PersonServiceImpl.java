@@ -34,7 +34,7 @@ import org.springframework.validation.Errors;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-public class PersonServiceImpl extends AbstractEntityServiceImpl<Person> implements PersonService {
+public class PersonServiceImpl extends AbstractCIServiceImpl<Person> implements PersonService {
 	@Inject private Neo4jTemplate template;
 	@Inject private PersonRepository personRepo;
 

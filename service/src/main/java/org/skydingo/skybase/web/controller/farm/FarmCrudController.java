@@ -21,7 +21,7 @@ import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Farm;
 import org.skydingo.skybase.service.DataCenterService;
-import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.service.CIService;
 import org.skydingo.skybase.service.EnvironmentService;
 import org.skydingo.skybase.service.FarmService;
 import org.skydingo.skybase.web.controller.AbstractCrudController;
@@ -45,7 +45,7 @@ public class FarmCrudController extends AbstractCrudController<Farm> {
 	 * @see org.skydingo.skybase.web.controller.AbstractCrudController#getService()
 	 */
 	@Override
-	public EntityService<Farm> getService() { return farmService; }
+	public CIService<Farm> getService() { return farmService; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractCrudController#getAllowedFields()

@@ -30,12 +30,12 @@ import org.springframework.format.Formatter;
  * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class EntityFormatter<T extends CI<T>> implements Formatter<T> {
-	private static final Logger log = LoggerFactory.getLogger(EntityFormatter.class);
+public class CIFormatter<T extends CI<T>> implements Formatter<T> {
+	private static final Logger log = LoggerFactory.getLogger(CIFormatter.class);
 	
 	private Class<T> entityClass;
 	
-	public EntityFormatter(Class<T> entityClass) {
+	public CIFormatter(Class<T> entityClass) {
 		this.entityClass = entityClass;
 	}
 

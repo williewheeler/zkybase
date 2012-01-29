@@ -46,7 +46,7 @@ public class RegionServiceImplTests extends AbstractEntityServiceImplTests<Regio
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getService()
 	 */
 	@Override
-	protected AbstractEntityServiceImpl<Region> getService() { return regionService; }
+	protected AbstractCIServiceImpl<Region> getService() { return regionService; }
 	
 	/**
 	 * @throws Exception

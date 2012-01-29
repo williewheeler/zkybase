@@ -20,7 +20,7 @@ package org.skydingo.skybase.web.controller.environment;
 import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Environment;
-import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.service.CIService;
 import org.skydingo.skybase.service.EnvironmentService;
 import org.skydingo.skybase.service.FarmService;
 import org.skydingo.skybase.web.controller.AbstractCrudController;
@@ -43,7 +43,7 @@ public class EnvironmentCrudController extends AbstractCrudController<Environmen
 	 * @see org.skydingo.skybase.web.controller.AbstractCrudController#getService()
 	 */
 	@Override
-	public EntityService<Environment> getService() { return environmentService; }
+	public CIService<Environment> getService() { return environmentService; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractCrudController#getAllowedFields()

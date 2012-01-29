@@ -34,7 +34,7 @@ import org.springframework.validation.Errors;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-public class PackageServiceImpl extends AbstractEntityServiceImpl<Package> implements PackageService {
+public class PackageServiceImpl extends AbstractCIServiceImpl<Package> implements PackageService {
 	@Inject private PackageRepository packageRepo;
 	
 	/* (non-Javadoc)

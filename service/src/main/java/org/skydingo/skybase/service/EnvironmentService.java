@@ -22,4 +22,4 @@ import org.skydingo.skybase.model.Environment;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface EnvironmentService extends EntityService<Environment> { }
+public interface EnvironmentService extends CIService<Environment> { }

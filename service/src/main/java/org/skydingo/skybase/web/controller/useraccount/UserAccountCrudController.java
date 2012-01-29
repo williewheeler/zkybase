@@ -23,7 +23,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import org.skydingo.skybase.model.UserAccount;
-import org.skydingo.skybase.service.EntityService;
+import org.skydingo.skybase.service.CIService;
 import org.skydingo.skybase.service.UserAccountService;
 import org.skydingo.skybase.web.controller.AbstractCrudController;
 import org.slf4j.Logger;
@@ -58,7 +58,7 @@ public class UserAccountCrudController extends AbstractCrudController<UserAccoun
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityNoFormController#getService()
 	 */
 	@Override
-	public EntityService<UserAccount> getService() {
+	public CIService<UserAccount> getService() {
 		return userAccountService;
 	}
 	

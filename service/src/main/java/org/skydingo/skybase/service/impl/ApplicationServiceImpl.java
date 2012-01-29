@@ -33,7 +33,7 @@ import org.springframework.stereotype.Service;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-public class ApplicationServiceImpl extends AbstractEntityServiceImpl<Application> implements ApplicationService {
+public class ApplicationServiceImpl extends AbstractCIServiceImpl<Application> implements ApplicationService {
 	@Inject private ApplicationRepository applicationRepository;
 	@Inject private GitHub gitHub;
 

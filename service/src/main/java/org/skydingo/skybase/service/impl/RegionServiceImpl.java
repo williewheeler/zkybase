@@ -25,6 +25,6 @@ import org.springframework.stereotype.Service;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-public class RegionServiceImpl extends AbstractEntityServiceImpl<Region> implements RegionService {
+public class RegionServiceImpl extends AbstractCIServiceImpl<Region> implements RegionService {
 
 }

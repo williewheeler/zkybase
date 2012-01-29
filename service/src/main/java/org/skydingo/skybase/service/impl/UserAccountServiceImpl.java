@@ -28,6 +28,6 @@ import org.springframework.stereotype.Service;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-public class UserAccountServiceImpl extends AbstractEntityServiceImpl<UserAccount> implements UserAccountService {
+public class UserAccountServiceImpl extends AbstractCIServiceImpl<UserAccount> implements UserAccountService {
 	@Inject private UserAccountRepository userAccountRepository;
 }

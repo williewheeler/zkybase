@@ -22,7 +22,7 @@ import org.skydingo.skybase.model.Application;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface ApplicationService extends EntityService<Application> {
+public interface ApplicationService extends CIService<Application> {
 	
 	Application findOneWithScm(Long id);
 	
