@@ -1,5 +1,5 @@
 /* 
- * PersonService.java
+ * AbstractController.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,31 +15,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.service;
+package org.skydingo.skybase.web.controller;
 
-import org.skydingo.skybase.model.Person;
-import org.springframework.validation.Errors;
+import javax.inject.Inject;
+
+import org.skydingo.skybase.web.navigation.Navigation;
+import org.skydingo.skybase.web.navigation.Sitemap;
+import org.springframework.ui.Model;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface PersonService extends EntityService<Person> {
+public class AbstractController {
+	@Inject protected Sitemap sitemap;
 	
-	/**
-	 * @param person
-	 * @param errors
-	 */
-	void createPerson(Person person, Errors errors);
-	
-//	/**
-//	 * @param id person ID
-//	 * @return person details
-//	 */
-//	Person findPersonDetails(Long id);
-	
-	/**
-	 * @param person
-	 * @param errors
-	 */
-	void updatePerson(Person person, Errors errors);
+	protected String addNavigation(Model model, String currentNodeId) {
+		model.addAttribute(new Navigation(sitemap, currentNodeId, model.asMap()));
+		return currentNodeId;
+	}
 }

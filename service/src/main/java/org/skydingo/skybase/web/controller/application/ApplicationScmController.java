@@ -25,8 +25,8 @@ import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.model.GitHubScm;
 import org.skydingo.skybase.repository.ApplicationRepository;
 import org.skydingo.skybase.service.ApplicationService;
-import org.skydingo.skybase.web.controller.AbstractEntityController;
-import org.skydingo.skybase.web.controller.WebUtil;
+import org.skydingo.skybase.web.controller.AbstractController;
+import org.skydingo.skybase.web.view.ViewUtil;
 import org.springframework.social.github.api.GitHub;
 import org.springframework.social.github.api.GitHubCommit;
 import org.springframework.social.github.api.GitHubUser;
@@ -41,7 +41,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping("/applications")
-public class ApplicationScmController extends AbstractEntityController<Application> {
+public class ApplicationScmController extends AbstractController {
 	@Inject private ApplicationRepository applicationRepository;
 	@Inject private ApplicationService applicationService;
 	@Inject private GitHub gitHub;
@@ -76,7 +76,7 @@ public class ApplicationScmController extends AbstractEntityController<Applicati
 		// changes to the Spring Social GitHub API to produce changes to our web service API. But I'm not necessarily
 		// excited about implementing that entire data model here. Considering options.
 		List<GitHubUser> collaborators = gitHub.repoOperations().getCollaborators(scm.getUser(), scm.getRepo());
-		List<List<GitHubUser>> collaboratorRows = WebUtil.toRows(collaborators, 3);
+		List<List<GitHubUser>> collaboratorRows = ViewUtil.toRows(collaborators, 3);
 		
 		model.addAttribute(app);
 		model.addAttribute("entity", app);
@@ -120,7 +120,7 @@ public class ApplicationScmController extends AbstractEntityController<Applicati
 		String user = scm.getUser();
 		String repo = scm.getRepo();
 		List<GitHubUser> watchers = gitHub.repoOperations().getWatchers(user, repo);
-		List<List<GitHubUser>> watcherRows = WebUtil.toRows(watchers, 3);
+		List<List<GitHubUser>> watcherRows = ViewUtil.toRows(watchers, 3);
 		
 		model.addAttribute(app);
 		model.addAttribute("entity", app);
@@ -128,5 +128,29 @@ public class ApplicationScmController extends AbstractEntityController<Applicati
 		model.addAttribute("watcherRows", watcherRows);
 		
 		return addNavigation(model, "applicationScmWatchers");
+	}
+	
+	/**
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/{id}/scm/hooks", method = RequestMethod.GET)
+	public String getHooks(@PathVariable Long id, Model model) {
+		
+		// Get the hooks
+		Application app = applicationRepository.findOne(id);
+		
+		// FIXME Currently assuming GitHub.
+		GitHubScm scm = (GitHubScm) app.getScm();
+		String user = scm.getUser();
+		String repo = scm.getRepo();
+//		List<GitHubHook> hooks = gitHub.repoOperations().getHooks(user, repo);
+		
+		model.addAttribute(app);
+		model.addAttribute("entity", app);
+//		model.addAttribute("hookList", hookList);
+		
+		return addNavigation(model, "applicationScmHooks");
 	}
 }

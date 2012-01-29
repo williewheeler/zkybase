@@ -45,14 +45,11 @@ import org.springframework.validation.BindingResult;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public abstract class AbstractEntityFormControllerTests<T extends Entity<T>> {
-	protected static final String VN_CREATE_ENTITY_FORM = "createEntityForm";
-	protected static final String VN_EDIT_ENTITY_FORM = "editEntityForm";
-	protected static final String VN_EDIT_ENTITY_SUCCESS = "editEntitySuccess";
 	
 	private Class<T> entityClass;
 	
 	// Class under test
-	@InjectMocks protected AbstractEntityFormController<T> controller;
+	@InjectMocks protected AbstractCrudController<T> controller;
 	
 	// Dependencies
 	@Mock protected Paths paths;
@@ -66,7 +63,7 @@ public abstract class AbstractEntityFormControllerTests<T extends Entity<T>> {
 	
 	protected abstract void initController();
 	
-	protected abstract AbstractEntityFormController<T> getController();
+	protected abstract AbstractCrudController<T> getController();
 	
 	protected abstract GraphRepository<T> getRepository();
 	
@@ -78,25 +75,6 @@ public abstract class AbstractEntityFormControllerTests<T extends Entity<T>> {
 	// =================================================================================================================
 	// Lifecycle
 	// =================================================================================================================
-	
-	/**
-	 * @throws Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-		initController();
-		MockitoAnnotations.initMocks(this);
-		
-		when(sitemap.getNode((String) any())).thenReturn(node);
-		when(sitemap.getCreateFormId(getEntityClass())).thenReturn(VN_CREATE_ENTITY_FORM);
-		when(sitemap.getEditFormId(getEntityClass())).thenReturn(VN_EDIT_ENTITY_FORM);
-		when(viewNames.putEditFormSuccessViewName(getEntityClass(), 1L)).thenReturn(VN_EDIT_ENTITY_SUCCESS);
-		
-		when(getService().findAll()).thenReturn(new ArrayList<T>());
-		when(getService().findOne(anyLong())).thenReturn(getEntity());
-
-		doSetUp();
-	}
 	
 	protected void doSetUp() throws Exception {
 		// Override as needed
@@ -122,45 +100,4 @@ public abstract class AbstractEntityFormControllerTests<T extends Entity<T>> {
 	// =================================================================================================================
 	// Tests
 	// =================================================================================================================
-	
-	@Test
-	public void testGetCreateForm() {
-		String viewName = getController().getCreateForm(model);
-		assertEquals(VN_CREATE_ENTITY_FORM, viewName);
-	}
-	
-	@Test
-	public void testPostCreateForm() {
-		String viewName = getController().getCreateForm(model);
-		assertEquals(VN_CREATE_ENTITY_FORM, viewName);
-	}
-	
-	@Test
-	public void testPostCreateFormWithErrors() {
-		when(result.hasErrors()).thenReturn(true);
-		String viewName = getController().getCreateForm(model);
-		assertEquals(VN_CREATE_ENTITY_FORM, viewName);
-	}
-	
-	@Test
-	public void testGetEditForm() {
-		String viewName = getController().getEditForm(1L, model);
-		assertEquals(VN_EDIT_ENTITY_FORM, viewName);
-	}
-	
-	@Test
-	public void testPutEditEntityForm() {
-		String viewName = getController().putEditForm(1L, getEntity(), result, model);
-		assertEquals(VN_EDIT_ENTITY_SUCCESS, viewName);
-	}
-	
-	/**
-	 * Confirms that we handle validation errors properly.
-	 */
-	@Test
-	public void testPutEditEntityFormWithErrors() {
-		when(result.hasErrors()).thenReturn(true);
-		String viewName = getController().putEditForm(1L, getEntity(), result, model);
-		assertEquals(VN_EDIT_ENTITY_FORM, viewName);
-	}
 }

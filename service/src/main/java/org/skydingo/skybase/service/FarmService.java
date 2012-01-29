@@ -19,6 +19,7 @@ package org.skydingo.skybase.service;
 
 import java.util.List;
 
+import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.model.Farm;
 
@@ -26,6 +27,12 @@ import org.skydingo.skybase.model.Farm;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public interface FarmService extends EntityService<Farm> {
+	
+	/**
+	 * @param application
+	 * @return
+	 */
+	List<Farm> findByApplication(Application application);
 	
 	/**
 	 * @param environment

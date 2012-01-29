@@ -49,6 +49,9 @@ import org.springframework.ui.Model;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public class ApplicationScmControllerTests {
+	private static final String GITHUB_USER = "williewheeler";
+	private static final String GITHUB_REPO = "skybase";
+	
 	@InjectMocks private ApplicationScmController controller;
 	
 	@Mock private ApplicationRepository applicationRepository;
@@ -77,8 +80,8 @@ public class ApplicationScmControllerTests {
 		when(repoOperations.getCommits(anyString(), anyString())).thenReturn(new ArrayList<GitHubCommit>());
 		when(repoOperations.getWatchers(anyString(), anyString())).thenReturn(new ArrayList<GitHubUser>());
 		when(application.getScm()).thenReturn(scm);
-		when(scm.getUser()).thenReturn("williewheeler");
-		when(scm.getRepo()).thenReturn("skybase");
+		when(scm.getUser()).thenReturn(GITHUB_USER);
+		when(scm.getRepo()).thenReturn(GITHUB_REPO);
 	}
 	
 	/**
@@ -128,5 +131,18 @@ public class ApplicationScmControllerTests {
 		verify(model, times(1)).addAttribute("entity", application);
 		verify(model, times(1)).addAttribute(eq("watcherList"), anyObject());
 		verify(model, times(1)).addAttribute(eq("watcherRows"), anyObject());
+	}
+	
+	/**
+	 * 
+	 */
+	@Test
+	public void testGetHooks() throws Exception {
+		String viewName = controller.getHooks(1L, model);
+		assertEquals("applicationScmHooks", viewName);
+//		verify(repoOperations, times(1)).getHooks(GITHUB_USER, GITHUB_REPO);
+		verify(model, times(1)).addAttribute(application);
+		verify(model, times(1)).addAttribute("entity", application);
+//		verify(model, times(1)).addAttribute(eq("hookList"), anyObject());
 	}
 }

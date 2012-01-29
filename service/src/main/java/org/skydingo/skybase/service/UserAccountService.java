@@ -1,5 +1,5 @@
 /* 
- * PersonService.java
+ * UserAccountService.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -17,29 +17,9 @@
  */
 package org.skydingo.skybase.service;
 
-import org.skydingo.skybase.model.Person;
-import org.springframework.validation.Errors;
+import org.skydingo.skybase.model.UserAccount;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface PersonService extends EntityService<Person> {
-	
-	/**
-	 * @param person
-	 * @param errors
-	 */
-	void createPerson(Person person, Errors errors);
-	
-//	/**
-//	 * @param id person ID
-//	 * @return person details
-//	 */
-//	Person findPersonDetails(Long id);
-	
-	/**
-	 * @param person
-	 * @param errors
-	 */
-	void updatePerson(Person person, Errors errors);
-}
+public interface UserAccountService extends EntityService<UserAccount> { }

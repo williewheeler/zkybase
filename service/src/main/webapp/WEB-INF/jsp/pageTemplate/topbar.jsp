@@ -41,22 +41,7 @@
 							<li><a href="#">Instances</a></li>
 						</ul>
 					</li>
-					<li id="templatesArea" class="dropdown">
-						<a href="#" class="dropdown-toggle">Templates</a>
-						<ul class="dropdown-menu">
-							<li><a href="${osStackTemplatesUrl}">OS stacks</a></li>
-							<li><a href="${middlewareStackTemplatesUrl}">Middleware stacks</a></li>
-							<li><a href="${appStackTemplatesUrl}">Application stacks</a></li>
-						</ul>
-					</li>
 					<li id="personListArea"><a href="${peopleUrl}">People</a></li>
-					<li id="adminArea" class="dropdown">
-						<a href="#" class="dropdown-toggle">Admin</a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Environment types</a></li>
-							<li><a href="#">Instance types</a></li>
-						</ul>
-					</li>
 				</ul>
 				<form class="pull-left" action="">
 					<input type="text" placeholder="Search" class="span3" />

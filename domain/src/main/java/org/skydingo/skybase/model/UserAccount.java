@@ -1,5 +1,5 @@
 /* 
- * PersonService.java
+ * UserAccount.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,31 +15,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.service;
+package org.skydingo.skybase.model;
 
-import org.skydingo.skybase.model.Person;
-import org.springframework.validation.Errors;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * User account entity.
+ * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface PersonService extends EntityService<Person> {
+@XmlRootElement
+public class UserAccount extends AbstractEntity<UserAccount> {
+	private String username;
 	
 	/**
-	 * @param person
-	 * @param errors
+	 * @return
 	 */
-	void createPerson(Person person, Errors errors);
-	
-//	/**
-//	 * @param id person ID
-//	 * @return person details
-//	 */
-//	Person findPersonDetails(Long id);
+	@XmlElement
+	public String getUsername() { return username; }
 	
 	/**
-	 * @param person
-	 * @param errors
+	 * @param username
 	 */
-	void updatePerson(Person person, Errors errors);
+	public void setUsername(String username) { this.username = username; }
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.model.Entity#getDisplayName()
+	 */
+	@Override
+	public String getDisplayName() { return username; }
+
 }

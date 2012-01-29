@@ -23,6 +23,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.model.Farm;
 import org.skydingo.skybase.model.Instance;
@@ -39,15 +40,6 @@ public class FarmServiceImpl extends AbstractEntityServiceImpl<Farm> implements 
 	@Inject private FarmRepository farmRepo;
 	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.FarmService#findByEnvironment(org.skydingo.skybase.model.Environment)
-	 */
-	@Override
-	public List<Farm> findByEnvironment(Environment environment) {
-		notNull(environment);
-		return CollectionsUtil.asSortedList(farmRepo.findByEnvironment(environment));
-	}
-	
-	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImpl#findOne(java.lang.Long)
 	 */
 	@Override
@@ -61,5 +53,23 @@ public class FarmServiceImpl extends AbstractEntityServiceImpl<Farm> implements 
 			neo4jTemplate.fetch(instance);
 		}
 		return farm;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.FarmService#findByApplication(org.skydingo.skybase.model.Application)
+	 */
+	@Override
+	public List<Farm> findByApplication(Application application) {
+		notNull(application);
+		return CollectionsUtil.asSortedList(farmRepo.findByApplication(application));
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.FarmService#findByEnvironment(org.skydingo.skybase.model.Environment)
+	 */
+	@Override
+	public List<Farm> findByEnvironment(Environment environment) {
+		notNull(environment);
+		return CollectionsUtil.asSortedList(farmRepo.findByEnvironment(environment));
 	}
 }

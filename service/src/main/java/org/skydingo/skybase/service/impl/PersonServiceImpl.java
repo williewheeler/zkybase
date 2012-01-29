@@ -49,10 +49,10 @@ public class PersonServiceImpl extends AbstractEntityServiceImpl<Person> impleme
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.PersonService#findPersonDetails(java.lang.Long)
+	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImpl#findOne(java.lang.Long)
 	 */
 	@Override
-	public Person findPersonDetails(Long id) {
+	public Person findOne(Long id) {
 		notNull(id);
 		Person person = personRepo.findOne(id);
 		

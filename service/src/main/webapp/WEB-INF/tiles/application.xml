@@ -64,6 +64,14 @@
 		<put-attribute name="content" value="applicationScmWatchersBody" />
 	</definition>
 	
+	<!-- SCM hooks -->
+	<definition name="applicationScmHooksBody" extends="applicationDetailsBodyTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScmHooks.jsp" />
+	</definition>
+	<definition name="applicationScmHooks" extends="detailsPageTemplate">
+		<put-attribute name="content" value="applicationScmHooksBody" />
+	</definition>
+	
 	
 	<!-- =========================================================================================================== -->
 	<!-- Create application form                                                                                     -->

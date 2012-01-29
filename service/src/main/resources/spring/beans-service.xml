@@ -32,6 +32,11 @@
 	<!-- Integrations                                                                                                -->
 	<!-- =========================================================================================================== -->
 	
+	<bean class="org.springframework.social.github.connect.GitHubConnectionFactory">
+		<constructor-arg value="${gitHub.oAuth.clientId}" />
+		<constructor-arg value="${gitHub.oAuth.clientSecret}" />
+	</bean>
+	
 	<!-- For web service calls (e.g., to GitHub, BitBucket, EC2, etc.) -->
 	<!-- Use Spring Social for some of these -->
 <!-- 	<bean class="org.springframework.web.client.RestTemplate" /> -->

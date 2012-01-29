@@ -29,6 +29,7 @@ import org.skydingo.skybase.model.Farm;
 import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.model.Region;
+import org.skydingo.skybase.model.UserAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -65,6 +66,7 @@ public class Sitemap {
 		buildCrudNodes(Package.class, dashboard);
 		buildCrudNodes(Person.class, dashboard);
 		buildCrudNodes(Region.class, dashboard);
+		buildCrudNodes(UserAccount.class, dashboard);
 		
 		buildApplicationNodes();
 		buildPersonNodes();
@@ -106,6 +108,7 @@ public class Sitemap {
 		buildNode("applicationScmCollaborators", "'Collaborators'", false, scmPath + " + '/collaborators'", scmNode);
 		buildNode("applicationScmCommits", "'Commits'", false, scmPath + " + '/commits'", scmNode);
 		buildNode("applicationScmWatchers", "'Watchers'", false, scmPath + " + '/watchers'", scmNode);
+		buildNode("applicationScmHooks", "'Hooks'", false, scmPath + " + '/hooks'", scmNode);
 	}
 	
 	private void buildPersonNodes() {

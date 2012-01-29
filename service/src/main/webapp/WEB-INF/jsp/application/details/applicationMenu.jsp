@@ -8,6 +8,7 @@
 <c:url var="scmUrl" value="${scmPath}" />
 <c:url var="collaboratorsUrl" value="${scmPath}/collaborators" />
 <c:url var="commitsUrl" value="${scmPath}/commits" />
+<c:url var="hooksUrl" value="${scmPath}/hooks" />
 <c:url var="watchersUrl" value="${scmPath}/watchers" />
 
 <div class="sideMenu">
@@ -18,6 +19,7 @@
 				<li><a href="${collaboratorsUrl}">Collaborators</a></li>
 				<li><a href="${commitsUrl}">Commits</a></li>
 				<li><a href="${watchersUrl}">Watchers</a></li>
+				<li><a href="${hooksUrl}">Hooks</a></li>
 			</ul>
 		</li>
 		<li><a href="#">CI builds</a></li>

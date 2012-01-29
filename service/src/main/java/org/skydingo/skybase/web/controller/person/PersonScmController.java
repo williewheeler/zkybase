@@ -23,8 +23,8 @@ import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.repository.PersonRepository;
-import org.skydingo.skybase.web.controller.AbstractEntityController;
-import org.skydingo.skybase.web.controller.WebUtil;
+import org.skydingo.skybase.web.controller.AbstractController;
+import org.skydingo.skybase.web.view.ViewUtil;
 import org.springframework.social.github.api.GitHub;
 import org.springframework.social.github.api.GitHubUser;
 import org.springframework.stereotype.Controller;
@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping("/people")
-public class PersonScmController extends AbstractEntityController<Person> {
+public class PersonScmController extends AbstractController {
 	@Inject private PersonRepository personRepository;
 	@Inject private GitHub gitHub;
 	
@@ -56,7 +56,7 @@ public class PersonScmController extends AbstractEntityController<Person> {
 		String gitHubUser = person.getGitHubUser();
 		if (gitHubUser != null) {
 			List<GitHubUser> followers = gitHub.userOperations().getFollowers(gitHubUser);
-			List<List<GitHubUser>> followerRows = WebUtil.toRows(followers, 3);
+			List<List<GitHubUser>> followerRows = ViewUtil.toRows(followers, 3);
 			model.addAttribute("followerList", followers);
 			model.addAttribute("followerRows", followerRows);
 		}
@@ -73,7 +73,7 @@ public class PersonScmController extends AbstractEntityController<Person> {
 		String gitHubUser = person.getGitHubUser();
 		if (gitHubUser != null) {
 			List<GitHubUser> following = gitHub.userOperations().getFollowing(gitHubUser);
-			List<List<GitHubUser>> followingRows = WebUtil.toRows(following, 3);
+			List<List<GitHubUser>> followingRows = ViewUtil.toRows(following, 3);
 			model.addAttribute("followingList", following);
 			model.addAttribute("followingRows", followingRows);
 		}

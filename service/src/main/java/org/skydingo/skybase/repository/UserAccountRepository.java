@@ -1,5 +1,5 @@
 /* 
- * PersonService.java
+ * UserAccountRepository.java
  * 
  * Copyright 2011-2012 the original author or authors.
  * 
@@ -15,31 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.service;
+package org.skydingo.skybase.repository;
 
-import org.skydingo.skybase.model.Person;
-import org.springframework.validation.Errors;
+import org.skydingo.skybase.model.UserAccount;
+import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface PersonService extends EntityService<Person> {
-	
-	/**
-	 * @param person
-	 * @param errors
-	 */
-	void createPerson(Person person, Errors errors);
-	
-//	/**
-//	 * @param id person ID
-//	 * @return person details
-//	 */
-//	Person findPersonDetails(Long id);
-	
-	/**
-	 * @param person
-	 * @param errors
-	 */
-	void updatePerson(Person person, Errors errors);
-}
+public interface UserAccountRepository extends GraphRepository<UserAccount> { }
