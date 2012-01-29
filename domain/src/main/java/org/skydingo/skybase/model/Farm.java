@@ -1,6 +1,4 @@
 /* 
- * Farm.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,7 +36,7 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
  */
 @XmlRootElement
 @XmlType(propOrder = { "name", "environment", "dataCenter", "instancesAsList" })
-public class Farm extends AbstractEntity<Farm> {
+public class Farm extends AbstractCI<Farm> {
 	private String name;
 	
 	// IMPORTANT: The relationship names IN_ENVIRONMENT and IN_DATA_CENTER need to be distinct; we can't, e.g., use the

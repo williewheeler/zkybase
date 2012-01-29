@@ -28,7 +28,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.skydingo.skybase.model.Entity;
+import org.skydingo.skybase.model.CI;
 import org.skydingo.skybase.model.ListWrapper;
 import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.web.navigation.Paths;
@@ -47,7 +47,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public abstract class AbstractCrudController<T extends Entity<T>> extends AbstractController {
+public abstract class AbstractCrudController<T extends CI<T>> extends AbstractController {
 	public static final String MK_FORM_DATA = "formData";
 	public static final String MK_ENTITY = "entity";
 	public static final String MK_HAS_ERRORS = "hasErrors";

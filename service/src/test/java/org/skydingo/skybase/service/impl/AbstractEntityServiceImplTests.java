@@ -24,13 +24,13 @@ import static org.mockito.Mockito.verify;
 import java.util.List;
 
 import org.junit.Test;
-import org.skydingo.skybase.model.Entity;
+import org.skydingo.skybase.model.CI;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public abstract class AbstractEntityServiceImplTests<T extends Entity<T>> {
+public abstract class AbstractEntityServiceImplTests<T extends CI<T>> {
 	
 	protected abstract GraphRepository<T> getRepository();
 	

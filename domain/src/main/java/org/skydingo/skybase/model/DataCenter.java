@@ -1,6 +1,4 @@
 /* 
- * DataCenter.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,7 +35,7 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
  */
 @XmlRootElement
 @XmlType(propOrder = { "name", "region" })
-public class DataCenter extends AbstractEntity<DataCenter> {
+public class DataCenter extends AbstractCI<DataCenter> {
 	private static final Logger log = LoggerFactory.getLogger(DataCenter.class);
 	
 	private String name;

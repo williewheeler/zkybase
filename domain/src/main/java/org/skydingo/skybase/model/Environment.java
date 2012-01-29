@@ -1,6 +1,4 @@
 /* 
- * Environment.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +34,7 @@ import org.slf4j.LoggerFactory;
  */
 @XmlRootElement
 @XmlType(propOrder = { "name" })
-public class Environment extends AbstractEntity<Environment> {
+public class Environment extends AbstractCI<Environment> {
 	private static final Logger log = LoggerFactory.getLogger(Environment.class);
 	
 	private String name;

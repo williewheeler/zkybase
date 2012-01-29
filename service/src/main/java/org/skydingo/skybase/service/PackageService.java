@@ -17,7 +17,7 @@
  */
 package org.skydingo.skybase.service;
 
-import org.skydingo.skybase.exception.DuplicateEntityException;
+import org.skydingo.skybase.exception.DuplicateCIException;
 import org.skydingo.skybase.model.Package;
 import org.springframework.validation.Errors;
 
@@ -28,7 +28,7 @@ public interface PackageService extends EntityService<Package> {
 	
 	/**
 	 * @param pkg
-	 * @throws DuplicateEntityException if the package already exists
+	 * @throws DuplicateCIException if the package already exists
 	 */
 	void createPackage(Package pkg);
 	

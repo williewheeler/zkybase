@@ -31,7 +31,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.skydingo.skybase.model.Entity;
+import org.skydingo.skybase.model.CI;
 import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.web.navigation.Node;
 import org.skydingo.skybase.web.navigation.Paths;
@@ -44,7 +44,7 @@ import org.springframework.validation.BindingResult;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public abstract class AbstractEntityFormControllerTests<T extends Entity<T>> {
+public abstract class AbstractEntityFormControllerTests<T extends CI<T>> {
 	
 	private Class<T> entityClass;
 	

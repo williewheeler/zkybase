@@ -1,6 +1,4 @@
 /* 
- * UserAccount.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
-public class UserAccount extends AbstractEntity<UserAccount> {
+public class UserAccount extends AbstractCI<UserAccount> {
 	private String username;
 	
 	/**

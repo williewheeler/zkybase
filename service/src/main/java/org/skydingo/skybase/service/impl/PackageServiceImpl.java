@@ -23,7 +23,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.skydingo.skybase.exception.DuplicateEntityException;
+import org.skydingo.skybase.exception.DuplicateCIException;
 import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.repository.PackageRepository;
 import org.skydingo.skybase.service.PackageService;
@@ -46,7 +46,7 @@ public class PackageServiceImpl extends AbstractEntityServiceImpl<Package> imple
 		List<Package> duplicates =
 			packageRepo.findByGroupIdAndPackageIdAndVersion(pkg.getGroupId(), pkg.getPackageId(), pkg.getVersion());
 		if (!duplicates.isEmpty()) {
-			throw new DuplicateEntityException();
+			throw new DuplicateCIException();
 		}
 		getRepository().save(pkg);
 	}
@@ -62,7 +62,7 @@ public class PackageServiceImpl extends AbstractEntityServiceImpl<Package> imple
 		if (!errors.hasErrors()) {
 			try {
 				createPackage(pkg);
-			} catch (DuplicateEntityException e) {
+			} catch (DuplicateCIException e) {
 				errors.reject("error.package.duplicatePackage");
 			}
 		}

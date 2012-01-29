@@ -25,7 +25,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.skydingo.skybase.model.Entity;
+import org.skydingo.skybase.model.CI;
 import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.util.CollectionsUtil;
 import org.slf4j.Logger;
@@ -39,7 +39,7 @@ import org.springframework.validation.Errors;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Transactional
-public abstract class AbstractEntityServiceImpl<T extends Entity<T>> implements EntityService<T> {
+public abstract class AbstractEntityServiceImpl<T extends CI<T>> implements EntityService<T> {
 	private static final Logger log = LoggerFactory.getLogger(AbstractEntityServiceImpl.class);
 	
 	@Inject protected Neo4jTemplate neo4jTemplate;

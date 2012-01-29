@@ -1,6 +1,4 @@
 /* 
- * ListWrapper.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +20,7 @@ import java.util.List;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface ListWrapper<T extends Entity<T>> {
+public interface ListWrapper<T extends CI<T>> {
 	
 	List<T> getList();
 	

@@ -20,7 +20,7 @@ package org.skydingo.skybase.web.controller.pkg;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
-import org.skydingo.skybase.exception.DuplicateEntityException;
+import org.skydingo.skybase.exception.DuplicateCIException;
 import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.service.EntityService;
 import org.skydingo.skybase.service.PackageService;
@@ -43,7 +43,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class PackageCrudController extends AbstractCrudController<Package> {
 	private static final Logger log = LoggerFactory.getLogger(PackageCrudController.class);
 	
-	// FIXME Get rid of groupId, packageId...
 	private static final String[] ALLOWED_FIELDS = new String[] { "groupId", "packageId", "version" };
 	
 	@Inject private PackageService packageService;
@@ -65,6 +64,10 @@ public class PackageCrudController extends AbstractCrudController<Package> {
 	// =================================================================================================================
 	
 	// consumes : Spring 3.1
+	/**
+	 * @param pkg
+	 * @param res
+	 */
 	@RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/xml")
 	public void postPackage(@RequestBody Package pkg, HttpServletResponse res) {
 		log.debug("Posting package: {}", pkg);
@@ -72,7 +75,7 @@ public class PackageCrudController extends AbstractCrudController<Package> {
 		try {
 			packageService.createPackage(pkg);
 			res.setHeader("Location", appBaseUrl + "/packages/" + pkg.getId());
-		} catch (DuplicateEntityException e) {
+		} catch (DuplicateCIException e) {
 			log.info("Package already exists; ignoring: {}", pkg);
 			
 			// Using SC_OK:

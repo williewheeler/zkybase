@@ -1,6 +1,4 @@
 /* 
- * Entity.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,17 +16,19 @@
 package org.skydingo.skybase.model;
 
 /**
+ * Configuration item (CI) interface.
+ * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface Entity<T extends Entity<T>> extends Comparable<T> {
+public interface CI<T extends CI<T>> extends Comparable<T> {
 	
 	/**
-	 * @return entity ID
+	 * @return CI ID
 	 */
 	Long getId();
 	
 	/**
-	 * @param id entity ID
+	 * @param id CI ID
 	 */
 	void setId(Long id);
 	

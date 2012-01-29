@@ -38,7 +38,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.skydingo.skybase.model.Entity;
+import org.skydingo.skybase.model.CI;
 import org.skydingo.skybase.model.ListWrapper;
 import org.skydingo.skybase.web.navigation.Node;
 import org.skydingo.skybase.web.navigation.Paths;
@@ -50,7 +50,7 @@ import org.springframework.validation.BindingResult;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public abstract class AbstractCrudControllerTests<T extends Entity<T>> {
+public abstract class AbstractCrudControllerTests<T extends CI<T>> {
 	protected static final String VN_CREATE_ENTITY_FORM = "createEntityForm";
 	protected static final String VN_DELETE_ENTITY_SUCCESS = "deleteEntitySuccess";
 	protected static final String VN_EDIT_ENTITY_FORM = "editEntityForm";

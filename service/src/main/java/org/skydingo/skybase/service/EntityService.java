@@ -19,13 +19,13 @@ package org.skydingo.skybase.service;
 
 import java.util.List;
 
-import org.skydingo.skybase.model.Entity;
+import org.skydingo.skybase.model.CI;
 import org.springframework.validation.Errors;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface EntityService<T extends Entity<T>> {
+public interface EntityService<T extends CI<T>> {
 	
 	/**
 	 * @param entity

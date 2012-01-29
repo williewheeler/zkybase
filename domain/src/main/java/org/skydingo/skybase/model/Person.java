@@ -1,6 +1,4 @@
 /* 
- * Person.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,7 +38,7 @@ import org.springframework.data.neo4j.support.index.IndexType;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
-public class Person extends AbstractEntity<Person> {
+public class Person extends AbstractCI<Person> {
 	
 	// TODO Figure out why it's not good enough to put @Indexed here without the index name or type.
 	@Indexed(indexType = IndexType.FULLTEXT, indexName = "searchByUsername")

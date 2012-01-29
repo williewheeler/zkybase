@@ -1,6 +1,4 @@
 /* 
- * Package.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,7 +36,7 @@ import org.springframework.data.neo4j.annotation.Indexed;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
-public class Package extends AbstractEntity<Package> {
+public class Package extends AbstractCI<Package> {
 	@Indexed private String groupId;
 	@Indexed private String packageId;
 	@Indexed private String version;

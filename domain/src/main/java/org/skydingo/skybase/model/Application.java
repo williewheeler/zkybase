@@ -1,6 +1,4 @@
 /* 
- * Application.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,7 +31,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlRootElement
 @XmlType(propOrder = { "name", "shortDescription", "scm" })
-public class Application extends AbstractEntity<Application> {
+public class Application extends AbstractCI<Application> {
 	
 	// FIXME Temporary
 	private static final GitHubScm SKYBASE_SCM = new GitHubScm("williewheeler", "skybase");
