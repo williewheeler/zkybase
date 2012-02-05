@@ -10,8 +10,8 @@
 	<!-- Environment list                                                                                            -->
 	<!-- =========================================================================================================== -->
 	
-	<definition name="environmentList" extends="pageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/environment/environmentList.jsp" />
+	<definition name="environmentList" extends="listPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/environment/environmentList.jsp" cascade="true" />
 	</definition>
 	
 	
@@ -19,17 +19,9 @@
 	<!-- Environment details                                                                                         -->
 	<!-- =========================================================================================================== -->
 	
-	<!-- Body template -->
-	<definition name="environmentDetailsBodyTemplate" extends="rightSidebarBodyTemplate">
-		<put-attribute name="sidebar" value="/WEB-INF/jsp/environment/details/environmentMenu.jsp" />
-	</definition>
-	
-	<!-- Overview page -->
-	<definition name="environmentDetailsBody" extends="environmentDetailsBodyTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/environment/details/environmentDetails.jsp" />
-	</definition>
-	<definition name="environmentDetails" extends="pageTemplate">
-		<put-attribute name="content" value="environmentDetailsBody" />
+	<!-- Overview -->
+	<definition name="environmentDetails" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/environment/details/environmentDetails.jsp" cascade="true" />
 	</definition>
 	
 	

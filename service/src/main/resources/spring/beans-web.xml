@@ -33,9 +33,9 @@
 	<context:component-scan base-package="org.skydingo.skybase.web.controller" />
 	<context:component-scan base-package="org.skydingo.skybase.web.view" />
 	
-	<bean id="paths" class="org.skydingo.skybase.web.navigation.Paths" />
+	<bean id="paths" class="org.skydingo.skybase.web.sitemap.Paths" />
 	
-	<bean class="org.skydingo.skybase.web.navigation.Sitemap" p:messageSource-ref="messageSource" p:paths-ref="paths">
+	<bean class="org.skydingo.skybase.web.sitemap.Sitemap" p:messageSource-ref="messageSource" p:paths-ref="paths">
 		<property name="expressionParser">
 			<bean class="org.springframework.expression.spel.standard.SpelExpressionParser" />
 		</property>

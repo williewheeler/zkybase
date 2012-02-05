@@ -40,7 +40,7 @@
 	<body>
 		<jsp:include page="topbar.jsp" />
 		<div class="container">
-			<jsp:include page="breadcrumbs.jsp" />
+			<jsp:include page="navigation/breadcrumbs.jsp" />
 			<jsp:include page="alerts.jsp" />
 			<tiles:insertAttribute name="content" />
 			<jsp:include page="footer.jsp" />

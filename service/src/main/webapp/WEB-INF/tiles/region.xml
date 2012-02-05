@@ -5,25 +5,42 @@
 
 <tiles-definitions>
 	
-	<!-- Region list -->
-	<definition name="regionList" extends="pageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/region/regionList.jsp" />
+	
+	<!-- =========================================================================================================== -->
+	<!-- Region list                                                                                                 -->
+	<!-- =========================================================================================================== -->
+	
+	<definition name="regionList" extends="listPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/region/regionList.jsp" cascade="true" />
 	</definition>
 	
-	<!-- Region details -->
-	<definition name="regionDetails" extends="pageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/region/regionDetails.jsp" />
+	
+	<!-- =========================================================================================================== -->
+	<!-- Region details                                                                                              -->
+	<!-- =========================================================================================================== -->
+	
+	<!-- Overview -->
+	<definition name="regionDetails" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/region/details/regionDetails.jsp" cascade="true" />
 	</definition>
 	
-	<!-- Create region form -->
+	
+	<!-- =========================================================================================================== -->
+	<!-- Create region form                                                                                          -->
+	<!-- =========================================================================================================== -->
+	
 	<definition name="createRegionFormTile" template="/WEB-INF/jsp/region/regionForm.jsp">
 		<put-attribute name="formMethod" value="POST" />
 	</definition>
 	<definition name="createRegionForm" extends="createPageTemplate">
 		<put-attribute name="content" value="createRegionFormTile" />
 	</definition>
+	
 
-	<!-- Edit region form -->
+	<!-- =========================================================================================================== -->
+	<!-- Edit region form                                                                                            -->
+	<!-- =========================================================================================================== -->
+	
 	<definition name="editRegionFormTile" template="/WEB-INF/jsp/region/regionForm.jsp">
 		<put-attribute name="formMethod" value="put" />
 	</definition>

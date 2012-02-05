@@ -135,6 +135,6 @@ input, button {
 .users.icon { background-image: url(../images/icons/users.png); }
 .warning.icon { background-image: url(../images/icons/exclamation.png); }
 
-#viewport { overflow: hidden; width: 940px; }
-.scrollPane { width: 2400px; }
-.scrollPane .sub { float: left; width: 940px; padding-right: 80px; }
+/* #viewport { overflow: hidden; width: 940px; } */
+/* .scrollPane { width: 2400px; } */
+/* .scrollPane .sub { float: left; width: 940px; padding-right: 80px; } */

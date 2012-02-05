@@ -36,8 +36,8 @@ import org.mockito.MockitoAnnotations;
 import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.model.GitHubScm;
 import org.skydingo.skybase.service.ApplicationService;
-import org.skydingo.skybase.web.navigation.Node;
-import org.skydingo.skybase.web.navigation.Sitemap;
+import org.skydingo.skybase.web.sitemap.SitemapNode;
+import org.skydingo.skybase.web.sitemap.Sitemap;
 import org.springframework.social.github.api.GitHub;
 import org.springframework.social.github.api.GitHubCommit;
 import org.springframework.social.github.api.GitHubUser;
@@ -58,7 +58,7 @@ public class ApplicationScmControllerTests {
 	@Mock private RepoOperations repoOperations;
 	@Mock private Sitemap sitemap;
 	
-	@Mock private Node node;
+	@Mock private SitemapNode node;
 	@Mock private Model model;
 	@Mock private Application application;
 	@Mock private GitHubScm scm;

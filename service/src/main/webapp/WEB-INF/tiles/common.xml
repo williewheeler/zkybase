@@ -16,15 +16,26 @@
 	</definition>
 	
 	<!-- List page -->
-	<definition name="listPageTitledTemplate" extends="titledTemplate">
+	<definition name="listTitledTemplate" extends="titledTemplate">
 		<put-attribute name="viewLinks" value="/WEB-INF/jsp/pageTemplate/links/jsonXmlViewLinks.jsp" />
 		<put-attribute name="actionLinks" value="/WEB-INF/jsp/pageTemplate/links/listPageActionLinks.jsp" />
 	</definition>
+	<definition name="listPageTemplate" extends="pageTemplate">
+		<put-attribute name="content" value="listTitledTemplate" />
+	</definition>
 	
 	<!-- Details page -->
-	<definition name="detailsPageTitledTemplate" extends="titledTemplate">
+	<definition name="detailsTitledTemplate" extends="titledTemplate">
 		<put-attribute name="viewLinks" value="/WEB-INF/jsp/pageTemplate/links/jsonXmlViewLinks.jsp" />
 		<put-attribute name="actionLinks" value="/WEB-INF/jsp/pageTemplate/links/detailsPageActionLinks.jsp" />
+	</definition>
+	<definition name="detailsPageTemplate" extends="pageTemplate">
+		<put-attribute name="content">
+			<definition extends="rightSidebarBodyTemplate">
+				<put-attribute name="sidebar" value="/WEB-INF/jsp/pageTemplate/navigation/sidebarMenu.jsp" />
+				<put-attribute name="content" value="detailsTitledTemplate" />
+			</definition>
+		</put-attribute>
 	</definition>
 	
 	<!-- Create form -->

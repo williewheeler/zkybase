@@ -35,8 +35,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.repository.PersonRepository;
-import org.skydingo.skybase.web.navigation.Node;
-import org.skydingo.skybase.web.navigation.Sitemap;
+import org.skydingo.skybase.web.sitemap.SitemapNode;
+import org.skydingo.skybase.web.sitemap.Sitemap;
 import org.springframework.social.github.api.GitHub;
 import org.springframework.social.github.api.GitHubUser;
 import org.springframework.social.github.api.UserOperations;
@@ -53,7 +53,7 @@ public class PersonScmControllerTests {
 	@Mock private UserOperations userOperations;
 	@Mock private Sitemap sitemap;
 	
-	@Mock private Node node;
+	@Mock private SitemapNode node;
 	@Mock private Model model;
 	@Mock private Person person;
 	

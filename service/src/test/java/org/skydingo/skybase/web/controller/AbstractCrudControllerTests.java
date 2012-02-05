@@ -40,9 +40,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.skydingo.skybase.model.CI;
 import org.skydingo.skybase.model.ListWrapper;
-import org.skydingo.skybase.web.navigation.Node;
-import org.skydingo.skybase.web.navigation.Paths;
-import org.skydingo.skybase.web.navigation.Sitemap;
+import org.skydingo.skybase.web.sitemap.SitemapNode;
+import org.skydingo.skybase.web.sitemap.Paths;
+import org.skydingo.skybase.web.sitemap.Sitemap;
 import org.skydingo.skybase.web.view.ViewNames;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -72,7 +72,7 @@ public abstract class AbstractCrudControllerTests<T extends CI<T>> {
 	
 	// Test objects
 	@Mock protected T entity;
-	@Mock protected Node node;
+	@Mock protected SitemapNode node;
 	@Mock protected BindingResult result;
 	@Mock protected Model model;
 	@Mock protected Writer out;

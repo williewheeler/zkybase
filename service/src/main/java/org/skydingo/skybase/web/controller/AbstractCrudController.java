@@ -31,7 +31,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.skydingo.skybase.model.CI;
 import org.skydingo.skybase.model.ListWrapper;
 import org.skydingo.skybase.service.CIService;
-import org.skydingo.skybase.web.navigation.Paths;
+import org.skydingo.skybase.web.sitemap.Paths;
 import org.skydingo.skybase.web.view.ViewNames;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.ui.Model;

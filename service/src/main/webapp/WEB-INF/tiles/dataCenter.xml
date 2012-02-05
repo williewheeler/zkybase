@@ -5,29 +5,46 @@
 
 <tiles-definitions>
 	
-	<!-- Data center list -->
-	<definition name="dataCenterList" extends="pageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/dataCenter/dataCenterList.jsp" />
+	
+	<!-- =========================================================================================================== -->
+	<!-- Data center list                                                                                            -->
+	<!-- =========================================================================================================== -->
+	
+	<definition name="dataCenterList" extends="listPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/dataCenter/dataCenterList.jsp" cascade="true" />
 	</definition>
 	
-	<!-- Data center details -->
-	<definition name="dataCenterDetails" extends="pageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/dataCenter/dataCenterDetails.jsp" />
+	
+	<!-- =========================================================================================================== -->
+	<!-- Data center details                                                                                         -->
+	<!-- =========================================================================================================== -->
+	
+	<definition name="dataCenterDetails" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/dataCenter/details/dataCenterDetails.jsp" cascade="true" />
 	</definition>
 	
-	<!-- Create data center form -->
+	
+	<!-- =========================================================================================================== -->
+	<!-- Create data center form                                                                                     -->
+	<!-- =========================================================================================================== -->
+	
 	<definition name="createDataCenterFormTile" template="/WEB-INF/jsp/dataCenter/dataCenterForm.jsp">
 		<put-attribute name="formMethod" value="POST" />
 	</definition>
 	<definition name="createDataCenterForm" extends="createPageTemplate">
 		<put-attribute name="content" value="createDataCenterFormTile" />
 	</definition>
-
-	<!-- Edit data center form -->
+	
+	
+	<!-- =========================================================================================================== -->
+	<!-- Edit data center form                                                                                       -->
+	<!-- =========================================================================================================== -->
+	
 	<definition name="editDataCenterFormTile" template="/WEB-INF/jsp/dataCenter/dataCenterForm.jsp">
 		<put-attribute name="formMethod" value="put" />
 	</definition>
 	<definition name="editDataCenterForm" extends="editPageTemplate">
 		<put-attribute name="content" value="editDataCenterFormTile" />
 	</definition>
+	
 </tiles-definitions>

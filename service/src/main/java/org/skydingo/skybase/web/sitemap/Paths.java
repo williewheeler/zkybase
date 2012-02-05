@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.navigation;
+package org.skydingo.skybase.web.sitemap;
 
 import java.util.HashMap;
 import java.util.Map;

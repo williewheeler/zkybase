@@ -38,8 +38,9 @@
 				</thead>
 				<tbody>
 					<c:forEach var="module" items="${moduleList}">
+						<c:url var="moduleUrl" value="/applications/${application.id}/modules/${module.id}" />
 						<tr>
-							<td><c:out value="${module.displayName}" /></td>
+							<td><a href="${moduleUrl}"><c:out value="${module.displayName}" /></a></td>
 							<td><c:out value="${module.shortDescription}" /></td>
 							<td class="editDeleteColumn">
 								<a class="editLink" href="#" title="Edit module"><img src="${editIconUrl}" /></a>

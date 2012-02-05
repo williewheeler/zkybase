@@ -19,8 +19,8 @@ import static org.springframework.util.Assert.notNull;
 
 import javax.inject.Inject;
 
-import org.skydingo.skybase.web.navigation.Navigation;
-import org.skydingo.skybase.web.navigation.Sitemap;
+import org.skydingo.skybase.web.sitemap.Sitemap;
+import org.skydingo.skybase.web.sitemap.navigation.Navigation;
 import org.springframework.ui.Model;
 
 /**

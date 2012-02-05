@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.navigation;
+package org.skydingo.skybase.web.sitemap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -23,6 +23,9 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.skydingo.skybase.web.sitemap.SitemapNode;
+import org.skydingo.skybase.web.sitemap.Paths;
+import org.skydingo.skybase.web.sitemap.Sitemap;
 import org.springframework.context.MessageSource;
 import org.springframework.expression.ExpressionParser;
 
@@ -49,7 +52,7 @@ public class SitemapTests {
 		sitemap.postConstruct();
 		
 		// Get a node
-		Node appModulesNode = sitemap.getNode("applicationModules");
+		SitemapNode appModulesNode = sitemap.getNode("applicationModules");
 		assertNotNull(appModulesNode);
 		assertEquals("applicationModules", appModulesNode.getId());
 		assertEquals("'Modules'", appModulesNode.getName());

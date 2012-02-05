@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.navigation;
+package org.skydingo.skybase.web.sitemap;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,7 +47,7 @@ public class Sitemap {
 	private Paths paths;
 	private ExpressionParser exprParser;
 	
-	private final Map<String, Node> nodes = new HashMap<String, Node>();
+	private final Map<String, SitemapNode> nodes = new HashMap<String, SitemapNode>();
 	
 	
 	// =================================================================================================================
@@ -56,7 +56,7 @@ public class Sitemap {
 	
 	@PostConstruct
 	public void postConstruct() {
-		Node dashboard = buildNode(getDashboardId(), wrap("Dashboard"), wrap("/"), null);
+		SitemapNode dashboard = buildNode(getDashboardId(), wrap("Dashboard"), wrap("/"), null);
 		buildCrudNodes(Application.class, dashboard);
 		buildCrudNodes(DataCenter.class, dashboard);
 		buildCrudNodes(Environment.class, dashboard);
@@ -70,7 +70,7 @@ public class Sitemap {
 		buildPersonNodes();
 	}
 	
-	private void buildCrudNodes(Class<?> entityClass, Node dashboard) {
+	private void buildCrudNodes(Class<?> entityClass, SitemapNode dashboard) {
 		String simpleName = entityClass.getSimpleName();
 		String uncapSimpleName = StringUtils.uncapitalize(simpleName);
 		
@@ -79,7 +79,7 @@ public class Sitemap {
 		log.debug("Looking up message code: {}", listTitleCode);
 		String listTitle = wrap(messageSource.getMessage(listTitleCode, null, null));
 		String listPath = wrap(paths.getListPath(entityClass));
-		Node listNode = buildNode(getEntityListViewId(entityClass), listTitle, listPath, dashboard);
+		SitemapNode listNode = buildNode(getEntityListViewId(entityClass), listTitle, listPath, dashboard);
 		
 		// Create node
 		String createTitleCode = "entity." + uncapSimpleName + ".lowercase.singular";
@@ -91,7 +91,7 @@ public class Sitemap {
 		// Details node
 		String detailsTitle = "#this[entity].displayName";
 		String detailsPath = listPath + " + '/' + #this[entity].id";
-		Node detailsNode = buildNode(getEntityDetailsViewId(entityClass), detailsTitle, detailsPath, listNode);
+		SitemapNode detailsNode = buildNode(getEntityDetailsViewId(entityClass), detailsTitle, detailsPath, listNode);
 		
 		// Edit node
 		String editTitle = "'Edit ' + #this[entity].displayName";
@@ -100,13 +100,13 @@ public class Sitemap {
 	}
 	
 	private void buildApplicationNodes() {
-		Node appNode = getNode("applicationDetails");
+		SitemapNode appNode = getNode("applicationDetails");
 		
 		String modulesPath = appNode.getPath() + " + '/modules'";
 		buildNode("applicationModules", "'Modules'", false, modulesPath, appNode);
 		
 		String scmPath = appNode.getPath() + " + '/scm'";
-		Node scmNode = buildNode("applicationScm", "'SCM'", false, scmPath, appNode);
+		SitemapNode scmNode = buildNode("applicationScm", "'SCM'", false, scmPath, appNode);
 		buildNode("applicationScmCollaborators", "'Collaborators'", false, scmPath + " + '/collaborators'", scmNode);
 		buildNode("applicationScmCommits", "'Commits'", false, scmPath + " + '/commits'", scmNode);
 		buildNode("applicationScmWatchers", "'Watchers'", false, scmPath + " + '/watchers'", scmNode);
@@ -114,9 +114,9 @@ public class Sitemap {
 	}
 	
 	private void buildPersonNodes() {
-		Node personNode = getNode("personDetails");
+		SitemapNode personNode = getNode("personDetails");
 		String scmPath = personNode.getPath() + " + '/scm'";
-		Node scmNode = buildNode("personScm", "'SCM'", false, scmPath, personNode);
+		SitemapNode scmNode = buildNode("personScm", "'SCM'", false, scmPath, personNode);
 		buildNode("personScmFollowers", "'Followers'", false, scmPath + " + '/followers'", scmNode);
 		buildNode("personScmFollowing", "'Following'", false, scmPath + " + '/following'", scmNode);
 	}
@@ -128,12 +128,12 @@ public class Sitemap {
 	@Deprecated
 	private String wrap(String path) { return "'" + StringUtils.replace(path, "'", "''") + "'"; }
 	
-	private Node buildNode(String id, String name, String path, Node parent) {
+	private SitemapNode buildNode(String id, String name, String path, SitemapNode parent) {
 		return buildNode(id, name, true, path, parent);
 	}
 	
-	private Node buildNode(String id, String name, boolean useNameAsPageTitle, String path, Node parent) {
-		Node node = new Node(id, name, useNameAsPageTitle, path);
+	private SitemapNode buildNode(String id, String name, boolean useNameAsPageTitle, String path, SitemapNode parent) {
+		SitemapNode node = new SitemapNode(id, name, useNameAsPageTitle, path);
 		log.debug("Built node: {}", node);
 		if (parent != null) { parent.addChild(node); }
 		nodes.put(id, node);
@@ -201,7 +201,7 @@ public class Sitemap {
 	// Nodes
 	// =================================================================================================================
 	
-	public Node getNode(String id) { return nodes.get(id); }
+	public SitemapNode getNode(String id) { return nodes.get(id); }
 	
 	public String resolve(String exprStr, Map<String, Object> context) {
 		Expression expr = exprParser.parseExpression(exprStr);

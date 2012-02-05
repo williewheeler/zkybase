@@ -19,7 +19,7 @@ package org.skydingo.skybase.web.view;
 
 import javax.inject.Inject;
 
-import org.skydingo.skybase.web.navigation.Paths;
+import org.skydingo.skybase.web.sitemap.Paths;
 import org.springframework.stereotype.Component;
 
 /**

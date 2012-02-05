@@ -20,7 +20,7 @@ package org.skydingo.skybase.web.controller;
 import javax.inject.Inject;
 
 import org.skydingo.skybase.service.ApplicationService;
-import org.skydingo.skybase.web.navigation.Sitemap;
+import org.skydingo.skybase.web.sitemap.Sitemap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

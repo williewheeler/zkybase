@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.web.navigation;
+package org.skydingo.skybase.web.sitemap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,21 +26,21 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class Node {
-	private static final Logger log = LoggerFactory.getLogger(Node.class);
+public class SitemapNode {
+	private static final Logger log = LoggerFactory.getLogger(SitemapNode.class);
 	
 	private String id;
 	private String name;
 	private boolean useNameAsPageTitle;
 	private String path;
-	private Node parent;
-	private final List<Node> children = new ArrayList<Node>();
+	private SitemapNode parent;
+	private final List<SitemapNode> children = new ArrayList<SitemapNode>();
 	
-	public Node(String id, String name, String path) {
+	public SitemapNode(String id, String name, String path) {
 		this(id, name, true, path);
 	}
 	
-	public Node(String id, String name, boolean useNameAsPageTitle, String path) {
+	public SitemapNode(String id, String name, boolean useNameAsPageTitle, String path) {
 		this.id = id;
 		this.name = name;
 		this.useNameAsPageTitle = useNameAsPageTitle;
@@ -56,7 +56,7 @@ public class Node {
 	public void setUseNameAsPageTitle(boolean flag) { this.useNameAsPageTitle = flag; }
 	
 	public String getPageTitle() {
-		Node node = this;
+		SitemapNode node = this;
 		while (!(node == null || node.getUseNameAsPageTitle())) {
 			log.debug("Not using as page title: {}", node);
 			node = node.getParent();
@@ -70,14 +70,19 @@ public class Node {
 	
 	public boolean hasParent() { return parent != null; }
 	
-	public Node getParent() { return parent; }
+	public SitemapNode getParent() { return parent; }
 	
-	private void setParent(Node parent) { this.parent = parent; }
+	private void setParent(SitemapNode parent) { this.parent = parent; }
 	
-	public void addChild(Node child) {
+	public void addChild(SitemapNode child) {
 		child.setParent(this);
 		children.add(child);
 	}
+	
+	/**
+	 * @return
+	 */
+	public List<SitemapNode> getChildren() { return children; }
 	
 	// Recursive method
 	public String getCurrentArea() {
@@ -88,15 +93,15 @@ public class Node {
 		}
 	}
 	
-	public List<Node> getBreadcrumbs() {
-		List<Node> breadcrumbs = new ArrayList<Node>();
+	public List<SitemapNode> getBreadcrumbs() {
+		List<SitemapNode> breadcrumbs = new ArrayList<SitemapNode>();
 		doGetBreadcrumbs(breadcrumbs);
 //		breadcrumbs.remove(breadcrumbs.size() - 1);
 		return breadcrumbs;
 	}
 	
 	// Recursive method
-	private void doGetBreadcrumbs(List<Node> breadcrumbs) {
+	private void doGetBreadcrumbs(List<SitemapNode> breadcrumbs) {
 		if (hasParent()) {
 			parent.doGetBreadcrumbs(breadcrumbs);
 		}
