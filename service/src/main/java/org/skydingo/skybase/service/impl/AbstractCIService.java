@@ -1,6 +1,4 @@
 /* 
- * AbstractEntityService.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,8 +37,8 @@ import org.springframework.validation.Errors;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Transactional
-public abstract class AbstractCIServiceImpl<T extends CI<T>> implements CIService<T> {
-	private static final Logger log = LoggerFactory.getLogger(AbstractCIServiceImpl.class);
+public abstract class AbstractCIService<T extends CI<T>> implements CIService<T> {
+	private static final Logger log = LoggerFactory.getLogger(AbstractCIService.class);
 	
 	@Inject protected Neo4jTemplate neo4jTemplate;
 	

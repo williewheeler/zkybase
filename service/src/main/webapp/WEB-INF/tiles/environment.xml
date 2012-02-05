@@ -10,7 +10,7 @@
 	<!-- Environment list                                                                                            -->
 	<!-- =========================================================================================================== -->
 	
-	<definition name="environmentList" extends="listPageTemplate">
+	<definition name="environmentList" extends="pageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/environment/environmentList.jsp" />
 	</definition>
 	
@@ -28,7 +28,7 @@
 	<definition name="environmentDetailsBody" extends="environmentDetailsBodyTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/environment/details/environmentDetails.jsp" />
 	</definition>
-	<definition name="environmentDetails" extends="detailsPageTemplate">
+	<definition name="environmentDetails" extends="pageTemplate">
 		<put-attribute name="content" value="environmentDetailsBody" />
 	</definition>
 	

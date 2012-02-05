@@ -1,6 +1,4 @@
 /* 
- * FarmServiceImpl.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +34,7 @@ import org.springframework.stereotype.Service;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-public class FarmServiceImpl extends AbstractCIServiceImpl<Farm> implements FarmService {
+public class FarmServiceImpl extends AbstractCIService<Farm> implements FarmService {
 	@Inject private FarmRepository farmRepo;
 	
 	/* (non-Javadoc)

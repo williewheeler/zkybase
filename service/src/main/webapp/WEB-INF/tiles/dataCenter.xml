@@ -6,12 +6,12 @@
 <tiles-definitions>
 	
 	<!-- Data center list -->
-	<definition name="dataCenterList" extends="listPageTemplate">
+	<definition name="dataCenterList" extends="pageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/dataCenter/dataCenterList.jsp" />
 	</definition>
 	
 	<!-- Data center details -->
-	<definition name="dataCenterDetails" extends="detailsPageTemplate">
+	<definition name="dataCenterDetails" extends="pageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/dataCenter/dataCenterDetails.jsp" />
 	</definition>
 	

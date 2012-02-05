@@ -6,12 +6,12 @@
 <tiles-definitions>
 	
 	<!-- Farm list -->
-	<definition name="farmList" extends="listPageTemplate">
+	<definition name="farmList" extends="pageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/farm/farmList.jsp" />
 	</definition>
 	
 	<!-- Farm details -->
-	<definition name="farmDetails" extends="detailsPageTemplate">
+	<definition name="farmDetails" extends="pageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/farm/farmDetails.jsp" />
 	</definition>
 	

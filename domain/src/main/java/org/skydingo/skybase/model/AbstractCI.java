@@ -49,19 +49,19 @@ public abstract class AbstractCI<T extends CI<T>> implements CI<T> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object o) {
-		if (!getClass().equals(o.getClass())) { return false; }
-		
-		T that = (T) o;
-		Long thisId = this.getId();
-		Long thatId = that.getId();
-		
-		// FIXME
-		if (thisId == null && thatId == null) {
+		if (o == this) {
 			return true;
-		} else if (thisId == null || thatId == null) {
+		} else if (o == null || !o.getClass().equals(getClass())) {
 			return false;
 		} else {
-			return thisId.equals(thatId);
+			T that = (T) o;
+			Long thisId = this.getId();
+			Long thatId = that.getId();
+			if (thisId == null || thatId == null) {
+				return super.equals(that);
+			} else {
+				return thatId.equals(thisId);
+			}
 		}
 	}
 	
@@ -71,8 +71,6 @@ public abstract class AbstractCI<T extends CI<T>> implements CI<T> {
 	@Override
 	public int hashCode() {
 		Long id = getId();
-		
-		// FIXME
 		return (id == null ? 0 : id.hashCode());
 	}
 

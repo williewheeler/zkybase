@@ -6,12 +6,12 @@
 <tiles-definitions>
 	
 	<!-- Region list -->
-	<definition name="regionList" extends="listPageTemplate">
+	<definition name="regionList" extends="pageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/region/regionList.jsp" />
 	</definition>
 	
 	<!-- Region details -->
-	<definition name="regionDetails" extends="detailsPageTemplate">
+	<definition name="regionDetails" extends="pageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/region/regionDetails.jsp" />
 	</definition>
 	

@@ -21,36 +21,43 @@
 	});
 </script>
 
-<div class="topbar-wrapper" style="z-index: 5;">
-	<div class="topbar" data-dropdown="dropdown">
-		<div class="topbar-inner">
-			<div class="container">
-				<h3><a href="${dashboardUrl}">Skybase</a></h3>
-				<ul class="nav">
-					<li id="currentArea" class="dropdown">
-						<a href="#" class="dropdown-toggle">Current</a>
-						<ul class="dropdown-menu">
-							<li><a href="${applicationsUrl}">Applications</a></li>
-							<li class="divider"></li>
-							<li><a href="${packagesUrl}">Packages</a></li>
-							<li class="divider"></li>
-							<li><a href="${regionsUrl}">Regions</a></li>
-							<li><a href="${dataCentersUrl}">Data centers</a></li>
-							<li><a href="${environmentsUrl}">Environments</a></li>
-							<li><a href="${farmsUrl}">Farms</a></li>
-							<li><a href="#">Instances</a></li>
-						</ul>
-					</li>
-					<li id="personListArea"><a href="${peopleUrl}">People</a></li>
-				</ul>
-				<form class="pull-left" action="">
-					<input type="text" placeholder="Search" class="span3" />
-				</form>
-				<ul class="nav secondary-nav">
-					<li id="accountArea"><a href="#">Account</a>
-					<li><a href="${logoutUrl}">Logout</a>
-				</ul>
-			</div>
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="brand" href="${dashboardUrl}">Skybase</a>
+			<ul class="nav">
+				<li id="developmentArea" class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						Development
+						<b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="${applicationsUrl}">Applications</a></li>
+<!-- 						<li class="divider"></li> -->
+						<li><a href="${packagesUrl}">Packages</a></li>
+					</ul>
+				</li>
+				<li id="opsArea" class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						Operations
+						<b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="${regionsUrl}">Regions</a></li>
+						<li><a href="${dataCentersUrl}">Data centers</a></li>
+						<li><a href="${environmentsUrl}">Environments</a></li>
+						<li><a href="${farmsUrl}">Farms</a></li>
+					</ul>
+				</li>
+				<li id="personListArea"><a href="${peopleUrl}">People</a></li>
+			</ul>
+			<form class="navbar-search" action="">
+				<input type="text" class="search-query pull-left" placeholder="Search" />
+			</form>
+			<ul class="nav pull-right">
+				<li id="accountArea"><a href="#">Account</a>
+				<li><a href="${logoutUrl}">Logout</a>
+			</ul>
 		</div>
 	</div>
 </div>

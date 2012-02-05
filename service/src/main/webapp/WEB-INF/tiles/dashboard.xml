@@ -6,6 +6,10 @@
 <tiles-definitions>
 	<definition name="dashboard" extends="pageTemplate">
 		<put-attribute name="viewLinks" value="" />
-		<put-attribute name="content" value="/WEB-INF/jsp/dashboard/dashboard.jsp" />
+		<put-attribute name="content">
+			<definition extends="titledTemplate">
+				<put-attribute name="content" value="/WEB-INF/jsp/dashboard/dashboard.jsp" />
+			</definition>
+		</put-attribute>
 	</definition>
 </tiles-definitions>

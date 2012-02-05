@@ -10,7 +10,7 @@
 	<!-- Person list                                                                                                 -->
 	<!-- =========================================================================================================== -->
 	
-	<definition name="personList" extends="listPageTemplate">
+	<definition name="personList" extends="pageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/person/personList.jsp" />
 	</definition>
 	
@@ -28,7 +28,7 @@
 	<definition name="personDetailsBody" extends="personDetailsBodyTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/person/details/personDetails.jsp" />
 	</definition>
-	<definition name="personDetails" extends="detailsPageTemplate">
+	<definition name="personDetails" extends="pageTemplate">
 		<put-attribute name="content" value="personDetailsBody" />
 	</definition>
 	
@@ -36,7 +36,7 @@
 	<definition name="personScmFollowersBody" extends="personDetailsBodyTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/person/details/scm/personScmFollowers.jsp" />
 	</definition>
-	<definition name="personScmFollowers" extends="detailsPageTemplate">
+	<definition name="personScmFollowers" extends="pageTemplate">
 		<put-attribute name="content" value="personScmFollowersBody" />
 	</definition>
 	
@@ -44,7 +44,7 @@
 	<definition name="personScmFollowingBody" extends="personDetailsBodyTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/person/details/scm/personScmFollowing.jsp" />
 	</definition>
-	<definition name="personScmFollowing" extends="detailsPageTemplate">
+	<definition name="personScmFollowing" extends="pageTemplate">
 		<put-attribute name="content" value="personScmFollowingBody" />
 	</definition>
 	

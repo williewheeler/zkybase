@@ -8,10 +8,10 @@
 <!--[if IE]><script language="javascript" type="text/javascript" src="../../Extras/excanvas.js"></script><![endif]-->
 
 <div class="row">
-	<div class="span12">
+	<div class="span9">
 		<div id="infovis"></div>
 	</div>
-	<div class="span4">
+	<div class="span3">
 		<section class="first">
 			<h2>Data centers</h2>
 			<c:choose>

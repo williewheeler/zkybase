@@ -8,7 +8,7 @@
 			<p>No data centers.</p>
 		</c:when>
 		<c:otherwise>
-			<table class="bordered-table zebra-striped sortable">
+			<table class="table table-bordered table-striped sortable">
 				<thead>
 					<tr>
 						<th>Name</th>

@@ -1,6 +1,4 @@
 /* 
- * PackageRepository.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,15 +17,22 @@ package org.skydingo.skybase.repository;
 
 import java.util.List;
 
-import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.model.Package;
-import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public interface PackageRepository extends GraphRepository<Package> {
+	
+//	/**
+//	 * Returns the packages for the given project.
+//	 * 
+//	 * @param project project
+//	 * @return packages for the given project
+//	 */
+//	@Query("start project=node({0}) match package-->application return package")
+//	Iterable<Package> findByApplication(Application application);
 	
 	/**
 	 * @param groupId
@@ -37,13 +42,4 @@ public interface PackageRepository extends GraphRepository<Package> {
 	 */
 	// http://stackoverflow.com/questions/8032979/cypher-query-to-get-nodes-with-given-property-values
 	List<Package> findByGroupIdAndPackageIdAndVersion(String groupId, String packageId, String version);
-	
-	/**
-	 * Returns the packages for the given project.
-	 * 
-	 * @param project project
-	 * @return packages for the given project
-	 */
-	@Query("start project=node({0}) match package-->application return package")
-	Iterable<Package> findByApplication(Application application);
 }

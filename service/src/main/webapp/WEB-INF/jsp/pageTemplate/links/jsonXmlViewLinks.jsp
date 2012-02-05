@@ -8,6 +8,6 @@
 </c:url>
 
 <ul class="inlineLinks">
-	<li><span class="json icon"><a href="${jsonUrl}" title="<c:out value="${navigation.currentNode.name}" /> as JSON">JSON</a></span></li>
-	<li><span class="xml icon"><a href="${xmlUrl}" title="<c:out value="${navigation.currentNode.name}" /> as XML">XML</a></span></li>
+	<li><a rel="tooltip" href="${jsonUrl}" title="<c:out value="${navigation.currentNode.name}" /> as JSON"><span class="iconx json">JSON</a></span></li>
+	<li><a rel="tooltip" href="${xmlUrl}" title="<c:out value="${navigation.currentNode.name}" /> as XML"><span class="iconx xml">XML</span></a></li>
 </ul>

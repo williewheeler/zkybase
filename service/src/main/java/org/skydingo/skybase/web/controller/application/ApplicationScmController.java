@@ -1,6 +1,4 @@
 /* 
- * ApplicationScmController.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +21,6 @@ import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.model.GitHubScm;
-import org.skydingo.skybase.repository.ApplicationRepository;
 import org.skydingo.skybase.service.ApplicationService;
 import org.skydingo.skybase.web.controller.AbstractController;
 import org.skydingo.skybase.web.view.ViewUtil;
@@ -42,7 +39,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/applications")
 public class ApplicationScmController extends AbstractController {
-	@Inject private ApplicationRepository applicationRepository;
 	@Inject private ApplicationService applicationService;
 	@Inject private GitHub gitHub;
 	
@@ -66,7 +62,7 @@ public class ApplicationScmController extends AbstractController {
 	 */
 	@RequestMapping(value = "/{id}/scm/collaborators", method = RequestMethod.GET)
 	public String getCollaborators(@PathVariable Long id, Model model) {
-		Application app = applicationRepository.findOne(id);
+		Application app = applicationService.findOne(id);
 		
 		// FIXME Currently assuming GitHub.
 		GitHubScm scm = (GitHubScm) app.getScm();
@@ -93,7 +89,7 @@ public class ApplicationScmController extends AbstractController {
 	 */
 	@RequestMapping(value = "/{id}/scm/commits", method = RequestMethod.GET)
 	public String getCommits(@PathVariable Long id, Model model) {
-		Application app = applicationRepository.findOne(id);
+		Application app = applicationService.findOne(id);
 		
 		// FIXME Currently assuming GitHub.
 		GitHubScm scm = (GitHubScm) app.getScm();
@@ -113,7 +109,7 @@ public class ApplicationScmController extends AbstractController {
 	 */
 	@RequestMapping(value = "/{id}/scm/watchers", method = RequestMethod.GET)
 	public String getWatchers(@PathVariable Long id, Model model) {
-		Application app = applicationRepository.findOne(id);
+		Application app = applicationService.findOne(id);
 		
 		// FIXME Currently assuming GitHub.
 		GitHubScm scm = (GitHubScm) app.getScm();
@@ -139,7 +135,7 @@ public class ApplicationScmController extends AbstractController {
 	public String getHooks(@PathVariable Long id, Model model) {
 		
 		// Get the hooks
-		Application app = applicationRepository.findOne(id);
+		Application app = applicationService.findOne(id);
 		
 		// FIXME Currently assuming GitHub.
 		GitHubScm scm = (GitHubScm) app.getScm();

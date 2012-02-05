@@ -35,7 +35,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.model.GitHubScm;
-import org.skydingo.skybase.repository.ApplicationRepository;
 import org.skydingo.skybase.service.ApplicationService;
 import org.skydingo.skybase.web.navigation.Node;
 import org.skydingo.skybase.web.navigation.Sitemap;
@@ -54,7 +53,6 @@ public class ApplicationScmControllerTests {
 	
 	@InjectMocks private ApplicationScmController controller;
 	
-	@Mock private ApplicationRepository applicationRepository;
 	@Mock private ApplicationService applicationService;
 	@Mock private GitHub gitHub;
 	@Mock private RepoOperations repoOperations;
@@ -72,7 +70,7 @@ public class ApplicationScmControllerTests {
 	public void setUp() throws Exception {
 		this.controller = new ApplicationScmController();
 		MockitoAnnotations.initMocks(this);
-		when(applicationRepository.findOne(anyLong())).thenReturn(application);
+		when(applicationService.findOne(anyLong())).thenReturn(application);
 		when(applicationService.findOneWithScm(anyLong())).thenReturn(application);
 		when(sitemap.getNode(anyString())).thenReturn(node);
 		when(gitHub.repoOperations()).thenReturn(repoOperations);

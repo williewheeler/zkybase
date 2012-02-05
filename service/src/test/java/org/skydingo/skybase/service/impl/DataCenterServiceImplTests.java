@@ -46,7 +46,7 @@ public class DataCenterServiceImplTests extends AbstractEntityServiceImplTests<D
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getService()
 	 */
 	@Override
-	protected AbstractCIServiceImpl<DataCenter> getService() { return dataCenterService; }
+	protected AbstractCIService<DataCenter> getService() { return dataCenterService; }
 	
 	/**
 	 * @throws Exception

@@ -6,12 +6,12 @@
 <tiles-definitions>
 	
 	<!-- Package list -->
-	<definition name="packageList" extends="listPageTemplate">
+	<definition name="packageList" extends="pageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/package/packageList.jsp" />
 	</definition>
 	
 	<!-- Package details -->
-	<definition name="packageDetails" extends="detailsPageTemplate">
+	<definition name="packageDetails" extends="pageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/package/packageDetails.jsp" />
 	</definition>
 	

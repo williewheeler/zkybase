@@ -1,6 +1,4 @@
 /* 
- * ApplicationService.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,11 +16,23 @@
 package org.skydingo.skybase.service;
 
 import org.skydingo.skybase.model.Application;
+import org.skydingo.skybase.model.Module;
+import org.springframework.validation.Errors;
 
 /**
+ * Application service.
+ * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public interface ApplicationService extends CIService<Application> {
+	
+	/**
+	 * Finds an application with its modules eagerly loaded.
+	 * 
+	 * @param id application ID
+	 * @return application with modules
+	 */
+	Application findOneWithModules(Long id);
 	
 	Application findOneWithScm(Long id);
 	
@@ -31,4 +41,11 @@ public interface ApplicationService extends CIService<Application> {
 	Application findOneWithCommits(Long id);
 	
 	Application findOneWithWatchers(Long id);
+	
+	/**
+	 * @param id application ID
+	 * @param module
+	 * @param errors
+	 */
+	void addModule(Long id, Module module, Errors errors);
 }

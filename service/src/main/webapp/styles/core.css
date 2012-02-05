@@ -1,21 +1,8 @@
-/*
-Main:
-http://kuler.adobe.com/#themeID/1641683
-24221F (charcoal), 363F45 (very dk blue/gray), 4B5F6D (dk blue/gray), 5E7C88 (med blue/gray), FEB41C (bright orange) 
-*/
-
-html { margin: 0; padding: 0; background-color: #FFF; }
-
 body {
-	margin: 0;
-	padding: 40px 0 0 0;
+	/* Docs say 40px, but that's not enough */
+	padding-top: 50px;
 	font-family: lucida grande, verdana, arial, sans-serif;
-	line-height: 1.5;
 }
-
-.container { padding: 0 20px; }
-
-#body { margin: 10px 0 20px; }
 
 #footer {
 	margin-top: 30px;
@@ -26,68 +13,33 @@ body {
 
 #footer p { font-size: 93%; }
 
-
-/* NAVIGATION ======================================================================================================= */
-
-.sideMenu {
-	margin-top: 5px;
-	border-top: 2px solid #DDD;
-}
-
-.sideMenu ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-.sideMenu li {
-	background-color: #F8F8F8;
-}
-
-.sideMenu .group {
-	display: block;
-	border-top: 1px solid #FFF;
-	border-bottom: 1px solid #DDD;
-	padding: 10px 20px;
-}
-
-.sideMenu a {
-	display: block;
-	border-top: 1px solid #FFF;
-	border-bottom: 1px solid #DDD;
-	padding: 10px 20px;
-}
-
-.sideMenu > ul > li > .group, .sideMenu > ul > li > a {
-/* 	font-weight: bold; */
-}
-
-.sideMenu > ul > li > ul > li > a {
-	padding-left: 40px;
-/* 	font-style: italic; */
-}
+.sidebar { margin-top: 7px; }
 
 
 /* SECTIONS ========================================================================================================= */
 
-section {
-	margin: 20px 0;
-}
+section { margin: 20px 0; }
 
-section.first {
-	margin-top: 0;
-}
+section.first { margin-top: 0; }
 
-section h2 {
-	margin-bottom: 0;
-}
+section h2 { margin-bottom: 0; }
+
+.sectionTitleBar { margin-bottom: 5px; }
+
+.sectionTitleBar h2 { display: inline; }
 
 
 /* COMPONENTS ======================================================================================================= */
 
-#titleBar { margin: 20px 0; }
+table.grid { width: 100%; }
 
-.alert-message { margin: 30px 0; padding: 20px; text-align: center; }
+table.grid tr td { padding: 8px 0; }
+
+table.grid tr td:first-child { width: 140px; }
+
+#titleBar { margin: 0 0 20px; }
+
+#titleBar h1 { display: inline; }
 
 ul.inlineLinks { margin: 0; padding: 0; display: inline; margin-left: 20px; }
 
@@ -106,55 +58,6 @@ ul.inlineLinks li:first-child { margin-left: 0; }
 	border-radius: 5px;
 }
 
-.titleDecorator .target { margin-top: 4px; }
-
-div.table { display: table; width: 100%; }
-
-div.tr { display: table-row; }
-
-div.td { display: table-cell; }
-
-.grid {
-	margin-top: 0;
-	margin-bottom: 20px;
-	/* Don't mess with margin-left or margin-right because it wrecks Bootstrap rows */
-	
-	border: 1px solid #DDD;
-	padding: 10px;
-	
-/* 	background-color: #F5F5F5; */
-	background-color: #F8F8F8;
-	
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
-	
-	/*
-	-moz-box-shadow: 0 2px 5px #CCC;
-	-webkit-box-shadow: 0 2px 5px #CCC;
-	box-shadow: 0 2px 5px #CCC;
-	*/
-}
-
-.grid .row {
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-
-.gridLabel, .gridValue {
-/* 	padding: 10px; */
-}
-
-.gridLabel {
-	text-align: right;
-	font-weight: bold;
-	color: #333;
-}
-
-.gridValue {
-	color: #000;
-}
-
 
 /* ELEMENTS ========================================================================================================= */
 
@@ -162,111 +65,51 @@ h1, h2, h3, h4 { font-weight: normal; color: #4B5F6D; }
 
 h1 { margin-top: 0; font-size: 182%; }
 
-h2 { font-size: 138.5%; }
+h2 {
+	margin-bottom: 10px;
+	font-size: 138.5%;
+}
 
-a { color: #009694; }
-
-/* Don't do this, as widgets (e.g. autocomplete) assume no bullets */
-/* li { list-style-type: square; } */
+/* a { color: #009694; } */
 
 
 /* TABLES =========================================================================================================== */
 
-.editDeleteColumn {
-	width: 0;
-}
+.editDeleteColumn { width: 0; }
 
-td.editDeleteColumn {
-	white-space: nowrap;
-}
+td.editDeleteColumn { white-space: nowrap; }
 
-.editDeleteColumn .deleteLink {
-	margin-left: 5px;
-}
+.editDeleteColumn .deleteLink { margin-left: 5px; }
 
 
 /* FORMS ============================================================================================================ */
 
-.modalForm {
-	width: 100%;
-	margin: 20px 0;
-	padding: 0;
-}
-
-.formItem {
-	margin: 0;
-	padding: 15px;
-	border-top: 1px solid #FFF;
-	border-bottom: 1px solid #DDDDD0;
-	background-color: #EEEEE0;
-}
-
-.formItem.first {
-	border-top: 2px solid #DDDDD0;
-}
-
-label { color: #4B5F6D; }
-
-label .required {
-	padding-left: 20px;
-	background: url('../images/icons/asterisk-small.png') left no-repeat;
-}
-
-.formField { margin: 5px 0; }
-
-.formErrors { margin: 10px 0; }
-
-.formHint { font-size: 93%; color: #666; }
-
-.formSubmit { margin-top: 20px; }
-
-/* Based on Twitter Bootstrap color */
-.globalError { color: #b94a48; }
-
-input[type=text], textarea {
-	border: 1px solid #CCC;
-/* 	padding: 4px; */
-/* 	background-color: #FFF; */
+input, button {
 	font-family: lucida grande, verdana, arial, sans-serif;
-/* 	font-size: 116%; */
-	
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
 }
 
-/* input[type=text]:focus, textarea:focus { */
-/* 	background-color: #FFE; */
+/* label { color: #4B5F6D; } */
+
+/* label .required { */
+/* 	padding-left: 20px; */
+/* 	background: url('../images/icons/asterisk-small.png') left no-repeat; */
 /* } */
-
-textarea.shortHeight {
-	height: 80px;
-}
-
-input[type=submit].btn, input[type=button], button.btn {
-	font-family: lucida grande, verdana, arial, sans-serif;
-}
-
-a.btn { outline: 0; }
-
-.pills .active a {
-	background-color: #4B5F6D;
-}
-
-.pills a:hover {
-	background-color: #5E7C88;
-}
 
 
 /* ICONS ============================================================================================================ */
 
-.icon {
+.iconx {
 	padding-left: 20px;
 	background-position: left;
 	background-repeat: no-repeat;
 }
 
-.add.icon { background-image: url(../images/icons/plus.png); }
+.iconx.add { background-image: url(../images/icons/plus.png); }
+.iconx.delete { background-image: url(../images/icons/minus.png); }
+.iconx.edit { background-image: url(../images/icons/pencil.png); }
+.iconx.json { background-image: url(../images/icons/json.png); }
+.iconx.xml { background-image: url(../images/icons/document-code.png); }
+
 .addUser.icon { background-image: url(../images/icons/user--plus.png); }
 .asterisk.icon { background-image: url(../images/icons/asterisk-small.png); }
 .create.icon { background-image: url(../images/icons/plus.png); }
@@ -275,18 +118,14 @@ a.btn { outline: 0; }
 .createPerson.icon { background-image: url(../images/icons/user--plus.png); }
 .createProject.icon { background-image: url(../images/icons/folder--plus.png); }
 .dashboard.icon { background-image: url(../images/icons/dashboard.png); }
-.delete.icon { background-image: url(../images/icons/minus.png); }
 .deletePackage.icon { background-image: url(../images/icons/box--minus.png); }
 .deletePerson.icon { background-image: url(../images/icons/user--minus.png); }
-.deleteProject.icon { background-image: url(../images/icons/folder--minus.png); }
-.edit.icon { background-image: url(../images/icons/pencil.png); }
 .editPackage.icon { background-image: url(../images/icons/box--pencil.png); }
 .editPerson.icon { background-image: url(../images/icons/user--pencil.png); }
 .editProject.icon { background-image: url(../images/icons/folder--pencil.png); }
 .email.icon { background-image: url(../images/icons/mail.png); }
 .error.icon { background-image: url(../images/icons/exclamation.png); }
 .feed.icon { background-image: url(../images/icons/feed.png); }
-.json.icon { background-image: url(../images/icons/json.png); }
 .mobilePhone.icon { background-image: url(../images/icons/mobile-phone.png); }
 .package.icon { background-image: url(../images/icons/box.png); }
 .relate.icon { background-image: url(../images/icons/chain--plus.png); }
@@ -295,7 +134,6 @@ a.btn { outline: 0; }
 .unrelate.icon { background-image: url(../images/icons/chain--minus.png); }
 .users.icon { background-image: url(../images/icons/users.png); }
 .warning.icon { background-image: url(../images/icons/exclamation.png); }
-.xml.icon { background-image: url(../images/icons/document-code.png); }
 
 #viewport { overflow: hidden; width: 940px; }
 .scrollPane { width: 2400px; }

@@ -1,6 +1,4 @@
 /* 
- * PersonService.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,12 +28,6 @@ public interface PersonService extends CIService<Person> {
 	 * @param errors
 	 */
 	void createPerson(Person person, Errors errors);
-	
-//	/**
-//	 * @param id person ID
-//	 * @return person details
-//	 */
-//	Person findPersonDetails(Long id);
 	
 	/**
 	 * @param person

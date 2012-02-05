@@ -10,8 +10,12 @@
 	<!-- Application list                                                                                            -->
 	<!-- =========================================================================================================== -->
 	
-	<definition name="applicationList" extends="listPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/applicationList.jsp" />
+	<definition name="applicationList" extends="pageTemplate">
+		<put-attribute name="content">
+			<definition extends="listPageTitledTemplate">
+				<put-attribute name="content" value="/WEB-INF/jsp/application/applicationList.jsp" />
+			</definition>
+		</put-attribute>
 	</definition>
 	
 	
@@ -19,57 +23,51 @@
 	<!-- Application details                                                                                         -->
 	<!-- =========================================================================================================== -->
 	
-	<!-- Body template -->
-	<definition name="applicationDetailsBodyTemplate" extends="rightSidebarBodyTemplate">
-		<put-attribute name="sidebar" value="/WEB-INF/jsp/application/details/applicationMenu.jsp" />
+	<!-- App details page template -->
+	<definition name="applicationDetailsPageTemplate" extends="pageTemplate">
+		<put-attribute name="content">
+			<definition extends="rightSidebarBodyTemplate">
+				<put-attribute name="sidebar" value="/WEB-INF/jsp/application/details/applicationMenu.jsp" />
+				<put-attribute name="content">
+					<definition extends="detailsPageTitledTemplate" />
+				</put-attribute>
+			</definition>
+		</put-attribute>
 	</definition>
 	
 	<!-- Overview -->
-	<definition name="applicationDetailsBody" extends="applicationDetailsBodyTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/details/applicationDetails.jsp" />
+	<definition name="applicationDetails" extends="applicationDetailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/details/applicationDetails.jsp" cascade="true" />
 	</definition>
-	<definition name="applicationDetails" extends="detailsPageTemplate">
-		<put-attribute name="content" value="applicationDetailsBody" />
+	
+	<!-- Modules -->
+	<definition name="applicationModules" extends="applicationDetailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/details/module/applicationModules.jsp" cascade="true" />
 	</definition>
 	
 	<!-- SCM -->
-	<definition name="applicationScmBody" extends="applicationDetailsBodyTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScm.jsp" />
-	</definition>
-	<definition name="applicationScm" extends="detailsPageTemplate">
-		<put-attribute name="content" value="applicationScmBody" />
+	<definition name="applicationScm" extends="applicationDetailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScm.jsp" cascade="true" />
 	</definition>
 	
 	<!-- SCM collaborators -->
-	<definition name="applicationScmCollaboratorsBody" extends="applicationDetailsBodyTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScmCollaborators.jsp" />
-	</definition>
-	<definition name="applicationScmCollaborators" extends="detailsPageTemplate">
-		<put-attribute name="content" value="applicationScmCollaboratorsBody" />
+	<definition name="applicationScmCollaborators" extends="applicationDetailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScmCollaborators.jsp" cascade="true" />
 	</definition>
 	
 	<!-- SCM commits -->
-	<definition name="applicationScmCommitsBody" extends="applicationDetailsBodyTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScmCommits.jsp" />
-	</definition>
-	<definition name="applicationScmCommits" extends="detailsPageTemplate">
-		<put-attribute name="content" value="applicationScmCommitsBody" />
+	<definition name="applicationScmCommits" extends="applicationDetailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScmCommits.jsp" cascade="true" />
 	</definition>
 	
 	<!-- SCM watchers -->
-	<definition name="applicationScmWatchersBody" extends="applicationDetailsBodyTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScmWatchers.jsp" />
-	</definition>
-	<definition name="applicationScmWatchers" extends="detailsPageTemplate">
-		<put-attribute name="content" value="applicationScmWatchersBody" />
+	<definition name="applicationScmWatchers" extends="applicationDetailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScmWatchers.jsp" cascade="true" />
 	</definition>
 	
 	<!-- SCM hooks -->
-	<definition name="applicationScmHooksBody" extends="applicationDetailsBodyTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScmHooks.jsp" />
-	</definition>
-	<definition name="applicationScmHooks" extends="detailsPageTemplate">
-		<put-attribute name="content" value="applicationScmHooksBody" />
+	<definition name="applicationScmHooks" extends="applicationDetailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScmHooks.jsp" cascade="true" />
 	</definition>
 	
 	
@@ -77,11 +75,16 @@
 	<!-- Create application form                                                                                     -->
 	<!-- =========================================================================================================== -->
 	
-	<definition name="createApplicationFormTile" template="/WEB-INF/jsp/application/applicationForm.jsp">
-		<put-attribute name="formMethod" value="POST" />
-	</definition>
-	<definition name="createApplicationForm" extends="createPageTemplate">
-		<put-attribute name="content" value="createApplicationFormTile" />
+	<definition name="createApplicationForm" extends="pageTemplate">
+		<put-attribute name="content">
+			<definition extends="titledTemplate">
+				<put-attribute name="content">
+					<definition template="/WEB-INF/jsp/application/applicationForm.jsp">
+						<put-attribute name="formMethod" value="POST" />
+					</definition>
+				</put-attribute>
+			</definition>
+		</put-attribute>
 	</definition>
 	
 	
@@ -89,10 +92,23 @@
 	<!-- Edit application form                                                                                       -->
 	<!-- =========================================================================================================== -->
 	
-	<definition name="editApplicationFormTile" template="/WEB-INF/jsp/application/applicationForm.jsp">
-		<put-attribute name="formMethod" value="put" />
+	<definition name="editApplicationForm" extends="pageTemplate">
+		<put-attribute name="content">
+			<definition extends="titledTemplate">
+				<put-attribute name="content">
+					<definition template="/WEB-INF/jsp/application/applicationForm.jsp">
+						<put-attribute name="formMethod" value="PUT" />
+					</definition>
+				</put-attribute>
+			</definition>
+		</put-attribute>
 	</definition>
-	<definition name="editApplicationForm" extends="editPageTemplate">
-		<put-attribute name="content" value="editApplicationFormTile" />
-	</definition>
+	
+	
+	<!-- =========================================================================================================== -->
+	<!-- Create application module form                                                                              -->
+	<!-- =========================================================================================================== -->
+	
+	<definition name="createApplicationModuleForm" template="/WEB-INF/jsp/application/details/module/applicationModuleForm.jsp" />
+	
 </tiles-definitions>

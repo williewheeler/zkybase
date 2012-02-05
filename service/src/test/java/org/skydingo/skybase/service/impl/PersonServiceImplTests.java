@@ -46,7 +46,7 @@ public class PersonServiceImplTests extends AbstractEntityServiceImplTests<Perso
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getService()
 	 */
 	@Override
-	protected AbstractCIServiceImpl<Person> getService() { return personService; }
+	protected AbstractCIService<Person> getService() { return personService; }
 	
 	/**
 	 * @throws Exception

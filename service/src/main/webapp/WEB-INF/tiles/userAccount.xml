@@ -19,7 +19,7 @@
 	<definition name="userAccountDetailsBody" extends="userAccountDetailsBodyTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/userAccount/details/userAccountDetails.jsp" />
 	</definition>
-	<definition name="userAccountDetails" extends="detailsPageTemplate">
+	<definition name="userAccountDetails" extends="pageTemplate">
 		<put-attribute name="content" value="userAccountDetailsBody" />
 	</definition>
 	

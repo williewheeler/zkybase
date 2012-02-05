@@ -21,8 +21,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
+import org.neo4j.graphdb.Direction;
+import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.Indexed;
+import org.springframework.data.neo4j.annotation.RelatedTo;
 
 // Hm, with the @XmlRootElement annotation here, the JAXB message converter always beats out the Jackson message
 // converter. (This happens only when getting an individual entity--it doesn't affect the list views because the
@@ -36,7 +40,13 @@ import org.springframework.data.neo4j.annotation.Indexed;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
+@XmlType(propOrder = { "module", "groupId", "packageId", "version" })
 public class Package extends AbstractCI<Package> {
+	
+	@Fetch
+	@RelatedTo(type = "FROM_MODULE", direction = Direction.OUTGOING)
+	private Module module;
+	
 	@Indexed private String groupId;
 	@Indexed private String packageId;
 	@Indexed private String version;
@@ -47,15 +57,29 @@ public class Package extends AbstractCI<Package> {
 	public Package() { }
 	
 	/**
-	 * @param groupId
-	 * @param packageId
-	 * @param version
+	 * @param module module
+	 * @param groupId group ID
+	 * @param packageId package ID
+	 * @param version version
 	 */
-	public Package(String groupId, String packageId, String version) {
+	public Package(Module module, String groupId, String packageId, String version) {
+		this.module = module;
 		this.groupId = groupId;
 		this.packageId = packageId;
 		this.version = version;
 	}
+	
+	/**
+	 * @return
+	 */
+	@NotNull
+	@XmlElement
+	public Module getModule() { return module; }
+	
+	/**
+	 * @param module
+	 */
+	public void setModule(Module module) { this.module = module; }
 	
 	/**
 	 * @return
@@ -108,10 +132,16 @@ public class Package extends AbstractCI<Package> {
 	@Override
 	public int compareTo(Package that) {
 		int groupComp = groupId.compareTo(that.groupId);
-		if (groupComp != 0) { return groupComp; }
-		int packageComp = packageId.compareTo(that.packageId);
-		if (packageComp != 0) { return packageComp; }
-		return version.compareTo(that.version);
+		if (groupComp != 0) {
+			return groupComp;
+		} else {
+			int packageComp = packageId.compareTo(that.packageId);
+			if (packageComp != 0) {
+				return packageComp;
+			} else {
+				return version.compareTo(that.version);
+			}
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -120,6 +150,7 @@ public class Package extends AbstractCI<Package> {
 	@Override
 	public String toString() {
 		return "[Package: id=" + getId()
+			+ ", module=" + module
 			+ ", groupId=" + groupId
 			+ ", packageId=" + packageId
 			+ ", version=" + version

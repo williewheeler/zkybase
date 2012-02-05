@@ -1,6 +1,4 @@
 /* 
- * UserAccountServiceImpl.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,10 +15,7 @@
  */
 package org.skydingo.skybase.service.impl;
 
-import javax.inject.Inject;
-
 import org.skydingo.skybase.model.UserAccount;
-import org.skydingo.skybase.repository.UserAccountRepository;
 import org.skydingo.skybase.service.UserAccountService;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +23,4 @@ import org.springframework.stereotype.Service;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-public class UserAccountServiceImpl extends AbstractCIServiceImpl<UserAccount> implements UserAccountService {
-	@Inject private UserAccountRepository userAccountRepository;
-}
+public class UserAccountServiceImpl extends AbstractCIService<UserAccount> implements UserAccountService { }

@@ -6,47 +6,47 @@
 <c:url var="submitUrl" value="${submitPath}" />
 <c:url var="cancelUrl" value="${cancelPath}" />
 
-<form:form cssClass="main" modelAttribute="formData" action="${submitUrl}" method="post">
+<form:form cssClass="form-horizontal main" modelAttribute="formData" action="${submitUrl}" method="post">
 	<fieldset>
 		<input type="hidden" name="_method" value="${formMethod}" />
-		<div class="clearfix">
-			<label for="name">Name:</label>
-			<div class="input">
-				<form:input cssClass="span6" cssErrorClass="span6 error" path="name" />
+		<div class="control-group <form:errors path="name">error</form:errors>">
+			<label class="control-label" for="name">Name:</label>
+			<div class="controls">
+				<form:input cssClass="span4" path="name" />
 				<form:errors path="name">
-					<span class="help-inline"><span class="error icon"><form:errors path="name" /></span></span>
+					<div class="help-block"><form:errors path="name" /></div>
 				</form:errors>
 			</div>
 		</div>
-		<div class="clearfix">
-			<label for="shortDescription">Short description:</label>
-			<div class="input">
-				<form:input cssClass="span10" cssErrorClass="span6 error" path="shortDescription" />
+		<div class="control-group <form:errors path="shortDescription">error</form:errors>">
+			<label class="control-label" for="shortDescription">Short description:</label>
+			<div class="controls">
+				<form:input cssClass="span6" path="shortDescription" />
 				<form:errors path="shortDescription">
-					<span class="help-inline"><span class="error icon"><form:errors path="shortDescription" /></span></span>
+					<div class="help-block"><form:errors path="shortDescription" /></div>
 				</form:errors>
 			</div>
 		</div>
-		<div class="clearfix">
-			<label for="scm.user">GitHub user:</label>
-			<div class="input">
-				<form:input cssClass="span6" cssErrorClass="span6 error" path="scm.user" />
+		<div class="control-group <form:errors path="scm.user">error</form:errors>">
+			<label class="control-label" for="scm.user">GitHub user:</label>
+			<div class="controls">
+				<form:input cssClass="span4" path="scm.user" />
 				<form:errors path="scm.user">
-					<span class="help-inline"><span class="error icon"><form:errors path="scm.user" /></span></span>
+					<div class="help-block"><form:errors path="scm.user" /></div>
 				</form:errors>
 			</div>
 		</div>
-		<div class="clearfix">
-			<label for="scm.repo">GitHub repo:</label>
-			<div class="input">
-				<form:input cssClass="span6" cssErrorClass="span6 error" path="scm.repo" />
+		<div class="control-group <form:errors path="scm.repo">error</form:errors>">
+			<label class="control-label" for="scm.repo">GitHub repo:</label>
+			<div class="controls">
+				<form:input cssClass="span4" path="scm.repo" />
 				<form:errors path="scm.repo">
-					<span class="help-inline"><span class="error icon"><form:errors path="scm.repo" /></span></span>
+					<div class="help-block"><form:errors path="scm.repo" /></div>
 				</form:errors>
 			</div>
 		</div>
-		<div class="actions">
-			<input class="btn primary" type="submit" value="Save" />
+		<div class="form-actions">
+			<input class="btn btn-primary" type="submit" value="Submit" />
 			<a class="btn" href="${cancelUrl}">Cancel</a>
 		</div>
 	</fieldset>

@@ -5,5 +5,5 @@
 <c:url var="entityCreatorUrl" value="${entityPath}/new" />
 
 <ul class="inlineLinks">
-	<li><a href="${entityCreatorUrl}" class="btn"><span class="create icon">New</span></a></li>
+	<li><a href="${entityCreatorUrl}" class="btn"><span class="iconx add">New</span></a></li>
 </ul>

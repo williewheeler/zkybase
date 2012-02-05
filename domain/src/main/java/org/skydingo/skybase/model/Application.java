@@ -16,6 +16,7 @@
 package org.skydingo.skybase.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -23,6 +24,9 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
+import org.neo4j.graphdb.Direction;
+import org.springframework.data.neo4j.annotation.RelatedTo;
 
 /**
  * Application entity.
@@ -39,6 +43,9 @@ public class Application extends AbstractCI<Application> {
 	private String name;
 	private String shortDescription;
 	private GitHubScm scm;
+	
+	@RelatedTo(type = "HAS_MODULE", direction = Direction.OUTGOING)
+	private Set<Module> modules;
 	
 	public Application() { }
 	
@@ -83,6 +90,16 @@ public class Application extends AbstractCI<Application> {
 	 * @param scm
 	 */
 	public void setScm(GitHubScm scm) { this.scm = scm; }
+	
+	/**
+	 * @return
+	 */
+	public Set<Module> getModules() { return modules; }
+	
+	/**
+	 * @param modules
+	 */
+	public void setModules(Set<Module> modules) { this.modules = modules; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.model.Entity#getDisplayName()

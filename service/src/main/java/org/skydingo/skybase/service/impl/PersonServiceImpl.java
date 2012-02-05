@@ -1,6 +1,4 @@
 /* 
- * PersonServiceImpl.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,9 +32,9 @@ import org.springframework.validation.Errors;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-public class PersonServiceImpl extends AbstractCIServiceImpl<Person> implements PersonService {
-	@Inject private Neo4jTemplate template;
+public class PersonServiceImpl extends AbstractCIService<Person> implements PersonService {
 	@Inject private PersonRepository personRepo;
+	@Inject private Neo4jTemplate template;
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.PersonService#createPerson(org.skydingo.skybase.model.Person, org.springframework.validation.Errors)

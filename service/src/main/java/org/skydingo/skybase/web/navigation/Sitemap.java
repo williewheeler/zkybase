@@ -1,6 +1,4 @@
 /* 
- * Sitemap.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -103,6 +101,10 @@ public class Sitemap {
 	
 	private void buildApplicationNodes() {
 		Node appNode = getNode("applicationDetails");
+		
+		String modulesPath = appNode.getPath() + " + '/modules'";
+		buildNode("applicationModules", "'Modules'", false, modulesPath, appNode);
+		
 		String scmPath = appNode.getPath() + " + '/scm'";
 		Node scmNode = buildNode("applicationScm", "'SCM'", false, scmPath, appNode);
 		buildNode("applicationScmCollaborators", "'Collaborators'", false, scmPath + " + '/collaborators'", scmNode);

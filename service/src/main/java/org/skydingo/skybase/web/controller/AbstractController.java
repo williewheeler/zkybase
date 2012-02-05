@@ -1,6 +1,4 @@
 /* 
- * AbstractController.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +15,8 @@
  */
 package org.skydingo.skybase.web.controller;
 
+import static org.springframework.util.Assert.notNull;
+
 import javax.inject.Inject;
 
 import org.skydingo.skybase.web.navigation.Navigation;
@@ -29,8 +29,15 @@ import org.springframework.ui.Model;
 public class AbstractController {
 	@Inject protected Sitemap sitemap;
 	
-	protected String addNavigation(Model model, String currentNodeId) {
-		model.addAttribute(new Navigation(sitemap, currentNodeId, model.asMap()));
-		return currentNodeId;
+	/**
+	 * @param model model
+	 * @param nodeId node ID
+	 * @return node ID
+	 */
+	protected String addNavigation(Model model, String nodeId) {
+		notNull(model);
+		notNull(nodeId);
+		model.addAttribute(new Navigation(sitemap, nodeId, model.asMap()));
+		return nodeId;
 	}
 }

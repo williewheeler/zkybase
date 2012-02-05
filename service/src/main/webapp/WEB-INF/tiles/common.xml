@@ -5,30 +5,36 @@
 
 <tiles-definitions>
 	
-	<!-- Base template -->
-	<definition name="pageTemplate" template="/WEB-INF/jsp/pageTemplate/pageTemplate.jsp">
+	<!-- Base templates -->
+	<definition name="pageTemplate" template="/WEB-INF/jsp/pageTemplate/pageTemplate.jsp" />
+	
+	<definition name="rightSidebarBodyTemplate" template="/WEB-INF/jsp/pageTemplate/bodyTemplates/rightSidebarTemplate.jsp" />
+	
+	<definition name="titledTemplate" template="/WEB-INF/jsp/pageTemplate/bodyTemplates/titledTemplate.jsp">
 		<put-attribute name="viewLinks" value="" />
 		<put-attribute name="actionLinks" value="" />
 	</definition>
 	
-	<definition name="rightSidebarBodyTemplate" template="/WEB-INF/jsp/pageTemplate/bodyTemplates/rightSidebarTemplate.jsp" />
-	
-	<!-- Create form -->
-	<definition name="createPageTemplate" extends="pageTemplate" />
-	
 	<!-- List page -->
-	<definition name="listPageTemplate" extends="pageTemplate">
+	<definition name="listPageTitledTemplate" extends="titledTemplate">
 		<put-attribute name="viewLinks" value="/WEB-INF/jsp/pageTemplate/links/jsonXmlViewLinks.jsp" />
 		<put-attribute name="actionLinks" value="/WEB-INF/jsp/pageTemplate/links/listPageActionLinks.jsp" />
 	</definition>
 	
 	<!-- Details page -->
-	<definition name="detailsPageTemplate" extends="pageTemplate">
+	<definition name="detailsPageTitledTemplate" extends="titledTemplate">
 		<put-attribute name="viewLinks" value="/WEB-INF/jsp/pageTemplate/links/jsonXmlViewLinks.jsp" />
 		<put-attribute name="actionLinks" value="/WEB-INF/jsp/pageTemplate/links/detailsPageActionLinks.jsp" />
 	</definition>
 	
+	<!-- Create form -->
+	<definition name="createPageTemplate" extends="pageTemplate">
+<!-- 		<put-attribute name="content" value="titledTemplate" /> -->
+	</definition>
+	
 	<!-- Edit form -->
-	<definition name="editPageTemplate" extends="pageTemplate" />
+	<definition name="editPageTemplate" extends="pageTemplate">
+<!-- 		<put-attribute name="content" value="titledTemplate" /> -->
+	</definition>
 	
 </tiles-definitions>

@@ -46,7 +46,7 @@ public class EnvironmentServiceImplTests extends AbstractEntityServiceImplTests<
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getService()
 	 */
 	@Override
-	protected AbstractCIServiceImpl<Environment> getService() { return environmentService; }
+	protected AbstractCIService<Environment> getService() { return environmentService; }
 	
 	/**
 	 * @throws Exception

@@ -1,6 +1,4 @@
 /* 
- * PackageMojo.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,12 +15,11 @@
  */
 package org.skydingo.skybase.maven;
 
-import java.util.List;
-
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.skydingo.skybase.client.SkybaseClient;
+import org.skydingo.skybase.model.Module;
 import org.skydingo.skybase.model.Package;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,6 +31,11 @@ import org.springframework.web.client.RestTemplate;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public class PackageMojo extends AbstractMojo {
+	
+	/**
+	 * @parameter expression="${package.module}"
+	 */
+	private Module module;
 	
 	/**
 	 * @parameter expression="${package.groupId}" 
@@ -59,19 +61,12 @@ public class PackageMojo extends AbstractMojo {
 		client.setRestTemplate(new RestTemplate());
 		
 		// Create new package
-		Package newPkg = new Package(groupId, packageId, version);
-		Long newPkgId = client.createPackage(newPkg);
-		if (newPkgId == 0L) {
+		Package pkg = new Package(module, groupId, packageId, version);
+		Long pkgId = client.createPackage(pkg);
+		if (pkgId == 0L) {
 			getLog().info("Package already exists");
 		} else {
-			getLog().info("Created package id " + newPkgId);
-		}
-		
-		// Display packages
-		List<Package> pkgs = client.getPackages();
-		for (Package pkg : pkgs) {
-			getLog().info(pkg.toString());
+			getLog().info("Created package id " + pkgId);
 		}
 	}
-
 }

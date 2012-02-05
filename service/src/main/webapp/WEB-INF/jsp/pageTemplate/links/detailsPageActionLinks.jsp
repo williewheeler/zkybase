@@ -10,14 +10,14 @@
 <c:url var="entityEditorUrl" value="${entityPath}/edit" />
 
 <ul class="inlineLinks">
-	<li><a href="${entityEditorUrl}" class="btn"><span class="edit icon"><spring:message code="label.common.edit" /></span></a></li>
-	<li><a id="deleteLink" href="#" class="btn"><span class="delete icon"><spring:message code="label.common.delete" /></span></a></li>
+	<li><a href="${entityEditorUrl}" class="btn"><span class="iconx edit"><spring:message code="label.common.edit" /></span></a></li>
+	<li><a id="deleteLink" class="btn" data-toggle="modal" href="#deleteModal"><span class="iconx delete"><spring:message code="label.common.delete" /></span></a></li>
 </ul>
 
 <%-- FIXME Delegate to deleteDialog.jsp --%>
-<div id="deleteDialog" class="modal hide fade">
+<div id="deleteModal" class="modal fade">
 	<div class="modal-header">
-		<a href="#" class="close">&times;</a>
+		<a href="#" class="close" data-dismiss="modal">&times;</a>
 		<h3>Delete <c:out value="${entityName}" /></h3>
 	</div>
 	<div class="modal-body">
@@ -26,8 +26,8 @@
 	<div class="modal-footer">
 		<form action="${entityUrl}" method="post">
 			<input type="hidden" name="_method" value="delete" />
-			<input id="#reallyDeleteButton" type="submit" value="Delete" class="btn danger" />
-			<a href="#" class="btn cancel">Cancel</a>
+			<input id="#reallyDeleteButton" type="submit" value="Delete" class="btn btn-danger" />
+			<a href="#" class="btn cancel" data-dismiss="modal">Cancel</a>
 		</form>
 	</div>
 </div>

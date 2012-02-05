@@ -4,34 +4,33 @@
 <%@ include file="/WEB-INF/jsp/pageTemplate/urls.jsp" %>
 
 <section class="first">
-	<div class="grid">
-		<div class="row">
-			<div class="span2 gridLabel">Short description:</div>
-			<div class="span9 gridValue">
-				<c:out value="${application.shortDescription}" default="None" />
-			</div>
-		</div>
-		<div class="row">
-			<div class="span2 gridLabel">Detailed description:</div>
-			<div class="span9 gridValue">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et est a lorem elementum dignissim ut in urna. Proin volutpat mollis odio vel posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst. Integer sit amet ligula lacus, non pharetra leo. Fusce sollicitudin, velit sed dictum vulputate, metus felis dignissim lectus, ullamcorper condimentum erat lorem id risus. Maecenas in urna velit. In ullamcorper ultricies nisl, vel pharetra lorem elementum non. Nam ac blandit nisi. Ut ut arcu tortor, et auctor lorem. Aliquam elementum nunc nec erat placerat interdum. Nullam id odio mi. Suspendisse interdum euismod quam, eget ultrices tellus feugiat tempor.
-			</div>
-		</div>
+	<div class="well">
+		<table class="grid">
+			<tbody>
+				<tr>
+					<td>Short description:</td>
+					<td><c:out value="${application.shortDescription}" default="None" /></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </section>
 <section>
-	<div>
-		<h2 style="display:inline">Farms (<c:out value="${fn:length(farmList)}" />)</h2>
-		<ul class="inlineLinks">
-			<li><a href="#"><span class="relate icon">Add farm</span></a></li>
-		</ul>
+	<div class="sectionTitleBar">
+		<h2>Farms (<c:out value="${fn:length(farmList)}" />)</h2>
+		<div class="pull-right">
+			<h2></h2>
+			<ul class="inlineLinks">
+				<li><a class="btn" href="#"><span class="iconx add">Add farm</span></a></li>
+			</ul>
+		</div>
 	</div>
 	<c:choose>
 		<c:when test="${empty farmList}">
 			<p>No farms.</p>
 		</c:when>
 		<c:otherwise>
-			<table class="bordered-table zebra-striped sortable">
+			<table class="table table-bordered table-striped sortable">
 				<thead>
 					<tr>
 						<th>Farm</th>
