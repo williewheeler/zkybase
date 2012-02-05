@@ -81,17 +81,18 @@ public class Sitemap {
 		String listPath = wrap(paths.getListPath(entityClass));
 		SitemapNode listNode = buildNode(getEntityListViewId(entityClass), listTitle, listPath, dashboard);
 		
+		// Details node
+		String detailsTitle = "#this[entity].displayName";
+		String detailsPath = listPath + " + '/' + #this[entity].id";
+		SitemapNode detailsNode = buildNode(getEntityDetailsViewId(entityClass), detailsTitle, detailsPath, listNode);
+		detailsNode.setShowInDetailsSidebar(true);
+		
 		// Create node
 		String createTitleCode = "entity." + uncapSimpleName + ".lowercase.singular";
 		log.debug("Looking up message code: {}", createTitleCode);
 		String createTitle = wrap("Create " + messageSource.getMessage(createTitleCode, null, null));
 		String createPath = wrap(paths.getCreateFormPath(entityClass));
 		buildNode(getCreateFormId(entityClass), createTitle, createPath, listNode);
-		
-		// Details node
-		String detailsTitle = "#this[entity].displayName";
-		String detailsPath = listPath + " + '/' + #this[entity].id";
-		SitemapNode detailsNode = buildNode(getEntityDetailsViewId(entityClass), detailsTitle, detailsPath, listNode);
 		
 		// Edit node
 		String editTitle = "'Edit ' + #this[entity].displayName";
@@ -103,14 +104,25 @@ public class Sitemap {
 		SitemapNode appNode = getNode("applicationDetails");
 		
 		String modulesPath = appNode.getPath() + " + '/modules'";
-		buildNode("applicationModules", "'Modules'", false, modulesPath, appNode);
+		SitemapNode modulesNode = buildNode("applicationModules", "'Modules'", false, modulesPath, appNode);
+		String modulePath = modulesPath + " + '/' + #this[module].id";
+		buildNode("applicationModule", "#this[module].displayName", false, modulePath, modulesNode);
+		
+		modulesNode.setShowInDetailsSidebar(true);
 		
 		String scmPath = appNode.getPath() + " + '/scm'";
 		SitemapNode scmNode = buildNode("applicationScm", "'SCM'", false, scmPath, appNode);
-		buildNode("applicationScmCollaborators", "'Collaborators'", false, scmPath + " + '/collaborators'", scmNode);
-		buildNode("applicationScmCommits", "'Commits'", false, scmPath + " + '/commits'", scmNode);
-		buildNode("applicationScmWatchers", "'Watchers'", false, scmPath + " + '/watchers'", scmNode);
-		buildNode("applicationScmHooks", "'Hooks'", false, scmPath + " + '/hooks'", scmNode);
+		SitemapNode collaboratorsNode = buildNode("applicationScmCollaborators", "'Collaborators'", false, scmPath + " + '/collaborators'", scmNode);
+		SitemapNode commitsNode = buildNode("applicationScmCommits", "'Commits'", false, scmPath + " + '/commits'", scmNode);
+		SitemapNode watchersNode = buildNode("applicationScmWatchers", "'Watchers'", false, scmPath + " + '/watchers'", scmNode);
+		SitemapNode hooksNode = buildNode("applicationScmHooks", "'Hooks'", false, scmPath + " + '/hooks'", scmNode);
+		
+		scmNode.setShowInDetailsSidebar(true);
+		collaboratorsNode.setShowInDetailsSidebar(true);
+		commitsNode.setShowInDetailsSidebar(true);
+		collaboratorsNode.setShowInDetailsSidebar(true);
+		watchersNode.setShowInDetailsSidebar(true);
+		hooksNode.setShowInDetailsSidebar(true);
 	}
 	
 	private void buildPersonNodes() {

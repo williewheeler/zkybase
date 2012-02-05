@@ -22,6 +22,7 @@ import javax.validation.Valid;
 import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.model.Module;
 import org.skydingo.skybase.service.ApplicationService;
+import org.skydingo.skybase.service.ModuleService;
 import org.skydingo.skybase.web.controller.AbstractController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +48,7 @@ public class ApplicationModuleController extends AbstractController {
 	private static final Logger log = LoggerFactory.getLogger(ApplicationModuleController.class);
 	
 	@Inject private ApplicationService applicationService;
+	@Inject private ModuleService moduleService;
 	
 	/**
 	 * @param binder
@@ -54,7 +56,7 @@ public class ApplicationModuleController extends AbstractController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
-		binder.setAllowedFields("name", "shortDescription");
+		binder.setAllowedFields("name", "shortDescription", "groupId", "moduleId");
 	}
 	
 	/**
@@ -110,5 +112,23 @@ public class ApplicationModuleController extends AbstractController {
 		model.addAttribute("entity", app);
 		model.addAttribute(app);
 		return addNavigation(model, "applicationModules");
+	}
+	
+	/**
+	 * @param applicationId
+	 * @param moduleId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/{applicationId}/modules/{moduleId}", method = RequestMethod.GET)
+	public String getModule(@PathVariable Long applicationId, @PathVariable Long moduleId, Model model) {
+		Application app = applicationService.findOne(applicationId);
+		Module module = moduleService.findOne(moduleId);
+		
+		model.addAttribute("entity", app);
+		model.addAttribute(app);
+		model.addAttribute(module);
+		
+		return addNavigation(model, "applicationModule");
 	}
 }

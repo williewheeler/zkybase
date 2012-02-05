@@ -32,6 +32,8 @@
 				<thead>
 					<tr>
 						<th>Module</th>
+						<th>Group ID</th>
+						<th>Module ID</th>
 						<th>Description</th>
 						<th class="editDeleteColumn"></th>
 					</tr>
@@ -41,6 +43,8 @@
 						<c:url var="moduleUrl" value="/applications/${application.id}/modules/${module.id}" />
 						<tr>
 							<td><a href="${moduleUrl}"><c:out value="${module.displayName}" /></a></td>
+							<td><c:out value="${module.groupId}" /></td>
+							<td><c:out value="${module.moduleId}" /></td>
 							<td><c:out value="${module.shortDescription}" /></td>
 							<td class="editDeleteColumn">
 								<a class="editLink" href="#" title="Edit module"><img src="${editIconUrl}" /></a>
@@ -87,7 +91,9 @@
 			
 			$.post(url, {
 					name : form.find("#name").val(),
-					shortDescription : form.find("#shortDescription").val()
+					shortDescription : form.find("#shortDescription").val(),
+					groupId : form.find("#groupId").val(),
+					moduleId : form.find("#moduleId").val()
 				})
 				.success(function() {
 					dialog.modal("hide");

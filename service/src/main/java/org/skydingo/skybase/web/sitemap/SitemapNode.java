@@ -31,10 +31,11 @@ public class SitemapNode {
 	
 	private String id;
 	private String name;
-	private boolean useNameAsPageTitle;
 	private String path;
 	private SitemapNode parent;
 	private final List<SitemapNode> children = new ArrayList<SitemapNode>();
+	private boolean useNameAsPageTitle;
+	private boolean showInDetailsSidebar;
 	
 	public SitemapNode(String id, String name, String path) {
 		this(id, name, true, path);
@@ -50,10 +51,6 @@ public class SitemapNode {
 	public String getId() { return id; }
 	
 	public String getName() { return name; }
-	
-	public boolean getUseNameAsPageTitle() { return useNameAsPageTitle; }
-	
-	public void setUseNameAsPageTitle(boolean flag) { this.useNameAsPageTitle = flag; }
 	
 	public String getPageTitle() {
 		SitemapNode node = this;
@@ -83,6 +80,14 @@ public class SitemapNode {
 	 * @return
 	 */
 	public List<SitemapNode> getChildren() { return children; }
+	
+	public boolean getUseNameAsPageTitle() { return useNameAsPageTitle; }
+	
+	public void setUseNameAsPageTitle(boolean flag) { this.useNameAsPageTitle = flag; }
+	
+	public boolean getShowInDetailsSidebar() { return showInDetailsSidebar; }
+	
+	public void setShowInDetailsSidebar(boolean flag) { this.showInDetailsSidebar = flag; }
 	
 	// Recursive method
 	public String getCurrentArea() {

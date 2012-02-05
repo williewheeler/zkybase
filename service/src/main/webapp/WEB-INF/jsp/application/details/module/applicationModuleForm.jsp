@@ -25,5 +25,23 @@
 				</form:errors>
 			</div>
 		</div>
+		<div class="control-group <form:errors path="groupId">error</form:errors>">
+			<label for="groupId">Group ID:</label>
+			<div class="controls">
+				<form:input cssClass="span4" path="groupId" />
+				<form:errors path="groupId">
+					<div class="help-block"><form:errors path="groupId" /></div>
+				</form:errors>
+			</div>
+		</div>
+		<div class="control-group <form:errors path="moduleId">error</form:errors>">
+			<label for="moduleId">Module ID:</label>
+			<div class="controls">
+				<form:input cssClass="span4" path="moduleId" />
+				<form:errors path="moduleId">
+					<div class="help-block"><form:errors path="moduleId" /></div>
+				</form:errors>
+			</div>
+		</div>
 	</fieldset>
 </form:form>

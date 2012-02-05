@@ -24,6 +24,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
+ * A module, which is a version-free abstraction over packages.
+ * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
@@ -31,6 +33,8 @@ import javax.xml.bind.annotation.XmlType;
 public class Module extends AbstractCI<Module> {
 	private String name;
 	private String shortDescription;
+	private String groupId;
+	private String moduleId;
 	
 	/**
 	 * @return
@@ -57,6 +61,26 @@ public class Module extends AbstractCI<Module> {
 	 */
 	public void setShortDescription(String shortDescription) { this.shortDescription = shortDescription; }
 	
+	/**
+	 * @return
+	 */
+	public String getGroupId() { return groupId; }
+	
+	/**
+	 * @param groupId
+	 */
+	public void setGroupId(String groupId) { this.groupId = groupId; }
+	
+	/**
+	 * @return
+	 */
+	public String getModuleId() { return moduleId; }
+	
+	/**
+	 * @param moduleId
+	 */
+	public void setModuleId(String moduleId) { this.moduleId = moduleId; }
+	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.model.CI#getDisplayName()
 	 */
@@ -68,7 +92,11 @@ public class Module extends AbstractCI<Module> {
 	 */
 	@Override
 	public String toString() {
-		return "[Module: name=" + name + ", shortDescription=" + shortDescription + "]";
+		return "[Module: name=" + name
+			+ ", shortDescription=" + shortDescription
+			+ ", groupId=" + groupId
+			+ ", packageId=" + moduleId
+			+ "]";
 	}
 	
 	@XmlRootElement(name = "modules")

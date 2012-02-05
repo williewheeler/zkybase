@@ -107,25 +107,33 @@ public class Navigation {
 		
 		List<SitemapNode> children = overviewMapNode.getChildren();
 		for (SitemapNode child : children) {
-			String resolvedChildName = sitemap.resolve(child.getName(), context);
+			if (!child.getShowInDetailsSidebar()) { continue; }
 			
-			// FIXME Need a better way to identify edit nodes
-			if (resolvedChildName.startsWith("Edit ")) { continue; }
+			String resolvedChildName = sitemap.resolve(child.getName(), context);
 			
 			String resolvedChildPath = sitemap.resolve(child.getPath(), context);
 			List<SitemapNode> grandchildren = child.getChildren();
 			
 			NavigationNode childNavNode =
-				new NavigationNode(child.getId(), resolvedChildName, resolvedChildPath, !grandchildren.isEmpty(), false);
+				new NavigationNode(child.getId(), resolvedChildName, resolvedChildPath, false, false);
 			menu.add(childNavNode);
 			
+			boolean foundGrandchild = false;
 			for (SitemapNode grandchild : grandchildren) {
+				if (!grandchild.getShowInDetailsSidebar()) { continue; }
+				
+				foundGrandchild = true;
+				
 				String resolvedGcName = sitemap.resolve(grandchild.getName(), context);
 				String resolvedGcPath = sitemap.resolve(grandchild.getPath(), context);
 				
 				NavigationNode gcNavNode =
 					new NavigationNode(grandchild.getId(), resolvedGcName, resolvedGcPath, false, false);
 				menu.add(gcNavNode);
+			}
+			
+			if (foundGrandchild) {
+				childNavNode.setHeader(true);
 			}
 		}
 		
