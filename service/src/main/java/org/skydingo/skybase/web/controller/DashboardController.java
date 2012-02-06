@@ -1,6 +1,4 @@
 /* 
- * DashboardController.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Controller
-public class DashboardController {
+public class DashboardController extends AbstractController {
 	@Inject private ApplicationService applicationService;
 	@Inject private Sitemap sitemap;
 	
@@ -42,10 +40,7 @@ public class DashboardController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String getDashboard(Model model) {
 		model.addAttribute(applicationService.findAll());
-		
-		// FIXME Need to add navigation so we can have a page title. Probably want to move addNavigation to Sitemap.
-//		return addNavigation(model, getDashboardId());
-		return sitemap.getDashboardId();
+		return addNavigation(model, sitemap.getDashboardId());
 	}
 
 }

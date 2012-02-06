@@ -4,24 +4,15 @@
 		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
-	
-	<!-- Package list -->
-	<definition name="packageList" extends="pageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/package/packageList.jsp" />
+	<definition name="packageList" extends="listPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/package/packageList.jsp" cascade="true" />
 	</definition>
-	
-	<!-- Package details -->
-	<definition name="packageDetails" extends="pageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/package/packageDetails.jsp" />
+	<definition name="packageDetails" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/package/details/packageDetails.jsp" cascade="true" />
 	</definition>
-	
-	<!-- Create package form -->
-	<definition name="createPackageForm" extends="createPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/package/packageForm.jsp" />
+	<definition name="packageForm" extends="titledPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/package/packageForm.jsp" cascade="true" />
 	</definition>
-	
-	<!-- Edit package form -->
-	<definition name="editPackageForm" extends="editPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/package/packageForm.jsp" />
-	</definition>
+	<definition name="createPackageForm" extends="packageForm" />
+	<definition name="editPackageForm" extends="packageForm" />
 </tiles-definitions>

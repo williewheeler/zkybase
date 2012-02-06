@@ -4,23 +4,7 @@
 		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
-	
-	
-	<!-- =========================================================================================================== -->
-	<!-- User account details                                                                                        -->
-	<!-- =========================================================================================================== -->
-	
-	<!-- Body template -->
-	<definition name="userAccountDetailsBodyTemplate" extends="rightSidebarBodyTemplate">
-		<put-attribute name="sidebar" value="/WEB-INF/jsp/userAccount/details/userAccountMenu.jsp" />
-	</definition>
-	
-	<!-- Overview page -->
-	<definition name="userAccountDetailsBody" extends="userAccountDetailsBodyTemplate">
+	<definition name="userAccountDetails" extends="detailsPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/userAccount/details/userAccountDetails.jsp" />
 	</definition>
-	<definition name="userAccountDetails" extends="pageTemplate">
-		<put-attribute name="content" value="userAccountDetailsBody" />
-	</definition>
-	
 </tiles-definitions>

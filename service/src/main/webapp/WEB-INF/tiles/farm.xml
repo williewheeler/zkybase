@@ -4,24 +4,15 @@
 		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
-	
-	<!-- Farm list -->
-	<definition name="farmList" extends="pageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/farm/farmList.jsp" />
+	<definition name="farmList" extends="listPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/farm/farmList.jsp" cascade="true" />
 	</definition>
-	
-	<!-- Farm details -->
-	<definition name="farmDetails" extends="pageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/farm/farmDetails.jsp" />
+	<definition name="farmDetails" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/farm/details/farmDetails.jsp" cascade="true" />
 	</definition>
-	
-	<!-- Create farm form -->
-	<definition name="createFarmForm" extends="createPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/farm/farmForm.jsp" />
+	<definition name="farmForm" extends="titledPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/farm/farmForm.jsp" cascade="true" />
 	</definition>
-	
-	<!-- Edit farm form -->
-	<definition name="editFarmForm" extends="editPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/farm/farmForm.jsp" />
-	</definition>
+	<definition name="createFarmForm" extends="farmForm" />
+	<definition name="editFarmForm" extends="farmForm" />
 </tiles-definitions>

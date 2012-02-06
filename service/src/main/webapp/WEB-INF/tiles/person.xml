@@ -4,71 +4,21 @@
 		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
-	
-	
-	<!-- =========================================================================================================== -->
-	<!-- Person list                                                                                                 -->
-	<!-- =========================================================================================================== -->
-	
-	<definition name="personList" extends="pageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/person/personList.jsp" />
+	<definition name="personList" extends="listPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/person/personList.jsp" cascade="true" />
 	</definition>
-	
-	
-	<!-- =========================================================================================================== -->
-	<!-- Person details                                                                                              -->
-	<!-- =========================================================================================================== -->
-	
-	<!-- Body template -->
-	<definition name="personDetailsBodyTemplate" extends="rightSidebarBodyTemplate">
-		<put-attribute name="sidebar" value="/WEB-INF/jsp/person/details/personMenu.jsp" />
+	<definition name="personDetails" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/person/details/personDetails.jsp" cascade="true" />
 	</definition>
-	
-	<!-- Overview -->
-	<definition name="personDetailsBody" extends="personDetailsBodyTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/person/details/personDetails.jsp" />
+	<definition name="personScmFollowers" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/person/details/scm/personScmFollowers.jsp" cascade="true" />
 	</definition>
-	<definition name="personDetails" extends="pageTemplate">
-		<put-attribute name="content" value="personDetailsBody" />
+	<definition name="personScmFollowing" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/person/details/scm/personScmFollowing.jsp" cascade="true" />
 	</definition>
-	
-	<!-- Followers -->
-	<definition name="personScmFollowersBody" extends="personDetailsBodyTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/person/details/scm/personScmFollowers.jsp" />
+	<definition name="personForm" extends="titledPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/person/personForm.jsp" cascade="true" />
 	</definition>
-	<definition name="personScmFollowers" extends="pageTemplate">
-		<put-attribute name="content" value="personScmFollowersBody" />
-	</definition>
-	
-	<!-- Following -->
-	<definition name="personScmFollowingBody" extends="personDetailsBodyTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/person/details/scm/personScmFollowing.jsp" />
-	</definition>
-	<definition name="personScmFollowing" extends="pageTemplate">
-		<put-attribute name="content" value="personScmFollowingBody" />
-	</definition>
-	
-	
-	<!-- =========================================================================================================== -->
-	<!-- Create person form                                                                                          -->
-	<!-- =========================================================================================================== -->
-	
-	<definition name="createPersonFormTile" template="/WEB-INF/jsp/person/personForm.jsp">
-		<put-attribute name="formMethod" value="post" />
-	</definition>
-	<definition name="createPersonForm" extends="createPageTemplate">
-		<put-attribute name="content" value="createPersonFormTile" />
-	</definition>
-	
-	
-	<!-- =========================================================================================================== -->
-	<!-- Edit person form                                                                                            -->
-	<!-- =========================================================================================================== -->
-
-	<definition name="editPersonFormTile" template="/WEB-INF/jsp/person/personForm.jsp">
-		<put-attribute name="formMethod" value="put" />
-	</definition>
-	<definition name="editPersonForm" extends="editPageTemplate">
-		<put-attribute name="content" value="editPersonFormTile" />
-	</definition>
+	<definition name="createPersonForm" extends="personForm" />
+	<definition name="editPersonForm" extends="personForm" />
 </tiles-definitions>

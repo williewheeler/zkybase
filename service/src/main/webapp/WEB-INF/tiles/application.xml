@@ -10,26 +10,9 @@
 	<definition name="applicationDetails" extends="detailsPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/application/details/applicationDetails.jsp" cascade="true" />
 	</definition>
-	<definition name="createApplicationForm" extends="pageTemplate">
-		<put-attribute name="content">
-			<definition extends="titledTemplate">
-				<put-attribute name="content">
-					<definition template="/WEB-INF/jsp/application/applicationForm.jsp">
-						<put-attribute name="formMethod" value="POST" />
-					</definition>
-				</put-attribute>
-			</definition>
-		</put-attribute>
+	<definition name="applicationForm" extends="titledPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/applicationForm.jsp" cascade="true" />
 	</definition>
-	<definition name="editApplicationForm" extends="pageTemplate">
-		<put-attribute name="content">
-			<definition extends="titledTemplate">
-				<put-attribute name="content">
-					<definition template="/WEB-INF/jsp/application/applicationForm.jsp">
-						<put-attribute name="formMethod" value="PUT" />
-					</definition>
-				</put-attribute>
-			</definition>
-		</put-attribute>
-	</definition>
+	<definition name="createApplicationForm" extends="applicationForm" />
+	<definition name="editApplicationForm" extends="applicationForm" />
 </tiles-definitions>
