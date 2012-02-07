@@ -15,14 +15,19 @@
  */
 package org.skydingo.skybase.web.controller.application;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.model.Module;
+import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.service.ApplicationService;
 import org.skydingo.skybase.service.ModuleService;
+import org.skydingo.skybase.service.PackageService;
+import org.skydingo.skybase.util.CollectionsUtil;
 import org.skydingo.skybase.web.controller.AbstractController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +54,7 @@ public class ApplicationModuleController extends AbstractController {
 	
 	@Inject private ApplicationService applicationService;
 	@Inject private ModuleService moduleService;
+	@Inject private PackageService packageService;
 	
 	/**
 	 * @param binder
@@ -109,9 +115,11 @@ public class ApplicationModuleController extends AbstractController {
 	@RequestMapping(value = "/{id}/modules", method = RequestMethod.GET)
 	public String getModules(@PathVariable Long id, Model model) {
 		Application app = applicationService.findOneWithModules(id);
-		model.addAttribute("entity", app);
+		
 		model.addAttribute(app);
-		return addNavigation(model, "applicationModules");
+		model.addAttribute(CollectionsUtil.asSortedList(app.getModules()));
+		
+		return addNavigation(model, "applicationModuleList");
 	}
 	
 	/**
@@ -122,12 +130,13 @@ public class ApplicationModuleController extends AbstractController {
 	 */
 	@RequestMapping(value = "/{applicationId}/modules/{moduleId}", method = RequestMethod.GET)
 	public String getModule(@PathVariable Long applicationId, @PathVariable Long moduleId, Model model) {
-		Application app = applicationService.findOne(applicationId);
+		Application application = applicationService.findOne(applicationId);
 		Module module = moduleService.findOne(moduleId);
+		List<Package> packages = packageService.findByModule(module);
 		
-		model.addAttribute("entity", app);
-		model.addAttribute(app);
+		model.addAttribute(application);
 		model.addAttribute(module);
+		model.addAttribute(packages);
 		
 		return addNavigation(model, "applicationModule");
 	}

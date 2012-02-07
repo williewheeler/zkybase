@@ -22,6 +22,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.skydingo.skybase.exception.DuplicateCIException;
+import org.skydingo.skybase.model.Module;
 import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.repository.PackageRepository;
 import org.skydingo.skybase.service.PackageService;
@@ -41,11 +42,19 @@ public class PackageServiceImpl extends AbstractCIService<Package> implements Pa
 	@Override
 	public void createPackage(Package pkg) {
 		notNull(pkg);
-		List<Package> duplicates =
-			packageRepo.findByGroupIdAndPackageIdAndVersion(pkg.getGroupId(), pkg.getPackageId(), pkg.getVersion());
-		if (!duplicates.isEmpty()) {
+		
+//		List<Package> duplicates =
+//			packageRepo.findByGroupIdAndPackageIdAndVersion(pkg.getGroupId(), pkg.getPackageId(), pkg.getVersion());
+//		if (!duplicates.isEmpty()) {
+//			throw new DuplicateCIException();
+//		}
+		
+		Package duplicatePkg = packageRepo.findByModuleAndVersion(pkg.getModule(), pkg.getVersion());
+		
+		if (duplicatePkg != null) {
 			throw new DuplicateCIException();
 		}
+		
 		getRepository().save(pkg);
 	}
 	
@@ -64,6 +73,22 @@ public class PackageServiceImpl extends AbstractCIService<Package> implements Pa
 				errors.reject("error.package.duplicatePackage");
 			}
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.PackageService#findByModule(org.skydingo.skybase.model.Module)
+	 */
+	@Override
+	public List<Package> findByModule(Module module) {
+		return packageRepo.findByModule(module);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.PackageService#findByModuleAndVersion(org.skydingo.skybase.model.Module, java.lang.String)
+	 */
+	@Override
+	public Package findByModuleAndVersion(Module module, String version) {
+		return packageRepo.findByModuleAndVersion(module, version);
 	}
 
 	/* (non-Javadoc)

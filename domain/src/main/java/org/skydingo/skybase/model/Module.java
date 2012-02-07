@@ -99,6 +99,35 @@ public class Module extends AbstractCI<Module> {
 			+ "]";
 	}
 	
+	/**
+	 * @param that
+	 * @return
+	 */
+	@Override
+	public int compareTo(Module that) {
+		String thatGroupId = that.getGroupId();
+		String thatModuleId = that.getModuleId();
+		
+		// Ugh, this is more complicated than it should be. groupId and moduleId are required, so we can get rid of
+		// the null checks at some point.
+		if (groupId == null) {
+			return (thatGroupId == null ? 0 : 1);
+		} else if (thatGroupId == null) {
+			return -1;
+		} else {
+			int groupIdComp = groupId.compareTo(thatGroupId);
+			if (groupIdComp != 0) {
+				return groupIdComp;
+			} else if (moduleId == null) {
+				return (thatModuleId == null ? 0 : 1);
+			} else if (thatModuleId == null) {
+				return -1;
+			} else {
+				return moduleId.compareTo(that.getModuleId());
+			}
+		}
+	}
+	
 	@XmlRootElement(name = "modules")
 	public static class ModuleListWrapper implements ListWrapper<Module> {
 		private List<Module> list;

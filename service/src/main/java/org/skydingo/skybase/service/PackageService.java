@@ -15,7 +15,10 @@
  */
 package org.skydingo.skybase.service;
 
+import java.util.List;
+
 import org.skydingo.skybase.exception.DuplicateCIException;
+import org.skydingo.skybase.model.Module;
 import org.skydingo.skybase.model.Package;
 import org.springframework.validation.Errors;
 
@@ -35,6 +38,19 @@ public interface PackageService extends CIService<Package> {
 	 * @param errors errors
 	 */
 	void createPackage(Package pkg, Errors errors);
+	
+	/**
+	 * @param module
+	 * @return
+	 */
+	List<Package> findByModule(Module module);
+	
+	/**
+	 * @param module
+	 * @param version
+	 * @return
+	 */
+	Package findByModuleAndVersion(Module module, String version);
 	
 	/**
 	 * @param pkg

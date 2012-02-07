@@ -5,18 +5,18 @@
 
 <tiles-definitions>
 	<definition name="applicationScm" extends="detailsPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScm.jsp" cascade="true" />
+		<put-attribute name="content" value="/WEB-INF/jsp/application/scm/applicationScm.jsp" cascade="true" />
 	</definition>
 	<definition name="applicationScmCollaborators" extends="detailsPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScmCollaborators.jsp" cascade="true" />
+		<put-attribute name="content" value="/WEB-INF/jsp/application/scm/applicationScmCollaborators.jsp" cascade="true" />
 	</definition>
 	<definition name="applicationScmCommits" extends="detailsPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScmCommits.jsp" cascade="true" />
+		<put-attribute name="content" value="/WEB-INF/jsp/application/scm/applicationScmCommits.jsp" cascade="true" />
 	</definition>
 	<definition name="applicationScmWatchers" extends="detailsPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScmWatchers.jsp" cascade="true" />
+		<put-attribute name="content" value="/WEB-INF/jsp/application/scm/applicationScmWatchers.jsp" cascade="true" />
 	</definition>
 	<definition name="applicationScmHooks" extends="detailsPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/details/scm/applicationScmHooks.jsp" cascade="true" />
+		<put-attribute name="content" value="/WEB-INF/jsp/application/scm/applicationScmHooks.jsp" cascade="true" />
 	</definition>
 </tiles-definitions>

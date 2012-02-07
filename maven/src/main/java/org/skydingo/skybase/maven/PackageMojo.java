@@ -37,15 +37,15 @@ public class PackageMojo extends AbstractMojo {
 	 */
 	private Module module;
 	
-	/**
-	 * @parameter expression="${package.groupId}" 
-	 */
-	private String groupId;
-	
-	/**
-	 * @parameter expression="${package.packageId}"
-	 */
-	private String packageId;
+//	/**
+//	 * @parameter expression="${package.groupId}" 
+//	 */
+//	private String groupId;
+//	
+//	/**
+//	 * @parameter expression="${package.packageId}"
+//	 */
+//	private String packageId;
 	
 	/**
 	 * @parameter expression="${package.version}"
@@ -61,7 +61,7 @@ public class PackageMojo extends AbstractMojo {
 		client.setRestTemplate(new RestTemplate());
 		
 		// Create new package
-		Package pkg = new Package(module, groupId, packageId, version);
+		Package pkg = new Package(module, version);
 		Long pkgId = client.createPackage(pkg);
 		if (pkgId == 0L) {
 			getLog().info("Package already exists");

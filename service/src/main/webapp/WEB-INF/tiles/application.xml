@@ -8,7 +8,7 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/application/applicationList.jsp" cascade="true" />
 	</definition>
 	<definition name="applicationDetails" extends="detailsPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/details/applicationDetails.jsp" cascade="true" />
+		<put-attribute name="content" value="/WEB-INF/jsp/application/applicationDetails.jsp" cascade="true" />
 	</definition>
 	<definition name="applicationForm" extends="titledPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/application/applicationForm.jsp" cascade="true" />

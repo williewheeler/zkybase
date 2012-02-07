@@ -61,7 +61,7 @@ public class Sitemap {
 		buildCrudNodes(DataCenter.class, dashboard);
 		buildCrudNodes(Environment.class, dashboard);
 		buildCrudNodes(Farm.class, dashboard);
-		buildCrudNodes(Package.class, dashboard);
+//		buildCrudNodes(Package.class, dashboard);
 		buildCrudNodes(Person.class, dashboard);
 		buildCrudNodes(Region.class, dashboard);
 		buildCrudNodes(UserAccount.class, dashboard);
@@ -82,8 +82,9 @@ public class Sitemap {
 		SitemapNode listNode = buildNode(getEntityListViewId(entityClass), listTitle, listPath, dashboard);
 		
 		// Details node
-		String detailsTitle = "#this[entity].displayName";
-		String detailsPath = listPath + " + '/' + #this[entity].id";
+		// FIXME Consider replacing 'entity' with 'application', 'database', etc.
+		String detailsTitle = "#this[" + uncapSimpleName + "].displayName";
+		String detailsPath = listPath + " + '/' + #this[" + uncapSimpleName + "].id";
 		SitemapNode detailsNode = buildNode(getEntityDetailsViewId(entityClass), detailsTitle, detailsPath, listNode);
 		detailsNode.setShowInDetailsSidebar(true);
 		
@@ -103,12 +104,16 @@ public class Sitemap {
 	private void buildApplicationNodes() {
 		SitemapNode appNode = getNode("applicationDetails");
 		
+		// FIXME We're referencing the app using 'entity', but that kind of sucks.
 		String modulesPath = appNode.getPath() + " + '/modules'";
-		SitemapNode modulesNode = buildNode("applicationModules", "'Modules'", false, modulesPath, appNode);
-		String modulePath = modulesPath + " + '/' + #this[module].id";
-		buildNode("applicationModule", "#this[module].displayName", false, modulePath, modulesNode);
-		
+		SitemapNode modulesNode = buildNode("applicationModuleList", "'Modules'", false, modulesPath, appNode);
 		modulesNode.setShowInDetailsSidebar(true);
+		
+		String modulePath = modulesPath + " + '/' + #this[module].id";
+		SitemapNode moduleNode = buildNode("applicationModule", "#this[module].displayName", true, modulePath, modulesNode);
+		
+		String createPackagePath = modulePath + " + '/packages/new'";
+		buildNode("createApplicationPackageForm", "'Create package'", true, createPackagePath, moduleNode);
 		
 		String scmPath = appNode.getPath() + " + '/scm'";
 		SitemapNode scmNode = buildNode("applicationScm", "'SCM'", false, scmPath, appNode);

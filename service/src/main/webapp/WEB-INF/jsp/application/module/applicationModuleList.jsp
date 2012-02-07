@@ -5,7 +5,7 @@
 
 <%@ include file="/WEB-INF/jsp/pageTemplate/urls.jsp" %>
 
-<c:set var="moduleList" value="${application.modules}" />
+<%-- <c:set var="moduleList" value="${application.modules}" /> --%>
 <c:set var="modulesPath" value="/applications/${application.id}/modules" />
 
 <c:url var="modulesUrlCreateOk" value="${modulesPath}">

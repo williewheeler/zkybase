@@ -17,7 +17,9 @@ package org.skydingo.skybase.repository;
 
 import java.util.List;
 
+import org.skydingo.skybase.model.Module;
 import org.skydingo.skybase.model.Package;
+import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
@@ -26,20 +28,26 @@ import org.springframework.data.neo4j.repository.GraphRepository;
 public interface PackageRepository extends GraphRepository<Package> {
 	
 //	/**
-//	 * Returns the packages for the given project.
-//	 * 
-//	 * @param project project
-//	 * @return packages for the given project
+//	 * @param groupId
+//	 * @param packageId
+//	 * @param version
+//	 * @return
 //	 */
-//	@Query("start project=node({0}) match package-->application return package")
-//	Iterable<Package> findByApplication(Application application);
+//	// http://stackoverflow.com/questions/8032979/cypher-query-to-get-nodes-with-given-property-values
+//	List<Package> findByGroupIdAndPackageIdAndVersion(String groupId, String packageId, String version);
 	
 	/**
-	 * @param groupId
-	 * @param packageId
+	 * @param module
+	 * @return
+	 */
+	// FIXME This shouldn't need an explicit query, but for right now it does since Spring Data Neo4j can't handle it.
+	@Query("start module=node({0}) match package-[:FROM_MODULE]->module return package")
+	List<Package> findByModule(Module module);
+	
+	/**
+	 * @param module
 	 * @param version
 	 * @return
 	 */
-	// http://stackoverflow.com/questions/8032979/cypher-query-to-get-nodes-with-given-property-values
-	List<Package> findByGroupIdAndPackageIdAndVersion(String groupId, String packageId, String version);
+	Package findByModuleAndVersion(Module module, String version);
 }

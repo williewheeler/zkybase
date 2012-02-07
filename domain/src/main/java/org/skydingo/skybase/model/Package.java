@@ -40,15 +40,13 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
-@XmlType(propOrder = { "module", "groupId", "packageId", "version" })
+@XmlType(propOrder = { "module", "version" })
 public class Package extends AbstractCI<Package> {
 	
 	@Fetch
 	@RelatedTo(type = "FROM_MODULE", direction = Direction.OUTGOING)
 	private Module module;
 	
-	@Indexed private String groupId;
-	@Indexed private String packageId;
 	@Indexed private String version;
 	
 	/**
@@ -58,21 +56,17 @@ public class Package extends AbstractCI<Package> {
 	
 	/**
 	 * @param module module
-	 * @param groupId group ID
-	 * @param packageId package ID
 	 * @param version version
 	 */
-	public Package(Module module, String groupId, String packageId, String version) {
+	public Package(Module module, String version) {
 		this.module = module;
-		this.groupId = groupId;
-		this.packageId = packageId;
 		this.version = version;
 	}
 	
 	/**
 	 * @return
 	 */
-	@NotNull
+//	@NotNull
 	@XmlElement
 	public Module getModule() { return module; }
 	
@@ -80,32 +74,6 @@ public class Package extends AbstractCI<Package> {
 	 * @param module
 	 */
 	public void setModule(Module module) { this.module = module; }
-	
-	/**
-	 * @return
-	 */
-	@NotNull
-	@Size(min = 1, max = 200)
-	@XmlElement
-	public String getGroupId() { return groupId; }
-	
-	/**
-	 * @param groupId
-	 */
-	public void setGroupId(String groupId) { this.groupId = groupId; }
-	
-	/**
-	 * @return
-	 */
-	@NotNull
-	@Size(min = 1, max = 200)
-	@XmlElement
-	public String getPackageId() { return packageId; }
-	
-	/**
-	 * @param packageId
-	 */
-	public void setPackageId(String packageId) { this.packageId = packageId; }
 	
 	/**
 	 * @return
@@ -124,23 +92,20 @@ public class Package extends AbstractCI<Package> {
 	 * @see org.skydingo.skybase.model.Entity#getDisplayName()
 	 */
 	@Override
-	public String getDisplayName() { return packageId; }
+	public String getDisplayName() {
+		return module.getGroupId() + ":" + module.getModuleId() + ":" + version;
+	}
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.model.AbstractEntity#compareTo(org.skydingo.skybase.model.Entity)
 	 */
 	@Override
 	public int compareTo(Package that) {
-		int groupComp = groupId.compareTo(that.groupId);
-		if (groupComp != 0) {
-			return groupComp;
+		int moduleComp = module.compareTo(that.getModule());
+		if (moduleComp != 0) {
+			return moduleComp;
 		} else {
-			int packageComp = packageId.compareTo(that.packageId);
-			if (packageComp != 0) {
-				return packageComp;
-			} else {
-				return version.compareTo(that.version);
-			}
+			return version.compareTo(that.version);
 		}
 	}
 	
@@ -151,8 +116,6 @@ public class Package extends AbstractCI<Package> {
 	public String toString() {
 		return "[Package: id=" + getId()
 			+ ", module=" + module
-			+ ", groupId=" + groupId
-			+ ", packageId=" + packageId
 			+ ", version=" + version
 			+ "]";
 	}

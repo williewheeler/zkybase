@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.repository;
+package org.skydingo.skybase.formatter;
 
-import org.skydingo.skybase.model.Application;
-import org.springframework.data.neo4j.repository.GraphRepository;
+import org.skydingo.skybase.model.Module;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface ApplicationRepository extends GraphRepository<Application> { }
+@Component
+public class ModuleFormatter extends CIFormatter<Module> {
+
+	public ModuleFormatter() { super(Module.class); }
+}
