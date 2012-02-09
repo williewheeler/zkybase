@@ -48,6 +48,8 @@ public class SkybaseClient {
 	 * @return package ID, or 0 if no package was created
 	 */
 	public Long createPackage(Package pkg) {
+		
+		// FIXME Hardcoded location
 		URI location = template.postForLocation("http://localhost:8080/packages", pkg);
 		if (location == null) {
 			return 0L;

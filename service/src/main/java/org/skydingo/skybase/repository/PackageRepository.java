@@ -49,5 +49,7 @@ public interface PackageRepository extends GraphRepository<Package> {
 	 * @param version
 	 * @return
 	 */
+	// FIXME This shouldn't need an explicit query, but for right now it does since Spring Data Neo4j can't handle it.
+	@Query("start module=node({0}) match package-[:FROM_MODULE]->module where package.version = {1} return package")
 	Package findByModuleAndVersion(Module module, String version);
 }

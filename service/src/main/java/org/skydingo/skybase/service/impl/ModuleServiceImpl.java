@@ -15,7 +15,10 @@
  */
 package org.skydingo.skybase.service.impl;
 
+import javax.inject.Inject;
+
 import org.skydingo.skybase.model.Module;
+import org.skydingo.skybase.repository.ModuleRepository;
 import org.skydingo.skybase.service.ModuleService;
 import org.springframework.stereotype.Service;
 
@@ -23,4 +26,14 @@ import org.springframework.stereotype.Service;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-public class ModuleServiceImpl extends AbstractCIService<Module> implements ModuleService { }
+public class ModuleServiceImpl extends AbstractCIService<Module> implements ModuleService {
+	@Inject private ModuleRepository moduleRepository;
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.ModuleService#findByGroupIdAndModuleId(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public Module findByGroupIdAndModuleId(String groupId, String moduleId) {
+		return moduleRepository.findByGroupIdAndModuleId(groupId, moduleId);
+	}
+}

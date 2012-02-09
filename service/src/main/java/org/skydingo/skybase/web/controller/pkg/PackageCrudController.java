@@ -21,8 +21,10 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import org.skydingo.skybase.exception.DuplicateCIException;
+import org.skydingo.skybase.model.Module;
 import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.service.CIService;
+import org.skydingo.skybase.service.ModuleService;
 import org.skydingo.skybase.service.PackageService;
 import org.skydingo.skybase.web.controller.AbstractCrudController;
 import org.slf4j.Logger;
@@ -45,6 +47,7 @@ public class PackageCrudController extends AbstractCrudController<Package> {
 	
 	private static final String[] ALLOWED_FIELDS = new String[] { "groupId", "packageId", "version" };
 	
+	@Inject private ModuleService moduleService;
 	@Inject private PackageService packageService;
 	
 	@Value("#{config['app.baseUrl']}")
@@ -72,7 +75,17 @@ public class PackageCrudController extends AbstractCrudController<Package> {
 	public void postPackage(@RequestBody Package pkg, HttpServletResponse res) {
 		log.debug("Posting package: {}", pkg);
 		
+		// Look up the actual module.
+		String groupId = pkg.getModule().getGroupId();
+		String moduleId = pkg.getModule().getModuleId();
+		Module module = moduleService.findByGroupIdAndModuleId(groupId, moduleId);
+		log.debug("Found module: {}", module);
+		
+		// Replace the DTO with the entity.
+		pkg.setModule(module);
+		
 		try {
+			log.debug("Creating package: {}", pkg);
 			packageService.createPackage(pkg);
 			res.setHeader("Location", appBaseUrl + "/packages/" + pkg.getId());
 		} catch (DuplicateCIException e) {

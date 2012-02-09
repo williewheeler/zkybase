@@ -5,8 +5,8 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>org.skydingo.skybase</artifactId>
 		<groupId>org.skydingo.skybase</groupId>
+		<artifactId>org.skydingo.skybase</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
@@ -46,8 +46,10 @@
 				<artifactId>${project.artifactId}</artifactId>
 				<version>${project.version}</version>
 				<configuration>
-					<groupId>${project.groupId}</groupId>
-					<packageId>${project.artifactId}</packageId>
+					<module>
+						<groupId>${project.groupId}</groupId>
+						<moduleId>${project.artifactId}</moduleId>
+					</module>
 					<version>${project.version}</version>
 				</configuration>
 			</plugin>

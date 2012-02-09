@@ -1,0 +1,12 @@
+To run the plugin:
+
+1) Make sure it's installed.
+
+2) Start the Skybase app since the plugin calls it.
+
+3) Run
+
+    mvn -e org.skydingo.skybase:skybase-maven-plugin:0.0.1-SNAPSHOT:package
+
+See http://maven.apache.org/guides/plugin/guide-java-plugin-development.html for more info.
+    

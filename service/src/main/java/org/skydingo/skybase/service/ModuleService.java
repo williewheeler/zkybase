@@ -20,4 +20,12 @@ import org.skydingo.skybase.model.Module;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface ModuleService extends CIService<Module> { }
+public interface ModuleService extends CIService<Module> {
+	
+	/**
+	 * @param groupId
+	 * @param moduleId
+	 * @return
+	 */
+	Module findByGroupIdAndModuleId(String groupId, String moduleId);
+}

@@ -23,18 +23,22 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.springframework.data.neo4j.annotation.Indexed;
+
 /**
  * A module, which is a version-free abstraction over packages.
  * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
-@XmlType(propOrder = { "name", "shortDescription" })
+@XmlType(propOrder = { "name", "shortDescription", "groupId", "moduleId" })
 public class Module extends AbstractCI<Module> {
 	private String name;
 	private String shortDescription;
-	private String groupId;
-	private String moduleId;
+	
+	// These need to be indexed so we can use them for querying.
+	@Indexed private String groupId;
+	@Indexed private String moduleId;
 	
 	/**
 	 * @return
@@ -64,6 +68,7 @@ public class Module extends AbstractCI<Module> {
 	/**
 	 * @return
 	 */
+	@XmlElement
 	public String getGroupId() { return groupId; }
 	
 	/**
@@ -74,6 +79,7 @@ public class Module extends AbstractCI<Module> {
 	/**
 	 * @return
 	 */
+	@XmlElement
 	public String getModuleId() { return moduleId; }
 	
 	/**
@@ -92,10 +98,11 @@ public class Module extends AbstractCI<Module> {
 	 */
 	@Override
 	public String toString() {
-		return "[Module: name=" + name
+		return "[Module: id=" + getId()
+			+ ", name=" + name
 			+ ", shortDescription=" + shortDescription
 			+ ", groupId=" + groupId
-			+ ", packageId=" + moduleId
+			+ ", moduleId=" + moduleId
 			+ "]";
 	}
 	
