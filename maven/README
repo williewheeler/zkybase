@@ -8,5 +8,11 @@ To run the plugin:
 
     mvn -e org.skydingo.skybase:skybase-maven-plugin:0.0.1-SNAPSHOT:package
 
+or, better:
+
+    mvn -e skybase:package
+
+since we're following the skybase-maven-plugin convention.
+
 See http://maven.apache.org/guides/plugin/guide-java-plugin-development.html for more info.
     

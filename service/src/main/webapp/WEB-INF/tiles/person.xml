@@ -8,7 +8,7 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/person/personList.jsp" cascade="true" />
 	</definition>
 	<definition name="personDetails" extends="detailsPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/person/details/personDetails.jsp" cascade="true" />
+		<put-attribute name="content" value="/WEB-INF/jsp/person/personDetails.jsp" cascade="true" />
 	</definition>
 	<definition name="personScmFollowers" extends="detailsPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/person/details/scm/personScmFollowers.jsp" cascade="true" />

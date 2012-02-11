@@ -52,6 +52,14 @@
 					</module>
 					<version>${project.version}</version>
 				</configuration>
+				<executions>
+					<execution>
+						<phase>deploy</phase>
+						<goals>
+							<goal>package</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

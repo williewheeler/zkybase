@@ -38,7 +38,7 @@
 		<script type="text/javascript" src="${coreJsUrl}"></script>
 	</head>
 	<body>
-		<jsp:include page="topbar.jsp" />
+		<jsp:include page="navigation/topbar.jsp" />
 		<div class="container">
 			<jsp:include page="navigation/breadcrumbs.jsp" />
 			<jsp:include page="alerts.jsp" />

@@ -37,16 +37,6 @@ public class PackageMojo extends AbstractMojo {
 	 */
 	private Module module;
 	
-//	/**
-//	 * @parameter expression="${package.groupId}" 
-//	 */
-//	private String groupId;
-//	
-//	/**
-//	 * @parameter expression="${package.packageId}"
-//	 */
-//	private String packageId;
-	
 	/**
 	 * @parameter expression="${package.version}"
 	 */

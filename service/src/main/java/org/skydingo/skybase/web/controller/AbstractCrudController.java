@@ -62,10 +62,7 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	// IMPORTANT: Only getEntityClass() should access this directly!
 	private Class<T> entityClass;
 	
-	// FIXME Make this abstract once the refactoring is done
-	protected CIService<T> getService() {
-		throw new UnsupportedOperationException();
-	}
+	protected abstract CIService<T> getService();
 	
 	/**
 	 * @return
@@ -101,9 +98,7 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	}
 	
 	// FIXME Make abstract after refactoring is done
-	protected String[] getAllowedFields() {
-		throw new UnsupportedOperationException();
-	}
+	protected abstract String[] getAllowedFields();
 	
 	/**
 	 * Places reference data on the model. The default implementation is a no-op, but subclasses can override this as

@@ -28,19 +28,16 @@
 			<ul class="nav">
 				<li id="developmentArea" class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						Development
-						<b class="caret"></b>
+						Development <b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="${applicationsUrl}">Applications</a></li>
 <!-- 						<li class="divider"></li> -->
-						<li><a href="${packagesUrl}">Packages</a></li>
 					</ul>
 				</li>
 				<li id="opsArea" class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						Operations
-						<b class="caret"></b>
+						Operations <b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="${regionsUrl}">Regions</a></li>
@@ -49,7 +46,23 @@
 						<li><a href="${farmsUrl}">Farms</a></li>
 					</ul>
 				</li>
-				<li id="personListArea"><a href="${peopleUrl}">People</a></li>
+				<li id="peopleArea" class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						People <b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="${peopleUrl}">People</a></li>
+						<li><a href="#">Teams</a></li>
+					</ul>
+				</li>
+				<li id="adminArea" class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						Admin <b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Team types</a></li>
+					</ul>
+				</li>
 			</ul>
 			<form class="navbar-search" action="">
 				<input type="text" class="search-query pull-left" placeholder="Search" />

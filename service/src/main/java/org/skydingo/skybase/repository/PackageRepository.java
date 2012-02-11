@@ -27,15 +27,6 @@ import org.springframework.data.neo4j.repository.GraphRepository;
  */
 public interface PackageRepository extends GraphRepository<Package> {
 	
-//	/**
-//	 * @param groupId
-//	 * @param packageId
-//	 * @param version
-//	 * @return
-//	 */
-//	// http://stackoverflow.com/questions/8032979/cypher-query-to-get-nodes-with-given-property-values
-//	List<Package> findByGroupIdAndPackageIdAndVersion(String groupId, String packageId, String version);
-	
 	/**
 	 * @param module
 	 * @return

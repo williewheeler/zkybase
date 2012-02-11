@@ -107,7 +107,10 @@ input, button {
 .iconx.add { background-image: url(../images/icons/plus.png); }
 .iconx.delete { background-image: url(../images/icons/minus.png); }
 .iconx.edit { background-image: url(../images/icons/pencil.png); }
+.iconx.email { background-image: url(../images/icons/mail.png); }
 .iconx.json { background-image: url(../images/icons/json.png); }
+.iconx.mobilePhone { background-image: url(../images/icons/mobile-phone.png); }
+.iconx.telephone { background-image: url(../images/icons/telephone.png); }
 .iconx.xml { background-image: url(../images/icons/document-code.png); }
 
 .addUser.icon { background-image: url(../images/icons/user--plus.png); }
@@ -123,14 +126,11 @@ input, button {
 .editPackage.icon { background-image: url(../images/icons/box--pencil.png); }
 .editPerson.icon { background-image: url(../images/icons/user--pencil.png); }
 .editProject.icon { background-image: url(../images/icons/folder--pencil.png); }
-.email.icon { background-image: url(../images/icons/mail.png); }
 .error.icon { background-image: url(../images/icons/exclamation.png); }
 .feed.icon { background-image: url(../images/icons/feed.png); }
-.mobilePhone.icon { background-image: url(../images/icons/mobile-phone.png); }
 .package.icon { background-image: url(../images/icons/box.png); }
 .relate.icon { background-image: url(../images/icons/chain--plus.png); }
 .servers.icon { background-image: url(../images/icons/servers.png); }
-.telephone.icon { background-image: url(../images/icons/telephone.png); }
 .unrelate.icon { background-image: url(../images/icons/chain--minus.png); }
 .users.icon { background-image: url(../images/icons/users.png); }
 .warning.icon { background-image: url(../images/icons/exclamation.png); }

@@ -55,6 +55,14 @@ public class UserAccountCrudController extends AbstractCrudController<UserAccoun
 	@Inject private GitHubConnectionFactory gitHubConnectionFactory;
 
 	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.web.controller.AbstractCrudController#getAllowedFields()
+	 */
+	@Override
+	protected String[] getAllowedFields() {
+		return new String[] { "username" };
+	}
+	
+	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractEntityNoFormController#getService()
 	 */
 	@Override

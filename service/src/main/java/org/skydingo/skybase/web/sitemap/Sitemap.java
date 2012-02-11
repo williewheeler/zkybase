@@ -132,10 +132,15 @@ public class Sitemap {
 	
 	private void buildPersonNodes() {
 		SitemapNode personNode = getNode("personDetails");
+		
 		String scmPath = personNode.getPath() + " + '/scm'";
 		SitemapNode scmNode = buildNode("personScm", "'SCM'", false, scmPath, personNode);
-		buildNode("personScmFollowers", "'Followers'", false, scmPath + " + '/followers'", scmNode);
-		buildNode("personScmFollowing", "'Following'", false, scmPath + " + '/following'", scmNode);
+		SitemapNode followersNode = buildNode("personScmFollowers", "'Followers'", false, scmPath + " + '/followers'", scmNode);
+		SitemapNode followingNode = buildNode("personScmFollowing", "'Following'", false, scmPath + " + '/following'", scmNode);
+		
+		scmNode.setShowInDetailsSidebar(true);
+		followersNode.setShowInDetailsSidebar(true);
+		followingNode.setShowInDetailsSidebar(true);
 	}
 	
 	/**
