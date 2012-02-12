@@ -8,7 +8,7 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/region/regionList.jsp" cascade="true" />
 	</definition>
 	<definition name="regionDetails" extends="detailsPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/region/details/regionDetails.jsp" cascade="true" />
+		<put-attribute name="content" value="/WEB-INF/jsp/region/regionDetails.jsp" cascade="true" />
 	</definition>
 	<definition name="regionForm" extends="titledPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/region/regionForm.jsp" cascade="true" />

@@ -78,7 +78,7 @@ public abstract class AbstractCrudControllerTests<T extends CI<T>> {
 	@Mock protected Writer out;
 	
 	protected Class<T> getEntityClass() {
-		return controller.getEntityClass();
+		return controller.getCiClass();
 	}
 	
 	/**

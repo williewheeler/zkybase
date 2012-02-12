@@ -24,9 +24,9 @@ import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.model.DataCenter;
 import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.model.Farm;
-import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.model.Region;
+import org.skydingo.skybase.model.Team;
 import org.skydingo.skybase.model.UserAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,6 +64,7 @@ public class Sitemap {
 //		buildCrudNodes(Package.class, dashboard);
 		buildCrudNodes(Person.class, dashboard);
 		buildCrudNodes(Region.class, dashboard);
+		buildCrudNodes(Team.class, dashboard);
 		buildCrudNodes(UserAccount.class, dashboard);
 		
 		buildApplicationNodes();
@@ -226,6 +227,7 @@ public class Sitemap {
 	public SitemapNode getNode(String id) { return nodes.get(id); }
 	
 	public String resolve(String exprStr, Map<String, Object> context) {
+		log.debug("Resolving expression: {}", exprStr);
 		Expression expr = exprParser.parseExpression(exprStr);
 		EvaluationContext evalContext = new StandardEvaluationContext(context);
 		return (String) expr.getValue(evalContext);

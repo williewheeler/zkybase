@@ -27,6 +27,8 @@ import org.skydingo.skybase.model.Farm;
 import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.model.Region;
+import org.skydingo.skybase.model.Team;
+import org.skydingo.skybase.model.UserAccount;
 import org.springframework.stereotype.Component;
 
 /**
@@ -44,33 +46,39 @@ public class Paths {
 		basePaths.put(Package.class, "/packages");
 		basePaths.put(Person.class, "/people");
 		basePaths.put(Region.class, "/regions");
+		basePaths.put(Team.class, "/teams");
+		basePaths.put(UserAccount.class, "/useraccounts");
 	}
 	
-	public String getBasePath(Class<?> entityClass) {
-		return basePaths.get(entityClass);
+	public String getBasePath(Class<?> ciClass) {
+		String path = basePaths.get(ciClass);
+		if (path == null) {
+			throw new IllegalArgumentException("No path for CI class: " + ciClass);
+		}
+		return path;
 	}
 	
-	public String getListPath(Class<?> entityClass) {
-		return getBasePath(entityClass);
+	public String getListPath(Class<?> ciClass) {
+		return getBasePath(ciClass);
 	}
 	
-	public String getDetailsPath(Class<?> entityClass, Long id) {
-		return getBasePath(entityClass) + "/" + id;
+	public String getDetailsPath(Class<?> ciClass, Long id) {
+		return getBasePath(ciClass) + "/" + id;
 	}
 	
-	public String getCreateFormPath(Class<?> entityClass) {
-		return getBasePath(entityClass) + "/new";
+	public String getCreateFormPath(Class<?> ciClass) {
+		return getBasePath(ciClass) + "/new";
 	}
 	
-	public String getSubmitCreateFormPath(Class<?> entityClass) {
-		return getBasePath(entityClass);
+	public String getSubmitCreateFormPath(Class<?> ciClass) {
+		return getBasePath(ciClass);
 	}
 	
-	public String getEditFormPath(Class<?> entityClass, Long id) {
-		return getDetailsPath(entityClass, id) + "/edit";
+	public String getEditFormPath(Class<?> ciClass, Long id) {
+		return getDetailsPath(ciClass, id) + "/edit";
 	}
 	
-	public String getSubmitEditFormPath(Class<?> entityClass, Long id) {
-		return getDetailsPath(entityClass, id);
+	public String getSubmitEditFormPath(Class<?> ciClass, Long id) {
+		return getDetailsPath(ciClass, id);
 	}
 }

@@ -35,6 +35,7 @@ import org.skydingo.skybase.web.sitemap.Paths;
 import org.skydingo.skybase.web.view.ViewNames;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -59,8 +60,8 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	@Inject protected ViewNames viewNames;
 	@Inject protected ObjectMapper objectMapper;
 	
-	// IMPORTANT: Only getEntityClass() should access this directly!
-	private Class<T> entityClass;
+	// IMPORTANT: Only getCiClass() should access this directly!
+	private Class<T> ciClass;
 	
 	protected abstract CIService<T> getService();
 	
@@ -68,17 +69,17 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	protected Class<T> getEntityClass() {
-		if (this.entityClass == null) {
+	protected Class<T> getCiClass() {
+		if (this.ciClass == null) {
 			ParameterizedType paramType = (ParameterizedType) getClass().getGenericSuperclass();
-			this.entityClass = (Class<T>) paramType.getActualTypeArguments()[0];
+			this.ciClass = (Class<T>) paramType.getActualTypeArguments()[0];
 		}
-		return entityClass;
+		return ciClass;
 	}
 	
-	protected T newEntityInstance() {
+	protected T newCiInstance() {
 		try {
-			return getEntityClass().newInstance();
+			return getCiClass().newInstance();
 		} catch (InstantiationException e) {
 			// Shouldn't happen
 			throw new RuntimeException(e);
@@ -119,7 +120,7 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	 */
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String getCreateForm(Model model) {
-		model.addAttribute(MK_FORM_DATA, newEntityInstance());
+		model.addAttribute(MK_FORM_DATA, newCiInstance());
 		return prepareCreateForm(model);
 	}
 	
@@ -138,7 +139,7 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 			return prepareCreateForm(model);
 		}
 		
-		return viewNames.postCreateFormSuccessViewName(getEntityClass());
+		return viewNames.postCreateFormSuccessViewName(getCiClass());
 	}
 	
 	/**
@@ -148,9 +149,9 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	protected String prepareCreateForm(Model model) {
 		populateReferenceData(model);
 		model.addAttribute(MK_FORM_METHOD, "post");
-		model.addAttribute(MK_SUBMIT_PATH, paths.getSubmitCreateFormPath(getEntityClass()));
-		model.addAttribute(MK_CANCEL_PATH, paths.getBasePath(getEntityClass()) + "?a=cancelled");
-		return addNavigation(model, sitemap.getCreateFormId(getEntityClass()));
+		model.addAttribute(MK_SUBMIT_PATH, paths.getSubmitCreateFormPath(getCiClass()));
+		model.addAttribute(MK_CANCEL_PATH, paths.getBasePath(getCiClass()) + "?a=cancelled");
+		return addNavigation(model, sitemap.getCreateFormId(getCiClass()));
 	}
 	
 	
@@ -167,7 +168,7 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String getList(Model model) {
 		model.addAttribute(getSortedList());
-		return addNavigation(model, sitemap.getEntityListViewId(getEntityClass())); 
+		return addNavigation(model, sitemap.getEntityListViewId(getCiClass())); 
 	}
 	
 	/**
@@ -189,7 +190,7 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	public ListWrapper<T> getListAsXml() throws Exception {
 		
 		// IMPORTANT: We can't access entityClass directly (need to call getEntityClass() to guarantee initialization)
-		Class<T> ec = getEntityClass();
+		Class<T> ec = getCiClass();
 		String wrapperClassName = ec.getName() + "$" + ec.getSimpleName() + "ListWrapper";
 		Class<ListWrapper<T>> wrapperClass = (Class<ListWrapper<T>>) Class.forName(wrapperClassName);
 		ListWrapper<T> wrapper = wrapperClass.newInstance();
@@ -218,7 +219,7 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 		T entity = doGetDetails(id, model);
 		model.addAttribute("entity", entity);
 		model.addAttribute(entity);
-		return addNavigation(model, sitemap.getEntityDetailsViewId(getEntityClass()));
+		return addNavigation(model, sitemap.getEntityDetailsViewId(getCiClass()));
 	}
 	
 	/**
@@ -290,7 +291,7 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 			return prepareEditForm(id, model);
 		}
 		
-		return viewNames.putEditFormSuccessViewName(getEntityClass(), id);
+		return viewNames.putEditFormSuccessViewName(getCiClass(), id);
 	}
 	
 	/**
@@ -303,13 +304,17 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 		
 		// Need to load the entity itself since the entity drives title and breadcrumbs, and we don't want form data
 		// changes to impact them. Can optimize this by giving the entities clone constructors.
-		model.addAttribute(MK_ENTITY, getService().findOne(id));
+		CI<?> ci = getService().findOne(id);
+		model.addAttribute(ci);
+		model.addAttribute(MK_ENTITY, ci);
 		
 		model.addAttribute(MK_FORM_METHOD, "put");
-		model.addAttribute(MK_SUBMIT_PATH, paths.getSubmitEditFormPath(getEntityClass(), id));
-		model.addAttribute(MK_CANCEL_PATH, paths.getDetailsPath(getEntityClass(), id) + "?a=cancelled");
+		model.addAttribute(MK_SUBMIT_PATH, paths.getSubmitEditFormPath(getCiClass(), id));
+		model.addAttribute(MK_CANCEL_PATH, paths.getDetailsPath(getCiClass(), id) + "?a=cancelled");
 		
-		return addNavigation(model, sitemap.getEditFormId(getEntityClass()));
+		String editFormId = sitemap.getEditFormId(getCiClass());
+		notNull(editFormId, "Null edit form ID for CI class " + getCiClass());
+		return addNavigation(model, editFormId);
 	}
 	
 	
@@ -325,6 +330,6 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	public String delete(@PathVariable Long id) {
 		notNull(id);
 		getService().delete(id);
-		return viewNames.deleteSuccessViewName(getEntityClass());
+		return viewNames.deleteSuccessViewName(getCiClass());
 	}
 }

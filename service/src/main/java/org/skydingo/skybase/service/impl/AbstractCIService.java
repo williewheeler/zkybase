@@ -42,8 +42,8 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 	
 	@Inject protected Neo4jTemplate neo4jTemplate;
 	
-	// IMPORTANT: Only getEntityClass() should access this directly!
-	private Class<T> entityClass;
+	// IMPORTANT: Only getCiClass() should access this directly!
+	private Class<T> ciClass;
 	
 	private GraphRepository<T> repository;
 	
@@ -51,12 +51,12 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	protected Class<T> getEntityClass() {
-		if (this.entityClass == null) {
+	protected Class<T> getCiClass() {
+		if (this.ciClass == null) {
 			ParameterizedType paramType = (ParameterizedType) getClass().getGenericSuperclass();
-			this.entityClass = (Class<T>) paramType.getActualTypeArguments()[0];
+			this.ciClass = (Class<T>) paramType.getActualTypeArguments()[0];
 		}
-		return entityClass;
+		return ciClass;
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 	protected void setRepository(List<GraphRepository<?>> repositories) {
 		
 		// FIXME This doesn't feel like a great implementation.
-		String matchName = getEntityClass().getSimpleName() + "Repository";
+		String matchName = getCiClass().getSimpleName() + "Repository";
 		
 		for (GraphRepository<?> repo : repositories) {
 			Type[] types = repo.getClass().getGenericInterfaces();
@@ -99,7 +99,7 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 		if (errors == null || !errors.hasErrors()) {
 			getRepository().save(entity);
 		} else {
-			log.debug("Invalid entity; not saving");
+			log.debug("Invalid CI; not saving");
 		}
 	}
 	

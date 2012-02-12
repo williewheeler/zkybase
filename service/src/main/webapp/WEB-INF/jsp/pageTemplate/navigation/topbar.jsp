@@ -2,18 +2,16 @@
 
 <!-- Menu items -->
 <%-- FIXME Source from Paths --%>
-<c:url var="dashboardUrl" value="/" />
 <c:url var="applicationsUrl" value="/applications" />
-<c:url var="packagesUrl" value="/packages" />
-<c:url var="regionsUrl" value="/regions" />
+<c:url var="dashboardUrl" value="/" />
 <c:url var="dataCentersUrl" value="/datacenters" />
 <c:url var="environmentsUrl" value="/environments" />
 <c:url var="farmsUrl" value="/farms" />
-<c:url var="osStackTemplatesUrl" value="/templates/osstacks" />
-<c:url var="middlewareStackTemplatesUrl" value="/templates/middlewarestacks" />
-<c:url var="appStackTemplatesUrl" value="/templates/appstacks" />
-<c:url var="peopleUrl" value="/people" />
 <c:url var="logoutUrl" value="/logout" />
+<c:url var="packagesUrl" value="/packages" />
+<c:url var="peopleUrl" value="/people" />
+<c:url var="regionsUrl" value="/regions" />
+<c:url var="teamsUrl" value="/teams" />
 
 <script type="text/javascript">
 	$(function() {
@@ -52,7 +50,7 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="${peopleUrl}">People</a></li>
-						<li><a href="#">Teams</a></li>
+						<li><a href="${teamsUrl}">Teams</a></li>
 					</ul>
 				</li>
 				<li id="adminArea" class="dropdown">
