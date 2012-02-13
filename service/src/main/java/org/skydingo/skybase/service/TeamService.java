@@ -21,5 +21,10 @@ import org.skydingo.skybase.model.Team;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public interface TeamService extends CIService<Team> {
-
+	
+	/**
+	 * @param name team name
+	 * @return team with the given name
+	 */
+	Team findByName(String name);
 }

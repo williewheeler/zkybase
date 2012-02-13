@@ -30,7 +30,11 @@ import org.springframework.data.neo4j.annotation.Indexed;
 @XmlRootElement
 @XmlType(propOrder = { "name" })
 public class Team extends AbstractCI<Team> {
-	@Indexed private String name;
+	
+	// TODO Verify this index definition
+//	@Indexed(indexType = IndexType.FULLTEXT, indexName="findByName")
+	@Indexed
+	private String name;
 	
 	/**
 	 * @return team name

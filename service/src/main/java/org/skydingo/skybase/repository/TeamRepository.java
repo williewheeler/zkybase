@@ -22,5 +22,10 @@ import org.springframework.data.neo4j.repository.GraphRepository;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public interface TeamRepository extends GraphRepository<Team> {
-
+	
+	/**
+	 * @param name
+	 * @return
+	 */
+	Team findByName(String name);
 }

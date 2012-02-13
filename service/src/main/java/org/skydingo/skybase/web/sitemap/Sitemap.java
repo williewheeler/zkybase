@@ -116,6 +116,10 @@ public class Sitemap {
 		String createPackagePath = modulePath + " + '/packages/new'";
 		buildNode("createApplicationPackageForm", "'Create package'", true, createPackagePath, moduleNode);
 		
+		String teamsPath = appNode.getPath() + " + '/teams'";
+		SitemapNode teamsNode = buildNode("applicationTeamList", "'Teams'", false, teamsPath, appNode);
+		teamsNode.setShowInDetailsSidebar(true);
+		
 		String scmPath = appNode.getPath() + " + '/scm'";
 		SitemapNode scmNode = buildNode("applicationScm", "'SCM'", false, scmPath, appNode);
 		SitemapNode collaboratorsNode = buildNode("applicationScmCollaborators", "'Collaborators'", false, scmPath + " + '/collaborators'", scmNode);

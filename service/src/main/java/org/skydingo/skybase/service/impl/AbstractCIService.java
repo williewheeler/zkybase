@@ -23,6 +23,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.skydingo.skybase.exception.NoSuchCIException;
 import org.skydingo.skybase.model.CI;
 import org.skydingo.skybase.service.CIService;
 import org.skydingo.skybase.util.CollectionsUtil;
@@ -117,7 +118,13 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 	@Override
 	public T findOne(Long id) {
 		notNull(id);
-		return getRepository().findOne(id);
+		T ci = getRepository().findOne(id);
+		
+		if (ci == null) {
+			throw new NoSuchCIException();
+		}
+		
+		return ci;
 	}
 	
 	/* (non-Javadoc)

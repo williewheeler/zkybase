@@ -22,6 +22,9 @@ import javax.inject.Inject;
 import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.model.GitHubScm;
 import org.skydingo.skybase.model.Module;
+import org.skydingo.skybase.model.Team;
+import org.skydingo.skybase.model.relationship.ApplicationTeam;
+import org.skydingo.skybase.model.relationship.ApplicationTeam.TeamType;
 import org.skydingo.skybase.repository.ApplicationRepository;
 import org.skydingo.skybase.service.ApplicationService;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
@@ -50,11 +53,22 @@ public class ApplicationServiceImpl extends AbstractCIService<Application> imple
 		// For now this is how you do it.
 		// http://stackoverflow.com/questions/8218864/fetch-annotation-in-sdg-2-0-fetching-strategy-questions
 		// http://springinpractice.com/2011/12/28/initializing-lazy-loaded-collections-with-spring-data-neo4j/
-		Iterable<Module> modules = app.getModules();
-		for (Module module : modules) {
-			template.fetch(module);
-		}
+		template.fetch(app.getModules());
 		
+		return app;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.ApplicationService#findOneWithTeams(java.lang.Long)
+	 */
+	@Override
+	public Application findOneWithTeams(Long id) {
+		notNull(id);
+		Application app = applicationRepository.findOne(id);
+		Iterable<ApplicationTeam> appTeams = app.getTeams();
+		for (ApplicationTeam appTeam : appTeams) {
+			template.fetch(appTeam.getTeam());
+		}
 		return app;
 	}
 	
@@ -120,6 +134,25 @@ public class ApplicationServiceImpl extends AbstractCIService<Application> imple
 		Application app = findOneWithModules(id);
 		app.getModules().add(module);
 		update(app, errors);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.ApplicationService#addTeam(org.skydingo.skybase.model.Application,
+	 * org.skydingo.skybase.model.Team, org.skydingo.skybase.model.relationship.ApplicationTeam.TeamType)
+	 */
+	@Override
+	public void addTeam(Application application, Team team, TeamType type) {
+		notNull(application);
+		notNull(team);
+		notNull(type);
+		
+		ApplicationTeam appTeam = application.addTeam(team, type);
+		
+		// This allows duplicates to be created.
+//		template.save(appTeam);
+		
+		// This filters out duplicates because the application stores the relationships in a set.
+		template.save(application);
 	}
 	
 }

@@ -26,7 +26,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.neo4j.graphdb.Direction;
+import org.skydingo.skybase.model.relationship.ApplicationTeam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.neo4j.annotation.RelatedTo;
+import org.springframework.data.neo4j.annotation.RelatedToVia;
 
 /**
  * Application entity.
@@ -36,6 +40,7 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
 @XmlRootElement
 @XmlType(propOrder = { "name", "shortDescription", "scm" })
 public class Application extends AbstractCI<Application> {
+	private static final Logger log = LoggerFactory.getLogger(Application.class);
 	
 	// FIXME Temporary
 	private static final GitHubScm SKYBASE_SCM = new GitHubScm("williewheeler", "skybase");
@@ -46,6 +51,9 @@ public class Application extends AbstractCI<Application> {
 	
 	@RelatedTo(type = "HAS_MODULE", direction = Direction.OUTGOING)
 	private Set<Module> modules;
+	
+	@RelatedToVia(type = "APPLICATION_HAS_TEAM", direction = Direction.OUTGOING)
+	private Set<ApplicationTeam> teams;
 	
 	public Application() { }
 	
@@ -100,6 +108,25 @@ public class Application extends AbstractCI<Application> {
 	 * @param modules
 	 */
 	public void setModules(Set<Module> modules) { this.modules = modules; }
+	
+	/**
+	 * @return
+	 */
+	public Iterable<ApplicationTeam> getTeams() { return teams; }
+	
+	/**
+	 * Adds a team to this application.
+	 * 
+	 * @param team
+	 * @param type
+	 * @return
+	 */
+	public ApplicationTeam addTeam(Team team, ApplicationTeam.TeamType type) {
+		ApplicationTeam appTeam = new ApplicationTeam(this, team, type);
+		log.debug("applicationTeam={}", appTeam);
+		teams.add(appTeam);
+		return appTeam;
+	}
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.model.Entity#getDisplayName()

@@ -17,6 +17,8 @@ package org.skydingo.skybase.service;
 
 import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.model.Module;
+import org.skydingo.skybase.model.Team;
+import org.skydingo.skybase.model.relationship.ApplicationTeam;
 import org.springframework.validation.Errors;
 
 /**
@@ -34,6 +36,8 @@ public interface ApplicationService extends CIService<Application> {
 	 */
 	Application findOneWithModules(Long id);
 	
+	Application findOneWithTeams(Long id);
+	
 	Application findOneWithScm(Long id);
 	
 	Application findOneWithCollaborators(Long id);
@@ -48,4 +52,11 @@ public interface ApplicationService extends CIService<Application> {
 	 * @param errors
 	 */
 	void addModule(Long id, Module module, Errors errors);
+	
+	/**
+	 * @param application
+	 * @param team
+	 * @param type
+	 */
+	void addTeam(Application application, Team team, ApplicationTeam.TeamType type);
 }

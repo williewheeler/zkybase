@@ -4,6 +4,8 @@
 		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
+
+	<!-- Application -->
 	<definition name="applicationList" extends="listPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/application/applicationList.jsp" cascade="true" />
 	</definition>
@@ -15,4 +17,42 @@
 	</definition>
 	<definition name="createApplicationForm" extends="applicationForm" />
 	<definition name="editApplicationForm" extends="applicationForm" />
+	
+	<!-- Application modules -->
+	<definition name="applicationModuleList" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/module/applicationModuleList.jsp" cascade="true" />
+	</definition>
+	<definition name="applicationModule" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/module/applicationModule.jsp" cascade="true" />
+	</definition>
+	<definition name="createApplicationModuleForm" template="/WEB-INF/jsp/application/module/applicationModuleForm.jsp" />
+
+	<!-- Application packages -->
+	<definition name="applicationPackageForm" extends="titledPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/module/package/applicationPackageForm.jsp" cascade="true" />
+	</definition>
+	<definition name="createApplicationPackageForm" extends="applicationPackageForm" />
+	<definition name="editApplicationPackageForm" extends="applicationPackageForm" />
+	
+	<!-- Application teams -->
+	<definition name="applicationTeamList" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/team/applicationTeamList.jsp" cascade="true" />
+	</definition>
+	
+	<!-- Application SCM -->
+	<definition name="applicationScm" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/scm/applicationScm.jsp" cascade="true" />
+	</definition>
+	<definition name="applicationScmCollaborators" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/scm/applicationScmCollaborators.jsp" cascade="true" />
+	</definition>
+	<definition name="applicationScmCommits" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/scm/applicationScmCommits.jsp" cascade="true" />
+	</definition>
+	<definition name="applicationScmWatchers" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/scm/applicationScmWatchers.jsp" cascade="true" />
+	</definition>
+	<definition name="applicationScmHooks" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/scm/applicationScmHooks.jsp" cascade="true" />
+	</definition>
 </tiles-definitions>

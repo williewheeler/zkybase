@@ -13,31 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.skydingo.skybase.service.impl;
+package org.skydingo.skybase.comparator;
 
-import static org.springframework.util.Assert.notNull;
+import java.util.Comparator;
 
-import javax.inject.Inject;
-
-import org.skydingo.skybase.model.Team;
-import org.skydingo.skybase.repository.TeamRepository;
-import org.skydingo.skybase.service.TeamService;
-import org.springframework.stereotype.Service;
+import org.skydingo.skybase.model.relationship.ApplicationTeam;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@Service
-public class TeamServiceImpl extends AbstractCIService<Team> implements TeamService {
-	@Inject private TeamRepository teamRepository;
-	
+public class ApplicationTeamByTypeComparator implements Comparator<ApplicationTeam> {
+
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.TeamService#findByName(java.lang.String)
+	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
 	 */
 	@Override
-	public Team findByName(String name) {
-		notNull(name);
-		return teamRepository.findByName(name);
+	public int compare(ApplicationTeam thisTeam, ApplicationTeam thatTeam) {
+		int compType = thisTeam.getType().compareTo(thatTeam.getType());
+		if (compType != 0) {
+			return compType;
+		} else {
+			// Currently assuming that we're applying this comparator to a given app's teams.
+			return thisTeam.getTeam().compareTo(thatTeam.getTeam());
+		}
+		
 	}
 
 }
