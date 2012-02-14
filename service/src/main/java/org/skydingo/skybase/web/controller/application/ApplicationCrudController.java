@@ -23,12 +23,9 @@ import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.model.Farm;
-import org.skydingo.skybase.model.Team;
-import org.skydingo.skybase.model.relationship.ApplicationTeam;
 import org.skydingo.skybase.service.ApplicationService;
 import org.skydingo.skybase.service.CIService;
 import org.skydingo.skybase.service.FarmService;
-import org.skydingo.skybase.service.TeamService;
 import org.skydingo.skybase.util.CollectionsUtil;
 import org.skydingo.skybase.web.controller.AbstractCrudController;
 import org.springframework.stereotype.Controller;
@@ -49,7 +46,6 @@ public class ApplicationCrudController extends AbstractCrudController<Applicatio
 	
 	@Inject private ApplicationService applicationService;
 	@Inject private FarmService farmService;
-	@Inject private TeamService teamService;
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractCrudController#getService()
@@ -71,11 +67,6 @@ public class ApplicationCrudController extends AbstractCrudController<Applicatio
 		Application app = getService().findOne(id);
 		List<Farm> farms = CollectionsUtil.asSortedList(farmService.findByApplication(app));
 		model.addAttribute(farms);
-		
-		// FIXME Temporary
-		Team team = teamService.findByName("Subdonkey Development");
-		applicationService.addTeam(app, team, ApplicationTeam.TeamType.DEVELOPMENT);
-		
 		return app;
 	}
 }

@@ -28,21 +28,18 @@ public final class CollectionsUtil {
 	
 	/**
 	 * @param iterable iterable
-	 * @return list
+	 * @return list, or null if the iterable is null
 	 */
 	public static <E> List<E> asList(Iterable<E> iterable) {
-		if (iterable == null) {
-			return new ArrayList<E>();
-		} else {
-			return new ArrayList<E>(IteratorUtil.asCollection(iterable));
-		}
+		return (iterable == null ? null : new ArrayList<E>(IteratorUtil.asCollection(iterable)));
 	}
 	
 	/**
-	 * @param iterable
-	 * @return
+	 * @param iterable iterable
+	 * @return sorted list, or null if the iterable is null
 	 */
 	public static <E extends Comparable<E>> List<E> asSortedList(Iterable<E> iterable) {
+		if (iterable == null) { return null; }
 		List<E> list = asList(iterable);
 		Collections.sort(list);
 		return list;

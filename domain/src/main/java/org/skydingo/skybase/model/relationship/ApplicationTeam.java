@@ -26,7 +26,7 @@ import org.springframework.data.neo4j.annotation.StartNode;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@RelationshipEntity(type = "APPLICATION_HAS_TEAM")
+@RelationshipEntity(type = "APPLICATION_TEAM")
 public class ApplicationTeam {
 	public enum TeamType {
 		DEVELOPMENT("Development"),

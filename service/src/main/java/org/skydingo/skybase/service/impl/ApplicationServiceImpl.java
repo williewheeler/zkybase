@@ -42,6 +42,20 @@ public class ApplicationServiceImpl extends AbstractCIService<Application> imple
 	@Inject private Neo4jTemplate template;
 	@Inject private GitHub gitHub;
 	
+	/**
+	 * Returns the application, with modules loaded.
+	 */
+	@Override
+	public Application findOne(Long id) {
+		notNull(id);
+		Application app = applicationRepository.findOne(id);
+		
+		// Clear out the modules so they don't appear in the web service call.
+		app.setModules(null);
+		
+		return app;
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.ApplicationService#findOneWithModules(java.lang.Long)
 	 */

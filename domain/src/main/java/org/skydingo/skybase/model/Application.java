@@ -15,6 +15,7 @@
  */
 package org.skydingo.skybase.model;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,11 +23,13 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.neo4j.graphdb.Direction;
 import org.skydingo.skybase.model.relationship.ApplicationTeam;
+import org.skydingo.skybase.util.CollectionsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.neo4j.annotation.RelatedTo;
@@ -38,7 +41,7 @@ import org.springframework.data.neo4j.annotation.RelatedToVia;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
-@XmlType(propOrder = { "name", "shortDescription", "scm" })
+@XmlType(propOrder = { "name", "shortDescription", "modulesAsList", "scm" })
 public class Application extends AbstractCI<Application> {
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 	
@@ -49,10 +52,13 @@ public class Application extends AbstractCI<Application> {
 	private String shortDescription;
 	private GitHubScm scm;
 	
-	@RelatedTo(type = "HAS_MODULE", direction = Direction.OUTGOING)
+	@RelatedTo(type = "APPLICATION_MODULE", direction = Direction.OUTGOING)
 	private Set<Module> modules;
 	
-	@RelatedToVia(type = "APPLICATION_HAS_TEAM", direction = Direction.OUTGOING)
+//	@RelatedToVia(type = "APPLICATION_TEAM", direction = Direction.OUTGOING)
+	
+	// Don't need the type since the ApplicationTeam already has it.
+	@RelatedToVia(direction = Direction.OUTGOING)
 	private Set<ApplicationTeam> teams;
 	
 	public Application() { }
@@ -108,6 +114,22 @@ public class Application extends AbstractCI<Application> {
 	 * @param modules
 	 */
 	public void setModules(Set<Module> modules) { this.modules = modules; }
+	
+	/**
+	 * @return
+	 */
+	@XmlElementWrapper(name = "modules")
+	@XmlElement(name = "module")
+	public List<Module> getModulesAsList() {
+		return CollectionsUtil.asSortedList(modules);
+	}
+	
+	/**
+	 * @param modules
+	 */
+	public void setModulesAsList(List<Module> modules) {
+		this.modules = new HashSet<Module>(modules);
+	}
 	
 	/**
 	 * @return
