@@ -14,7 +14,35 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 	
 	<mvc:default-servlet-handler />
-	<mvc:annotation-driven conversion-service="conversionService" />
+	
+	<!-- JAXB mapper -->
+	<!-- http://springinpractice.com/2011/12/29/its-back-the-classpathscanningjaxb2marshaller/ -->
+	<bean id="marshaller" class="org.skydingo.skybase.oxm.ClasspathScanningJaxb2Marshaller">
+		<property name="basePackages">
+			<list>
+				<value>org.skydingo.skybase.integrations.github.model</value>
+				<value>org.skydingo.skybase.model</value>
+			</list>
+		</property>
+	</bean>
+		
+	<!-- Jackson mapper -->
+	<bean id="jaxbAnnIntrospector" class="org.codehaus.jackson.xc.JaxbAnnotationIntrospector" />
+	<bean id="jacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper">
+		<property name="serializationConfig.annotationIntrospector" ref="jaxbAnnIntrospector" />
+		<property name="deserializationConfig.annotationIntrospector" ref="jaxbAnnIntrospector" />
+	</bean>
+	
+	<mvc:annotation-driven conversion-service="conversionService">
+	
+		<!-- Spring 3.1 only -->
+		<mvc:message-converters>
+			<!-- Converters defined here override the defaults. Here we want to override the default so we can add our
+			     custom Jackson ObjectMapper, which understands JAXB annotations. See below. -->
+			<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"
+				p:objectMapper-ref="jacksonObjectMapper" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 	
 <!-- 	<mvc:resources mapping="/images/**" location="/images/" /> -->
 <!-- 	<mvc:resources mapping="/resources/**" location="/resources/" /> -->
@@ -50,24 +78,6 @@
 	<!-- Views                                                                                                       -->
 	<!-- =========================================================================================================== -->
 	
-	<!-- JAXB -->
-	<!-- http://springinpractice.com/2011/12/29/its-back-the-classpathscanningjaxb2marshaller/ -->
-	<bean id="marshaller" class="org.skydingo.skybase.oxm.ClasspathScanningJaxb2Marshaller">
-		<property name="basePackages">
-			<list>
-				<value>org.skydingo.skybase.integrations.github.model</value>
-				<value>org.skydingo.skybase.model</value>
-			</list>
-		</property>
-	</bean>
-		
-	<!-- Jackson -->
-	<bean id="jaxbAnnIntrospector" class="org.codehaus.jackson.xc.JaxbAnnotationIntrospector" />
-	<bean id="jacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper">
-		<property name="serializationConfig.annotationIntrospector" ref="jaxbAnnIntrospector" />
-		<property name="deserializationConfig.annotationIntrospector" ref="jaxbAnnIntrospector" />
-	</bean>
-	
 	<!-- Tiles -->
 	<bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
 		<property name="definitions">
@@ -85,32 +95,12 @@
 	</bean>
 	
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver" p:favorParameter="true">
-		<property name="mediaTypes">
-			<map>
-				<!-- Don't need these, as we aren't using views to generate JSON and XML responses -->
-<!-- 				<entry key="json" value="application/json" /> -->
-<!-- 				<entry key="xml" value="application/xml" /> -->
-				
-				<!-- FIXME -->
-<!-- 				<entry key="jit" value="application/jit" /> -->
-			</map>
-		</property>
 		<property name="viewResolvers">
 			<list>
 				<bean class="org.springframework.web.servlet.view.tiles2.TilesViewResolver" />
 				<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 					p:prefix="/WEB-INF/jsp/"
 					p:suffix=".jsp" />
-			</list>
-		</property>
-		<property name="defaultViews">
-			<list>
-				<!-- Don't need these, as we aren't using views to generate JSON and XML responses -->
-<!-- 				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" p:objectMapper-ref="jacksonObjectMapper" /> -->
-<!-- 				<bean class="org.springframework.web.servlet.view.xml.MarshallingView" p:marshaller-ref="marshaller" /> -->
-				
-				<!-- FIXME We'll need different views for different objects, just like with RssView -->
-<!-- 				<bean class="org.skydingo.skybase.web.view.JitView" p:objectMapper-ref="jacksonObjectMapper" /> -->
 			</list>
 		</property>
 	</bean>

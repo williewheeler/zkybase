@@ -20,14 +20,12 @@ package org.skydingo.skybase.web.controller;
 import static org.springframework.util.Assert.notNull;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.skydingo.skybase.model.CI;
 import org.skydingo.skybase.model.ListWrapper;
 import org.skydingo.skybase.service.CIService;
@@ -35,7 +33,6 @@ import org.skydingo.skybase.web.sitemap.Paths;
 import org.skydingo.skybase.web.view.ViewNames;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -58,7 +55,6 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	
 	@Inject protected Paths paths;
 	@Inject protected ViewNames viewNames;
-	@Inject protected ObjectMapper objectMapper;
 	
 	// IMPORTANT: Only getCiClass() should access this directly!
 	private Class<T> ciClass;
@@ -172,34 +168,31 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	}
 	
 	/**
-	 * @return list of entities
+	 * @return list of CIs
 	 */
 	@RequestMapping(value = "", method = RequestMethod.GET, params = "format=json")
 	@ResponseBody
-	public List<T> getListAsJson() {
-		// This method requires the JAXB-aware object mapper! Make sure it's visible on this app context.
-		return getSortedList();
-	}
+	public List<T> getListAsJson() { return getSortedList(); }
 	
 	/**
-	 * @param model
+	 * @return list of CIs
+	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "", method = RequestMethod.GET, params = "format=xml")
 	@ResponseBody
 	public ListWrapper<T> getListAsXml() throws Exception {
 		
-		// IMPORTANT: We can't access entityClass directly (need to call getEntityClass() to guarantee initialization)
-		Class<T> ec = getCiClass();
-		String wrapperClassName = ec.getName() + "$" + ec.getSimpleName() + "ListWrapper";
+		// IMPORTANT: We can't access ciClass directly (need to call getCiClass() to guarantee initialization)
+		Class<T> ciClass = getCiClass();
+		String wrapperClassName = ciClass.getName() + "$" + ciClass.getSimpleName() + "ListWrapper";
 		Class<ListWrapper<T>> wrapperClass = (Class<ListWrapper<T>>) Class.forName(wrapperClassName);
 		ListWrapper<T> wrapper = wrapperClass.newInstance();
 		wrapper.setList(getSortedList());
 		return wrapper;
 	}
 	
-	// FIXME Make this private once the refactoring is done
-	protected List<T> getSortedList() { return getService().findAll(); }
+	private List<T> getSortedList() { return getService().findAll(); }
 	
 	
 	// =================================================================================================================
@@ -216,9 +209,9 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String getDetails(@PathVariable Long id, Model model) {
-		T entity = doGetDetails(id, model);
-		model.addAttribute("entity", entity);
-		model.addAttribute(entity);
+		T ci = doGetDetails(id, model);
+		model.addAttribute(ci);
+		model.addAttribute("entity", ci);
 		return addNavigation(model, sitemap.getEntityDetailsViewId(getCiClass()));
 	}
 	
@@ -230,27 +223,26 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	 * @deprecated Override the service's findOne() method instead
 	 */
 	@Deprecated
-	protected T doGetDetails(Long id, Model model) { return getService().findOne(id); }
+	protected T doGetDetails(Long id, Model model) { return getDetails(id); }
 	
 	/**
 	 * @param id
 	 * @param out
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, params = "format=json")
-	public void getDetailsAsJson(@PathVariable Long id, Writer out) throws IOException {
-		// We have to do this instead of using @ResponseBody, because the JAXB HTTP message converter apparently beats
-		// the Jackson HTTP message converter when it comes to matching the @XmlRootElement annotation.
-		objectMapper.writeValue(out, getService().findOne(id));
-	}
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, params = "format=json", produces = "application/json")
+	@ResponseBody
+	public T getDetailsAsJson(@PathVariable Long id) { return getDetails(id); }
 	
 	/**
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, params = "format=xml")
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, params = "format=xml", produces = "application/xml")
 	@ResponseBody
-	public T getDetailsAsXml(@PathVariable Long id) { return getService().findOne(id); }
+	public T getDetailsAsXml(@PathVariable Long id) { return getDetails(id); }
+	
+	private T getDetails(Long id) { return getService().findOne(id); }
 	
 	
 	// =================================================================================================================

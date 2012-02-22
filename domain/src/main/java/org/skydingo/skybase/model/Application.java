@@ -36,7 +36,7 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
 
 /**
- * Application entity.
+ * Application CI.
  * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */

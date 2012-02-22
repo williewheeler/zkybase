@@ -206,11 +206,11 @@ public abstract class AbstractCrudControllerTests<T extends CI<T>> {
 		assertEquals(VN_ENTITY_DETAILS, viewName);
 	}
 	
-	@Test
-	public void testGetDetailsAsJson() throws IOException {
-		controller.getDetailsAsJson(1L, out);
-		verify(objectMapper, times(1)).writeValue(eq(out), anyObject());
-	}
+//	@Test
+//	public void testGetDetailsAsJson() throws IOException {
+//		controller.getDetailsAsJson(1L, out);
+//		verify(objectMapper, times(1)).writeValue(eq(out), anyObject());
+//	}
 	
 	@Test
 	public void testGetDetailsAsXml() {

@@ -89,23 +89,23 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.EntityService#create(org.skydingo.skybase.model.Entity, org.springframework.validation.Errors)
+	 * @see org.skydingo.skybase.service.CIService#create(org.skydingo.skybase.model.CI, org.springframework.validation.Errors)
 	 */
 	@Override
-	public void create(T entity, Errors errors) {
-		notNull(entity);
+	public void create(T ci, Errors errors) {
+		notNull(ci);
 		
 		// FIXME Need to check for errors here, like duplicates
 		
 		if (errors == null || !errors.hasErrors()) {
-			getRepository().save(entity);
+			getRepository().save(ci);
 		} else {
 			log.debug("Invalid CI; not saving");
 		}
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.EntityService#findAll()
+	 * @see org.skydingo.skybase.service.CIService#findAll()
 	 */
 	@Override
 	public List<T> findAll() {
@@ -113,7 +113,7 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.EntityService#findOne(java.lang.Long)
+	 * @see org.skydingo.skybase.service.CIService#findOne(java.lang.Long)
 	 */
 	@Override
 	public T findOne(Long id) {
@@ -128,31 +128,31 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.EntityService#update(org.skydingo.skybase.model.Entity, org.springframework.validation.Errors)
+	 * @see org.skydingo.skybase.service.CIService#update(org.skydingo.skybase.model.CI, org.springframework.validation.Errors)
 	 */
 	@Override
-	public void update(T entity, Errors errors) {
-		notNull(entity);
+	public void update(T ci, Errors errors) {
+		notNull(ci);
 		
 		if (errors == null || !errors.hasErrors()) {
-			getRepository().save(entity);
+			getRepository().save(ci);
 		}
 		
-		// TODO Need to have a way to generate new errors here. For example, if the user changes the name of the
-		// entity to conflict with an existing entity, that would generate an error.
+		// TODO Need to have a way to generate new errors here. For example, if the user changes the name of the CI to
+		// conflict with an existing CI, that would generate an error.
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.EntityService#delete(org.skydingo.skybase.model.Entity)
+	 * @see org.skydingo.skybase.service.CIService#delete(org.skydingo.skybase.model.CI)
 	 */
 	@Override
-	public void delete(T entity) {
-		notNull(entity);
-		getRepository().delete(entity);
+	public void delete(T ci) {
+		notNull(ci);
+		getRepository().delete(ci);
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.EntityService#delete(java.lang.Long)
+	 * @see org.skydingo.skybase.service.CIService#delete(java.lang.Long)
 	 */
 	@Override
 	public void delete(Long id) {

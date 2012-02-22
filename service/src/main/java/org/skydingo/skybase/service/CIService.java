@@ -26,10 +26,10 @@ import org.springframework.validation.Errors;
 public interface CIService<T extends CI<T>> {
 	
 	/**
-	 * @param entity
+	 * @param ci
 	 * @param errors
 	 */
-	void create(T entity, Errors errors);
+	void create(T ci, Errors errors);
 	
 	/**
 	 * @return
@@ -39,17 +39,17 @@ public interface CIService<T extends CI<T>> {
 	T findOne(Long id);
 	
 	/**
-	 * Updates the entity if there aren't any errors. Can potentially generate new errors (e.g. constraint violations).
+	 * Updates the CI if there aren't any errors. Can potentially generate new errors (e.g. constraint violations).
 	 * 
-	 * @param entity entity to update
+	 * @param ci CI to update
 	 * @param errors errors object
 	 */
-	void update(T entity, Errors errors);
+	void update(T ci, Errors errors);
 	
 	/**
-	 * @param entity entity to delete
+	 * @param ci CI to delete
 	 */
-	void delete(T entity);
+	void delete(T ci);
 	
 	void delete(Long id);
 }
