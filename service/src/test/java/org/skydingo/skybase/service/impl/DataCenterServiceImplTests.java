@@ -20,10 +20,13 @@ package org.skydingo.skybase.service.impl;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 
+import java.util.Iterator;
+
 import org.junit.Before;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.neo4j.helpers.collection.ClosableIterable;
 import org.skydingo.skybase.model.DataCenter;
 import org.skydingo.skybase.repository.DataCenterRepository;
 import org.springframework.data.neo4j.repository.GraphRepository;
@@ -34,7 +37,11 @@ import org.springframework.data.neo4j.repository.GraphRepository;
 public class DataCenterServiceImplTests extends AbstractEntityServiceImplTests<DataCenter> {
 	@InjectMocks private DataCenterServiceImpl dataCenterService;
 	@Mock private DataCenterRepository dataCenterRepo;
+	
+	// Test objects
 	@Mock private DataCenter dataCenter;
+	@Mock private ClosableIterable<DataCenter> dataCenters;
+	@Mock private Iterator<DataCenter> dataCenterIterator;
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getRepository()
@@ -54,8 +61,12 @@ public class DataCenterServiceImplTests extends AbstractEntityServiceImplTests<D
 	@Before
 	public void setUp() throws Exception {
 		this.dataCenterService = new DataCenterServiceImpl();
+		
 		MockitoAnnotations.initMocks(this);
+		
 		when(dataCenterRepo.findOne(anyLong())).thenReturn(dataCenter);
+		when(dataCenterRepo.findAll()).thenReturn(dataCenters);
+		when(dataCenters.iterator()).thenReturn(dataCenterIterator);
 	}
 
 }

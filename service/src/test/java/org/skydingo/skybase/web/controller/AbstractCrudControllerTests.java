@@ -20,13 +20,10 @@ package org.skydingo.skybase.web.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -40,9 +37,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.skydingo.skybase.model.CI;
 import org.skydingo.skybase.model.ListWrapper;
-import org.skydingo.skybase.web.sitemap.SitemapNode;
 import org.skydingo.skybase.web.sitemap.Paths;
 import org.skydingo.skybase.web.sitemap.Sitemap;
+import org.skydingo.skybase.web.sitemap.SitemapNode;
 import org.skydingo.skybase.web.view.ViewNames;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -77,8 +74,8 @@ public abstract class AbstractCrudControllerTests<T extends CI<T>> {
 	@Mock protected Model model;
 	@Mock protected Writer out;
 	
-	protected Class<T> getEntityClass() {
-		return controller.getCiClass();
+	protected Class<T> getCiClass() {
+		return controller.ciClass;
 	}
 	
 	/**
@@ -90,15 +87,15 @@ public abstract class AbstractCrudControllerTests<T extends CI<T>> {
 		MockitoAnnotations.initMocks(this);
 		
 		when(sitemap.getNode((String) any())).thenReturn(node);
-		when(sitemap.getEntityListViewId(getEntityClass())).thenReturn(VN_ENTITY_LIST);
-		when(sitemap.getEntityDetailsViewId(getEntityClass())).thenReturn(VN_ENTITY_DETAILS);
-		when(sitemap.getCreateFormId(getEntityClass())).thenReturn(VN_CREATE_ENTITY_FORM);
-		when(sitemap.getEditFormId(getEntityClass())).thenReturn(VN_EDIT_ENTITY_FORM);
-		when(viewNames.putEditFormSuccessViewName(getEntityClass(), 1L)).thenReturn(VN_EDIT_ENTITY_SUCCESS);
+		when(sitemap.getEntityListViewId(getCiClass())).thenReturn(VN_ENTITY_LIST);
+		when(sitemap.getCiDetailsViewId(getCiClass())).thenReturn(VN_ENTITY_DETAILS);
+		when(sitemap.getCreateFormId(getCiClass())).thenReturn(VN_CREATE_ENTITY_FORM);
+		when(sitemap.getEditFormId(getCiClass())).thenReturn(VN_EDIT_ENTITY_FORM);
+		when(viewNames.putEditFormSuccessViewName(getCiClass(), 1L)).thenReturn(VN_EDIT_ENTITY_SUCCESS);
 		
-		when(viewNames.putEditFormSuccessViewName(getEntityClass(), 1L)).thenReturn(VN_PUT_EDIT_ENTITY_FORM_SUCCESS);
-		when(viewNames.deleteSuccessViewName(getEntityClass())).thenReturn(VN_DELETE_ENTITY_SUCCESS);
-		when(viewNames.putEditFormSuccessViewName(getEntityClass(), 1L)).thenReturn(VN_EDIT_ENTITY_SUCCESS);
+		when(viewNames.putEditFormSuccessViewName(getCiClass(), 1L)).thenReturn(VN_PUT_EDIT_ENTITY_FORM_SUCCESS);
+		when(viewNames.deleteSuccessViewName(getCiClass())).thenReturn(VN_DELETE_ENTITY_SUCCESS);
+		when(viewNames.putEditFormSuccessViewName(getCiClass(), 1L)).thenReturn(VN_EDIT_ENTITY_SUCCESS);
 		
 		doSetUp();
 	}

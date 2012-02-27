@@ -1,6 +1,4 @@
 /* 
- * RegionServiceImplTests.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +18,13 @@ package org.skydingo.skybase.service.impl;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 
+import java.util.Iterator;
+
 import org.junit.Before;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.neo4j.helpers.collection.ClosableIterable;
 import org.skydingo.skybase.model.Region;
 import org.skydingo.skybase.repository.RegionRepository;
 import org.springframework.data.neo4j.repository.GraphRepository;
@@ -34,7 +35,11 @@ import org.springframework.data.neo4j.repository.GraphRepository;
 public class RegionServiceImplTests extends AbstractEntityServiceImplTests<Region> {
 	@InjectMocks private RegionServiceImpl regionService;
 	@Mock private RegionRepository regionRepo;
+	
+	// Test objects
 	@Mock private Region region;
+	@Mock private ClosableIterable<Region> regions;
+	@Mock private Iterator<Region> regionIterator;
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getRepository()
@@ -54,8 +59,11 @@ public class RegionServiceImplTests extends AbstractEntityServiceImplTests<Regio
 	@Before
 	public void setUp() throws Exception {
 		this.regionService = new RegionServiceImpl();
+		
 		MockitoAnnotations.initMocks(this);
+		
 		when(regionRepo.findOne(anyLong())).thenReturn(region);
+		when(regionRepo.findAll()).thenReturn(regions);
+		when(regions.iterator()).thenReturn(regionIterator);
 	}
-
 }

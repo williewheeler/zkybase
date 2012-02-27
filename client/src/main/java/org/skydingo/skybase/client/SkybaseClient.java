@@ -1,6 +1,4 @@
 /* 
- * SkybaseClient.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +15,8 @@
  */
 package org.skydingo.skybase.client;
 
+import static org.springframework.util.Assert.notNull;
+
 import java.net.URI;
 import java.util.List;
 
@@ -29,6 +29,10 @@ import org.springframework.web.client.RestTemplate;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public class SkybaseClient {
+	
+	// FIXME Hardcoded location
+	private static final String PACKAGES_URL = "http://localhost:8080/packages";
+	
 	private static final Logger log = LoggerFactory.getLogger(SkybaseClient.class);
 	
 	private RestTemplate template;
@@ -48,9 +52,11 @@ public class SkybaseClient {
 	 * @return package ID, or 0 if no package was created
 	 */
 	public Long createPackage(Package pkg) {
+		notNull(pkg);
 		
-		// FIXME Hardcoded location
-		URI location = template.postForLocation("http://localhost:8080/packages", pkg);
+		log.debug("Posting package {} to URL {}", pkg, PACKAGES_URL);
+		URI location = template.postForLocation(PACKAGES_URL, pkg);
+		
 		if (location == null) {
 			return 0L;
 		} else {

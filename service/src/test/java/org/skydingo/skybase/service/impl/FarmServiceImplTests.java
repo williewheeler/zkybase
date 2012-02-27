@@ -1,6 +1,4 @@
 /* 
- * FarmServiceImplTests.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,11 +19,13 @@ import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.junit.Before;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.neo4j.helpers.collection.ClosableIterable;
 import org.skydingo.skybase.model.Farm;
 import org.skydingo.skybase.model.Instance;
 import org.skydingo.skybase.repository.FarmRepository;
@@ -36,14 +36,18 @@ import org.springframework.data.neo4j.repository.GraphRepository;
  */
 public class FarmServiceImplTests extends AbstractEntityServiceImplTests<Farm> {
 	@InjectMocks private FarmServiceImpl farmService;
-	@Mock private FarmRepository farmRepo;
+	@Mock private FarmRepository farmRepository;
+	
+	// Test objects
 	@Mock private Farm farm;
+	@Mock private ClosableIterable<Farm> farms;
+	@Mock private Iterator<Farm> farmIterator;
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getRepository()
 	 */
 	@Override
-	protected GraphRepository<Farm> getRepository() { return farmRepo; }
+	protected GraphRepository<Farm> getRepository() { return farmRepository; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getService()
@@ -57,8 +61,12 @@ public class FarmServiceImplTests extends AbstractEntityServiceImplTests<Farm> {
 	@Before
 	public void setUp() throws Exception {
 		this.farmService = new FarmServiceImpl();
+		
 		MockitoAnnotations.initMocks(this);
-		when(farmRepo.findOne(anyLong())).thenReturn(farm);
+		
+		when(farmRepository.findOne(anyLong())).thenReturn(farm);
+		when(farmRepository.findAll()).thenReturn(farms);
 		when(farm.getInstances()).thenReturn(new ArrayList<Instance>());
+		when(farms.iterator()).thenReturn(farmIterator);
 	}
 }

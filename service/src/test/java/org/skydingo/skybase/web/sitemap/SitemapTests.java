@@ -52,9 +52,9 @@ public class SitemapTests {
 		sitemap.postConstruct();
 		
 		// Get a node
-		SitemapNode appModulesNode = sitemap.getNode("applicationModules");
+		SitemapNode appModulesNode = sitemap.getNode("applicationModuleList");
 		assertNotNull(appModulesNode);
-		assertEquals("applicationModules", appModulesNode.getId());
+		assertEquals("applicationModuleList", appModulesNode.getId());
 		assertEquals("'Modules'", appModulesNode.getName());
 		
 		// Resolve an expression

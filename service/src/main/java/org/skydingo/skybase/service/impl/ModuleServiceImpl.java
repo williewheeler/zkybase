@@ -15,6 +15,8 @@
  */
 package org.skydingo.skybase.service.impl;
 
+import static org.springframework.util.Assert.notNull;
+
 import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Module;
@@ -34,6 +36,8 @@ public class ModuleServiceImpl extends AbstractCIService<Module> implements Modu
 	 */
 	@Override
 	public Module findByGroupIdAndModuleId(String groupId, String moduleId) {
+		notNull(groupId);
+		notNull(moduleId);
 		return moduleRepository.findByGroupIdAndModuleId(groupId, moduleId);
 	}
 }

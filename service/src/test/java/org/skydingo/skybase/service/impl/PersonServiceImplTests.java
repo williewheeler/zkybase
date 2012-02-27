@@ -1,6 +1,4 @@
 /* 
- * PersonServiceImplTests.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +18,13 @@ package org.skydingo.skybase.service.impl;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 
+import java.util.Iterator;
+
 import org.junit.Before;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.neo4j.helpers.collection.ClosableIterable;
 import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.repository.PersonRepository;
 import org.springframework.data.neo4j.repository.GraphRepository;
@@ -34,7 +35,11 @@ import org.springframework.data.neo4j.repository.GraphRepository;
 public class PersonServiceImplTests extends AbstractEntityServiceImplTests<Person> {
 	@InjectMocks private PersonServiceImpl personService;
 	@Mock private PersonRepository personRepo;
+	
+	// Test objects
 	@Mock private Person person;
+	@Mock private ClosableIterable<Person> people;
+	@Mock private Iterator<Person> personIterator;
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getRepository()
@@ -54,8 +59,12 @@ public class PersonServiceImplTests extends AbstractEntityServiceImplTests<Perso
 	@Before
 	public void setUp() throws Exception {
 		this.personService = new PersonServiceImpl();
+		
 		MockitoAnnotations.initMocks(this);
+		
 		when(personRepo.findOne(anyLong())).thenReturn(person);
+		when(personRepo.findAll()).thenReturn(people);
+		when(people.iterator()).thenReturn(personIterator);
 	}
 
 }

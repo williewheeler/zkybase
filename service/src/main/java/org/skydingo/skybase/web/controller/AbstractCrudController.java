@@ -57,25 +57,19 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	@Inject protected ViewNames viewNames;
 	
 	// IMPORTANT: Only getCiClass() should access this directly!
-	private Class<T> ciClass;
+	Class<T> ciClass;
+	
+	@SuppressWarnings("unchecked")
+	public AbstractCrudController() {
+		ParameterizedType paramType = (ParameterizedType) getClass().getGenericSuperclass();
+		this.ciClass = (Class<T>) paramType.getActualTypeArguments()[0];
+	}
 	
 	protected abstract CIService<T> getService();
 	
-	/**
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	protected Class<T> getCiClass() {
-		if (this.ciClass == null) {
-			ParameterizedType paramType = (ParameterizedType) getClass().getGenericSuperclass();
-			this.ciClass = (Class<T>) paramType.getActualTypeArguments()[0];
-		}
-		return ciClass;
-	}
-	
 	protected T newCiInstance() {
 		try {
-			return getCiClass().newInstance();
+			return ciClass.newInstance();
 		} catch (InstantiationException e) {
 			// Shouldn't happen
 			throw new RuntimeException(e);
@@ -135,7 +129,7 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 			return prepareCreateForm(model);
 		}
 		
-		return viewNames.postCreateFormSuccessViewName(getCiClass());
+		return viewNames.postCreateFormSuccessViewName(ciClass);
 	}
 	
 	/**
@@ -145,9 +139,9 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	protected String prepareCreateForm(Model model) {
 		populateReferenceData(model);
 		model.addAttribute(MK_FORM_METHOD, "post");
-		model.addAttribute(MK_SUBMIT_PATH, paths.getSubmitCreateFormPath(getCiClass()));
-		model.addAttribute(MK_CANCEL_PATH, paths.getBasePath(getCiClass()) + "?a=cancelled");
-		return addNavigation(model, sitemap.getCreateFormId(getCiClass()));
+		model.addAttribute(MK_SUBMIT_PATH, paths.getSubmitCreateFormPath(ciClass));
+		model.addAttribute(MK_CANCEL_PATH, paths.getBasePath(ciClass) + "?a=cancelled");
+		return addNavigation(model, sitemap.getCreateFormId(ciClass));
 	}
 	
 	
@@ -164,13 +158,13 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String getList(Model model) {
 		model.addAttribute(getSortedList());
-		return addNavigation(model, sitemap.getEntityListViewId(getCiClass())); 
+		return addNavigation(model, sitemap.getEntityListViewId(ciClass));
 	}
 	
 	/**
 	 * @return list of CIs
 	 */
-	@RequestMapping(value = "", method = RequestMethod.GET, params = "format=json")
+	@RequestMapping(value = "", method = RequestMethod.GET, params = "format=json", produces = "application/json")
 	@ResponseBody
 	public List<T> getListAsJson() { return getSortedList(); }
 	
@@ -179,12 +173,11 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "", method = RequestMethod.GET, params = "format=xml")
+	@RequestMapping(value = "", method = RequestMethod.GET, params = "format=xml", produces = "application/xml")
 	@ResponseBody
 	public ListWrapper<T> getListAsXml() throws Exception {
 		
 		// IMPORTANT: We can't access ciClass directly (need to call getCiClass() to guarantee initialization)
-		Class<T> ciClass = getCiClass();
 		String wrapperClassName = ciClass.getName() + "$" + ciClass.getSimpleName() + "ListWrapper";
 		Class<ListWrapper<T>> wrapperClass = (Class<ListWrapper<T>>) Class.forName(wrapperClassName);
 		ListWrapper<T> wrapper = wrapperClass.newInstance();
@@ -212,7 +205,7 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 		T ci = doGetDetails(id, model);
 		model.addAttribute(ci);
 		model.addAttribute("entity", ci);
-		return addNavigation(model, sitemap.getEntityDetailsViewId(getCiClass()));
+		return addNavigation(model, sitemap.getCiDetailsViewId(ciClass));
 	}
 	
 	/**
@@ -230,6 +223,8 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	 * @param out
 	 * @throws IOException
 	 */
+	// From the reference docs: "Furthermore, use of the produces condition ensures the actual content type used to
+	// generate the response respects the media types specified in the produces condition."
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, params = "format=json", produces = "application/json")
 	@ResponseBody
 	public T getDetailsAsJson(@PathVariable Long id) { return getDetails(id); }
@@ -283,7 +278,7 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 			return prepareEditForm(id, model);
 		}
 		
-		return viewNames.putEditFormSuccessViewName(getCiClass(), id);
+		return viewNames.putEditFormSuccessViewName(ciClass, id);
 	}
 	
 	/**
@@ -301,11 +296,11 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 		model.addAttribute(MK_ENTITY, ci);
 		
 		model.addAttribute(MK_FORM_METHOD, "put");
-		model.addAttribute(MK_SUBMIT_PATH, paths.getSubmitEditFormPath(getCiClass(), id));
-		model.addAttribute(MK_CANCEL_PATH, paths.getDetailsPath(getCiClass(), id) + "?a=cancelled");
+		model.addAttribute(MK_SUBMIT_PATH, paths.getSubmitEditFormPath(ciClass, id));
+		model.addAttribute(MK_CANCEL_PATH, paths.getDetailsPath(ciClass, id) + "?a=cancelled");
 		
-		String editFormId = sitemap.getEditFormId(getCiClass());
-		notNull(editFormId, "Null edit form ID for CI class " + getCiClass());
+		String editFormId = sitemap.getEditFormId(ciClass);
+		notNull(editFormId, "Null edit form ID for CI class " + ciClass);
 		return addNavigation(model, editFormId);
 	}
 	
@@ -322,6 +317,6 @@ public abstract class AbstractCrudController<T extends CI<T>> extends AbstractCo
 	public String delete(@PathVariable Long id) {
 		notNull(id);
 		getService().delete(id);
-		return viewNames.deleteSuccessViewName(getCiClass());
+		return viewNames.deleteSuccessViewName(ciClass);
 	}
 }

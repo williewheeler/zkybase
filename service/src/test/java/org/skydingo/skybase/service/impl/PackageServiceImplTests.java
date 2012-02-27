@@ -1,6 +1,4 @@
 /* 
- * PackageServiceImplTests.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +18,13 @@ package org.skydingo.skybase.service.impl;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 
+import java.util.Iterator;
+
 import org.junit.Before;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.neo4j.helpers.collection.ClosableIterable;
 import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.repository.PackageRepository;
 import org.springframework.data.neo4j.repository.GraphRepository;
@@ -34,8 +35,12 @@ import org.springframework.data.neo4j.repository.GraphRepository;
 public class PackageServiceImplTests extends AbstractEntityServiceImplTests<Package> {
 	@InjectMocks private PackageServiceImpl packageService;
 	@Mock private PackageRepository packageRepo;
+	
+	// Test objects
 	@Mock private Package pkg;
-
+	@Mock private ClosableIterable<Package> pkgs;
+	@Mock private Iterator<Package> pkgIterator;
+	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getRepository()
 	 */
@@ -54,8 +59,12 @@ public class PackageServiceImplTests extends AbstractEntityServiceImplTests<Pack
 	@Before
 	public void setUp() throws Exception {
 		this.packageService = new PackageServiceImpl();
+		
 		MockitoAnnotations.initMocks(this);
+		
 		when(packageRepo.findOne(anyLong())).thenReturn(pkg);
+		when(packageRepo.findAll()).thenReturn(pkgs);
+		when(pkgs.iterator()).thenReturn(pkgIterator);
 	}
 
 }

@@ -82,7 +82,7 @@ public class UserAccountCrudController extends AbstractCrudController<UserAccoun
 		dummy.setUsername("willie");
 		model.addAttribute(dummy);
 		model.addAttribute("entity", dummy);
-		return addNavigation(model, sitemap.getEntityDetailsViewId(getCiClass()));
+		return addNavigation(model, sitemap.getCiDetailsViewId(UserAccount.class));
 	}
 	
 	/**

@@ -86,7 +86,7 @@ public class Sitemap {
 		// FIXME Consider replacing 'entity' with 'application', 'database', etc.
 		String detailsTitle = "#this[" + uncapSimpleName + "].displayName";
 		String detailsPath = listPath + " + '/' + #this[" + uncapSimpleName + "].id";
-		SitemapNode detailsNode = buildNode(getEntityDetailsViewId(entityClass), detailsTitle, detailsPath, listNode);
+		SitemapNode detailsNode = buildNode(getCiDetailsViewId(entityClass), detailsTitle, detailsPath, listNode);
 		detailsNode.setShowInDetailsSidebar(true);
 		
 		// Create node
@@ -211,7 +211,7 @@ public class Sitemap {
 	 * @param entityClass entity class
 	 * @return node ID
 	 */
-	public String getEntityDetailsViewId(Class<?> entityClass) {
+	public String getCiDetailsViewId(Class<?> entityClass) {
 		return StringUtils.uncapitalize(entityClass.getSimpleName()) + "Details";
 	}
 	

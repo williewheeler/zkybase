@@ -1,6 +1,4 @@
 /* 
- * EnvironmentServiceImplTests.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +18,13 @@ package org.skydingo.skybase.service.impl;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 
+import java.util.Iterator;
+
 import org.junit.Before;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.neo4j.helpers.collection.ClosableIterable;
 import org.skydingo.skybase.model.Environment;
 import org.skydingo.skybase.repository.EnvironmentRepository;
 import org.springframework.data.neo4j.repository.GraphRepository;
@@ -34,8 +35,12 @@ import org.springframework.data.neo4j.repository.GraphRepository;
 public class EnvironmentServiceImplTests extends AbstractEntityServiceImplTests<Environment> {
 	@InjectMocks private EnvironmentServiceImpl environmentService;
 	@Mock private EnvironmentRepository environmentRepo;
+	
+	// Test objects
 	@Mock private Environment environment;
-
+	@Mock private ClosableIterable<Environment> environments;
+	@Mock private Iterator<Environment> environmentIterator;
+	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImplTests#getRepository()
 	 */
@@ -54,8 +59,12 @@ public class EnvironmentServiceImplTests extends AbstractEntityServiceImplTests<
 	@Before
 	public void setUp() throws Exception {
 		this.environmentService = new EnvironmentServiceImpl();
+		
 		MockitoAnnotations.initMocks(this);
+		
 		when(environmentRepo.findOne(anyLong())).thenReturn(environment);
+		when(environmentRepo.findAll()).thenReturn(environments);
+		when(environments.iterator()).thenReturn(environmentIterator);
 	}
 
 }
