@@ -19,6 +19,7 @@ import static org.springframework.util.Assert.notNull;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -89,6 +90,15 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 	}
 	
 	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.CIService#create(org.skydingo.skybase.model.CI)
+	 */
+	@Override
+	public void create(T ci) {
+		notNull(ci);
+		create(ci, null);
+	}
+	
+	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.CIService#create(org.skydingo.skybase.model.CI, org.springframework.validation.Errors)
 	 */
 	@Override
@@ -98,6 +108,7 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 		// FIXME Need to check for errors here, like duplicates
 		
 		if (errors == null || !errors.hasErrors()) {
+			ci.setDateCreated(new Date());
 			getRepository().save(ci);
 		} else {
 			log.debug("Invalid CI; not saving");
@@ -135,6 +146,7 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 		notNull(ci);
 		
 		if (errors == null || !errors.hasErrors()) {
+			ci.setDateModified(new Date());
 			getRepository().save(ci);
 		}
 		

@@ -15,6 +15,8 @@
  */
 package org.skydingo.skybase.model;
 
+import java.util.Date;
+
 /**
  * Configuration item (CI) interface.
  * 
@@ -32,5 +34,28 @@ public interface CI<T extends CI<T>> extends Comparable<T> {
 	 */
 	void setId(Long id);
 	
+	/**
+	 * @return
+	 */
+	Date getDateCreated();
+	
+	/**
+	 * @param dateCreated
+	 */
+	void setDateCreated(Date dateCreated);
+	
+	/**
+	 * @return
+	 */
+	Date getDateModified();
+	
+	/**
+	 * @param dateModified
+	 */
+	void setDateModified(Date dateModified);
+	
+	/**
+	 * @return
+	 */
 	String getDisplayName();
 }

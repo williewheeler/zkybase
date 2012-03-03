@@ -16,6 +16,7 @@
 package org.skydingo.skybase.repository;
 
 import org.skydingo.skybase.model.Module;
+import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
@@ -23,10 +24,14 @@ import org.springframework.data.neo4j.repository.GraphRepository;
  */
 public interface ModuleRepository extends GraphRepository<Module> {
 	
+	// Can't I return a single Module if I know there's just one? Guess not...
+	
 	/**
 	 * @param groupId group ID
 	 * @param moduleId module ID
 	 * @return module
 	 */
+	// Hm, for whatever reason, I need this query here or else SDN generates multiple copies of the module in question.
+	@Query("start module=node:__types__(className='org.skydingo.skybase.model.Module') where module.groupId={0} and module.moduleId={1} return module")
 	Module findByGroupIdAndModuleId(String groupId, String moduleId);
 }

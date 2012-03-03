@@ -15,6 +15,7 @@
  */
 package org.skydingo.skybase.web.controller.application;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -133,6 +134,7 @@ public class ApplicationModuleController extends AbstractController {
 		Application application = applicationService.findOne(applicationId);
 		Module module = moduleService.findOne(moduleId);
 		List<Package> packages = packageService.findByModule(module);
+		Collections.sort(packages);
 		
 		model.addAttribute(application);
 		model.addAttribute(module);

@@ -27,6 +27,11 @@ public interface CIService<T extends CI<T>> {
 	
 	/**
 	 * @param ci
+	 */
+	void create(T ci);
+	
+	/**
+	 * @param ci
 	 * @param errors
 	 */
 	void create(T ci, Errors errors);

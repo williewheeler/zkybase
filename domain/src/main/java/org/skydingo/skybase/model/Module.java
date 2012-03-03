@@ -94,16 +94,31 @@ public class Module extends AbstractCI<Module> {
 	public String getDisplayName() { return name; }
 	
 	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	 * @see org.skydingo.skybase.model.AbstractCI#equals(java.lang.Object)
 	 */
 	@Override
-	public String toString() {
-		return "[Module: id=" + getId()
-			+ ", name=" + name
-			+ ", shortDescription=" + shortDescription
-			+ ", groupId=" + groupId
-			+ ", moduleId=" + moduleId
-			+ "]";
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		} else if (!(o instanceof Module)) {
+			return false;
+		} else if (groupId == null || moduleId == null) {
+			return super.equals(o);
+		} else {
+			Module that = (Module) o;
+			return groupId.equals(that.groupId) && moduleId.equals(that.moduleId); 
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.model.AbstractCI#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		int hashCode = 1;
+		hashCode = 67 * hashCode + (groupId == null ? 0 : groupId.hashCode());
+		hashCode = 67 * hashCode + (moduleId == null ? 0 : moduleId.hashCode());
+		return hashCode;
 	}
 	
 	/**
@@ -133,6 +148,19 @@ public class Module extends AbstractCI<Module> {
 				return moduleId.compareTo(that.getModuleId());
 			}
 		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "[Module: id=" + getId()
+			+ ", name=" + name
+			+ ", shortDescription=" + shortDescription
+			+ ", groupId=" + groupId
+			+ ", moduleId=" + moduleId
+			+ "]";
 	}
 	
 	@XmlRootElement(name = "modules")

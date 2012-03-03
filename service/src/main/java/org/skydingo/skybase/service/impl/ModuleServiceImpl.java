@@ -22,6 +22,8 @@ import javax.inject.Inject;
 import org.skydingo.skybase.model.Module;
 import org.skydingo.skybase.repository.ModuleRepository;
 import org.skydingo.skybase.service.ModuleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -29,6 +31,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ModuleServiceImpl extends AbstractCIService<Module> implements ModuleService {
+	private static final Logger log = LoggerFactory.getLogger(ModuleServiceImpl.class);
+	
 	@Inject private ModuleRepository moduleRepository;
 
 	/* (non-Javadoc)
@@ -38,6 +42,24 @@ public class ModuleServiceImpl extends AbstractCIService<Module> implements Modu
 	public Module findByGroupIdAndModuleId(String groupId, String moduleId) {
 		notNull(groupId);
 		notNull(moduleId);
+		
+		log.debug("Finding module for groupId={}, moduleId={}", groupId, moduleId);
 		return moduleRepository.findByGroupIdAndModuleId(groupId, moduleId);
+		
+//		int numModules = modules.size();
+//		log.debug("Found {} modules", numModules);
+//		
+//		for (Module module : modules) {
+//			log.debug("Found module: {}", module);
+//		}
+//		
+//		switch (numModules) {
+//		case 0:
+//			return null;
+//		case 1:
+//			return modules.iterator().next();
+//		default:
+//			throw new RuntimeException("Expected one module; found " + numModules);
+//		}
 	}
 }

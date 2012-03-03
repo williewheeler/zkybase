@@ -37,38 +37,30 @@ public class PackageServiceImpl extends AbstractCIService<Package> implements Pa
 	@Inject private PackageRepository packageRepo;
 	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.PackageService#createPackage(org.skydingo.skybase.model.Package)
+	 * @see org.skydingo.skybase.service.impl.AbstractCIService#create(org.skydingo.skybase.model.CI)
 	 */
 	@Override
-	public void createPackage(Package pkg) {
+	public void create(Package pkg) {
 		notNull(pkg);
-		
-//		List<Package> duplicates =
-//			packageRepo.findByGroupIdAndPackageIdAndVersion(pkg.getGroupId(), pkg.getPackageId(), pkg.getVersion());
-//		if (!duplicates.isEmpty()) {
-//			throw new DuplicateCIException();
-//		}
-		
 		Package duplicatePkg = packageRepo.findByModuleAndVersion(pkg.getModule(), pkg.getVersion());
-		
 		if (duplicatePkg != null) {
 			throw new DuplicateCIException();
 		}
-		
 		getRepository().save(pkg);
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.PackageService#createPackage(java.lang.Package, org.springframework.validation.Errors)
+	 * @see org.skydingo.skybase.service.impl.AbstractCIService#create(org.skydingo.skybase.model.CI,
+	 * org.springframework.validation.Errors)
 	 */
 	@Override
-	public void createPackage(Package pkg, Errors errors) {
+	public void create(Package pkg, Errors errors) {
 		notNull(pkg);
 		notNull(errors);
 		
 		if (!errors.hasErrors()) {
 			try {
-				createPackage(pkg);
+				create(pkg);
 			} catch (DuplicateCIException e) {
 				errors.reject("error.package.duplicatePackage");
 			}

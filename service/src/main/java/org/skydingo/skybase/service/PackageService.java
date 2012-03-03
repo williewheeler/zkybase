@@ -17,7 +17,6 @@ package org.skydingo.skybase.service;
 
 import java.util.List;
 
-import org.skydingo.skybase.exception.DuplicateCIException;
 import org.skydingo.skybase.model.Module;
 import org.skydingo.skybase.model.Package;
 import org.springframework.validation.Errors;
@@ -26,18 +25,6 @@ import org.springframework.validation.Errors;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public interface PackageService extends CIService<Package> {
-	
-	/**
-	 * @param pkg
-	 * @throws DuplicateCIException if the package already exists
-	 */
-	void createPackage(Package pkg);
-	
-	/**
-	 * @param pkg package to create
-	 * @param errors errors
-	 */
-	void createPackage(Package pkg, Errors errors);
 	
 	/**
 	 * @param module

@@ -1,6 +1,4 @@
 /* 
- * PersonTests.java
- * 
  * Copyright 2011-2012 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,9 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({
-	"classpath:/spring/beans-service.xml"
-})
+@ContextConfiguration({ "classpath:/spring/beans-service.xml" })
 @Transactional
 public class PersonIT {
 	@Inject private Neo4jTemplate template;

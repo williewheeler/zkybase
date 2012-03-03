@@ -113,11 +113,13 @@ input, button {
 }
 
 .iconx.add { background-image: url(../images/icons/plus.png); }
+.iconx.date { background-image: url(../images/icons/calendar.png); }
 .iconx.delete { background-image: url(../images/icons/minus.png); }
 .iconx.edit { background-image: url(../images/icons/pencil.png); }
 .iconx.email { background-image: url(../images/icons/mail.png); }
 .iconx.json { background-image: url(../images/icons/json.png); }
 .iconx.mobilePhone { background-image: url(../images/icons/mobile-phone.png); }
+.iconx.package { background-image: url(../images/icons/box.png); }
 .iconx.telephone { background-image: url(../images/icons/telephone.png); }
 .iconx.xml { background-image: url(../images/icons/document-code.png); }
 
@@ -136,7 +138,6 @@ input, button {
 .editProject.icon { background-image: url(../images/icons/folder--pencil.png); }
 .error.icon { background-image: url(../images/icons/exclamation.png); }
 .feed.icon { background-image: url(../images/icons/feed.png); }
-.package.icon { background-image: url(../images/icons/box.png); }
 .relate.icon { background-image: url(../images/icons/chain--plus.png); }
 .servers.icon { background-image: url(../images/icons/servers.png); }
 .unrelate.icon { background-image: url(../images/icons/chain--minus.png); }

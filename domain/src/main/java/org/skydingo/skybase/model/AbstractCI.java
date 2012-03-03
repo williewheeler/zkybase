@@ -15,6 +15,8 @@
  */
 package org.skydingo.skybase.model;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -29,6 +31,8 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 @XmlAccessorType(XmlAccessType.NONE)
 public abstract class AbstractCI<T extends CI<T>> implements CI<T> {
 	@GraphId private Long id;
+	private Date dateCreated;
+	private Date dateModified;
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.model.Entity#getId()
@@ -42,6 +46,34 @@ public abstract class AbstractCI<T extends CI<T>> implements CI<T> {
 	 */
 	@Override
 	public void setId(Long id) { this.id = id; }
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.model.CI#getDateCreated()
+	 */
+	@Override
+	public Date getDateCreated() { return dateCreated; }
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.model.CI#setDateCreated(java.util.Date)
+	 */
+	@Override
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.model.CI#getDateModified()
+	 */
+	@Override
+	public Date getDateModified() { return dateModified; }
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.model.CI#setDateModified(java.util.Date)
+	 */
+	@Override
+	public void setDateModified(Date dateModified) {
+		this.dateModified = dateModified;
+	}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)

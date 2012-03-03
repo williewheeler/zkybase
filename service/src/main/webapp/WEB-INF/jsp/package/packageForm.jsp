@@ -36,7 +36,7 @@
 				</form:errors>
 			</div>
 		</div>
-		<div class="actions">
+		<div class="form-actions">
 			<input class="btn primary" type="submit" value="Save" />
 			<a class="btn" href="${cancelUrl}">Cancel</a>
 		</div>

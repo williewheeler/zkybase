@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -46,13 +47,19 @@
 				<thead>
 					<tr>
 						<th>Version</th>
+						<th>Created</th>
 						<th class="editDeleteColumn"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="package" items="${packageList}">
 						<tr>
-							<td><c:out value="${package.version}" /></td>
+							<td><span class="iconx package"><c:out value="${package.version}" /></span></td>
+							<td>
+								<c:if test="${not empty package.dateCreated}">
+									<span class="iconx date"><fmt:formatDate value="${package.dateCreated}" type="both" /></span>
+								</c:if>
+							</td>
 							<td class="editDeleteColumn">
 								<a class="editLink" href="#" title="Edit package"><img src="${editIconUrl}" /></a>
 								<a class="deleteLink" href="#" title="Delete package"><img src="${deleteIconUrl}" /></a>
