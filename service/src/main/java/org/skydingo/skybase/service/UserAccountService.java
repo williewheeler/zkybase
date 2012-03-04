@@ -16,8 +16,15 @@
 package org.skydingo.skybase.service;
 
 import org.skydingo.skybase.model.UserAccount;
+import org.springframework.social.github.api.GitHubUserProfile;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface UserAccountService extends CIService<UserAccount> { }
+public interface UserAccountService extends CIService<UserAccount> {
+	
+	/**
+	 * @return
+	 */
+	GitHubUserProfile getCurrentUserProfile();
+}

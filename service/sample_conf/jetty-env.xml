@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+<Configure class="org.mortbay.jetty.webapp.WebAppContext">
+	<New id="SkybaseDS" class="org.mortbay.jetty.plus.naming.Resource">
+		<Arg></Arg>
+		<Arg>jdbc/SkybaseDS</Arg>
+		<Arg>
+			<New class="org.apache.commons.dbcp.BasicDataSource">
+				<Set name="driverClassName">com.mysql.jdbc.Driver</Set>
+				<Set name="url">jdbc:mysql://localhost:3306/skybase?autoReconnect=true</Set>
+				<Set name="username">username</Set>
+				<Set name="password">password</Set>
+			</New>
+		</Arg>
+	</New>
+</Configure>

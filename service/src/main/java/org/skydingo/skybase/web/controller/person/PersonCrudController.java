@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.github.api.GitHub;
 import org.springframework.social.github.api.GitHubUser;
+import org.springframework.social.github.api.impl.GitHubTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +56,9 @@ public class PersonCrudController extends AbstractCrudController<Person> {
 	private static final Logger log = LoggerFactory.getLogger(PersonCrudController.class);
 	
 	@Inject private PersonService personService;
-	@Inject private GitHub gitHub;
+	
+	// FIXME Will move to service
+	private GitHub gitHub = new GitHubTemplate();
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractCrudController#getService()

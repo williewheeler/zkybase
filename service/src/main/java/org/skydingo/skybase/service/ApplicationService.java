@@ -15,10 +15,13 @@
  */
 package org.skydingo.skybase.service;
 
+import java.util.List;
+
 import org.skydingo.skybase.model.Application;
 import org.skydingo.skybase.model.Module;
 import org.skydingo.skybase.model.Team;
 import org.skydingo.skybase.model.relationship.ApplicationTeam;
+import org.springframework.social.github.api.GitHubHook;
 import org.springframework.validation.Errors;
 
 /**
@@ -45,6 +48,8 @@ public interface ApplicationService extends CIService<Application> {
 	Application findOneWithCommits(Long id);
 	
 	Application findOneWithWatchers(Long id);
+	
+	List<GitHubHook> findHooks(String user, String repo);
 	
 	/**
 	 * @param id application ID

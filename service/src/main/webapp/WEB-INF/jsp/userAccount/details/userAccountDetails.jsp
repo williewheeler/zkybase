@@ -1,8 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<c:url var="loginUrl" value="/useraccounts/${userAccount.id}/access/github" />
+<h2>GitHub user profile</h2>
 
-<div>
-	<a href="${loginUrl}" class="btn" title="Gives you access to your private GitHub data">Connect to GitHub</a>
-</div>
+Blog: <c:out value="${gitHubUserProfile.blog}" /><br />
+Location: <c:out value="${gitHubUserProfile.location}" /><br />

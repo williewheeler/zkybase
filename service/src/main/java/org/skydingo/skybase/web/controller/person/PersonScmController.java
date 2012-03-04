@@ -27,6 +27,7 @@ import org.skydingo.skybase.web.controller.AbstractController;
 import org.skydingo.skybase.web.view.ViewUtil;
 import org.springframework.social.github.api.GitHub;
 import org.springframework.social.github.api.GitHubUser;
+import org.springframework.social.github.api.impl.GitHubTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +41,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/people")
 public class PersonScmController extends AbstractController {
 	@Inject private PersonRepository personRepository;
-	@Inject private GitHub gitHub;
+//	@Inject private GitHub gitHub;
+	
+	// FIXME Move to service
+	private GitHub gitHub = new GitHubTemplate();
 	
 	/**
 	 * @param id

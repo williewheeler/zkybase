@@ -17,10 +17,7 @@
  */
 package org.skydingo.skybase.web.controller.useraccount;
 
-import java.io.IOException;
-
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
 
 import org.skydingo.skybase.model.UserAccount;
 import org.skydingo.skybase.service.CIService;
@@ -28,19 +25,11 @@ import org.skydingo.skybase.service.UserAccountService;
 import org.skydingo.skybase.web.controller.AbstractCrudController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.social.connect.Connection;
-import org.springframework.social.github.api.GitHub;
-import org.springframework.social.github.connect.GitHubConnectionFactory;
-import org.springframework.social.oauth2.AccessGrant;
-import org.springframework.social.oauth2.GrantType;
-import org.springframework.social.oauth2.OAuth2Operations;
-import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -51,8 +40,6 @@ public class UserAccountCrudController extends AbstractCrudController<UserAccoun
 	private static final Logger log = LoggerFactory.getLogger(UserAccountCrudController.class);
 	
 	@Inject private UserAccountService userAccountService;
-	@Inject private GitHub gitHub;
-	@Inject private GitHubConnectionFactory gitHubConnectionFactory;
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.web.controller.AbstractCrudController#getAllowedFields()
@@ -82,39 +69,23 @@ public class UserAccountCrudController extends AbstractCrudController<UserAccoun
 		dummy.setUsername("willie");
 		model.addAttribute(dummy);
 		model.addAttribute("entity", dummy);
+		
 		return addNavigation(model, sitemap.getCiDetailsViewId(UserAccount.class));
 	}
 	
-	/**
-	 * @param id
-	 * @param model
-	 * @param response
-	 * @throws IOException
-	 */
-	@RequestMapping(value = "/{id}/access/github", method = RequestMethod.GET)
-	public void acquireGitHubAccessToken(@PathVariable Long id, Model model, HttpServletResponse response)
-			throws IOException {
+	@RequestMapping(value = "/current", method = RequestMethod.GET)
+	public String getCurrentUserDetails(Model model) {
 		
-		log.debug("Acquiring GitHub access token");
+		// FIXME Do lookup
+		UserAccount dummy = new UserAccount();
+		dummy.setId(1L);
+		dummy.setUsername("willie");
+		model.addAttribute(dummy);
+		model.addAttribute("entity", dummy);
 		
-		// FIXME Hardcoded redirect URI
-		OAuth2Parameters params = new OAuth2Parameters();
-		params.setRedirectUri("http://localhost:8080/useraccounts/" + id + "/connections/github");
+		// GitHub profile
+		model.addAttribute(userAccountService.getCurrentUserProfile());
 		
-		OAuth2Operations ops = gitHubConnectionFactory.getOAuthOperations();
-		response.sendRedirect(ops.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, params));
+		return addNavigation(model, sitemap.getCiDetailsViewId(UserAccount.class));
 	}
-	
-	@RequestMapping(value = "/{id}/connections/github", method = RequestMethod.GET)
-	public void acquireGitHubConnection(@PathVariable Long id, @RequestParam String code, Model model) {
-		log.debug("Acquiring GitHub connection");
-		
-		OAuth2Operations ops = gitHubConnectionFactory.getOAuthOperations();
-		
-		AccessGrant accessGrant =
-			ops.exchangeForAccess(code, "http://localhost:8080/useraccounts/" + id, null);
-		log.debug("accessGrant={}", accessGrant);
-		Connection<GitHub> connection = gitHubConnectionFactory.createConnection(accessGrant);
-	}
-
 }

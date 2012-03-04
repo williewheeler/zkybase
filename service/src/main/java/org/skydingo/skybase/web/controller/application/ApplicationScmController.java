@@ -24,9 +24,13 @@ import org.skydingo.skybase.model.GitHubScm;
 import org.skydingo.skybase.service.ApplicationService;
 import org.skydingo.skybase.web.controller.AbstractController;
 import org.skydingo.skybase.web.view.ViewUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.social.github.api.GitHub;
 import org.springframework.social.github.api.GitHubCommit;
+import org.springframework.social.github.api.GitHubHook;
 import org.springframework.social.github.api.GitHubUser;
+import org.springframework.social.github.api.impl.GitHubTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,8 +43,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/applications")
 public class ApplicationScmController extends AbstractController {
+	private static final Logger log = LoggerFactory.getLogger(ApplicationScmController.class);
+	
 	@Inject private ApplicationService applicationService;
-	@Inject private GitHub gitHub;
+	
+	// FIXME Temporary. Moving to the service.
+	private GitHub gitHub = new GitHubTemplate();
 	
 	/**
 	 * @param id application ID
@@ -133,19 +141,17 @@ public class ApplicationScmController extends AbstractController {
 	 */
 	@RequestMapping(value = "/{id}/scm/hooks", method = RequestMethod.GET)
 	public String getHooks(@PathVariable Long id, Model model) {
-		
-		// Get the hooks
 		Application app = applicationService.findOne(id);
 		
 		// FIXME Currently assuming GitHub.
 		GitHubScm scm = (GitHubScm) app.getScm();
 		String user = scm.getUser();
 		String repo = scm.getRepo();
-//		List<GitHubHook> hooks = gitHub.repoOperations().getHooks(user, repo);
+		List<GitHubHook> hooks = applicationService.findHooks(user, repo);
 		
 		model.addAttribute(app);
+		model.addAttribute(hooks);
 		model.addAttribute("entity", app);
-//		model.addAttribute("hookList", hookList);
 		
 		return addNavigation(model, "applicationScmHooks");
 	}

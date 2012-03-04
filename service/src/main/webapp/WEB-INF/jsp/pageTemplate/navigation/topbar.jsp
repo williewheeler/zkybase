@@ -12,6 +12,7 @@
 <c:url var="peopleUrl" value="/people" />
 <c:url var="regionsUrl" value="/regions" />
 <c:url var="teamsUrl" value="/teams" />
+<c:url var="currentUserUrl" value="/useraccounts/current" />
 
 <script type="text/javascript">
 	$(function() {
@@ -66,7 +67,7 @@
 				<input type="text" class="search-query pull-left" placeholder="Search" />
 			</form>
 			<ul class="nav pull-right">
-				<li id="accountArea"><a href="#">Account</a>
+				<li id="accountArea"><a href="${currentUserUrl}">Account</a>
 				<li><a href="${logoutUrl}">Logout</a>
 			</ul>
 		</div>

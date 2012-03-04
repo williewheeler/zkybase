@@ -68,6 +68,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-oxm</artifactId>
 		</dependency>
 		<dependency>
@@ -88,10 +92,32 @@
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 		
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+		
 		<!-- Spring Social -->
 		<dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.social</groupId>
@@ -109,6 +135,16 @@
 			<artifactId>jackson-xc</artifactId>
 		</dependency>
 		
+		<!-- JDBC/MySQL -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+			
 		<!-- Neo4j -->
 		<dependency>
 			<groupId>org.neo4j</groupId>
@@ -140,7 +176,6 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.1.2</version>
 		</dependency>
 		
 		<dependency>
@@ -275,6 +310,7 @@
 				<version>6.1.21</version>
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<jettyEnvXml>${skybase.conf.dir}/jetty-env.xml</jettyEnvXml>
 					<webAppConfig>
 						<contextPath>/</contextPath>
 						<extraClasspath>${skybase.conf.dir}/classes</extraClasspath>

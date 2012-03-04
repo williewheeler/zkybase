@@ -17,6 +17,8 @@ package org.skydingo.skybase.service.impl;
 
 import static org.springframework.util.Assert.notNull;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.skydingo.skybase.model.Application;
@@ -27,9 +29,15 @@ import org.skydingo.skybase.model.relationship.ApplicationTeam;
 import org.skydingo.skybase.model.relationship.ApplicationTeam.TeamType;
 import org.skydingo.skybase.repository.ApplicationRepository;
 import org.skydingo.skybase.service.ApplicationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.github.api.GitHub;
+import org.springframework.social.github.api.GitHubHook;
 import org.springframework.social.github.api.GitHubRepo;
+import org.springframework.social.github.api.impl.GitHubTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
@@ -38,9 +46,12 @@ import org.springframework.validation.Errors;
  */
 @Service
 public class ApplicationServiceImpl extends AbstractCIService<Application> implements ApplicationService {
+	private static final Logger log = LoggerFactory.getLogger(ApplicationServiceImpl.class);
+	
 	@Inject private ApplicationRepository applicationRepository;
 	@Inject private Neo4jTemplate template;
-	@Inject private GitHub gitHub;
+//	@Inject private GitHub gitHub;
+	@Inject private ConnectionRepository connectionRepo;
 	
 	/**
 	 * Returns the application, with modules loaded.
@@ -99,7 +110,7 @@ public class ApplicationServiceImpl extends AbstractCIService<Application> imple
 		
 		// Supporting data comes from GitHub
 		// FIXME This web service call shouldn't be part of the transaction
-		GitHubRepo repo = gitHub.repoOperations().getRepo(scm.getUser(), scm.getRepo());
+		GitHubRepo repo = gitHub().repoOperations().getRepo(scm.getUser(), scm.getRepo());
 		scm.setId(repo.getId());
 		scm.setName(repo.getName());
 		scm.setDescription(repo.getDescription());
@@ -138,6 +149,16 @@ public class ApplicationServiceImpl extends AbstractCIService<Application> imple
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.ApplicationService#findHooks(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public List<GitHubHook> findHooks(String user, String repo) {
+		notNull(user);
+		notNull(repo);
+		return gitHub().repoOperations().getHooks(user, repo);
+	}
 
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.ApplicationService#addModule
@@ -169,4 +190,9 @@ public class ApplicationServiceImpl extends AbstractCIService<Application> imple
 		template.save(application);
 	}
 	
+	private GitHub gitHub() {
+		Connection<GitHub> conn = connectionRepo.findPrimaryConnection(GitHub.class);
+		log.debug("Found connection: displayName={}, hasExpired={}", conn.getDisplayName(), conn.hasExpired());
+		return (conn != null ? conn.getApi() : new GitHubTemplate());
+	}
 }

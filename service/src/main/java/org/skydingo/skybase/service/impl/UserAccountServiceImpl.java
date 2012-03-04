@@ -15,12 +15,37 @@
  */
 package org.skydingo.skybase.service.impl;
 
+import javax.inject.Inject;
+
 import org.skydingo.skybase.model.UserAccount;
 import org.skydingo.skybase.service.UserAccountService;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionRepository;
+import org.springframework.social.github.api.GitHub;
+import org.springframework.social.github.api.GitHubUserProfile;
+import org.springframework.social.github.api.impl.GitHubTemplate;
 import org.springframework.stereotype.Service;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-public class UserAccountServiceImpl extends AbstractCIService<UserAccount> implements UserAccountService { }
+public class UserAccountServiceImpl extends AbstractCIService<UserAccount> implements UserAccountService {
+	
+	// FIXME Centralize this, as we call it from ApplicationServiceImpl too. May want to use Java config.
+	@Inject private ConnectionRepository connectionRepo;
+
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.UserAccountService#getCurrentUserProfile()
+	 */
+	@Override
+	public GitHubUserProfile getCurrentUserProfile() {
+		return gitHub().userOperations().getUserProfile();
+	}
+	
+	private GitHub gitHub() {
+		Connection<GitHub> conn = connectionRepo.findPrimaryConnection(GitHub.class);
+		return (conn != null ? conn.getApi() : new GitHubTemplate());
+	}
+	
+}

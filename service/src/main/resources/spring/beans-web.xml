@@ -61,6 +61,9 @@
 	<context:component-scan base-package="org.skydingo.skybase.web.controller" />
 	<context:component-scan base-package="org.skydingo.skybase.web.view" />
 	
+	<!-- Handles OAuth negotiation for Spring Social -->
+	<bean class="org.springframework.social.connect.web.ConnectController" />
+	
 	<bean id="paths" class="org.skydingo.skybase.web.sitemap.Paths" />
 	
 	<bean class="org.skydingo.skybase.web.sitemap.Sitemap" p:messageSource-ref="messageSource" p:paths-ref="paths">
