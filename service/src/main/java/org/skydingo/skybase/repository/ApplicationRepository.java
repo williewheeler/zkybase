@@ -21,4 +21,7 @@ import org.springframework.data.neo4j.repository.GraphRepository;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface ApplicationRepository extends GraphRepository<Application> { }
+public interface ApplicationRepository extends GraphRepository<Application> {
+	
+	Application findByName(String name);
+}

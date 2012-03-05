@@ -31,6 +31,7 @@ import org.skydingo.skybase.repository.ApplicationRepository;
 import org.skydingo.skybase.service.ApplicationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionRepository;
@@ -52,6 +53,14 @@ public class ApplicationServiceImpl extends AbstractCIService<Application> imple
 	@Inject private Neo4jTemplate template;
 //	@Inject private GitHub gitHub;
 	@Inject private ConnectionRepository connectionRepo;
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.impl.AbstractCIService#getRepository()
+	 */
+	@Override
+	protected GraphRepository<Application> getRepository() {
+		return applicationRepository;
+	}
 	
 	/**
 	 * Returns the application, with modules loaded.

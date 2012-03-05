@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import org.skydingo.skybase.model.Team;
 import org.skydingo.skybase.repository.TeamRepository;
 import org.skydingo.skybase.service.TeamService;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,6 +31,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class TeamServiceImpl extends AbstractCIService<Team> implements TeamService {
 	@Inject private TeamRepository teamRepository;
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.impl.AbstractCIService#getRepository()
+	 */
+	@Override
+	protected GraphRepository<Team> getRepository() { return teamRepository; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.TeamService#findByName(java.lang.String)

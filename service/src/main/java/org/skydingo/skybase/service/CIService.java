@@ -43,6 +43,8 @@ public interface CIService<T extends CI<T>> {
 	
 	T findOne(Long id);
 	
+	void update(T ci);
+	
 	/**
 	 * Updates the CI if there aren't any errors. Can potentially generate new errors (e.g. constraint violations).
 	 * 

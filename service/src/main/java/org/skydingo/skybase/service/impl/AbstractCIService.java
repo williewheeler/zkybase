@@ -17,8 +17,6 @@ package org.skydingo.skybase.service.impl;
 
 import static org.springframework.util.Assert.notNull;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.List;
 
@@ -44,50 +42,7 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 	
 	@Inject protected Neo4jTemplate neo4jTemplate;
 	
-	// IMPORTANT: Only getCiClass() should access this directly!
-	private Class<T> ciClass;
-	
-	private GraphRepository<T> repository;
-	
-	/**
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	protected Class<T> getCiClass() {
-		if (this.ciClass == null) {
-			ParameterizedType paramType = (ParameterizedType) getClass().getGenericSuperclass();
-			this.ciClass = (Class<T>) paramType.getActualTypeArguments()[0];
-		}
-		return ciClass;
-	}
-	
-	/**
-	 * @return
-	 */
-	protected GraphRepository<T> getRepository() { return repository; }
-	
-	/**
-	 * @param repository
-	 */
-	@Inject
-	@SuppressWarnings("unchecked")
-	protected void setRepository(List<GraphRepository<?>> repositories) {
-		
-		// FIXME This doesn't feel like a great implementation.
-		String matchName = getCiClass().getSimpleName() + "Repository";
-		
-		for (GraphRepository<?> repo : repositories) {
-			Type[] types = repo.getClass().getGenericInterfaces();
-			for (Type type : types) {
-				
-				// FIXME Nasty
-				if (type.toString().endsWith(matchName)) {
-					this.repository = (GraphRepository<T>) repo;
-					return;
-				}
-			}
-		}
-	}
+	protected abstract GraphRepository<T> getRepository();
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.CIService#create(org.skydingo.skybase.model.CI)
@@ -95,7 +50,7 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 	@Override
 	public void create(T ci) {
 		notNull(ci);
-		create(ci, null);
+		createAddDate(ci);
 	}
 	
 	/* (non-Javadoc)
@@ -108,11 +63,15 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 		// FIXME Need to check for errors here, like duplicates
 		
 		if (errors == null || !errors.hasErrors()) {
-			ci.setDateCreated(new Date());
-			getRepository().save(ci);
+			createAddDate(ci);
 		} else {
 			log.debug("Invalid CI; not saving");
 		}
+	}
+	
+	private void createAddDate(T ci) {
+		ci.setDateCreated(new Date());
+		getRepository().save(ci);
 	}
 	
 	/* (non-Javadoc)
@@ -130,12 +89,17 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 	public T findOne(Long id) {
 		notNull(id);
 		T ci = getRepository().findOne(id);
-		
-		if (ci == null) {
-			throw new NoSuchCIException();
-		}
-		
+		if (ci == null) { throw new NoSuchCIException(); }
 		return ci;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.CIService#update(org.skydingo.skybase.model.CI)
+	 */
+	@Override
+	public void update(T ci) {
+		notNull(ci);
+		updateAddDate(ci);
 	}
 	
 	/* (non-Javadoc)
@@ -146,12 +110,16 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 		notNull(ci);
 		
 		if (errors == null || !errors.hasErrors()) {
-			ci.setDateModified(new Date());
-			getRepository().save(ci);
+			updateAddDate(ci);
 		}
 		
 		// TODO Need to have a way to generate new errors here. For example, if the user changes the name of the CI to
 		// conflict with an existing CI, that would generate an error.
+	}
+	
+	private void updateAddDate(T ci) {
+		ci.setDateModified(new Date());
+		getRepository().save(ci);
 	}
 	
 	/* (non-Javadoc)

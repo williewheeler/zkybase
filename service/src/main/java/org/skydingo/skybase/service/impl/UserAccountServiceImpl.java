@@ -18,7 +18,9 @@ package org.skydingo.skybase.service.impl;
 import javax.inject.Inject;
 
 import org.skydingo.skybase.model.UserAccount;
+import org.skydingo.skybase.repository.UserAccountRepository;
 import org.skydingo.skybase.service.UserAccountService;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.github.api.GitHub;
@@ -31,10 +33,17 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserAccountServiceImpl extends AbstractCIService<UserAccount> implements UserAccountService {
+	@Inject private UserAccountRepository userAccountRepository;
 	
 	// FIXME Centralize this, as we call it from ApplicationServiceImpl too. May want to use Java config.
 	@Inject private ConnectionRepository connectionRepo;
-
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.impl.AbstractCIService#getRepository()
+	 */
+	@Override
+	protected GraphRepository<UserAccount> getRepository() { return userAccountRepository; }
+	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.UserAccountService#getCurrentUserProfile()
 	 */

@@ -26,6 +26,7 @@ import org.skydingo.skybase.model.Module;
 import org.skydingo.skybase.model.Package;
 import org.skydingo.skybase.repository.PackageRepository;
 import org.skydingo.skybase.service.PackageService;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
@@ -37,6 +38,14 @@ public class PackageServiceImpl extends AbstractCIService<Package> implements Pa
 	@Inject private PackageRepository packageRepo;
 	
 	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.impl.AbstractCIService#getRepository()
+	 */
+	@Override
+	protected GraphRepository<Package> getRepository() {
+		return packageRepo;
+	}
+	
+	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.impl.AbstractCIService#create(org.skydingo.skybase.model.CI)
 	 */
 	@Override
@@ -46,7 +55,7 @@ public class PackageServiceImpl extends AbstractCIService<Package> implements Pa
 		if (duplicatePkg != null) {
 			throw new DuplicateCIException();
 		}
-		getRepository().save(pkg);
+		super.create(pkg);
 	}
 	
 	/* (non-Javadoc)
@@ -81,33 +90,5 @@ public class PackageServiceImpl extends AbstractCIService<Package> implements Pa
 	@Override
 	public Package findByModuleAndVersion(Module module, String version) {
 		return packageRepo.findByModuleAndVersion(module, version);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.PackageService#updatePackage(org.skydingo.skybase.model.Package)
-	 */
-	@Override
-	public void updatePackage(Package pkg) {
-		notNull(pkg);
-		getRepository().save(pkg);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.PackageService#updatePackage(org.skydingo.skybase.model.Package,
-	 * org.springframework.validation.Errors)
-	 */
-	@Override
-	public void updatePackage(Package pkg, Errors errors) {
-		notNull(pkg);
-		notNull(errors);
-		
-		if (!errors.hasErrors()) {
-			
-			// TODO Do we need to check for existence here? Or will the save fail if the package doesn't already
-			// exist? Need to check as this is potentially a security issue (allows people to create new packages
-			// through the edit form).
-			
-			updatePackage(pkg);
-		}
 	}
 }

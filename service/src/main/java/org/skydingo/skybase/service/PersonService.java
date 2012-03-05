@@ -16,22 +16,8 @@
 package org.skydingo.skybase.service;
 
 import org.skydingo.skybase.model.Person;
-import org.springframework.validation.Errors;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public interface PersonService extends CIService<Person> {
-	
-	/**
-	 * @param person
-	 * @param errors
-	 */
-	void createPerson(Person person, Errors errors);
-	
-	/**
-	 * @param person
-	 * @param errors
-	 */
-	void updatePerson(Person person, Errors errors);
-}
+public interface PersonService extends CIService<Person> { }

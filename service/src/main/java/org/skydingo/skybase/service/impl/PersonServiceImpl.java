@@ -24,9 +24,9 @@ import javax.inject.Inject;
 import org.skydingo.skybase.model.Person;
 import org.skydingo.skybase.repository.PersonRepository;
 import org.skydingo.skybase.service.PersonService;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.Errors;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -35,16 +35,12 @@ import org.springframework.validation.Errors;
 public class PersonServiceImpl extends AbstractCIService<Person> implements PersonService {
 	@Inject private PersonRepository personRepo;
 	@Inject private Neo4jTemplate template;
-
+	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.PersonService#createPerson(org.skydingo.skybase.model.Person, org.springframework.validation.Errors)
+	 * @see org.skydingo.skybase.service.impl.AbstractCIService#getRepository()
 	 */
 	@Override
-	public void createPerson(Person person, Errors errors) {
-		if (!errors.hasErrors()) {
-			personRepo.save(person);
-		}
-	}
+	protected GraphRepository<Person> getRepository() { return personRepo; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImpl#findOne(java.lang.Long)
@@ -63,15 +59,5 @@ public class PersonServiceImpl extends AbstractCIService<Person> implements Pers
 		}
 		
 		return person;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.PersonService#updatePerson(org.skydingo.skybase.model.Person, org.springframework.validation.Errors)
-	 */
-	@Override
-	public void updatePerson(Person person, Errors errors) {
-		if (!errors.hasErrors()) {
-			personRepo.save(person);
-		}
 	}
 }

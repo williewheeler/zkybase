@@ -15,12 +15,26 @@
  */
 package org.skydingo.skybase.service.impl;
 
+import javax.inject.Inject;
+
 import org.skydingo.skybase.model.DataCenter;
+import org.skydingo.skybase.repository.DataCenterRepository;
 import org.skydingo.skybase.service.DataCenterService;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Service;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-public class DataCenterServiceImpl extends AbstractCIService<DataCenter> implements DataCenterService { }
+public class DataCenterServiceImpl extends AbstractCIService<DataCenter> implements DataCenterService {
+	@Inject private DataCenterRepository dataCenterRepository;
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.impl.AbstractCIService#getRepository()
+	 */
+	@Override
+	protected GraphRepository<DataCenter> getRepository() {
+		return dataCenterRepository;
+	}
+}

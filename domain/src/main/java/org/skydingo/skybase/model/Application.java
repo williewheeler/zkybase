@@ -32,6 +32,7 @@ import org.skydingo.skybase.model.relationship.ApplicationTeam;
 import org.skydingo.skybase.util.CollectionsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
 
@@ -48,7 +49,7 @@ public class Application extends AbstractCI<Application> {
 	// FIXME Temporary
 	private static final GitHubScm SKYBASE_SCM = new GitHubScm("williewheeler", "skybase");
 	
-	private String name;
+	@Indexed private String name;
 	private String shortDescription;
 	private GitHubScm scm;
 	

@@ -15,8 +15,6 @@
  */
 package org.skydingo.skybase.web.controller.pkg;
 
-import java.util.Date;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 

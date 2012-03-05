@@ -15,8 +15,12 @@
  */
 package org.skydingo.skybase.service.impl;
 
+import javax.inject.Inject;
+
 import org.skydingo.skybase.model.Environment;
+import org.skydingo.skybase.repository.EnvironmentRepository;
 import org.skydingo.skybase.service.EnvironmentService;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,4 +28,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class EnvironmentServiceImpl extends AbstractCIService<Environment> implements EnvironmentService {
+	@Inject private EnvironmentRepository environmentRepository;
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.impl.AbstractCIService#getRepository()
+	 */
+	@Override
+	protected GraphRepository<Environment> getRepository() {
+		return environmentRepository;
+	}
 }

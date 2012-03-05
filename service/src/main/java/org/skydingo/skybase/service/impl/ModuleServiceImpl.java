@@ -24,6 +24,7 @@ import org.skydingo.skybase.repository.ModuleRepository;
 import org.skydingo.skybase.service.ModuleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,7 +35,13 @@ public class ModuleServiceImpl extends AbstractCIService<Module> implements Modu
 	private static final Logger log = LoggerFactory.getLogger(ModuleServiceImpl.class);
 	
 	@Inject private ModuleRepository moduleRepository;
-
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.impl.AbstractCIService#getRepository()
+	 */
+	@Override
+	protected GraphRepository<Module> getRepository() { return moduleRepository; }
+	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.ModuleService#findByGroupIdAndModuleId(java.lang.String, java.lang.String)
 	 */

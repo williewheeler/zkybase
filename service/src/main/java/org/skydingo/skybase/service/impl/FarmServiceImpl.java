@@ -28,6 +28,7 @@ import org.skydingo.skybase.model.Instance;
 import org.skydingo.skybase.repository.FarmRepository;
 import org.skydingo.skybase.service.FarmService;
 import org.skydingo.skybase.util.CollectionsUtil;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -36,6 +37,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class FarmServiceImpl extends AbstractCIService<Farm> implements FarmService {
 	@Inject private FarmRepository farmRepo;
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.impl.AbstractCIService#getRepository()
+	 */
+	@Override
+	protected GraphRepository<Farm> getRepository() { return farmRepo; }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.impl.AbstractEntityServiceImpl#findOne(java.lang.Long)

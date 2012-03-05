@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.skydingo.skybase.model.Module;
 import org.skydingo.skybase.model.Package;
-import org.springframework.validation.Errors;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -38,15 +37,4 @@ public interface PackageService extends CIService<Package> {
 	 * @return
 	 */
 	Package findByModuleAndVersion(Module module, String version);
-	
-	/**
-	 * @param pkg
-	 */
-	void updatePackage(Package pkg);
-	
-	/**
-	 * @param pkg
-	 * @param errors
-	 */
-	void updatePackage(Package pkg, Errors errors);
 }

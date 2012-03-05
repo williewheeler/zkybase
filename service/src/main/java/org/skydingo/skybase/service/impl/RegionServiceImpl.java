@@ -15,12 +15,24 @@
  */
 package org.skydingo.skybase.service.impl;
 
+import javax.inject.Inject;
+
 import org.skydingo.skybase.model.Region;
+import org.skydingo.skybase.repository.RegionRepository;
 import org.skydingo.skybase.service.RegionService;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Service;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Service
-public class RegionServiceImpl extends AbstractCIService<Region> implements RegionService { }
+public class RegionServiceImpl extends AbstractCIService<Region> implements RegionService {
+	@Inject private RegionRepository regionRepository;
+	
+	/* (non-Javadoc)
+	 * @see org.skydingo.skybase.service.impl.AbstractCIService#getRepository()
+	 */
+	@Override
+	protected GraphRepository<Region> getRepository() { return regionRepository; }
+}

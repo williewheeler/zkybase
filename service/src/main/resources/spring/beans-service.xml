@@ -25,7 +25,7 @@
 
 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/SkybaseDS" />
 		
-	<tx:annotation-driven mode="proxy" />
+	<tx:annotation-driven />
 
 	<neo4j:config storeDirectory="${graphDb.dir}" />
 	
