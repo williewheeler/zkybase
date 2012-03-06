@@ -150,7 +150,7 @@ public class ApplicationScmController extends AbstractController {
 		List<GitHubHook> hooks = applicationService.findHooks(user, repo);
 		
 		model.addAttribute(app);
-		model.addAttribute(hooks);
+		model.addAttribute("hookList", hooks);
 		model.addAttribute("entity", app);
 		
 		return addNavigation(model, "applicationScmHooks");

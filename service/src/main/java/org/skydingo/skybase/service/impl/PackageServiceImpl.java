@@ -28,7 +28,6 @@ import org.skydingo.skybase.repository.PackageRepository;
 import org.skydingo.skybase.service.PackageService;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.Errors;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
@@ -46,33 +45,14 @@ public class PackageServiceImpl extends AbstractCIService<Package> implements Pa
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.impl.AbstractCIService#create(org.skydingo.skybase.model.CI)
+	 * @see org.skydingo.skybase.service.impl.AbstractCIService#checkForDuplicate(org.skydingo.skybase.model.CI)
 	 */
 	@Override
-	public void create(Package pkg) {
+	protected void checkForDuplicate(Package pkg) {
 		notNull(pkg);
-		Package duplicatePkg = packageRepo.findByModuleAndVersion(pkg.getModule(), pkg.getVersion());
-		if (duplicatePkg != null) {
-			throw new DuplicateCIException();
-		}
-		super.create(pkg);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.skydingo.skybase.service.impl.AbstractCIService#create(org.skydingo.skybase.model.CI,
-	 * org.springframework.validation.Errors)
-	 */
-	@Override
-	public void create(Package pkg, Errors errors) {
-		notNull(pkg);
-		notNull(errors);
-		
-		if (!errors.hasErrors()) {
-			try {
-				create(pkg);
-			} catch (DuplicateCIException e) {
-				errors.reject("error.package.duplicatePackage");
-			}
+		Package duplicate = packageRepo.findByModuleAndVersion(pkg.getModule(), pkg.getVersion());
+		if (duplicate != null) {
+			throw new DuplicateCIException(pkg);
 		}
 	}
 

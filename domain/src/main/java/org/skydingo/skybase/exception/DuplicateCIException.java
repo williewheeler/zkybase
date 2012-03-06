@@ -15,9 +15,16 @@
  */
 package org.skydingo.skybase.exception;
 
+import org.skydingo.skybase.model.CI;
+
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @SuppressWarnings("serial")
 public class DuplicateCIException extends RuntimeException {
+	private CI<?> ci;
+	
+	public DuplicateCIException(CI<?> ci) { this.ci = ci; }
+	
+	public CI<?> getCI() { return ci; }
 }

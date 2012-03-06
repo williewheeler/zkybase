@@ -27,12 +27,14 @@ public interface CIService<T extends CI<T>> {
 	
 	/**
 	 * @param ci
+	 * @throws DuplicateCIException if the CI already exists
 	 */
 	void create(T ci);
 	
 	/**
 	 * @param ci
 	 * @param errors
+	 * @throws IllegalArgumentException if either argument is null
 	 */
 	void create(T ci, Errors errors);
 	

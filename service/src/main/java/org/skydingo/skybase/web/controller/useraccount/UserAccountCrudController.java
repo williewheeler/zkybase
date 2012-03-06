@@ -25,6 +25,7 @@ import org.skydingo.skybase.service.UserAccountService;
 import org.skydingo.skybase.web.controller.AbstractCrudController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.social.github.api.GitHubUserProfile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -84,7 +85,10 @@ public class UserAccountCrudController extends AbstractCrudController<UserAccoun
 		model.addAttribute("entity", dummy);
 		
 		// GitHub profile
-		model.addAttribute(userAccountService.getCurrentUserProfile());
+		GitHubUserProfile gitHubUser = userAccountService.getCurrentUserProfile();
+		if (gitHubUser != null) {
+			model.addAttribute(gitHubUser);
+		}
 		
 		return addNavigation(model, sitemap.getCiDetailsViewId(UserAccount.class));
 	}

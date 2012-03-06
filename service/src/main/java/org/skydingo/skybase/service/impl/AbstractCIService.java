@@ -22,6 +22,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.skydingo.skybase.exception.DuplicateCIException;
 import org.skydingo.skybase.exception.NoSuchCIException;
 import org.skydingo.skybase.model.CI;
 import org.skydingo.skybase.service.CIService;
@@ -59,20 +60,33 @@ public abstract class AbstractCIService<T extends CI<T>> implements CIService<T>
 	@Override
 	public void create(T ci, Errors errors) {
 		notNull(ci);
+		notNull(errors);
 		
-		// FIXME Need to check for errors here, like duplicates
+		if (!errors.hasErrors()) {
+			try {
+				createAddDate(ci);
+			} catch (DuplicateCIException e) {
+				log.debug("Duplicate CI");
+				errors.reject("error.duplicateCI");
+			}
+		}
 		
-		if (errors == null || !errors.hasErrors()) {
-			createAddDate(ci);
-		} else {
+		if (errors.hasErrors()) {
 			log.debug("Invalid CI; not saving");
 		}
 	}
 	
 	private void createAddDate(T ci) {
+		checkForDuplicate(ci);
 		ci.setDateCreated(new Date());
 		getRepository().save(ci);
 	}
+	
+	/**
+	 * @param ci CI
+	 * @throws DuplicateCIException if a duplicate exists
+	 */
+	protected void checkForDuplicate(T ci) { }
 	
 	/* (non-Javadoc)
 	 * @see org.skydingo.skybase.service.CIService#findAll()

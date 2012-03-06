@@ -49,7 +49,11 @@ public class UserAccountServiceImpl extends AbstractCIService<UserAccount> imple
 	 */
 	@Override
 	public GitHubUserProfile getCurrentUserProfile() {
-		return gitHub().userOperations().getUserProfile();
+		if (gitHub().isAuthorized()) {
+			return gitHub().userOperations().getUserProfile();
+		} else {
+			return null;
+		}
 	}
 	
 	private GitHub gitHub() {

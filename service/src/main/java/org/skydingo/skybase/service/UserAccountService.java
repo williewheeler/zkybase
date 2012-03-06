@@ -24,7 +24,7 @@ import org.springframework.social.github.api.GitHubUserProfile;
 public interface UserAccountService extends CIService<UserAccount> {
 	
 	/**
-	 * @return
+	 * @return current GitHub user profile, or null if the user isn't authenticated to GitHub
 	 */
 	GitHubUserProfile getCurrentUserProfile();
 }
