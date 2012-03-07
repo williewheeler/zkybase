@@ -25,8 +25,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import org.neo4j.graphdb.Direction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 
@@ -36,8 +34,6 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
 @XmlRootElement
 @XmlType(propOrder = { "name", "region" })
 public class DataCenter extends AbstractCI<DataCenter> {
-	private static final Logger log = LoggerFactory.getLogger(DataCenter.class);
-	
 	private String name;
 	
 	@Fetch

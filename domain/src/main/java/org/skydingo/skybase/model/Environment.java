@@ -24,9 +24,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Environment entity.
  * 
@@ -35,8 +32,6 @@ import org.slf4j.LoggerFactory;
 @XmlRootElement
 @XmlType(propOrder = { "name" })
 public class Environment extends AbstractCI<Environment> {
-	private static final Logger log = LoggerFactory.getLogger(Environment.class);
-	
 	private String name;
 	
 	public Environment() { }
