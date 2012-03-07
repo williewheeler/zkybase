@@ -13,12 +13,6 @@
 <section class="first">
 	<div class="well">
 		<table class="grid">
-			<%--
-			<tr>
-				<td>Name:</td>
-				<td><c:out value="${user.fullName}" /></td>
-			</tr>
-			--%>
 			<tr>
 				<td>Username:</td>
 				<td><c:out value="${user.username}" /></td>
