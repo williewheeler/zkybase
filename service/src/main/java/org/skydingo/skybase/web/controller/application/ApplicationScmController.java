@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.github.api.GitHub;
 import org.springframework.social.github.api.GitHubCommit;
+import org.springframework.social.github.api.GitHubDownload;
 import org.springframework.social.github.api.GitHubHook;
 import org.springframework.social.github.api.GitHubUser;
 import org.springframework.social.github.api.impl.GitHubTemplate;
@@ -108,6 +109,21 @@ public class ApplicationScmController extends AbstractController {
 		model.addAttribute("commitList", commits);
 		
 		return addNavigation(model, "applicationScmCommits");
+	}
+	
+	@RequestMapping(value = "/{id}/scm/downloads", method = RequestMethod.GET)
+	public String getDownloads(@PathVariable Long id, Model model) {
+		Application app = applicationService.findOne(id);
+		
+		// FIXME Currently assuming GitHub.
+		GitHubScm scm = (GitHubScm) app.getScm();
+		List<GitHubDownload> downloads = gitHub.repoOperations().getDownloads(scm.getUser(), scm.getRepo());
+		
+		model.addAttribute(app);
+		model.addAttribute("entity", app);
+		model.addAttribute("downloadList", downloads);
+		
+		return addNavigation(model, "applicationScmDownloads");
 	}
 	
 	/**

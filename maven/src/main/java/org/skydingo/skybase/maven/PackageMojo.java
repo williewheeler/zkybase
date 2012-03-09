@@ -26,11 +26,15 @@ import org.springframework.web.client.RestTemplate;
 /**
  * Package goal mojo.
  * 
- * @goal package
- * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
+ * @goal package
  */
 public class PackageMojo extends AbstractMojo {
+	
+	/**
+	 * @parameter expression="${skybaseUrl}"
+	 */
+	private String skybaseUrl;
 	
 	/**
 	 * @parameter expression="${package.module}"
@@ -47,16 +51,7 @@ public class PackageMojo extends AbstractMojo {
 	 */
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		SkybaseClient client = new SkybaseClient();
-		client.setRestTemplate(new RestTemplate());
-		
-		// Create new package
-		Package pkg = new Package(module, version);
-		Long pkgId = client.createPackage(pkg);
-		if (pkgId == 0L) {
-			getLog().info("Package already exists");
-		} else {
-			getLog().info("Created package id " + pkgId);
-		}
+		SkybaseClient client = new SkybaseClient(new RestTemplate(), skybaseUrl);
+		client.createPackage(new Package(module, version));
 	}
 }

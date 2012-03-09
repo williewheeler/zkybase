@@ -49,6 +49,9 @@
 	<definition name="applicationScmCommits" extends="detailsPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/application/scm/applicationScmCommits.jsp" cascade="true" />
 	</definition>
+	<definition name="applicationScmDownloads" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/scm/applicationScmDownloads.jsp" cascade="true" />
+	</definition>
 	<definition name="applicationScmWatchers" extends="detailsPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/application/scm/applicationScmWatchers.jsp" cascade="true" />
 	</definition>

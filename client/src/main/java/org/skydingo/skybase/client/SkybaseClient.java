@@ -29,41 +29,37 @@ import org.springframework.web.client.RestTemplate;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public class SkybaseClient {
-	
-	// FIXME Hardcoded location
-	private static final String PACKAGES_URL = "http://localhost:8080/packages";
-	
 	private static final Logger log = LoggerFactory.getLogger(SkybaseClient.class);
 	
 	private RestTemplate template;
+	private String skybaseUrl;
+	
+	/**
+	 * Note: This constructor appends a "/" to the URL if the URL doesn't already end with one.
+	 * 
+	 * @param template REST template
+	 * @param skybaseUrl Skybase URL
+	 */
+	public SkybaseClient(RestTemplate template, String skybaseUrl) {
+		this.template = template;
+		if (!skybaseUrl.endsWith("/")) { skybaseUrl += "/"; }
+		this.skybaseUrl = skybaseUrl;
+	}
 	
 	/**
 	 * @return REST template
 	 */
 	public RestTemplate getRestTemplate() { return template; }
 	
-	/**
-	 * @param template REST template
-	 */
-	public void setRestTemplate(RestTemplate template) { this.template = template; }
+	public String getSkybaseUrl() { return skybaseUrl; }
 	
 	/**
 	 * @param pkg package
-	 * @return package ID, or 0 if no package was created
 	 */
-	public Long createPackage(Package pkg) {
+	public void createPackage(Package pkg) {
 		notNull(pkg);
-		
-		log.debug("Posting package {} to URL {}", pkg, PACKAGES_URL);
-		URI location = template.postForLocation(PACKAGES_URL, pkg);
-		
-		if (location == null) {
-			return 0L;
-		} else {
-			String s = location.toString();
-			log.debug("location={}", s);
-			return Long.parseLong(s.substring(s.lastIndexOf('/') + 1));
-		}
+		URI location = template.postForLocation(getPackagesUrl(), pkg);
+		log.info("Created package: {}", location);
 	}
 	
 	/**
@@ -71,7 +67,9 @@ public class SkybaseClient {
 	 */
 	public List<Package> getPackages() {
 		return template
-			.getForObject("http://localhost:8080/packages?format=xml", Package.PackageListWrapper.class)
+			.getForObject(getPackagesUrl() + "?format=xml", Package.PackageListWrapper.class)
 			.getList();
 	}
+	
+	private String getPackagesUrl() { return skybaseUrl + "packages"; }
 }

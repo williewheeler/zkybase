@@ -49,6 +49,8 @@
 		</property>
 	</bean>
 	
+	<bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" factory-method="noOpText" />
+	
 	<bean id="usersConnectionRepository" class="org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository">
 		<constructor-arg ref="dataSource" />
 		<constructor-arg ref="connectionFactoryLocator" />
@@ -64,8 +66,6 @@
 		<constructor-arg value="#{request.userPrincipal.name}" />
 		<aop:scoped-proxy proxy-target-class="false" />
 	</bean>
-	
-	<bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" factory-method="noOpText" />
 	
 <!-- 	<bean class="org.springframework.social.github.api.impl.GitHubTemplate" /> -->
 	

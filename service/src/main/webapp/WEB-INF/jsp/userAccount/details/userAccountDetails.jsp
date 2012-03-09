@@ -3,7 +3,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="social" uri="http://www.springframework.org/spring-social/social/tags" %>
 
-<c:url var="connectUrl" value="/connect" />
 <c:url var="githubUrl" value="/connect/github" />
 
 <sec:authentication var="user" property="principal" />

@@ -124,12 +124,14 @@ public class Sitemap {
 		SitemapNode scmNode = buildNode("applicationScm", "'SCM'", false, scmPath, appNode);
 		SitemapNode collaboratorsNode = buildNode("applicationScmCollaborators", "'Collaborators'", false, scmPath + " + '/collaborators'", scmNode);
 		SitemapNode commitsNode = buildNode("applicationScmCommits", "'Commits'", false, scmPath + " + '/commits'", scmNode);
+		SitemapNode downloadsNode = buildNode("applicationScmDownloads", "'Downloads'", false, scmPath + " + '/downloads'", scmNode);
 		SitemapNode watchersNode = buildNode("applicationScmWatchers", "'Watchers'", false, scmPath + " + '/watchers'", scmNode);
 		SitemapNode hooksNode = buildNode("applicationScmHooks", "'Hooks'", false, scmPath + " + '/hooks'", scmNode);
 		
 		scmNode.setShowInDetailsSidebar(true);
 		collaboratorsNode.setShowInDetailsSidebar(true);
 		commitsNode.setShowInDetailsSidebar(true);
+		downloadsNode.setShowInDetailsSidebar(true);
 		collaboratorsNode.setShowInDetailsSidebar(true);
 		watchersNode.setShowInDetailsSidebar(true);
 		hooksNode.setShowInDetailsSidebar(true);

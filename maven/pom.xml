@@ -42,16 +42,16 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>${project.artifactId}</artifactId>
-				<version>${project.version}</version>
+				<groupId>org.skydingo.skybase</groupId>
+				<artifactId>skybase-maven-plugin</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
 				<configuration>
+					<skybaseUrl>http://localhost:8080/</skybaseUrl>
 					<module>
 						<groupId>${project.groupId}</groupId>
 						<moduleId>${project.artifactId}</moduleId>
 					</module>
-<!-- 					<version>${project.version}</version> -->
-					<version>1.3.0-RELEASE</version>
+					<version>${project.version}</version>
 				</configuration>
 				<executions>
 					<execution>
@@ -64,4 +64,15 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<!--
+	<distributionManagement>
+		<repository>
+			<id>dummy</id>
+			<name>Dummy Artifact Repository</name>
+			<url>http://example.com/dummy</url>
+			<uniqueVersion>false</uniqueVersion>
+		</repository>
+	</distributionManagement>
+	-->
 </project>
