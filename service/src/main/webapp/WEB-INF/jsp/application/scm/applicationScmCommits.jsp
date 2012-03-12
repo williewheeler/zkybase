@@ -12,7 +12,7 @@
 			<c:set var="committerUrl" value="https://github.com/${committer.login}" />
 			
 			<tr>
-				<td><img class="avatar" src="${author.avatarUrl}" style="width:64px;height:64px" /></td>
+				<td><img class="avatar" src="${author.avatarUrl}" /></td>
 				<td>
 					<div style="margin-bottom:10px"><c:out value="${commit.commit.message}" /></div>
 					<div>Authored by <a href="${authorUrl}"><c:out value="${author.login}" /></a></div>

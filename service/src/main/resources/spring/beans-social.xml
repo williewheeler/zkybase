@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		">
+		
+	<bean id="connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
+		<property name="connectionFactories">
+			<list>
+				<bean class="org.springframework.social.github.connect.GitHubConnectionFactory"
+					c:clientId="${gitHub.clientId}"
+					c:clientSecret="${gitHub.clientSecret}" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="usersConnectionRepository"
+		class="org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository"
+		c:dataSource-ref="dataSource"
+		c:connectionFactoryLocator-ref="connectionFactoryLocator"
+		c:textEncryptor-ref="textEncryptor" />
+	
+	<!-- This requires authentication via Spring Security -->
+	<bean id="connectionRepository"
+		factory-bean="usersConnectionRepository"
+		factory-method="createConnectionRepository" 
+		scope="request"
+		c:userId="#{request.userPrincipal.name}">
+		
+		<aop:scoped-proxy proxy-target-class="false" />
+	</bean>
+	
+	
+	<!-- =========================================================================================================== -->
+	<!-- Profiles                                                                                                    -->
+	<!-- =========================================================================================================== -->
+	
+	<beans profile="dev">
+		<bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" factory-method="noOpText" />
+	</beans>
+	
+	<beans profile="prod">
+		<bean id="textEncryptor"
+			class="org.springframework.security.crypto.encrypt.Encryptors"
+			factory-method="text"
+			c:password="${security.encryptPassword}"
+			c:salt="${security.encryptSalt}" />
+	</beans>
+</beans>

@@ -7,6 +7,9 @@
 	<definition name="connect/status" extends="pageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/connect/status.jsp" cascade="true" />
 	</definition>
+	<definition name="connect/githubConnect" extends="pageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/connect/githubConnect.jsp" cascade="true" />
+	</definition>
 	<!--
 	<definition name="farmDetails" extends="detailsPageTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/farm/farmDetails.jsp" cascade="true" />

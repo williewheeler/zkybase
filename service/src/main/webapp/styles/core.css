@@ -51,7 +51,7 @@ ul.inlineLinks li:first-child { margin-left: 0; }
 
 .secondary { font-size: 93%; color: #999; }
 
-.gravatar img {
+img.avatar {
 	width: 64px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -79,10 +79,6 @@ h3 {
 }
 
 /* a { color: #009694; } */
-
-.avatar {
-	border-radius: 10px;
-}
 
 /* TABLES =========================================================================================================== */
 

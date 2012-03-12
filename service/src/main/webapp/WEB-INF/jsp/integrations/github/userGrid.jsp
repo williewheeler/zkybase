@@ -6,7 +6,7 @@
 			<c:set var="userUrl" value="https://github.com/${user.login}" />
 			<c:url var="avatarUrl" value="${user.avatarUrl}" />
 		
-			<div class="span1"><a href="${userUrl}" target="_blank"><img src="${avatarUrl}" style="width:64px;height:64px" /></a></div>
+			<div class="span1"><a href="${userUrl}" target="_blank"><img class="avatar" src="${avatarUrl}" /></a></div>
 			<div class="span2"><a href="${userUrl}" target="_blank"><c:out value="${user.login}" /></a></div>
 		</c:forEach>
 	</div>
