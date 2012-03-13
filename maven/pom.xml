@@ -5,29 +5,29 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.skydingo.skybase</groupId>
-		<artifactId>org.skydingo.skybase</artifactId>
+		<groupId>org.zkybase</groupId>
+		<artifactId>org.zkybase</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
 	
 	<!-- This follows the maven artifact ID convention -->
-	<artifactId>skybase-maven-plugin</artifactId>
+	<artifactId>zkybase-maven-plugin</artifactId>
 	
 	<packaging>maven-plugin</packaging>
-	<name>Skybase Maven Plugins</name>
+	<name>Zkybase Maven Plugins</name>
 	
 	<dependencies>
 	
 		<!-- Skybase -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>org.skydingo.skybase.client</artifactId>
+			<artifactId>org.zkybase.client</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>org.skydingo.skybase.domain</artifactId>
+			<artifactId>org.zkybase.domain</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		
@@ -42,8 +42,8 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.skydingo.skybase</groupId>
-				<artifactId>skybase-maven-plugin</artifactId>
+				<groupId>org.zkybase</groupId>
+				<artifactId>zkybase-maven-plugin</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 				<configuration>
 					<skybaseUrl>http://localhost:8080/</skybaseUrl>

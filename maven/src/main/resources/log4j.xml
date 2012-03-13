@@ -8,7 +8,7 @@
 			<param name="ConversionPattern" value="%d %-5p %.10t %c - %m%n" />
 		</layout> 
 	</appender>
-	<logger name="org.skydingo.skybase.client">
+	<logger name="org.zkybase.client">
 		<level value="debug" />
 	</logger>
 	<root>

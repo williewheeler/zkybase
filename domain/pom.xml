@@ -5,13 +5,13 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.skydingo.skybase</groupId>
-		<artifactId>org.skydingo.skybase</artifactId>
+		<groupId>org.zkybase</groupId>
+		<artifactId>org.zkybase</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
-	<artifactId>org.skydingo.skybase.domain</artifactId>
-	<name>Skybase Domain</name>
+	<artifactId>org.zkybase.domain</artifactId>
+	<name>Zkybase Domain</name>
 	
 	<dependencies>
 		

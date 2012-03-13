@@ -21,12 +21,12 @@
 	<context:property-placeholder location="classpath:/spring/environment.properties" />
 	<context:annotation-config />
 <!-- 	<context:spring-configured /> -->
-	<context:component-scan base-package="org.skydingo.skybase.service.impl" />
+	<context:component-scan base-package="org.zkybase.service.impl" />
 
-	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/SkybaseDS" />
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/ZkybaseDS" />
 		
 	<tx:annotation-driven />
 
 	<neo4j:config storeDirectory="${graphDb.dir}" />
-	<neo4j:repositories base-package="org.skydingo.skybase.repository" />
+	<neo4j:repositories base-package="org.zkybase.repository" />
 </beans>

@@ -19,9 +19,9 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.skydingo.skybase.client.SkybaseClient;
-import org.skydingo.skybase.model.Module;
-import org.skydingo.skybase.model.Package;
 import org.springframework.web.client.RestTemplate;
+import org.zkybase.model.Module;
+import org.zkybase.model.Package;
 
 /**
  * Package goal mojo.

@@ -20,10 +20,10 @@ import static org.springframework.util.Assert.notNull;
 import java.net.URI;
 import java.util.List;
 
-import org.skydingo.skybase.model.Package;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
+import org.zkybase.model.Package;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)

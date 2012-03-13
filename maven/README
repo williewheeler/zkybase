@@ -6,7 +6,7 @@ To run the plugin:
 
 3) Run
 
-    mvn -e org.skydingo.skybase:skybase-maven-plugin:0.0.1-SNAPSHOT:package
+    mvn -e org.zkybase:skybase-maven-plugin:0.0.1-SNAPSHOT:package
 
 or, better:
 

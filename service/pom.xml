@@ -5,8 +5,8 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.skydingo.skybase</groupId>
-		<artifactId>org.skydingo.skybase</artifactId>
+		<groupId>org.zkybase</groupId>
+		<artifactId>org.zkybase</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
@@ -17,7 +17,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>org.skydingo.skybase.domain</artifactId>
+			<artifactId>org.zkybase.domain</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		
