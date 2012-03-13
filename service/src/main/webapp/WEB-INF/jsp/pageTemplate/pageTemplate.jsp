@@ -22,7 +22,7 @@
 
 <html lang="en">
 	<head>
-		<title><c:out value="${navigation.pageTitle}" /> - Skybase</title>
+		<title><c:out value="${navigation.pageTitle}" /> - Zkybase</title>
 		<link rel="shortcut icon" type="image/x-icon" href="${faviconUrl}" />
 		<link rel="stylesheet" type="text/css" href="${bootstrapCssUrl}" />
 		<link rel="stylesheet" type="text/css" href="${jitCssUrl}" />

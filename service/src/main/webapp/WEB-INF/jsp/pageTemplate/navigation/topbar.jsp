@@ -23,7 +23,7 @@
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
-			<a class="brand" href="${dashboardUrl}">Skybase</a>
+			<a class="brand" href="${dashboardUrl}">Zkybase</a>
 			<ul class="nav">
 				<li id="developmentArea" class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">

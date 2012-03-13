@@ -4,14 +4,14 @@ body {
 	font-family: lucida grande, verdana, arial, sans-serif;
 }
 
-#footer {
+footer {
 	margin-top: 30px;
 	border-top: 2px solid #EEE;
 	padding: 20px 0;
-	text-align: center;
+	text-align: left;
 }
 
-#footer p { font-size: 93%; }
+footer p { font-size: 93%; }
 
 .sidebar { margin-top: 7px; }
 

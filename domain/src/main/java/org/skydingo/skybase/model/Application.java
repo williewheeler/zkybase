@@ -47,7 +47,7 @@ public class Application extends AbstractCI<Application> {
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 	
 	// FIXME Temporary
-	private static final GitHubScm SKYBASE_SCM = new GitHubScm("williewheeler", "skybase");
+	private static final GitHubScm ZKYBASE_SCM = new GitHubScm("williewheeler", "zkybase");
 	
 	@Indexed private String name;
 	private String shortDescription;
@@ -98,7 +98,7 @@ public class Application extends AbstractCI<Application> {
 	@XmlElement
 	public GitHubScm getScm() {
 		// FIXME Temporary
-		return SKYBASE_SCM;
+		return ZKYBASE_SCM;
 	}
 	
 	/**

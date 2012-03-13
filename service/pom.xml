@@ -10,9 +10,9 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
-	<artifactId>org.skydingo.skybase.service</artifactId>
+	<artifactId>org.zkybase.service</artifactId>
 	<packaging>war</packaging>
-	<name>Skybase Service</name>
+	<name>Zkybase Service</name>
 
 	<dependencies>
 		<dependency>
@@ -286,7 +286,7 @@
 <!-- 					<junitArtifactName>org.junit:com.springsource.org.junit</junitArtifactName> -->
 					
 					<additionalClasspathElements>
-						<additionalClasspathElement>${skybase.conf.dir}/classes-it</additionalClasspathElement>
+						<additionalClasspathElement>${zkybase.conf.dir}/classes-it</additionalClasspathElement>
 					</additionalClasspathElements>
 				</configuration>
 				<executions>
@@ -310,10 +310,10 @@
 				<version>6.1.21</version>
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<jettyEnvXml>${skybase.conf.dir}/jetty-env.xml</jettyEnvXml>
+					<jettyEnvXml>${zkybase.conf.dir}/jetty-env.xml</jettyEnvXml>
 					<webAppConfig>
 						<contextPath>/</contextPath>
-						<extraClasspath>${skybase.conf.dir}/classes</extraClasspath>
+						<extraClasspath>${zkybase.conf.dir}/classes</extraClasspath>
 					</webAppConfig>
 				</configuration>
 			</plugin>

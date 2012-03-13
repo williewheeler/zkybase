@@ -18,6 +18,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ========================================================================================================================
 
+ZKYBASE OVERVIEW
+
 From a high level, Zkybase is an open source configuration management database, or CMDB. As such its goal is to support runbook automation, especially deployment and operations use cases.
 
 Technically Zkybase explores the use of Neo4j in building a configuration management database. We're trying to address a few challenges we've seen building another CM system (one that's based upon a relational backend):
@@ -29,3 +31,15 @@ Technically Zkybase explores the use of Neo4j in building a configuration manage
 3) Defining, viewing and navigating relationships in the UI requires significant database, service and UI development.
 
 The thought is that we can use a generic data representation--a graph--to address these issues. For example, instead of building custom tables, services and UI for individual entities and for entity navigation, we can use generic graph operations to establish these. Adding a person to a team, say, is the same sort of operation as adding an instance to a farm.
+
+INSTALLING AND CONFIGURING ZKYBASE
+
+You'll need to set up a Neo4j database, as well as a relational database (e.g. MySQL) for the Spring Social connection repository.
+
+RUNNING ZKYBASE
+
+For Jetty, use
+
+    mvn -Dspring.profiles.active=dev -e clean jetty:run
+
+Note that you need to specify a profile (above we're using dev, but you can do "prod" as well) since the Spring configuration depends on it. If you don't want to have to specify the profile manually each time, you can either wrap the command with a script or else just set a system environment variable (same one as the JVM system property).
