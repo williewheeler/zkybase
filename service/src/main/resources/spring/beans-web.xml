@@ -58,6 +58,8 @@
 		</property>
 	</bean>
 	
+	<mvc:view-controller path="/login" />
+	
 	<context:component-scan base-package="org.zkybase.formatter" />
 	<context:component-scan base-package="org.zkybase.web.controller" />
 	<context:component-scan base-package="org.zkybase.web.view" />

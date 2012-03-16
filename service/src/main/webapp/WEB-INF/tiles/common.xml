@@ -43,4 +43,8 @@
 		<put-attribute name="content" value="titledTemplate" />
 	</definition>
 	
+	<!-- Login page -->
+	<definition name="login" extends="pageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/login.jsp" />
+	</definition>
 </tiles-definitions>
