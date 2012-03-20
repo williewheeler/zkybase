@@ -35,12 +35,22 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
 // See AbstractEntityController.getDetailsAsJson() for the workaround.
 
 /**
- * Package entity.
+ * Package CI. This can be a platform package like an EAR, WAR or DLL, or it can be an OS package like an RPM, Debian
+ * or MSI.
  * 
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @XmlRootElement
-@XmlType(propOrder = { "module", "version" })
+@XmlType(propOrder = {
+	"module",
+	"version",
+	"hash",
+	"passedAutomatedAcceptanceTesting",
+	"passedManualAcceptanceTesting",
+	"passedCapacityTesting",
+	"readyForRelease",
+	"released"
+})
 public class Package extends AbstractCI<Package> {
 	
 	@Fetch
@@ -48,6 +58,13 @@ public class Package extends AbstractCI<Package> {
 	private Module module;
 	
 	@Indexed private String version;
+	
+	private String hash;
+	private boolean passedAutomatedAcceptanceTesting;
+	private boolean passedManualAcceptanceTesting;
+	private boolean passedCapacityTesting;
+	private boolean readyForRelease;
+	private boolean released;
 	
 	/**
 	 * 
@@ -88,6 +105,89 @@ public class Package extends AbstractCI<Package> {
 	 */
 	public void setVersion(String version) { this.version = version; }
 	
+	/**
+	 * @return package hash, used to verify packages
+	 */
+	@XmlElement
+	public String getHash() { return hash; }
+	
+	/**
+	 * @param hash package hash, used to verify packages
+	 */
+	public void setHash(String hash) { this.hash = hash; }
+	
+	/**
+	 * @return indicates whether the package has passed automated acceptance (functional) testing
+	 */
+	@XmlElement
+	public boolean getPassedAutomatedAcceptanceTesting() {
+		return passedAutomatedAcceptanceTesting;
+	}
+
+	/**
+	 * @param passedAutomatedAcceptanceTesting
+	 */
+	public void setPassedAutomatedAcceptanceTesting(boolean passedAutomatedAcceptanceTesting) {
+		this.passedAutomatedAcceptanceTesting = passedAutomatedAcceptanceTesting;
+	}
+
+	/**
+	 * @return indicates whether the package has passed manual acceptance (functional) testing
+	 */
+	@XmlElement
+	public boolean getPassedManualAcceptanceTesting() {
+		return passedManualAcceptanceTesting;
+	}
+
+	public void setPassedManualAcceptanceTesting(boolean passedManualAcceptanceTesting) {
+		this.passedManualAcceptanceTesting = passedManualAcceptanceTesting;
+	}
+
+	/**
+	 * @return indicates whether the package has passed capacity testing
+	 */
+	@XmlElement
+	public boolean getPassedCapacityTesting() {
+		return passedCapacityTesting;
+	}
+
+	/**
+	 * @param passedCapacityTesting
+	 */
+	public void setPassedCapacityTesting(boolean passedCapacityTesting) {
+		this.passedCapacityTesting = passedCapacityTesting;
+	}
+
+	/**
+	 * @return indicates whether the package is ready to be released
+	 */
+	@XmlElement
+	public boolean getReadyForRelease() {
+		return readyForRelease;
+	}
+
+	/**
+	 * @param readyForRelease
+	 */
+	public void setReadyForRelease(boolean readyForRelease) {
+		this.readyForRelease = readyForRelease;
+	}
+
+	/**
+	 * @return indicates whether the package has been released
+	 */
+	@XmlElement
+	public boolean getReleased() {
+		return released;
+	}
+
+	/**
+	 * @param released
+	 */
+	public void setReleased(boolean released) {
+		this.released = released;
+	}
+
 	/* (non-Javadoc)
 	 * @see org.zkybase.model.Entity#getDisplayName()
 	 */
