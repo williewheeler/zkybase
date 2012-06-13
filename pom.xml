@@ -15,12 +15,10 @@
 	<artifactId>cmdb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Skybase POM</name>
+	<name>Zkybase CMDB</name>
 	
 	<modules>
-		<module>domain</module>
 		<module>service</module>
-		<module>client</module>
 		<module>maven</module>
 		<module>ui</module>
 	</modules>

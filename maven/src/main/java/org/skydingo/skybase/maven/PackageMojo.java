@@ -18,10 +18,6 @@ package org.skydingo.skybase.maven;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.skydingo.skybase.client.SkybaseClient;
-import org.springframework.web.client.RestTemplate;
-import org.zkybase.model.Module;
-import org.zkybase.model.Package;
 
 /**
  * Package goal mojo.
@@ -36,10 +32,10 @@ public class PackageMojo extends AbstractMojo {
 	 */
 	private String skybaseUrl;
 	
-	/**
-	 * @parameter expression="${package.module}"
-	 */
-	private Module module;
+//	/**
+//	 * @parameter expression="${package.module}"
+//	 */
+//	private Module module;
 	
 	/**
 	 * @parameter expression="${package.version}"
@@ -51,7 +47,7 @@ public class PackageMojo extends AbstractMojo {
 	 */
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		SkybaseClient client = new SkybaseClient(new RestTemplate(), skybaseUrl);
-		client.createPackage(new Package(module, version));
+//		SkybaseClient client = new SkybaseClient(new RestTemplate(), skybaseUrl);
+//		client.createPackage(new Package(module, version));
 	}
 }
