@@ -28,8 +28,11 @@
 	<definition name="createApplicationModuleForm" template="/WEB-INF/jsp/application/module/applicationModuleForm.jsp" />
 
 	<!-- Application packages -->
+	<definition name="applicationPackageDetails" extends="detailsPageTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/application/module/package/package.jsp" cascade="true" />
+	</definition>
 	<definition name="applicationPackageForm" extends="titledPageTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/application/module/package/applicationPackageForm.jsp" cascade="true" />
+		<put-attribute name="content" value="/WEB-INF/jsp/application/module/package/packageForm.jsp" cascade="true" />
 	</definition>
 	<definition name="createApplicationPackageForm" extends="applicationPackageForm" />
 	<definition name="editApplicationPackageForm" extends="applicationPackageForm" />

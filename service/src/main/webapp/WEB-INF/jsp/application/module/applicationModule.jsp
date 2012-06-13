@@ -53,15 +53,20 @@
 				</thead>
 				<tbody>
 					<c:forEach var="package" items="${packageList}">
+						<c:set var="packagePath" value="/applications/${application.id}/modules/${module.id}/packages/${package.id}" />
+						<c:url var="packageUrl" value="${packagePath}" />
+						<c:url var="editPackageUrl" value="${packagePath}/edit" />
 						<tr>
-							<td><span class="iconx package"><c:out value="${package.version}" /></span></td>
+							<td>
+								<a href="${packageUrl}"><span class="iconx package"><c:out value="${package.version}" /></span></a>
+							</td>
 							<td>
 								<c:if test="${not empty package.dateCreated}">
 									<span class="iconx date"><fmt:formatDate value="${package.dateCreated}" type="both" /></span>
 								</c:if>
 							</td>
 							<td class="editDeleteColumn">
-								<a class="editLink" href="#" title="Edit package"><img src="${editIconUrl}" /></a>
+								<a class="editLink" href="${editPackageUrl}" title="Edit package"><img src="${editIconUrl}" /></a>
 								<a class="deleteLink" href="#" title="Delete package"><img src="${deleteIconUrl}" /></a>
 							</td>
 						</tr>
