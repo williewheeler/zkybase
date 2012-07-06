@@ -35,11 +35,14 @@
 		<aop:scoped-proxy proxy-target-class="false" />
 	</bean>
 	
+	<bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" factory-method="noOpText" />
+	
 	
 	<!-- =========================================================================================================== -->
 	<!-- Profiles                                                                                                    -->
 	<!-- =========================================================================================================== -->
 	
+	<!--
 	<beans profile="dev">
 		<bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" factory-method="noOpText" />
 	</beans>
@@ -51,4 +54,5 @@
 			c:password="${security.encryptPassword}"
 			c:salt="${security.encryptSalt}" />
 	</beans>
+	-->
 </beans>
