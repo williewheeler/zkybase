@@ -18,13 +18,9 @@ package org.zkybase.cmdb.cli.command;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import java.io.PrintStream;
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,47 +29,37 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.zkybase.cmdb.cli.ParseException;
 import org.zkybase.cmdb.cli.Request;
-import org.zkybase.cmdb.cli.request.ListRequest;
-import org.zkybase.cmdb.connector.ApplicationOperations;
+import org.zkybase.cmdb.cli.request.QuitRequest;
 import org.zkybase.cmdb.connector.Zkybase;
-import org.zkybase.cmdb.dto.Application;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class ListCommandTestCase {
-	@InjectMocks private ListCommand command;
+public class QuitCommandTestCase {
+	@InjectMocks private QuitCommand command;
 	
 	@Mock private Zkybase zkybase;
-	@Mock private ApplicationOperations applicationOps;
 	@Mock private PrintStream out;
 	
-	@Mock private ListRequest request;
-	@Mock private Application application;
-	
-	private List<Application> applications;
+	@Mock private QuitRequest request;
 	
 	@Before
 	public void setUp() throws Exception {
-		this.command = new ListCommand();
+		this.command = new QuitCommand();
 		MockitoAnnotations.initMocks(this);
 		setUpTestObjects();
 		setUpDependencies();
 	}
 	
 	private void setUpTestObjects() {
-		this.applications = Arrays.asList(application, application, application);
 	}
 	
 	private void setUpDependencies() {
-		when(zkybase.applications()).thenReturn(applicationOps);
-		when(applicationOps.list()).thenReturn(applications);
-		
 	}
 	
 	@Test
 	public void getName() {
-		assertEquals("list", command.getName());
+		assertEquals("quit", command.getName());
 	}
 	
 	@Test
@@ -84,8 +70,8 @@ public class ListCommandTestCase {
 	
 	@Test
 	public void parse() {
-		Request actualRequest = command.parse(new String[0]);
-		assertNotNull(actualRequest);
+		Request request = command.parse(new String[0]);
+		assertNotNull(request);
 	}
 	
 	@Test(expected = ParseException.class)
@@ -95,7 +81,7 @@ public class ListCommandTestCase {
 	
 	@Test
 	public void execute() {
+		// This is a no-op method, so just run it for coverage
 		command.execute(request);
-		verify(out, times(applications.size())).println(anyString());
 	}
 }

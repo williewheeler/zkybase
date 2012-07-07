@@ -25,6 +25,7 @@ import java.util.Map;
 
 import org.zkybase.cmdb.cli.command.DeleteCommand;
 import org.zkybase.cmdb.cli.command.ListCommand;
+import org.zkybase.cmdb.cli.command.QuitCommand;
 import org.zkybase.cmdb.cli.util.IoUtils;
 import org.zkybase.cmdb.connector.Zkybase;
 import org.zkybase.cmdb.connector.impl.ZkybaseTemplate;
@@ -37,7 +38,8 @@ import org.zkybase.cmdb.connector.impl.ZkybaseTemplate;
 public class Shell {
 	private static final List<Command> COMMANDS = Arrays.asList(new Command[] {
 		new DeleteCommand(),
-		new ListCommand()
+		new ListCommand(),
+		new QuitCommand()
 	});
 	
 	private Zkybase zkybase;
@@ -71,6 +73,8 @@ public class Shell {
 		while (true) {
 			try {
 				if (!doCycle()) { break; }
+			} catch (ParseException e) {
+				System.err.println(e.getMessage());
 			} catch (Exception e) {
 				System.err.println(e);
 			}
@@ -82,7 +86,7 @@ public class Shell {
 		Command cmd = parseCommand(tokens[0]);
 		Request request = parseRequest(cmd, Arrays.copyOfRange(tokens, 1, tokens.length));
 		cmd.execute(request);
-		return true;
+		return (!(cmd instanceof QuitCommand));
 	}
 	
 	String getUserInput() throws IOException {

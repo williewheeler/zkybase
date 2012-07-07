@@ -15,49 +15,44 @@
  */
 package org.zkybase.cmdb.cli.command;
 
-import java.util.List;
-
 import org.zkybase.cmdb.cli.ParseException;
 import org.zkybase.cmdb.cli.Request;
-import org.zkybase.cmdb.cli.request.ListRequest;
-import org.zkybase.cmdb.dto.Application;
+import org.zkybase.cmdb.cli.request.QuitRequest;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class ListCommand extends AbstractCommand {
+public class QuitCommand extends AbstractCommand {
 
 	/* (non-Javadoc)
 	 * @see org.zkybase.cmdb.cli.Command#getName()
 	 */
 	@Override
-	public String getName() { return "list"; }
-	
+	public String getName() { return "quit"; }
+
 	/* (non-Javadoc)
 	 * @see org.zkybase.cmdb.cli.Command#showUsage()
 	 */
 	@Override
-	public void showUsage() { out.println("Usage: list"); }
-	
+	public void showUsage() { out.println("Usage: quit"); }
+
 	/* (non-Javadoc)
 	 * @see org.zkybase.cmdb.cli.Command#parse(java.lang.String[])
 	 */
 	@Override
 	public Request parse(String[] tokens) {
 		if (tokens.length > 0) {
-			throw new ParseException("list expects an empty list of arguments.");
+			throw new ParseException("quit expects an empty list of arguments.");
 		}
-		return new ListRequest();
+		return new QuitRequest();
 	}
-	
+
 	/* (non-Javadoc)
-	 * @see org.zkybase.cmdb.cli.Command#execute()
+	 * @see org.zkybase.cmdb.cli.Command#execute(org.zkybase.cmdb.cli.Request)
 	 */
 	@Override
 	public void execute(Request request) {
-		List<Application> applications = zkybase.applications().list();
-		for (Application application : applications) {
-			out.println(application.toString());
-		}
+		// No-op
 	}
+
 }

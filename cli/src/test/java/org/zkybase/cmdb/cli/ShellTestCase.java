@@ -16,6 +16,7 @@
 package org.zkybase.cmdb.cli;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doThrow;
@@ -35,6 +36,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.zkybase.cmdb.cli.command.DeleteCommand;
 import org.zkybase.cmdb.cli.command.ListCommand;
+import org.zkybase.cmdb.cli.command.QuitCommand;
 import org.zkybase.cmdb.cli.request.ListRequest;
 import org.zkybase.cmdb.cli.util.IoUtils;
 import org.zkybase.cmdb.connector.Zkybase;
@@ -56,6 +58,7 @@ public class ShellTestCase {
 	@Mock private InputStreamReader inputStreamReader;
 	@Mock private DeleteCommand deleteCommand;
 	@Mock private ListCommand listCommand;
+	@Mock private QuitCommand quitCommand;
 	@Mock private ListRequest listRequest;
 	
 	private List<Command> commandList;
@@ -69,12 +72,14 @@ public class ShellTestCase {
 	}
 	
 	private void setUpTestObjects() {
-		this.commandList = Arrays.asList(new Command[] { deleteCommand, listCommand });
+		this.commandList = Arrays.asList(new Command[] { deleteCommand, listCommand, quitCommand });
 		
 		when(deleteCommand.getName()).thenReturn("delete");
 		
 		when(listCommand.getName()).thenReturn("list");
 		when(listCommand.parse(GOOD_LIST_ARGS)).thenReturn(listRequest);
+		
+		when(quitCommand.getName()).thenReturn("quit");
 	}
 	
 	private void setUpDependencies() {
@@ -99,9 +104,19 @@ public class ShellTestCase {
 	}
 	
 	@Test
+	public void doCycleWithQuitCommand() throws Exception {
+		when(bufferedReader.readLine()).thenReturn("quit");
+		
+		boolean keepGoing = shell.doCycle();
+		assertFalse(keepGoing);
+	}
+	
+	@Test
 	public void parseCommands() {
+		// We're testing for the existence of the mock commands here, not the real commands.
 		assertNotNull(shell.parseCommand("delete"));
 		assertNotNull(shell.parseCommand("list"));
+		assertNotNull(shell.parseCommand("quit"));
 	}
 	
 	@Test(expected = ParseException.class)
