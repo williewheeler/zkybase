@@ -25,4 +25,6 @@
 
 	<neo4j:config storeDirectory="${graphDb.dir}" />
 	<neo4j:repositories base-package="org.zkybase.cmdb.api.repository" />
+	
+	<context:component-scan base-package="org.zkybase.cmdb.api.service.impl" />
 </beans>

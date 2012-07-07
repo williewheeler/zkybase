@@ -16,6 +16,7 @@
 package org.zkybase.cmdb.connector.impl;
 
 import static java.util.Arrays.asList;
+import static org.springframework.util.Assert.notNull;
 
 import java.util.List;
 
@@ -55,14 +56,27 @@ public class ApplicationTemplate implements ApplicationOperations {
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.zkybase.cmdb.connector.ApplicationOperations#getAll()
+	 * @see org.zkybase.cmdb.connector.ApplicationOperations#list()
 	 */
 	@Override
-	public List<Application> getAll() {
+	public List<Application> list() {
 		return asList(restTemplate.getForObject(getListUri(), Application[].class));
+	}
+
+	/* (non-Javadoc)
+	 * @see org.zkybase.cmdb.connector.ApplicationOperations#delete(java.lang.Long)
+	 */
+	@Override
+	public void delete(Long id) {
+		notNull(id, "id can't be null");
+		restTemplate.delete(getDetailsUri(), id);
 	}
 	
 	private String getListUri() {
 		return baseUri + "/applications";
+	}
+	
+	private String getDetailsUri() {
+		return getListUri() + "/{id}";
 	}
 }

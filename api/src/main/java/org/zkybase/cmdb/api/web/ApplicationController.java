@@ -15,8 +15,8 @@
  */
 package org.zkybase.cmdb.api.web;
 
-import static org.zkybase.cmdb.api.util.Assert.verifyArgNull;
 import static org.zkybase.cmdb.api.util.Assert.verifyArgNotNull;
+import static org.zkybase.cmdb.api.util.Assert.verifyArgNull;
 
 import java.util.List;
 
@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.zkybase.cmdb.api.domain.ApplicationEntity;
 import org.zkybase.cmdb.api.mapper.ApplicationMapper;
 import org.zkybase.cmdb.api.repository.ApplicationRepository;
+import org.zkybase.cmdb.api.service.ApplicationService;
 import org.zkybase.cmdb.api.util.UriResolver;
 import org.zkybase.cmdb.dto.Application;
 
@@ -46,6 +47,7 @@ public class ApplicationController {
 	private static final Logger log = LoggerFactory.getLogger(ApplicationController.class);
 	
 	@Inject private ApplicationRepository applicationRepo;
+	@Inject private ApplicationService applicationService;
 	@Inject private ApplicationMapper applicationMapper;
 	@Inject private UriResolver resolver;
 	
@@ -79,5 +81,12 @@ public class ApplicationController {
 	public Application get(@PathVariable Long id) {
 		verifyArgNotNull(id, "id");
 		return applicationMapper.toDto(applicationRepo.findOne(id));
+	}
+	
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable Long id, HttpServletResponse response) {
+		verifyArgNotNull(id, "id");
+		verifyArgNotNull(response, "response");
+		applicationService.delete(id);
 	}
 }

@@ -43,6 +43,7 @@ import org.zkybase.cmdb.dto.Application;
 public class ApplicationTemplateTestCase {
 	private static final String BASE_URI = "https://api.zkybase.org/v1";
 	private static final String SOME_LOCATION = "someLocation";
+	private static final Long APPLICATION_ID = 399L;
 	private static final int NUM_APPS = 4;
 	
 	private ApplicationTemplate applicationTemplate;
@@ -97,9 +98,20 @@ public class ApplicationTemplateTestCase {
 	}
 	
 	@Test
-	public void getAll() {
-		List<Application> actualApplications = applicationTemplate.getAll();
+	public void list() {
+		List<Application> actualApplications = applicationTemplate.list();
 		assertNotNull(actualApplications);
 		assertEquals(NUM_APPS, actualApplications.size());
+	}
+	
+	@Test
+	public void delete() {
+		applicationTemplate.delete(APPLICATION_ID);
+		verify(restTemplate).delete(anyString(), eq(APPLICATION_ID));
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteWithNullId() {
+		applicationTemplate.delete(null);
 	}
 }

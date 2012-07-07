@@ -35,6 +35,7 @@ public class Main {
 		Main main = new Main();
 		main.createApplication();
 		main.listApplications();
+//		main.deleteApplications();
 	}
 	
 	public Main() {
@@ -47,9 +48,16 @@ public class Main {
 	}
 	
 	public void listApplications() {
-		List<Application> applications = zkybase.applications().getAll();
+		List<Application> applications = zkybase.applications().list();
 		for (Application application : applications) {
 			log.info(application.toString());
 		}
+	}
+	
+	public void deleteApplications() {
+		zkybase.applications().delete(44L);
+		zkybase.applications().delete(45L);
+		zkybase.applications().delete(46L);
+		zkybase.applications().delete(47L);
 	}
 }

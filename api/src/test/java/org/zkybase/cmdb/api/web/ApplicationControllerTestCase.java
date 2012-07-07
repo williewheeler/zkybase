@@ -35,6 +35,7 @@ import org.neo4j.helpers.collection.ClosableIterable;
 import org.zkybase.cmdb.api.domain.ApplicationEntity;
 import org.zkybase.cmdb.api.mapper.ApplicationMapper;
 import org.zkybase.cmdb.api.repository.ApplicationRepository;
+import org.zkybase.cmdb.api.service.ApplicationService;
 import org.zkybase.cmdb.api.util.UriResolver;
 import org.zkybase.cmdb.dto.Application;
 
@@ -48,6 +49,7 @@ public class ApplicationControllerTestCase {
 	@InjectMocks private ApplicationController controller;
 	
 	@Mock private ApplicationRepository applicationRepo;
+	@Mock private ApplicationService applicationService;
 	@Mock private ApplicationMapper applicationMapper;
 	@Mock private UriResolver resolver;
 	
@@ -127,5 +129,20 @@ public class ApplicationControllerTestCase {
 	public void getWithNullId() {
 		controller.get(null);
 	}
-
+	
+	@Test
+	public void delete() {
+		controller.delete(APPLICATION_ID, response);
+		verify(applicationService).delete(APPLICATION_ID);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteWithNullId() {
+		controller.delete(null, response);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteWithNullResponse() {
+		controller.delete(APPLICATION_ID, null);
+	}
 }
