@@ -13,38 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zkybase.cmdb.dto;
+package org.zkybase.cmdb.connector.impl;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.MockitoAnnotations;
+import org.zkybase.cmdb.connector.ApplicationOperations;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class ApplicationTests {
-	private static final Long APPLICATION_ID = 9911L;
+public class ZkybaseTemplateTestCase {
+	private static final String BASE_URI = "https://api.zkybase.org/v1";
 	
-	private Application application;
+	private ZkybaseTemplate zkybase;
 	
 	@Before
 	public void setUp() throws Exception {
-		this.application = new Application();
+		this.zkybase = new ZkybaseTemplate(BASE_URI);
+		MockitoAnnotations.initMocks(this);
+		setUpTestObjects();
+		setUpDependencies();
+	}
+	
+	private void setUpTestObjects() {
+	}
+	
+	private void setUpDependencies() {
 	}
 	
 	@Test
-	public void idAccessors() {
-		assertNull(application.getId());
-		application.setId(APPLICATION_ID);
-		assertEquals(APPLICATION_ID, application.getId());
-	}
-	
-	@Test
-	public void testToString() {
-		application.setId(APPLICATION_ID);
-		assertNotNull(application.toString());
+	public void getApplications() {
+		ApplicationOperations applicationOps = zkybase.applications();
+		assertNotNull(applicationOps);
 	}
 }

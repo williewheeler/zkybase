@@ -24,7 +24,7 @@ import org.junit.Test;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class ApplicationEntityTests {
+public class ApplicationEntityTestCase {
 	private static final Long APPLICATION_ID = 9999L;
 	
 	private ApplicationEntity application;

@@ -13,28 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zkybase.cmdb.api.util;
+package org.zkybase.cmdb.connector;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class Assert {
+public interface Zkybase {
 	
-	static {
-		// Dummy instantiation to avoid the code coverage hit.
-		new Assert();
-	}
-	
-	/**
-	 * Prevent instantiation.
-	 */
-	private Assert() { }
-	
-	public static void verifyArgNull(Object arg, String argName) {
-		org.springframework.util.Assert.isNull(arg, argName + " must be null");
-	}
-	
-	public static void verifyArgNotNull(Object arg, String argName) {
-		org.springframework.util.Assert.notNull(arg, argName + " can't be null");
-	}
+	ApplicationOperations applications();
 }

@@ -37,7 +37,7 @@ import org.zkybase.cmdb.dto.Application;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @Component
-public class ApplicationMapperTests {
+public class ApplicationMapperTestCase {
 	private static final Long APPLICATION_ID = 9L;
 	private static final int APP_COUNT = 4;
 	

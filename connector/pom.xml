@@ -10,13 +10,22 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
-	<artifactId>dto</artifactId>
-	<name>Zkybase CMDB DTOs</name>
+	<artifactId>connector</artifactId>
+	<name>Zkybase CMDB Connector</name>
 	
 	<dependencies>
+	
+		<!-- Zkybase dependencies -->
 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>dto</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<!-- Other dependencies -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
 		</dependency>
 	</dependencies>
 </project>

@@ -13,28 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zkybase.cmdb.api.util;
+package org.zkybase.cmdb.connector.impl;
+
+import org.springframework.web.client.RestTemplate;
+import org.zkybase.cmdb.connector.ApplicationOperations;
+import org.zkybase.cmdb.connector.Zkybase;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class Assert {
+public class ZkybaseTemplate implements Zkybase {
+	private ApplicationTemplate applicationTemplate;
 	
-	static {
-		// Dummy instantiation to avoid the code coverage hit.
-		new Assert();
+	public ZkybaseTemplate(String baseUri) {
+		RestTemplate restTemplate = new RestTemplate();
+		this.applicationTemplate = new ApplicationTemplate(restTemplate, baseUri);
 	}
 	
-	/**
-	 * Prevent instantiation.
+	/* (non-Javadoc)
+	 * @see org.zkybase.cmdb.connector.Zkybase#applications()
 	 */
-	private Assert() { }
-	
-	public static void verifyArgNull(Object arg, String argName) {
-		org.springframework.util.Assert.isNull(arg, argName + " must be null");
+	@Override
+	public ApplicationOperations applications() {
+		return applicationTemplate;
 	}
-	
-	public static void verifyArgNotNull(Object arg, String argName) {
-		org.springframework.util.Assert.notNull(arg, argName + " can't be null");
-	}
+
 }

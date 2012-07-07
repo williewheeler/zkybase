@@ -41,7 +41,7 @@ import org.zkybase.cmdb.dto.Application;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class ApplicationControllerTests {
+public class ApplicationControllerTestCase {
 	private static final Long APPLICATION_ID = 4000L;
 	private static final String APPLICATION_LOCATION = "someLocation";
 	
@@ -55,6 +55,7 @@ public class ApplicationControllerTests {
 	@Mock private ApplicationEntity applicationEntity;
 	@Mock private ArrayList<Application> applicationDtos;
 	@Mock private Application applicationDto;
+	@Mock private Application applicationDtoForPost;
 	@Mock private HttpServletResponse response;
 	
 	@Before
@@ -69,13 +70,15 @@ public class ApplicationControllerTests {
 		when(applicationEntity.getId()).thenReturn(APPLICATION_ID);
 		
 		when(applicationDto.getId()).thenReturn(APPLICATION_ID);
+		
+		when(applicationDtoForPost.getId()).thenReturn(null);
 	}
 	
 	private void setUpDependencies() {
 		when(applicationRepo.findAll()).thenReturn(applicationEntities);
 		when(applicationRepo.findOne(APPLICATION_ID)).thenReturn(applicationEntity);
 		
-		when(applicationMapper.toEntity(applicationDto)).thenReturn(applicationEntity);
+		when(applicationMapper.toEntity(applicationDtoForPost)).thenReturn(applicationEntity);
 		when(applicationMapper.toDtoList(applicationEntities)).thenReturn(applicationDtos);
 		when(applicationMapper.toDto(applicationEntity)).thenReturn(applicationDto);
 		
@@ -84,9 +87,15 @@ public class ApplicationControllerTests {
 	
 	@Test
 	public void post() {
-		controller.post(applicationDto, response);
+		controller.post(applicationDtoForPost, response);
 		verify(applicationRepo).save((ApplicationEntity) anyObject());
 		verify(response).addHeader("Location", APPLICATION_LOCATION);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void postWithApplicationIdNotNull() {
+		assertNotNull(applicationDto.getId());
+		controller.post(applicationDto, response);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)

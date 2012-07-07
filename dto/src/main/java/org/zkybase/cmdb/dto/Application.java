@@ -15,6 +15,7 @@
  */
 package org.zkybase.cmdb.dto;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 /**
@@ -28,5 +29,12 @@ public class Application {
 	public Long getId() { return id; }
 	
 	public void setId(Long id) { this.id = id; }
-
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 }

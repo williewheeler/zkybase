@@ -15,7 +15,8 @@
  */
 package org.zkybase.cmdb.api.web;
 
-import static org.zkybase.cmdb.api.util.Assert.notNull;
+import static org.zkybase.cmdb.api.util.Assert.verifyArgNull;
+import static org.zkybase.cmdb.api.util.Assert.verifyArgNotNull;
 
 import java.util.List;
 
@@ -50,11 +51,19 @@ public class ApplicationController {
 	
 	@RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json")
 	public void post(@RequestBody Application application, HttpServletResponse response) {
-		notNull(application);
-		notNull(response);
+		verifyArgNotNull(application, "application");
+		verifyArgNotNull(response, "response");
+		verifyArgNull(application.getId(), "application.id");
+		
 		ApplicationEntity entity = applicationMapper.toEntity(application);
 		applicationRepo.save(entity);
-		String uri = resolver.resolve(ApplicationEntity.class, entity.getId());
+		
+		// Entity now has an ID, so we can set it on the DTO.
+		Long id = entity.getId();
+		application.setId(id);
+		
+		String uri = resolver.resolve(ApplicationEntity.class, id);
+		log.debug("Adding header: Location={}", uri);
 		response.addHeader("Location", uri);
 	}
 	
@@ -68,7 +77,7 @@ public class ApplicationController {
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Application get(@PathVariable Long id) {
-		notNull(id);
+		verifyArgNotNull(id, "id");
 		return applicationMapper.toDto(applicationRepo.findOne(id));
 	}
 }

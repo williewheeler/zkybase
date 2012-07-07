@@ -10,10 +10,24 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
-	<artifactId>dto</artifactId>
-	<name>Zkybase CMDB DTOs</name>
+	<artifactId>cli</artifactId>
+	<name>Zkybase CMDB CLI</name>
 	
 	<dependencies>
+	
+		<!-- Zkybase dependencies -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>dto</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>connector</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<!-- Other dependencies -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>

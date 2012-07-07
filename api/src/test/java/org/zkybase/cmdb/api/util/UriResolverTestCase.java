@@ -28,7 +28,7 @@ import org.zkybase.cmdb.api.domain.ApplicationEntity;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class UriResolverTests {
+public class UriResolverTestCase {
 	private static final String BASE_URI = "https://api.zkybase.org/v1";
 	private static final Long APPLICATION_ID = 299L;
 	
