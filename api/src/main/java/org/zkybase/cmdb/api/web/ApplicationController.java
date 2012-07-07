@@ -15,8 +15,8 @@
  */
 package org.zkybase.cmdb.api.web;
 
-import static org.zkybase.cmdb.api.util.Assert.verifyArgNotNull;
-import static org.zkybase.cmdb.api.util.Assert.verifyArgNull;
+import static org.zkybase.cmdb.api.util.Assert.isNull;
+import static org.zkybase.cmdb.api.util.Assert.notNull;
 
 import java.util.List;
 
@@ -53,9 +53,9 @@ public class ApplicationController {
 	
 	@RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json")
 	public void post(@RequestBody Application application, HttpServletResponse response) {
-		verifyArgNotNull(application, "application");
-		verifyArgNotNull(response, "response");
-		verifyArgNull(application.getId(), "application.id");
+		notNull(application, "application");
+		notNull(response, "response");
+		isNull(application.getId(), "application.id");
 		
 		ApplicationEntity entity = applicationMapper.toEntity(application);
 		applicationRepo.save(entity);
@@ -79,14 +79,28 @@ public class ApplicationController {
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Application get(@PathVariable Long id) {
-		verifyArgNotNull(id, "id");
+		notNull(id, "id");
 		return applicationMapper.toDto(applicationRepo.findOne(id));
+	}
+	
+	@RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")
+	public void put(@PathVariable Long id, @RequestBody Application application, HttpServletResponse response) {
+		notNull(id, "id");
+		notNull(application, "application");
+		notNull(response, "response");
+		
+		ApplicationEntity entity = applicationRepo.findOne(id);
+		
+		// Merge DTO into entity. Eventually this will be more generic.
+		entity.setName(application.getName());
+		
+		applicationService.update(entity);
 	}
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable Long id, HttpServletResponse response) {
-		verifyArgNotNull(id, "id");
-		verifyArgNotNull(response, "response");
+		notNull(id, "id");
+		notNull(response, "response");
 		applicationService.delete(id);
 	}
 }

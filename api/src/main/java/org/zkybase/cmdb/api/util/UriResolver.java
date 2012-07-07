@@ -15,7 +15,7 @@
  */
 package org.zkybase.cmdb.api.util;
 
-import static org.zkybase.cmdb.api.util.Assert.verifyArgNotNull;
+import static org.zkybase.cmdb.api.util.Assert.notNull;
 
 import org.zkybase.cmdb.api.domain.ApplicationEntity;
 
@@ -25,13 +25,13 @@ import org.zkybase.cmdb.api.domain.ApplicationEntity;
 public class UriResolver {
 	
 	public String resolve(ApplicationEntity application) {
-		verifyArgNotNull(application, "application");
+		notNull(application, "application");
 		return resolve(ApplicationEntity.class, application.getId());
 	}
 	
 	public String resolve(Class<?> ciClass, Long id) {
-		verifyArgNotNull(ciClass, "ciClass");
-		verifyArgNotNull(id, "id");
+		notNull(ciClass, "ciClass");
+		notNull(id, "id");
 		return "https://api.zkybase.org/v1/applications/" + id;
 	}
 }

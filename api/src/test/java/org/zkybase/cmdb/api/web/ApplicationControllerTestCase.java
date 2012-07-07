@@ -44,6 +44,7 @@ import org.zkybase.cmdb.dto.Application;
  */
 public class ApplicationControllerTestCase {
 	private static final Long APPLICATION_ID = 4000L;
+	private static final String APPLICATION_NAME = "Zkybase CMDB";
 	private static final String APPLICATION_LOCATION = "someLocation";
 	
 	@InjectMocks private ApplicationController controller;
@@ -70,10 +71,13 @@ public class ApplicationControllerTestCase {
 	
 	private void setUpTestObjects() {
 		when(applicationEntity.getId()).thenReturn(APPLICATION_ID);
+		when(applicationEntity.getName()).thenReturn(APPLICATION_NAME);
 		
 		when(applicationDto.getId()).thenReturn(APPLICATION_ID);
+		when(applicationDto.getName()).thenReturn(APPLICATION_NAME);
 		
 		when(applicationDtoForPost.getId()).thenReturn(null);
+		when(applicationDtoForPost.getName()).thenReturn(APPLICATION_NAME);
 	}
 	
 	private void setUpDependencies() {
@@ -128,6 +132,30 @@ public class ApplicationControllerTestCase {
 	@Test(expected = IllegalArgumentException.class)
 	public void getWithNullId() {
 		controller.get(null);
+	}
+	
+	@Test
+	public void put() {
+		final String newAppName = "Wrath of Zkybase";
+		when(applicationDto.getName()).thenReturn(newAppName);
+		controller.put(APPLICATION_ID, applicationDto, response);
+		verify(applicationEntity).setName(newAppName);
+		verify(applicationService).update(applicationEntity);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void putWithNullId() {
+		controller.put(null, applicationDto, response);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void putWithNullApplication() {
+		controller.put(APPLICATION_ID, null, response);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void putWithNullResponse() {
+		controller.put(APPLICATION_ID, applicationDto, null);
 	}
 	
 	@Test

@@ -30,11 +30,11 @@ public class Assert {
 	 */
 	private Assert() { }
 	
-	public static void verifyArgNull(Object arg, String argName) {
+	public static void isNull(Object arg, String argName) {
 		org.springframework.util.Assert.isNull(arg, argName + " must be null");
 	}
 	
-	public static void verifyArgNotNull(Object arg, String argName) {
+	public static void notNull(Object arg, String argName) {
 		org.springframework.util.Assert.notNull(arg, argName + " can't be null");
 	}
 }

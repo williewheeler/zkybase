@@ -15,12 +15,13 @@
  */
 package org.zkybase.cmdb.api.service.impl;
 
-import static org.zkybase.cmdb.api.util.Assert.verifyArgNotNull;
+import static org.zkybase.cmdb.api.util.Assert.notNull;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.zkybase.cmdb.api.domain.ApplicationEntity;
 import org.zkybase.cmdb.api.repository.ApplicationRepository;
 import org.zkybase.cmdb.api.service.ApplicationService;
 
@@ -35,11 +36,20 @@ public class ApplicationServiceImpl implements ApplicationService {
 	@Inject private ApplicationRepository applicationRepo;
 
 	/* (non-Javadoc)
+	 * @see org.zkybase.cmdb.api.service.ApplicationService#update(org.zkybase.cmdb.api.domain.ApplicationEntity)
+	 */
+	@Override
+	public void update(ApplicationEntity application) {
+		notNull(application, "application");
+		applicationRepo.save(application);
+	}
+
+	/* (non-Javadoc)
 	 * @see org.zkybase.cmdb.api.service.ApplicationService#delete(java.lang.Long)
 	 */
 	@Override
 	public void delete(Long id) {
-		verifyArgNotNull(id, "id");
+		notNull(id, "id");
 		applicationRepo.delete(id);
 	}
 

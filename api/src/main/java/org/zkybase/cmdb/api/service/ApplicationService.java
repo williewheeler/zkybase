@@ -15,10 +15,14 @@
  */
 package org.zkybase.cmdb.api.service;
 
+import org.zkybase.cmdb.api.domain.ApplicationEntity;
+
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 public interface ApplicationService {
+	
+	void update(ApplicationEntity application);
 	
 	void delete(Long id);
 }

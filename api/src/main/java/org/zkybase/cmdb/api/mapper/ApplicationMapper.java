@@ -34,6 +34,7 @@ public class ApplicationMapper {
 		if (dto == null) { return null; }
 		ApplicationEntity entity = new ApplicationEntity();
 		entity.setId(dto.getId());
+		entity.setName(dto.getName());
 		return entity;
 	}
 	
@@ -51,6 +52,7 @@ public class ApplicationMapper {
 		if (entity == null) { return null; }
 		Application dto = new Application();
 		dto.setId(entity.getId());
+		dto.setName(entity.getName());
 		return dto;
 	}
 }

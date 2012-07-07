@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.zkybase.cmdb.api.domain.ApplicationEntity;
 import org.zkybase.cmdb.api.repository.ApplicationRepository;
 
 /**
@@ -33,6 +34,8 @@ public class ApplicationServiceImplTestCase {
 	@InjectMocks private ApplicationServiceImpl service;
 	
 	@Mock private ApplicationRepository applicationRepo;
+	
+	@Mock private ApplicationEntity application;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -46,6 +49,17 @@ public class ApplicationServiceImplTestCase {
 	}
 	
 	private void setUpDependencies() {
+	}
+	
+	@Test
+	public void update() {
+		service.update(application);
+		verify(applicationRepo).save(application);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void updateWithNullApplication() {
+		service.update(null);
 	}
 	
 	@Test

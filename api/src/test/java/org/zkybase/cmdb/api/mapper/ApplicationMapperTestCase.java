@@ -39,6 +39,7 @@ import org.zkybase.cmdb.dto.Application;
 @Component
 public class ApplicationMapperTestCase {
 	private static final Long APPLICATION_ID = 9L;
+	private static final String APPLICATION_NAME = "Zkybase CMDB";
 	private static final int APP_COUNT = 4;
 	
 	@InjectMocks private ApplicationMapper applicationMapper;
@@ -71,12 +72,13 @@ public class ApplicationMapperTestCase {
 			public void remove() { throw new UnsupportedOperationException(); }
 		};
 		
-		when(applicationEntity.getId()).thenReturn(APPLICATION_ID);
 		when(applicationEntities.iterator()).thenReturn(applicationEntityIterator);
 		
 		when(applicationEntity.getId()).thenReturn(APPLICATION_ID);
+		when(applicationEntity.getName()).thenReturn(APPLICATION_NAME);
 		
 		when(applicationDto.getId()).thenReturn(APPLICATION_ID);
+		when(applicationDto.getName()).thenReturn(APPLICATION_NAME);
 	}
 	
 	private void setUpDependencies() {
@@ -87,6 +89,7 @@ public class ApplicationMapperTestCase {
 		ApplicationEntity actualEntity = applicationMapper.toEntity(applicationDto);
 		assertNotNull(actualEntity);
 		assertEquals(APPLICATION_ID, actualEntity.getId());
+		assertEquals(APPLICATION_NAME, actualEntity.getName());
 	}
 	
 	@Test
@@ -100,6 +103,7 @@ public class ApplicationMapperTestCase {
 		Application actualDto = applicationMapper.toDto(applicationEntity);
 		assertNotNull(actualDto);
 		assertEquals(APPLICATION_ID, actualDto.getId());
+		assertEquals(APPLICATION_NAME, actualDto.getName());
 	}
 	
 	@Test
