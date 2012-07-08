@@ -15,37 +15,7 @@
  */
 package org.zkybase.cmdb.api.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import org.junit.Before;
-import org.junit.Test;
-
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class ApplicationEntityTestCase {
-	private static final Long APPLICATION_ID = 9999L;
-	private static final String APPLICATION_NAME = "Zkybase CMDB";
-	
-	private ApplicationEntity application;
-	
-	@Before
-	public void setUp() throws Exception {
-		this.application = new ApplicationEntity();
-	}
-	
-	@Test
-	public void idAccessors() {
-		assertNull(application.getId());
-		application.setId(APPLICATION_ID);
-		assertEquals(APPLICATION_ID, application.getId());
-	}
-	
-	@Test
-	public void nameAccessors() {
-		assertNull(application.getName());
-		application.setName(APPLICATION_NAME);
-		assertEquals(APPLICATION_NAME, application.getName());
-	}
-}
+public class ApplicationEntityTestCase extends AbstractEntityTestCase<ApplicationEntity> { }

@@ -15,13 +15,10 @@
  */
 package org.zkybase.cmdb.api.domain;
 
-import org.springframework.data.neo4j.annotation.NodeEntity;
-
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@NodeEntity
-public class ApplicationEntity extends AbstractEntity {
+public class ComponentEntity extends AbstractEntity {
 	private String name;
 	
 	public String getName() { return name; }

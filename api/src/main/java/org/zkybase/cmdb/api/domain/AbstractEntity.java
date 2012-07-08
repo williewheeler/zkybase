@@ -15,16 +15,17 @@
  */
 package org.zkybase.cmdb.api.domain;
 
-import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.GraphId;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@NodeEntity
-public class ApplicationEntity extends AbstractEntity {
-	private String name;
+public abstract class AbstractEntity implements Entity {
+	@GraphId private Long id;
 	
-	public String getName() { return name; }
+	@Override
+	public Long getId() { return id; }
 	
-	public void setName(String name) { this.name = name; }
+	@Override
+	public void setId(Long id) { this.id = id; }
 }
