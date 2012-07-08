@@ -13,21 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zkybase.cmdb.api.domain;
+package org.zkybase.cmdb.dto;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.springframework.data.neo4j.annotation.GraphId;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public abstract class AbstractEntity implements Entity {
-	@GraphId private Long id;
+public abstract class AbstractDto implements Dto {
+	private Long id;
 	
-	@Override
 	public Long getId() { return id; }
 	
-	@Override
 	public void setId(Long id) { this.id = id; }
 	
 	@Override

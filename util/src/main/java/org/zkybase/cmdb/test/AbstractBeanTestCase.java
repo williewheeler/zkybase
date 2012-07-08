@@ -15,6 +15,7 @@
  */
 package org.zkybase.cmdb.test;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
@@ -39,7 +40,7 @@ public abstract class AbstractBeanTestCase<T> {
 	
 	private final Class<T> beanClass;
 	
-	private T entity;
+	private T bean;
 	
 	static {
 		dummyValues.put(Double.class, 0.0);
@@ -56,7 +57,7 @@ public abstract class AbstractBeanTestCase<T> {
 	
 	@Before
 	public void setUp() throws Exception {
-		this.entity = beanClass.newInstance();
+		this.bean = beanClass.newInstance();
 	}
 	
 	@Test
@@ -70,15 +71,20 @@ public abstract class AbstractBeanTestCase<T> {
 			Method readMethod = prop.getReadMethod();
 			Method writeMethod = prop.getWriteMethod();
 			
-			assertNull(readMethod.invoke(entity));
+			assertNull(readMethod.invoke(bean));
 			Object dummyValue = getDummyValue(prop.getPropertyType());
-			writeMethod.invoke(entity, dummyValue);
-			assertSame(dummyValue, readMethod.invoke(entity));
+			writeMethod.invoke(bean, dummyValue);
+			assertSame(dummyValue, readMethod.invoke(bean));
 		}
 	}
 	
 	private Object getDummyValue(Class<?> propType) throws Exception {
 		Object dummyValue = dummyValues.get(propType);
 		return (dummyValue == null ? propType.newInstance() : dummyValue);
+	}
+	
+	@Test
+	public void testToString() {
+		assertNotNull(bean.toString());
 	}
 }

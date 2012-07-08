@@ -15,44 +15,9 @@
  */
 package org.zkybase.cmdb.dto;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.zkybase.cmdb.test.AbstractBeanTestCase;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class ApplicationTestCase {
-	private static final Long APPLICATION_ID = 9911L;
-	private static final String APPLICATION_NAME = "Zkybase CMDB";
-	
-	private Application application;
-	
-	@Before
-	public void setUp() throws Exception {
-		this.application = new Application();
-	}
-	
-	@Test
-	public void idAccessors() {
-		assertNull(application.getId());
-		application.setId(APPLICATION_ID);
-		assertEquals(APPLICATION_ID, application.getId());
-	}
-	
-	@Test
-	public void nameAccessors() {
-		assertNull(application.getName());
-		application.setName(APPLICATION_NAME);
-		assertEquals(APPLICATION_NAME, application.getName());
-	}
-	
-	@Test
-	public void testToString() {
-		application.setId(APPLICATION_ID);
-		assertNotNull(application.toString());
-	}
-}
+public class ApplicationTestCase extends AbstractBeanTestCase<Application> { }
