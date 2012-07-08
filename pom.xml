@@ -25,6 +25,7 @@
 		<module>ui</module>
 		<module>maven</module>
 		<module>service</module>
+		<module>util</module>
 	</modules>
 	
 	<properties>

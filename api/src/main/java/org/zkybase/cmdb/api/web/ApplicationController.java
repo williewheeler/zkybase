@@ -15,8 +15,8 @@
  */
 package org.zkybase.cmdb.api.web;
 
-import static org.zkybase.cmdb.api.util.Assert.isNull;
-import static org.zkybase.cmdb.api.util.Assert.notNull;
+import static org.zkybase.cmdb.util.Assert.isNull;
+import static org.zkybase.cmdb.util.Assert.notNull;
 
 import java.util.List;
 

@@ -16,4 +16,21 @@
 	<packaging>war</packaging>
 	
 	<name>Zkybase CMDB UI</name>
+	
+	<dependencies>
+	
+		<!-- Zkybase dependencies -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>connector</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>util</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<!-- Other dependencies -->
+	</dependencies>
 </project>

@@ -15,7 +15,7 @@
  */
 package org.zkybase.cmdb.api.service.impl;
 
-import static org.zkybase.cmdb.api.util.Assert.notNull;
+import static org.zkybase.cmdb.util.Assert.notNull;
 
 import javax.inject.Inject;
 
