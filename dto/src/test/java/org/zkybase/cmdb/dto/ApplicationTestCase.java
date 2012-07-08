@@ -25,8 +25,9 @@ import org.junit.Test;
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-public class ApplicationTests {
+public class ApplicationTestCase {
 	private static final Long APPLICATION_ID = 9911L;
+	private static final String APPLICATION_NAME = "Zkybase CMDB";
 	
 	private Application application;
 	
@@ -40,6 +41,13 @@ public class ApplicationTests {
 		assertNull(application.getId());
 		application.setId(APPLICATION_ID);
 		assertEquals(APPLICATION_ID, application.getId());
+	}
+	
+	@Test
+	public void nameAccessors() {
+		assertNull(application.getName());
+		application.setName(APPLICATION_NAME);
+		assertEquals(APPLICATION_NAME, application.getName());
 	}
 	
 	@Test
