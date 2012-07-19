@@ -49,8 +49,14 @@ public class Shell {
 	
 	private final Map<String, Command> commandMap = new HashMap<String, Command>();
 	
+	/**
+	 * E.g., args[0] = // e.g. http://localhost:8080
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		Zkybase zkybase = new ZkybaseTemplate("http://localhost:8080");
+		String host = args[0];
+		Zkybase zkybase = new ZkybaseTemplate(host);
 		new Shell(zkybase, COMMANDS, System.in, System.out, new IoUtils()).start();
 	}
 	
