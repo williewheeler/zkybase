@@ -16,7 +16,7 @@
 	<packaging>war</packaging>
 	
 	<name>Zkybase CMDB Service</name>
-
+	
 	<dependencies>
 		
 		<!-- Java -->

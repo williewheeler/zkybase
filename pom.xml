@@ -356,6 +356,14 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+				<plugin>
 					<artifactId>maven-failsafe-plugin</artifactId>
 					<version>${failsafe.version}</version>
 					<configuration>
@@ -453,6 +461,9 @@
 		</pluginManagement>
 		
 		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
 			</plugin>
