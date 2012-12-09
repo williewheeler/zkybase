@@ -13,11 +13,11 @@
 		http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
 		">
 
-	<mvc:default-servlet-handler />
 	<mvc:annotation-driven />
-	
-	<bean class="org.zkybase.cmdb.api.util.UriResolver" />
+	<mvc:default-servlet-handler />
 	
 	<context:component-scan base-package="org.zkybase.cmdb.api.mapper" />
 	<context:component-scan base-package="org.zkybase.cmdb.api.web" />
+	
+	<bean class="org.zkybase.cmdb.api.util.UriResolver" />
 </beans>

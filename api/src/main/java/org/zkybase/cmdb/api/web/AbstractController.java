@@ -29,9 +29,6 @@ import org.neo4j.helpers.collection.ClosableIterable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.neo4j.repository.GraphRepository;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +45,6 @@ import org.zkybase.cmdb.dto.Dto;
 public abstract class AbstractController<T extends Entity, U extends Dto> implements Controller<T, U> {
 	protected static final Logger log = LoggerFactory.getLogger(AbstractController.class);
 	
-	@Inject private TransactionTemplate txTemplate;
 	@Inject private UriResolver resolver;
 	
 	protected abstract GraphRepository<T> getRepo();
@@ -64,14 +60,7 @@ public abstract class AbstractController<T extends Entity, U extends Dto> implem
 		isNull(dto.getId(), "dto.id");
 		
 		final T entity = getMapper().toEntity(dto);
-		txTemplate.execute(new TransactionCallback<Entity>() {
-
-			@Override
-			public Entity doInTransaction(TransactionStatus status) {
-				getRepo().save(entity);
-				return entity;
-			}
-		});
+		getRepo().save(entity);
 		
 		// Entity now has an ID, so we can set it on the DTO.
 		Long id = entity.getId();
@@ -87,7 +76,7 @@ public abstract class AbstractController<T extends Entity, U extends Dto> implem
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public List<U> getAll() {
-		log.debug("Getting all applications");
+		log.debug("Getting all");
 		ClosableIterable<T> iterable = getRepo().findAll();
 		Iterator<T> iterator = iterable.iterator();
 		List<T> entities = new ArrayList<T>();
@@ -112,14 +101,7 @@ public abstract class AbstractController<T extends Entity, U extends Dto> implem
 		
 		final T entity = getRepo().findOne(id);
 		getMapper().updateEntity(entity, dto);
-		txTemplate.execute(new TransactionCallback<Entity>() {
-
-			@Override
-			public Entity doInTransaction(TransactionStatus status) {
-				getRepo().save(entity);
-				return entity;
-			}
-		});
+		getRepo().save(entity);
 	}
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)

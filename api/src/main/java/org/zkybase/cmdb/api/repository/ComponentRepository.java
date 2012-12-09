@@ -16,11 +16,13 @@
 package org.zkybase.cmdb.api.repository;
 
 import org.springframework.data.neo4j.repository.GraphRepository;
+import org.springframework.data.neo4j.transaction.Neo4jTransactional;
 import org.zkybase.cmdb.api.domain.ComponentEntity;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
+@Neo4jTransactional
 public interface ComponentRepository extends GraphRepository<ComponentEntity> {
 
 }

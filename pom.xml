@@ -15,7 +15,7 @@
 	<artifactId>cmdb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Zkybase CMDB</name>
+	<name>Zkybase</name>
 	
 	<modules>
 	
@@ -43,8 +43,8 @@
 		<failsafe.version>2.5</failsafe.version>
 		<jackson.version>1.9.3</jackson.version>
 		<slf4j.version>1.6.1</slf4j.version>
-		<spring.version>3.1.1.RELEASE</spring.version>
-		<spring.data.neo4j.version>2.0.0.RELEASE</spring.data.neo4j.version>
+		<spring.version>3.1.2.RELEASE</spring.version>
+		<spring.data.neo4j.version>2.0.1.RELEASE</spring.data.neo4j.version>
 		<spring.security.version>3.1.0.RELEASE</spring.security.version>
 		<spring.social.version>1.0.2.RELEASE</spring.social.version>
 		<tiles.version>2.2.2</tiles.version>
@@ -374,11 +374,6 @@
 				<plugin>
 					<artifactId>maven-failsafe-plugin</artifactId>
 					<version>${failsafe.version}</version>
-					<configuration>
-						<additionalClasspathElements>
-							<additionalClasspathElement>${zkybase.conf.dir}/classes-it</additionalClasspathElement>
-						</additionalClasspathElements>
-					</configuration>
 					<executions>
 						<execution>
 							<id>integration-test</id>
@@ -456,14 +451,6 @@
 					<groupId>org.mortbay.jetty</groupId>
 					<artifactId>maven-jetty-plugin</artifactId>
 					<version>6.1.21</version>
-					<configuration>
-						<scanIntervalSeconds>10</scanIntervalSeconds>
-						<jettyEnvXml>${zkybase.conf.dir}/jetty-env.xml</jettyEnvXml>
-						<webAppConfig>
-							<contextPath>/</contextPath>
-							<extraClasspath>${zkybase.conf.dir}/classes</extraClasspath>
-						</webAppConfig>
-					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
