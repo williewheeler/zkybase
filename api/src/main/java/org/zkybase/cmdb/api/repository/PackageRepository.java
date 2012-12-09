@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zkybase.cmdb.api.mapper;
+package org.zkybase.cmdb.api.repository;
 
-import org.springframework.stereotype.Component;
-import org.zkybase.cmdb.api.domain.ApplicationEntity;
-import org.zkybase.cmdb.dto.Application;
+import org.springframework.data.neo4j.repository.GraphRepository;
+import org.zkybase.cmdb.api.domain.PackageEntity;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@Component
-public class ApplicationMapper extends AbstractMapper<ApplicationEntity, Application> { }
+public interface PackageRepository extends GraphRepository<PackageEntity> {
+}

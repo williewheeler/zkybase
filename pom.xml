@@ -18,14 +18,22 @@
 	<name>Zkybase CMDB</name>
 	
 	<modules>
+	
+		<!-- Utility classes, along with connector and DTOs. Logically the connector lives above the API, but I didn't
+		     want a separate module over it, and it's not hurting anything here. -->
+		<module>core</module>
+		
+		<!-- Service API -->
 		<module>api</module>
-		<module>dto</module>
-		<module>connector</module>
-		<module>cli</module>
+		
+		<!-- User interface. Uses connector to talk to service API. -->
 		<module>ui</module>
+		
+		<!-- Command-line interface. Uses connector to talk to service API. -->
+		<module>cli</module>
+		
+		<!-- Maven plugin interface. Uses connector to talk to service API. -->
 		<module>maven</module>
-		<module>service</module>
-		<module>util</module>
 	</modules>
 	
 	<properties>
@@ -450,7 +458,7 @@
 					<version>6.1.21</version>
 					<configuration>
 						<scanIntervalSeconds>10</scanIntervalSeconds>
-<!-- 						<jettyEnvXml>${zkybase.conf.dir}/jetty-env.xml</jettyEnvXml> -->
+						<jettyEnvXml>${zkybase.conf.dir}/jetty-env.xml</jettyEnvXml>
 						<webAppConfig>
 							<contextPath>/</contextPath>
 							<extraClasspath>${zkybase.conf.dir}/classes</extraClasspath>

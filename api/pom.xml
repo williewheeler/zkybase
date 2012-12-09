@@ -12,19 +12,14 @@
 	</parent>
 	<artifactId>api</artifactId>
 	<packaging>war</packaging>
-	<name>Zkybase CMDB API</name>
+	<name>Zkybase API</name>
 	
 	<dependencies>
 	
 		<!-- Zkybase dependencies -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>dto</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>util</artifactId>
+			<artifactId>core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		

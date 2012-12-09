@@ -1,4 +1,7 @@
-/.settings
-/target
+/.springBeans
 /.classpath
 /.project
+/target
+/.settings
+/.externalToolBuilders
+/.shell_history

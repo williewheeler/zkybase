@@ -15,12 +15,23 @@
  */
 package org.zkybase.cmdb.api.mapper;
 
-import org.springframework.stereotype.Component;
-import org.zkybase.cmdb.api.domain.ApplicationEntity;
-import org.zkybase.cmdb.dto.Application;
+import java.util.List;
+
+import org.zkybase.cmdb.api.domain.Entity;
+import org.zkybase.cmdb.dto.Dto;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@Component
-public class ApplicationMapper extends AbstractMapper<ApplicationEntity, Application> { }
+public interface Mapper<T extends Entity, U extends Dto> {
+	
+	T toEntity(U dto);
+	
+	T updateEntity(T entity, U dto);
+	
+	List<U> toDtos(List<T> entities);
+	
+	U toDto(T entity);
+	
+	U updateDto(U dto, T entity);
+}

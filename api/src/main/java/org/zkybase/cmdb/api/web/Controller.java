@@ -13,14 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zkybase.cmdb.api.mapper;
+package org.zkybase.cmdb.api.web;
 
-import org.springframework.stereotype.Component;
-import org.zkybase.cmdb.api.domain.ApplicationEntity;
-import org.zkybase.cmdb.dto.Application;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.zkybase.cmdb.api.domain.Entity;
+import org.zkybase.cmdb.dto.Dto;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@Component
-public class ApplicationMapper extends AbstractMapper<ApplicationEntity, Application> { }
+public interface Controller<T extends Entity, U extends Dto> {
+	
+	public void post(U dto, HttpServletResponse response);
+	
+	List<U> getAll();
+	
+	public U get(Long id);
+	
+	void put(Long id, U dto, HttpServletResponse response);
+	
+	void delete(Long id, HttpServletResponse response);
+
+}

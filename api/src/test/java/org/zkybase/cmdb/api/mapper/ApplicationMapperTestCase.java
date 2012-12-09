@@ -28,7 +28,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.neo4j.helpers.collection.ClosableIterable;
 import org.springframework.stereotype.Component;
 import org.zkybase.cmdb.api.domain.ApplicationEntity;
 import org.zkybase.cmdb.dto.Application;
@@ -46,7 +45,7 @@ public class ApplicationMapperTestCase {
 	
 	@Mock private Application applicationDto;
 	@Mock private ApplicationEntity applicationEntity;
-	@Mock private ClosableIterable<ApplicationEntity> applicationEntities;
+	@Mock private List<ApplicationEntity> applicationEntities;
 	
 	private Iterator<ApplicationEntity> applicationEntityIterator;
 		
@@ -114,13 +113,13 @@ public class ApplicationMapperTestCase {
 	
 	@Test
 	public void toDtoList() {
-		List<Application> actualDtoList = applicationMapper.toDtoList(applicationEntities);
+		List<Application> actualDtoList = applicationMapper.toDtos(applicationEntities);
 		assertNotNull(actualDtoList);
 	}
 	
 	@Test
 	public void toDtoListWithNullEntities() {
-		List<Application> actualDtoList = applicationMapper.toDtoList(null);
+		List<Application> actualDtoList = applicationMapper.toDtos(null);
 		assertNull(actualDtoList);
 	}
 }
