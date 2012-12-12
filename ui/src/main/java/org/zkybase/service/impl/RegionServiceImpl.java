@@ -19,8 +19,8 @@ import javax.inject.Inject;
 
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Service;
-import org.zkybase.model.Region;
-import org.zkybase.repository.RegionRepository;
+import org.zkybase.api.domain.entity.Region;
+import org.zkybase.cmdb.api.repository.RegionRepository;
 import org.zkybase.service.RegionService;
 
 /**

@@ -15,7 +15,7 @@
  */
 package org.zkybase.service;
 
-import org.zkybase.model.DataCenter;
+import org.zkybase.api.domain.entity.DataCenter;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)

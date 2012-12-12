@@ -16,8 +16,9 @@
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
 	
-	<context:component-scan base-package="org.zkybase.cmdb.api.mapper" />
-	<context:component-scan base-package="org.zkybase.cmdb.api.web" />
+	<context:component-scan base-package="org.zkybase.api.mapper" />
+	<context:component-scan base-package="org.zkybase.api.web" />
 	
-	<bean class="org.zkybase.cmdb.api.util.UriResolver" />
+	<bean class="org.codehaus.jackson.map.ObjectMapper" />
+	<bean class="org.zkybase.api.util.UriResolver" />
 </beans>

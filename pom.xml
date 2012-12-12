@@ -369,6 +369,7 @@
 					<configuration>
 						<source>1.6</source>
 						<target>1.6</target>
+						<verbose />
 					</configuration>
 				</plugin>
 				<plugin>
@@ -454,18 +455,5 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<artifactId>maven-failsafe-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
 	</build>
 </project>

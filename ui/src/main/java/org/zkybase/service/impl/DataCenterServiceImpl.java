@@ -19,8 +19,8 @@ import javax.inject.Inject;
 
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Service;
-import org.zkybase.model.DataCenter;
-import org.zkybase.repository.DataCenterRepository;
+import org.zkybase.api.domain.entity.DataCenter;
+import org.zkybase.cmdb.api.repository.DataCenterRepository;
 import org.zkybase.service.DataCenterService;
 
 /**

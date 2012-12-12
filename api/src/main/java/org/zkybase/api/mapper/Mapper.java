@@ -13,16 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zkybase.formatter;
+package org.zkybase.api.mapper;
 
-import org.springframework.stereotype.Component;
-import org.zkybase.api.domain.entity.DataCenter;
+import java.util.List;
+
+import org.zkybase.api.domain.node.Node;
+import org.zkybase.cmdb.dto.Dto;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@Component
-public class DataCenterFormatter extends CIFormatter<DataCenter> {
+public interface Mapper<T extends Node, U extends Dto> {
 	
-	public DataCenterFormatter() { super(DataCenter.class); }
+	T toEntity(U dto);
+	
+	T updateEntity(T entity, U dto);
+	
+	List<U> toDtos(List<T> entities);
+	
+	U toDto(T entity);
+	
+	U updateDto(U dto, T entity);
 }

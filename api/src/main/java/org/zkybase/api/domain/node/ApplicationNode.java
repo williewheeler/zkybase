@@ -13,16 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zkybase.formatter;
+package org.zkybase.api.domain.node;
 
-import org.springframework.stereotype.Component;
-import org.zkybase.api.domain.entity.DataCenter;
+import org.springframework.data.neo4j.annotation.NodeEntity;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@Component
-public class DataCenterFormatter extends CIFormatter<DataCenter> {
+@NodeEntity
+public class ApplicationNode extends AbstractNode {
+	private String name;
 	
-	public DataCenterFormatter() { super(DataCenter.class); }
+	public String getName() { return name; }
+	
+	public void setName(String name) { this.name = name; }
 }

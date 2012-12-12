@@ -15,7 +15,7 @@
  */
 package org.zkybase.service;
 
-import org.zkybase.model.Region;
+import org.zkybase.api.domain.entity.Region;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)

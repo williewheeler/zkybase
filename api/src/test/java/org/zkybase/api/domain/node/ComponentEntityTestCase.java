@@ -13,16 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zkybase.formatter;
+package org.zkybase.api.domain.node;
 
-import org.springframework.stereotype.Component;
-import org.zkybase.api.domain.entity.DataCenter;
+import org.zkybase.api.domain.node.ComponentNode;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@Component
-public class DataCenterFormatter extends CIFormatter<DataCenter> {
-	
-	public DataCenterFormatter() { super(DataCenter.class); }
-}
+public class ComponentEntityTestCase extends AbstractEntityTestCase<ComponentNode> { }

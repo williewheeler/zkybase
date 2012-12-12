@@ -27,8 +27,8 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.mockito.Mock;
-import org.zkybase.model.DataCenter;
-import org.zkybase.model.Region;
+import org.zkybase.api.domain.entity.DataCenter;
+import org.zkybase.api.domain.entity.Region;
 import org.zkybase.service.RegionService;
 import org.zkybase.web.controller.AbstractCrudControllerTests;
 import org.zkybase.web.controller.region.RegionCrudController;

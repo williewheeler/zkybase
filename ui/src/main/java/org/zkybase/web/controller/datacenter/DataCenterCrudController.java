@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.zkybase.model.DataCenter;
+import org.zkybase.api.domain.entity.DataCenter;
 import org.zkybase.service.CIService;
 import org.zkybase.service.DataCenterService;
 import org.zkybase.service.RegionService;

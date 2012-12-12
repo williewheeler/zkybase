@@ -26,8 +26,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.neo4j.helpers.collection.ClosableIterable;
 import org.springframework.data.neo4j.repository.GraphRepository;
-import org.zkybase.model.DataCenter;
-import org.zkybase.repository.DataCenterRepository;
+import org.zkybase.api.domain.entity.DataCenter;
+import org.zkybase.cmdb.api.repository.DataCenterRepository;
 import org.zkybase.service.impl.AbstractCIService;
 import org.zkybase.service.impl.DataCenterServiceImpl;
 

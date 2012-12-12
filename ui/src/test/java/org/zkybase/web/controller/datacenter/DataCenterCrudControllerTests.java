@@ -23,8 +23,8 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 
 import org.mockito.Mock;
-import org.zkybase.model.DataCenter;
-import org.zkybase.model.Region;
+import org.zkybase.api.domain.entity.DataCenter;
+import org.zkybase.api.domain.entity.Region;
 import org.zkybase.service.DataCenterService;
 import org.zkybase.service.RegionService;
 import org.zkybase.web.controller.AbstractCrudControllerTests;

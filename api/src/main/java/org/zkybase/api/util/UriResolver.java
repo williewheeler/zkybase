@@ -13,16 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zkybase.formatter;
+package org.zkybase.api.util;
 
-import org.springframework.stereotype.Component;
-import org.zkybase.api.domain.entity.DataCenter;
+import static org.zkybase.cmdb.util.Assert.notNull;
+
+import org.zkybase.api.domain.node.ApplicationNode;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@Component
-public class DataCenterFormatter extends CIFormatter<DataCenter> {
+public class UriResolver {
 	
-	public DataCenterFormatter() { super(DataCenter.class); }
+	public String resolve(ApplicationNode application) {
+		notNull(application, "application");
+		return resolve(ApplicationNode.class, application.getId());
+	}
+	
+	public String resolve(Class<?> ciClass, Long id) {
+		notNull(ciClass, "ciClass");
+		notNull(id, "id");
+		return "https://api.zkybase.org/v1/applications/" + id;
+	}
 }

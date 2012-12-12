@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zkybase.formatter;
+package org.zkybase.api.repo;
 
-import org.springframework.stereotype.Component;
-import org.zkybase.api.domain.entity.DataCenter;
+import org.springframework.data.neo4j.repository.GraphRepository;
+import org.springframework.data.neo4j.transaction.Neo4jTransactional;
+import org.zkybase.api.domain.node.DataCenterNode;
 
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
-@Component
-public class DataCenterFormatter extends CIFormatter<DataCenter> {
-	
-	public DataCenterFormatter() { super(DataCenter.class); }
+@Neo4jTransactional
+public interface DataCenterRepo extends GraphRepository<DataCenterNode> {
+
 }

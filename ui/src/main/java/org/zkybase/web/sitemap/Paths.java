@@ -21,13 +21,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
+import org.zkybase.api.domain.entity.DataCenter;
+import org.zkybase.api.domain.entity.Region;
 import org.zkybase.model.Application;
-import org.zkybase.model.DataCenter;
 import org.zkybase.model.Environment;
 import org.zkybase.model.Farm;
 import org.zkybase.model.Package;
 import org.zkybase.model.Person;
-import org.zkybase.model.Region;
 import org.zkybase.model.Team;
 import org.zkybase.model.UserAccount;
 
