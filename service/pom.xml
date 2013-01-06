@@ -286,7 +286,7 @@
 <!-- 					<junitArtifactName>org.junit:com.springsource.org.junit</junitArtifactName> -->
 					
 					<additionalClasspathElements>
-						<additionalClasspathElement>${zkybase.conf.dir}/classes-it</additionalClasspathElement>
+						<additionalClasspathElement>${sip.zkybase.conf.dir}/classes-it</additionalClasspathElement>
 					</additionalClasspathElements>
 				</configuration>
 				<executions>
@@ -310,10 +310,10 @@
 				<version>6.1.21</version>
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<jettyEnvXml>${zkybase.conf.dir}/jetty-env.xml</jettyEnvXml>
+					<jettyEnvXml>${sip.zkybase.conf.dir}/jetty-env.xml</jettyEnvXml>
 					<webAppConfig>
 						<contextPath>/</contextPath>
-						<extraClasspath>${zkybase.conf.dir}/classes</extraClasspath>
+						<extraClasspath>${sip.zkybase.conf.dir}/classes</extraClasspath>
 					</webAppConfig>
 				</configuration>
 			</plugin>
