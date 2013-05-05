@@ -1,6 +1,8 @@
+.DS_Store
+.gradle
 /.classpath
+/.externalToolBuilders
+/.project
 /.settings
 /.springBeans
-/.project
 /target
-/.externalToolBuilders

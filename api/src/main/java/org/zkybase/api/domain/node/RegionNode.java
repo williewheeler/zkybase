@@ -17,6 +17,7 @@ package org.zkybase.api.domain.node;
 
 import java.util.Set;
 
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
@@ -25,6 +26,7 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @NodeEntity
+@TypeAlias("Region")
 public class RegionNode extends AbstractNode {
 	private String name;
 	

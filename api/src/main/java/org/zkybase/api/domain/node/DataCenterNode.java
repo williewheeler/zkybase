@@ -19,6 +19,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.neo4j.graphdb.Direction;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
@@ -27,6 +28,7 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
 @NodeEntity
+@TypeAlias("DataCenter")
 public class DataCenterNode extends AbstractNode {
 	private String name;
 	

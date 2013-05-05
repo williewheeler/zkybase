@@ -15,9 +15,14 @@
  */
 package org.zkybase.api.domain.node;
 
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.neo4j.annotation.NodeEntity;
+
 /**
  * @author Willie Wheeler (willie.wheeler@gmail.com)
  */
+@NodeEntity
+@TypeAlias("Package")
 public class PackageNode extends AbstractNode {
 	private String version;
 	

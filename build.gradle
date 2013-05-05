@@ -1,0 +1,20 @@
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'maven'
+	apply from: '../properties.gradle'
+
+	group = 'org.zkybase'
+	version = '${zkybaseVersion}'
+
+	sourceCompatibility = 1.6
+	targetCompatibility = 1.6
+
+	repositories {
+		mavenCentral()
+		mavenLocal()
+	}
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.2'
+}

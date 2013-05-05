@@ -1,0 +1,12 @@
+ext {
+	commonsLangVersion = '2.5'
+	injectVersion = '1'
+	jacksonVersion = '1.9.3'
+	junitVersion = '4.10'
+	mockitoVersion = '1.8.5'
+	servletVersion = '2.5'
+	slf4jVersion = '1.6.1'
+	springVersion = '3.1.2.RELEASE'
+	springDataNeo4jVersion = '2.0.1.RELEASE'
+	zkybaseVersion = '1.0-SNAPSHOT'
+}
